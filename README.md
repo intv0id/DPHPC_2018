@@ -3,7 +3,7 @@
 
 ## Description
 
-This project aims to experiment optimizations using parallel programming for the Minimum Spwining Tree problem.
+This project aims to experiment optimizations using parallel programming for the Minimum Spawning Tree problem.
 
 
 ## Authors
