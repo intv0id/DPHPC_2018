@@ -1,0 +1,128 @@
+%%% Décommenter pour une présentation
+\documentclass{beamer}
+%%%
+
+%%% Décommenter pour avoir un article
+%\documentclass[handout]{beamer}
+%\usepackage{pgfpages}
+%\pgfpagesuselayout{2 on 1}[a4paper,border shrink=5mm]
+%\setbeameroption{show notes on second screen=bottom} % Beamer manual, section 19.3
+%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% NE PAS MODIFIER CETTE PARTIE
+
+\usetheme{Warsaw}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+
+\graphicspath{{graphics/}}
+
+\hypersetup{pdfstartview={Fit}}
+
+
+
+\AtBeginSection[]{
+  \begin{frame}
+  \vfill
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{title}
+    \usebeamerfont{title}\insertsectionhead\par%
+  \end{beamercolorbox}
+  \vfill
+  \end{frame}
+}
+
+\setbeamertemplate{note page}[plain] % Beamer manual, section 19.1
+\newlength{\parskipbackup}
+\setlength{\parskipbackup}{\parskip}
+\newlength{\parindentbackup}
+\setlength{\parindentbackup}{\parindent}
+\newcommand{\baselinestretchbackup}{\baselinestretch}
+\usetemplatenote{\rmfamily \scriptsize%
+  \setlength{\parindent}{1em} \setlength{\parskip}{1ex}%
+  \renewcommand{\baselinestretch}{1}%
+  \noindent \insertnote%
+
+  \setlength{\parskip}{\parskipbackup}%
+  \setlength{\parindent}{\parindentbackup}%
+  \renewcommand{\baselinestretch}{\baselinestretchbackup}%
+}
+
+\logo{
+	\includegraphics[scale=0.1]{SPCL.png}
+} 
+\institute[ETH Zürich]{\textbf{ETH Zürich}}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%TODO : PARTIE A MODIFIER 
+
+\date{October 2018}	
+
+\author{
+    T. Cambier
+    R. Dang-Nhu
+    T. Dardinier
+    C. Trassoudaine
+}
+\title{
+	\textbf{Minimum Spawning Tree}\\
+	-\\ 
+	\textit{DPHPC}
+}
+
+
+
+
+\begin{document}
+
+\frame{\titlepage}
+\frame{\tableofcontents}
+
+\section{Algorithms}
+\subsection{Use-cases}
+\begin{frame}
+(Somewhat) realistic use-cases and input sets?
+\end{frame}
+
+\subsection{Implementations}
+\begin{frame}
+What are the key concepts employed?
+\end{frame}
+
+\subsection{Correctness}
+\begin{frame}
+How to verify correctness of the parallelization?
+\end{frame}
+
+\subsection{Expected issues}
+\begin{frame}
+What are the main obstacles?
+\end{frame}
+
+\section{Benchmarking}
+\subsection{Reference, baseline}
+\begin{frame}
+How to argue about performance (bounds, what to compare to?)
+\end{frame}
+
+\subsection{Environment}
+\begin{frame}
+Which architecture? (we only offer access to Xeon Phi, you may use different)
+
+What tools/programming language/parallelization scheme do you use?
+\end{frame}
+
+
+\end{document}
