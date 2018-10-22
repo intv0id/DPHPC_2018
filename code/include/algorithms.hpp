@@ -1,9 +1,6 @@
-#ifndef GRAPH
-#define GRAPH
 
 #include <graph.hpp>
 
-#endif
 
 // Structures
 

@@ -4,3 +4,4 @@ CMakeFiles/*
 Makefile
 *.json
 .vscode/
+.idea/

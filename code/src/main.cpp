@@ -1,11 +1,7 @@
 #include <iostream>
 
-#ifndef GRAPH
-#define GRAPH
-
 #include <graph.hpp>
 
-#endif
 
 #include "algorithms.hpp"
 

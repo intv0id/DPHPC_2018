@@ -1,3 +1,6 @@
+#ifndef GRAPH
+#define GRAPH
+
 #include <vector>
 
 using namespace std;
@@ -41,3 +44,5 @@ class Graph {
     int nVertices;
     vector<node*> nodes;
 };
+
+#endif
