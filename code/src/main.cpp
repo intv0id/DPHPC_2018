@@ -2,6 +2,7 @@
 #include <liblsb.h>
 #include <mpi.h>
 
+
 #include <graph.hpp>
 #include "algorithms.hpp"
 
@@ -24,7 +25,7 @@ int main(){
 	LSB_Init("test", 0);
 	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 	LSB_Set_Rparam_int("rank", rank);
-    	LSB_Set_Rparam_int("runs", RUNS);
+    LSB_Set_Rparam_int("runs", RUNS);
 	for(int i=0;i<TEST_NB;++i){
 		for(int j=0;j<INNER_TESTS;==j){
 			LSB_Res();

@@ -3,12 +3,8 @@
 #include <map>
 #include <cstdlib>
 
-#ifndef ALGORITHMS
-#define ALGORITHMS
-
 #include "algorithms.hpp"
 
-#endif
 
 using namespace std;
 
