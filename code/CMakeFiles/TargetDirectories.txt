@@ -1,0 +1,3 @@
+/home/thor/Nextcloud/Scolaire/Ecole/ETHZ/Cours/Parallel Computing/project/code/CMakeFiles/rebuild_cache.dir
+/home/thor/Nextcloud/Scolaire/Ecole/ETHZ/Cours/Parallel Computing/project/code/CMakeFiles/exec.dir
+/home/thor/Nextcloud/Scolaire/Ecole/ETHZ/Cours/Parallel Computing/project/code/CMakeFiles/edit_cache.dir

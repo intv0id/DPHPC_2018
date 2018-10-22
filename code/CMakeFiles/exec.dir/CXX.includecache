@@ -1,0 +1,46 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/thor/Nextcloud/Scolaire/Ecole/ETHZ/Cours/Parallel Computing/project/code/src/algorithms.cpp
+stdio.h
+-
+algorithm
+-
+map
+-
+cstdlib
+-
+algorithms.hpp
+/home/thor/Nextcloud/Scolaire/Ecole/ETHZ/Cours/Parallel Computing/project/code/src/algorithms.hpp
+
+/home/thor/Nextcloud/Scolaire/Ecole/ETHZ/Cours/Parallel Computing/project/code/src/graph.cpp
+graph.hpp
+-
+iostream
+-
+random
+-
+
+/home/thor/Nextcloud/Scolaire/Ecole/ETHZ/Cours/Parallel Computing/project/code/src/main.cpp
+iostream
+-
+liblsb.h
+-
+graph.hpp
+-
+algorithms.hpp
+/home/thor/Nextcloud/Scolaire/Ecole/ETHZ/Cours/Parallel Computing/project/code/src/algorithms.hpp
+
+include/algorithms.hpp
+graph.hpp
+-
+
+include/graph.hpp
+vector
+-
+
