@@ -1,9 +1,4 @@
-#ifndef GRAPH
-#define GRAPH
-
 #include <graph.hpp>
-
-#endif
 
 #include <iostream>
 #include <random>
