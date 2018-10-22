@@ -1,0 +1,11 @@
+\beamer@sectionintoc {1}{Problem definition}{3}{0}{1}
+\beamer@subsectionintoc {1}{1}{Concepts}{5}{0}{1}
+\beamer@subsectionintoc {1}{2}{Use cases}{6}{0}{1}
+\beamer@sectionintoc {2}{Algorithms}{7}{0}{2}
+\beamer@subsectionintoc {2}{1}{Prim}{8}{0}{2}
+\beamer@subsectionintoc {2}{2}{Kruskal}{9}{0}{2}
+\beamer@subsectionintoc {2}{3}{Bor\IeC {\r u}vka (Sollin)}{10}{0}{2}
+\beamer@subsectionintoc {2}{4}{Others}{11}{0}{2}
+\beamer@sectionintoc {3}{Environment}{13}{0}{3}
+\beamer@sectionintoc {4}{Benchmarking}{16}{0}{4}
+\beamer@subsectionintoc {4}{1}{Reference, baseline}{17}{0}{4}

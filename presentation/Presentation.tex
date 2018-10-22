@@ -71,9 +71,9 @@
 \date{October 2018}	
 
 \author{
-    T. Cambier
+    Th. Cambier
     R. Dang-Nhu
-    T. Dardinier
+    Th. Dardinier
     C. Trassoudaine
 }
 \title{
@@ -90,38 +90,89 @@
 \frame{\titlepage}
 \frame{\tableofcontents}
 
-\section{Algorithms}
-\subsection{Use-cases}
+\section{Problem definition}
+\begin{frame}
+\frametitle{The MST problem}
+\end{frame}
+
+\subsection{Concepts}
+\begin{frame}
+\frametitle{Concepts}
+\end{frame}
+
+\subsection{Use cases}
+
 \begin{frame}
 (Somewhat) realistic use-cases and input sets?
+
+\begin{itemize}
+\item[•] $G(n, p)$
+\item[•] Preferential attachment
+	\begin{itemize}
+	\item Social networks
+	\end{itemize}
+\end{itemize}
 \end{frame}
 
-\subsection{Implementations}
+\section{Algorithms}
+\subsection{Prim}
 \begin{frame}
-What are the key concepts employed?
+\frametitle{Prim}
 \end{frame}
-
-\subsection{Correctness}
+\subsection{Kruskal}
 \begin{frame}
+\frametitle{Kruskal}
+\end{frame}
+\subsection{Borůvka (Sollin)}
+\begin{frame}
+\frametitle{Borůvka (Sollin)}
+\end{frame}
+\subsection{Others}
+\begin{frame}
+\frametitle{A few ideas}
+\end{frame}
+\begin{frame}
+\frametitle{Correctness}
 How to verify correctness of the parallelization?
 \end{frame}
 
-\subsection{Expected issues}
+
+\section{Environment}
 \begin{frame}
-What are the main obstacles?
+\frametitle{Architecture}
+\begin{figure}
+\includegraphics[scale=0.4]{EULER.jpg}
+\end{figure}
+
+\centering{ \large EULER Cluster }
+
+\vspace{.5 cm}
+
+Xeon E$x, x\in\{3, 5, 7\}$ ; x86\_64 architecture
+\vfill
+{
+\tiny
+Source : 
+\url{https://scicomp.ethz.ch/wiki/Euler}
+}
 \end{frame}
+\begin{frame}
+\frametitle{Tools}
+
+C++, OMP : shared memory
+
+\end{frame}
+
 
 \section{Benchmarking}
 \subsection{Reference, baseline}
 \begin{frame}
 How to argue about performance (bounds, what to compare to?)
-\end{frame}
-
-\subsection{Environment}
-\begin{frame}
-Which architecture? (we only offer access to Xeon Phi, you may use different)
-
-What tools/programming language/parallelization scheme do you use?
+\vfill
+{
+\tiny
+\url{https://spcl.inf.ethz.ch/Research/Performance/LibLSB/}
+}
 \end{frame}
 
 
