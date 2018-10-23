@@ -1,8 +1,15 @@
 cmake_minimum_required(VERSION 3.3)
 project(DPHPC)
 
+# Option
+option(BUILD_TDEBUG "Debug mode" OFF)
+
 # Set compile flags
+
 set(CMAKE_CXX_FLAGS "-std=c++11")
+if(BUILD_TDEBUG)
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DDEBUG")
+endif(BUILD_TDEBUG)
 
 # Support for vim YCM
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)

@@ -5,6 +5,12 @@
 
 using namespace std;
 
+typedef vector<node*> v_node_t; 
+typedef vector<edge*> v_edge_t;
+
+typedef vector<node*>::iterator v_node_it;
+typedef vector<edge*>::iterator v_edge_it;
+
 void edge::print(){
     cout << "source: " << source << endl;
     cout << "Weight: " << weight << endl;
@@ -50,3 +56,30 @@ void Graph::printGraph(){
         }
     }
 }
+
+Graph Graph::copy(){
+	Graph h;
+	for(v_node_it it = h.nodes.begin(); it != h.nodes.end(); it++){
+		node* n = *it;
+		h.nodes.push_back(n);
+		for(v_edge_it ite = n->adjacentEdges.begin(); ite != n->adjacentEdges.end(); ite++){
+				
+	
+		}
+	}
+	return h;
+}
+
+void Graph_EL::add_edge(int u, int v, int weight){
+	edge_EL* e1 = new edge_EL;
+	edge_EL* e2 = new edge_EL;
+	e1->source = u;
+	e2->source = v;
+	e1->target = v;
+	e2->target = u;
+	e1->weight = weight;
+	e2->weight = weight;
+	edges.push_back(e1);
+	edges.push_back(e2);
+}
+

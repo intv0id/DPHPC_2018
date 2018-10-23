@@ -1,10 +1,7 @@
 #include "graph.hpp"
-
-#include <vector>
-
+#include <list>
 using namespace std;
 
 typedef list<edge_EL*> v_edge_EL_t;
 
-v_edge_EL_t sollin(Graph_EL g);
-
+void print_edge_EL_list(v_edge_EL_t);
