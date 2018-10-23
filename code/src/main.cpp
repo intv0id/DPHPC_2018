@@ -1,6 +1,6 @@
 #include <iostream>
-//#include <liblsb.h>
-//#include <mpi.h>
+#include <liblsb.h>
+#include <mpi.h>
 
 
 #include <graph.hpp>
@@ -11,13 +11,17 @@
 #define N 100
 #define RUNS 10
 
-
 using namespace std;
 
 typedef list<edge_EL*> v_edge_EL_t;
 
 
 void test_sollin(){
+
+	#ifdef DEBUG
+	cout << "Defining graph" << endl;
+	#endif
+
 	// Test with a simple graph
 	Graph_EL g(4); 
 	// Add a few edges
@@ -34,42 +38,62 @@ void test_sollin(){
 	print_edge_EL_list(mst);
 }
 
-/*void find_a_name(){
-	int rank;
-
-	cout << "Hello world !" << endl;
+void test_kruskal(){
+    #ifdef DEBUG
+	cout << "Defining graph" << endl;
+	#endif
+	
 	Graph g(10,0.5,0,10);
+	
+	#ifdef DEBUG 
+	cout << "Graph is constructed : " << endl;
 	g.printGraph();
-	Kruskal k(g);
-
-	// Enter test section
-	MPI_Init(&argc, &argv);
-	LSB_Init("test", 0);
-	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-	LSB_Set_Rparam_int("rank", rank);
-    LSB_Set_Rparam_int("runs", RUNS);
-	for(int i=0;i<TEST_NB;++i){
-		for(int j=0;j<INNER_TESTS;==j){
-			LSB_Res();
-			vector<edge_C> MST = k.compute();
-			LSB_Rec(i);
-	}}
-	LSB_Finalize();
-	MPI_Finalize();
-	return 0;
-	Graph g(10,0.5,0,10);
-	g.printGraph();
-	Kruskal k(g);
+	#endif
+	
+	Kruskal k(g);			
 	vector<edge_C> MST = k.compute();
+}
 
-}*/
-
-int main(){
+int main(int argc, char *argv[]){
 	#ifdef DEBUG 
 	cout << "Hello world!" << endl;
 	#endif
-	//find_a_name();
 	
+	// Variables
+	int rank, i, records_version;
+	char const * records_filename;
+	
+	
+	// Results file
+	records_filename = "tests";
+	records_version = 1;
+	
+	// Init MPI & LSB
+	MPI_Init(&argc, &argv);
+	LSB_Init(records_filename, records_version);
+	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+	
+	// Set parameters
+	LSB_Set_Rparam_int("rank", rank);
+ 	LSB_Set_Rparam_int("runs", RUNS);
+ 	
+ 	
+ 	// Start measures
+ 	LSB_Res();
+ 	
+ 	// Measure param
+ 	i = 0; 	
+ 	
+	test_kruskal();
 	test_sollin();
+	
+	// Stop & write measures
+	LSB_Rec(i); // Measure name
+	
+	// Finalize MPI & LSB
+	LSB_Finalize();
+	MPI_Finalize();
+
+	return 0;
 		
 }

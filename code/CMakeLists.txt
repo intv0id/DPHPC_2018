@@ -11,6 +11,13 @@ if(BUILD_TDEBUG)
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DDEBUG")
 endif(BUILD_TDEBUG)
 
+# OpenMP support
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fopenmp")
+
+# MPI Support
+find_package(MPI) 
+include_directories(SYSTEM ${MPI_INCLUDE_PATH})
+
 # Support for vim YCM
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
@@ -25,3 +32,5 @@ file(GLOB SRCS src/*)
 
 # Add executable 
 add_executable(exec ${SRCS})
+
+target_link_libraries(exec ${MPI_CXX_LIBRARIES} /usr/local/lib/liblsb.a)

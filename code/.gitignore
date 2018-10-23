@@ -6,3 +6,5 @@ Makefile
 *.json
 .vscode/
 .idea/
+lsb.*
+
