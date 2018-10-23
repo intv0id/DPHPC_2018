@@ -14,16 +14,20 @@ Thibault Dardinier,
 Clément Trassoudaine
 
 ## Compiling
+``` bash
 cd code   
 cmake -DBUILD_TDEBUG=ON/OFF  
 make  
 ./bin/exec  
+```
 
 ## Writing Debug Code
+``` C++
 #ifdef DEBUG  
 cout << x << endl;  
-#endif  
+#endif 
+```
 
 ## Dependencies
-MPI  
-LibLSB (https://spcl.inf.ethz.ch/Research/Performance/LibLSB/)
+* MPI  
+* LibLSB (https://spcl.inf.ethz.ch/Research/Performance/LibLSB/)
