@@ -12,3 +12,18 @@ Thomas Cambier,
 Raphaël Dang-Nhu, 
 Thibault Dardinier, 
 Clément Trassoudaine
+
+## Compiling
+cd code   
+cmake -DBUILD_TDEBUG=ON/OFF  
+make  
+./bin/exec  
+
+## Writing Debug Code
+#ifdef DEBUG  
+cout << x << endl;  
+#endif  
+
+## Dependencies
+MPI  
+LibLSB (https://spcl.inf.ethz.ch/Research/Performance/LibLSB/)
