@@ -14,12 +14,12 @@ Thibault Dardinier,
 Clément Trassoudaine
 
 ## Compiling
-cd code
-cmake -DBUILD_TDEBUG=ON/OFF
-make
-./bin/exec
+cd code   
+cmake -DBUILD_TDEBUG=ON/OFF  
+make  
+./bin/exec  
 
 ## Writing Debug Code
-#ifdef DEBUG
-cout << x << endl;
-#endif
+#ifdef DEBUG  
+cout << x << endl;  
+#endif  
