@@ -23,3 +23,7 @@ make
 #ifdef DEBUG  
 cout << x << endl;  
 #endif  
+
+## Dependencies
+MPI  
+LibLSB (https://spcl.inf.ethz.ch/Research/Performance/LibLSB/)
