@@ -1,6 +1,6 @@
 #include <iostream>
-#include <liblsb.h>
-#include <mpi.h>
+//#include <liblsb.h>
+//#include <mpi.h>
 
 
 #include <graph.hpp>
@@ -34,7 +34,7 @@ void test_sollin(){
 	print_edge_EL_list(mst);
 }
 
-void find_a_name(){
+/*void find_a_name(){
 	int rank;
 
 	cout << "Hello world !" << endl;
@@ -62,7 +62,7 @@ void find_a_name(){
 	Kruskal k(g);
 	vector<edge_C> MST = k.compute();
 
-}
+}*/
 
 int main(){
 	#ifdef DEBUG 
