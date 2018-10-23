@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-# Install script for directory: /home/thor/Nextcloud/Scolaire/Ecole/ETHZ/Cours/Parallel Computing/project/code
-=======
-# Install script for directory: /home/raphael/Documents/4A/DPHPC/Repo/code
->>>>>>> f89a62ce5ab20e78b02dea288552bff9ebeaa34f
+# Install script for directory: /home/raphael/Documents/4A/DPHPC/Repo
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -36,11 +32,6 @@ if(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
   set(CMAKE_INSTALL_SO_NO_EXE "1")
 endif()
 
-# Is this installation the result of a crosscompile?
-if(NOT DEFINED CMAKE_CROSSCOMPILING)
-  set(CMAKE_CROSSCOMPILING "FALSE")
-endif()
-
 if(CMAKE_INSTALL_COMPONENT)
   set(CMAKE_INSTALL_MANIFEST "install_manifest_${CMAKE_INSTALL_COMPONENT}.txt")
 else()
@@ -49,9 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-<<<<<<< HEAD
-file(WRITE "/home/thor/Nextcloud/Scolaire/Ecole/ETHZ/Cours/Parallel Computing/project/code/${CMAKE_INSTALL_MANIFEST}"
-=======
-file(WRITE "/home/raphael/Documents/4A/DPHPC/Repo/code/${CMAKE_INSTALL_MANIFEST}"
->>>>>>> f89a62ce5ab20e78b02dea288552bff9ebeaa34f
+file(WRITE "/home/raphael/Documents/4A/DPHPC/Repo/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

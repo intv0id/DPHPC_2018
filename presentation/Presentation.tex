@@ -90,6 +90,10 @@
 \frame{\titlepage}
 \frame{\tableofcontents}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION 1
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \section{Problem definition}
 \begin{frame}
 \frametitle{The MST problem}
@@ -114,6 +118,10 @@
 \end{itemize}
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION 2
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \section{Algorithms}
 \subsection{Prim}
 \begin{frame}
@@ -136,6 +144,9 @@
 How to verify correctness of the parallelization?
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION 3
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Environment}
 \begin{frame}
@@ -158,21 +169,62 @@ Source :
 \end{frame}
 \begin{frame}
 \frametitle{Tools}
+\begin{columns}
+\begin{column}{.4\linewidth}
+\includegraphics[scale=.1]{OPENMP.png}
+\end{column}
 
-C++, OMP : shared memory
+\begin{column}{.6\linewidth}
+\begin{itemize}
+\item[•] C++ (gcc, mpicc wrapper)
+\item[•] OMP (shared memory)
+\end{itemize}
+\end{column}
+\end{columns}
 
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION 4
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Benchmarking}
-\subsection{Reference, baseline}
+\subsection{Reference, baseline, tools}
 \begin{frame}
-How to argue about performance (bounds, what to compare to?)
-\vfill
+
+\textbf{\Large Tools} 
+
+\begin{itemize}
+\item[•] \textbf{Measures :} LibSciBench library
+\item[•] \textbf{Interpretation :} LibSciBench's R scripts
+\end{itemize}
+
 {
 \tiny
+Ref : 
 \url{https://spcl.inf.ethz.ch/Research/Performance/LibLSB/}
 }
+
+\vfill
+
+\textbf{\Large Baseline}
+
+\begin{columns}
+\begin{column}{0.3\linewidth}
+\begin{center}
+\includegraphics[scale=.05]{Boruvka.jpg}
+\end{center}
+\end{column}
+\begin{column}{0.7\linewidth}
+\begin{center}
+Borůvka's serial algorithm
+
+$O(E \cdot log(V))$
+\end{center}
+\end{column}
+\end{columns}
+{\tiny \url{https://en.wikipedia.org/wiki/Otakar_Bor\%C5\%AFvka}}
+
 \end{frame}
 
 

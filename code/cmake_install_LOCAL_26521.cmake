@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 # Install script for directory: /home/thor/Nextcloud/Scolaire/Ecole/ETHZ/Cours/Parallel Computing/project/code
-=======
-# Install script for directory: /home/raphael/Documents/4A/DPHPC/Repo/code
->>>>>>> f89a62ce5ab20e78b02dea288552bff9ebeaa34f
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -49,9 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-<<<<<<< HEAD
 file(WRITE "/home/thor/Nextcloud/Scolaire/Ecole/ETHZ/Cours/Parallel Computing/project/code/${CMAKE_INSTALL_MANIFEST}"
-=======
-file(WRITE "/home/raphael/Documents/4A/DPHPC/Repo/code/${CMAKE_INSTALL_MANIFEST}"
->>>>>>> f89a62ce5ab20e78b02dea288552bff9ebeaa34f
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
