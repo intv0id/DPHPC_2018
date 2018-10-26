@@ -1,10 +1,12 @@
 #include <iostream>
-#include <sollin.hpp>
-#include <graph.hpp>
 #include <vector>
 #include <list>
 #include <limits>
 #include <algorithm>
+
+#include <omp.h>
+
+#include <graph.hpp>
 
 using namespace std;
 
@@ -16,6 +18,28 @@ typedef vector<node*>::iterator v_node_it;
 typedef vector<edge*>::iterator v_edge_it;
 typedef list<edge_EL*>::iterator v_edge_EL_it;
 
+struct result{
+	v_edge_EL_t list;
+	edge_EL first;
+	edge_EL last;
+};
+
+
+result merge(result v1, result v2){
+	if(v1.last.equals(v2.first)){
+		v2.list.pop_front();
+	}
+	result r;
+	r.first = v1.first;
+	r.last = v2.last;
+	v1.list.splice(v1.list.end(),v2.list);
+	r.list = v1.list;
+	return r;
+}
+
+
+#pragma omp declare reduction \
+	(listEdges:result:omp_out=merge(omp_out,omp_in))
 
 class union_find{
 	public:
@@ -68,7 +92,7 @@ class comp{
 	
 };
 
-v_edge_EL_t sollin(Graph_EL g){
+v_edge_EL_t parallel_sollin(Graph_EL g){
 
 	// Get graph data
 	int n = g.n;
@@ -94,6 +118,7 @@ v_edge_EL_t sollin(Graph_EL g){
 		// Remove self-loops and multiple edges (compact graph)
 		int source = -1;
 		int target = -1;
+		#pragma omp parallel for reduction(listEdges:aux)
 		for(v_edge_EL_it it = aux.begin(); it != aux.end();){
 			edge_EL* e = *it;
 			int p1 = u->find(e->source);

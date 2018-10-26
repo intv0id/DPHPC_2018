@@ -6,13 +6,11 @@ option(BUILD_TDEBUG "Debug mode" OFF)
 
 # Set compile flags
 
-set(CMAKE_CXX_FLAGS "-std=c++11")
+set(CMAKE_CXX_FLAGS "-std=c++11 ${OpenMP_CXX_FLAGS}")
 if(BUILD_TDEBUG)
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DDEBUG")
 endif(BUILD_TDEBUG)
 
-# OpenMP support
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fopenmp")
 
 # MPI Support
 find_package(MPI) 

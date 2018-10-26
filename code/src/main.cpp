@@ -36,6 +36,43 @@ void test_sollin(){
 
 	v_edge_EL_t mst = sollin(g);
 	print_edge_EL_list(mst);
+
+	// Test with a second graph
+	g = Graph_EL(9); 
+	// Add a few edges
+	g.add_edge(0,1,10);
+	g.add_edge(0,2,12);
+	g.add_edge(1,2,9);
+	g.add_edge(1,3,8);
+	g.add_edge(2,4,4);
+	g.add_edge(3,4,7);
+	g.add_edge(4,5,3);
+	g.add_edge(2,5,1);
+	g.add_edge(3,6,8);
+	g.add_edge(3,7,5);
+	g.add_edge(5,7,6);
+	g.add_edge(6,7,9);
+	g.add_edge(6,8,2);
+	g.add_edge(7,8,11);
+
+
+	#ifdef DEBUG 
+	cout << "Graph is constructed" << endl;
+	#endif
+
+	mst = sollin(g);
+	print_edge_EL_list(mst);
+
+	/* Must return:
+	 * (0,1)
+	 * (1,3)
+	 * (2,5)
+	 * (4,5)
+	 * (3,7)
+	 * (3,6)
+	 * (5,7)
+	 * (6,8)
+	 */
 }
 
 void test_kruskal(){
@@ -54,10 +91,7 @@ void test_kruskal(){
 	vector<edge_C> MST = k.compute();
 }
 
-int main(int argc, char *argv[]){
-	#ifdef DEBUG 
-	cout << "Hello world!" << endl;
-	#endif
+void find_a_name_2(int argc, char *argv[]){
 	
 	// Variables
 	int rank, i, records_version;
@@ -93,6 +127,15 @@ int main(int argc, char *argv[]){
 	// Finalize MPI & LSB
 	LSB_Finalize();
 	MPI_Finalize();
+
+}
+
+int main(int argc, char *argv[]){
+	#ifdef DEBUG 
+	cout << "Hello world!" << endl;
+	#endif
+
+	test_sollin();
 
 	return 0;
 		
