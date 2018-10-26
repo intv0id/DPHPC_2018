@@ -1,13 +1,14 @@
 #include "common.hpp"
-#include <iostream>
+#include "graph.hpp" 
 
+#include <iostream>
+#include <vector>
 
 using namespace std;
-typedef list<edge_EL*>::iterator v_edge_EL_it;
 
-void print_edge_EL_list(v_edge_EL_t mst){
+void print_edge_EL_list(l_edge_EL_t mst){
 	cout << endl;
-	for(v_edge_EL_it ite = mst.begin(); ite != mst.end(); ite++){
+	for(l_edge_EL_it ite = mst.begin(); ite != mst.end(); ite++){
 		cout << "(" << (*ite)->source << "," << (*ite)-> target << ")" << endl;
 	}
 	cout << endl;

@@ -6,18 +6,11 @@
 
 #include <omp.h>
 
-#include <graph.hpp>
+#include "graph.hpp"
+#include "common.hpp"
 
 using namespace std;
 
-typedef vector<node*> v_node_t; 
-typedef vector<edge*> v_edge_t;
-typedef list<edge_EL*> l_edge_EL_t;
-typedef vector<edge_EL*> v_edge_EL_t;
-
-typedef vector<node*>::iterator v_node_it;
-typedef vector<edge*>::iterator v_edge_it;
-typedef list<edge_EL*>::iterator l_edge_EL_it;
 
 struct result{
 	result() : firstSource(-1),firstTarget(-1),lastSource(-1),lastTarget(-1) {}
@@ -122,6 +115,9 @@ l_edge_EL_t parallel_sollin(Graph_EL g){
 		aux.sort(c);	
 
 		// Remove self-loops and multiple edges (compact graph)
+		#ifdef DEBUG
+		cout << "Finished sorting" << endl;
+		#endif
 		int source = -1;
 		int target = -1;
 		
@@ -136,13 +132,13 @@ l_edge_EL_t parallel_sollin(Graph_EL g){
 		#endif
 		
 		result aux;
-		#pragma omp parallel for num_threads(4) reduction(listEdges:aux)
+		#pragma omp parallel for num_threads(1) reduction(listEdges:aux)
 		for(int k = 0; k != vectorEdges.size(); k++){
-			cout << k << endl;
 			edge_EL* e = vectorEdges[k];
 			int p1 = u->find(e->source);
 			int p2 = u->find(e->target);
 			if(aux.firstSource == -1){
+			cout << k << endl;
 				aux.firstSource = p1;
 				aux.firstTarget = p2;
 			}
@@ -167,19 +163,20 @@ l_edge_EL_t parallel_sollin(Graph_EL g){
 			edge_EL* e = *it;
 
 			#ifdef DEBUG
-			cout << "Got edge " << endl;
+			//cout << "Got edge " << endl;
 			#endif
 			
 			int source = u->find(e->source);
 			int target = u->find(e->target);
 			int weight = e->weight;
 			#ifdef DEBUG
-			cout << "Checking conditions " << endl;
+			/*cout << "Checking conditions " << endl;
 			cout << "Source: " << e->source << endl;
 			cout << "Source comp: " << source << endl;
 			cout << "Target: " << e->target << endl;
 			cout << "Target comp: " << target << endl;
 			cout << "Weight: " << weight << endl;
+			*/
 			#endif
 
 		   	

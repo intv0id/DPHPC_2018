@@ -6,15 +6,10 @@
 #include <limits>
 #include <algorithm>
 
+#include "common.hpp"
+
 using namespace std;
 
-typedef vector<node*> v_node_t; 
-typedef vector<edge*> v_edge_t;
-typedef list<edge_EL*> v_edge_EL_t;
-
-typedef vector<node*>::iterator v_node_it;
-typedef vector<edge*>::iterator v_edge_it;
-typedef list<edge_EL*>::iterator v_edge_EL_it;
 
 
 class union_find{
@@ -68,14 +63,14 @@ class comp{
 	
 };
 
-v_edge_EL_t sollin(Graph_EL g){
+l_edge_EL_t sollin(Graph_EL g){
 
 	// Get graph data
 	int n = g.n;
-	v_edge_EL_t aux = g.edges;
+	l_edge_EL_t aux = g.edges;
 	
 	// Create MST
-	v_edge_EL_t mst;
+	l_edge_EL_t mst;
 
 	// Create union-find structure
 	union_find* u = new union_find(n);
@@ -94,7 +89,7 @@ v_edge_EL_t sollin(Graph_EL g){
 		// Remove self-loops and multiple edges (compact graph)
 		int source = -1;
 		int target = -1;
-		for(v_edge_EL_it it = aux.begin(); it != aux.end();){
+		for(l_edge_EL_it it = aux.begin(); it != aux.end();){
 			edge_EL* e = *it;
 			int p1 = u->find(e->source);
 			int p2 = u->find(e->target);
@@ -120,8 +115,8 @@ v_edge_EL_t sollin(Graph_EL g){
 		edge_EL* einit = new edge_EL();
 		einit->source = -1;
 
-		vector<edge_EL*> cheapest(u->numTrees,einit);
-		for(v_edge_EL_it it = aux.begin(); it != aux.end(); it++){
+		vector<edge_EL*> cheapest(n,einit);
+		for(l_edge_EL_it it = aux.begin(); it != aux.end(); it++){
 			edge_EL* e = *it;
 
 			#ifdef DEBUG
@@ -143,17 +138,19 @@ v_edge_EL_t sollin(Graph_EL g){
 			}
 		}
 
+		// Connect the components via pointer-jump
+		for(int i = 0; i != n; i++){
+			edge_EL* e = cheapest[i];
+			// Merge the two components
+			if(e->source != -1){
+				bool b = u->unite(e->source,e->target);
+				if (b) mst.push_back(e);
+			}
+		}
 		#ifdef DEBUG
 		cout << "Found minimum edge " << endl;
 		#endif
 		
-		// Connect the components via pointer-jump
-		for(int i = 0; i != cheapest.size(); i++){
-			edge_EL* e = cheapest[i];
-			// Merge the two components
-			bool b = u->unite(e->source,e->target);
-			if (b) mst.push_back(e);
-		}
 				
 	}
 	return mst;
