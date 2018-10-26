@@ -136,8 +136,9 @@ l_edge_EL_t parallel_sollin(Graph_EL g){
 		#endif
 		
 		result aux;
-		#pragma omp parallel for num_threads(1) reduction(listEdges:aux)
+		#pragma omp parallel for num_threads(4) reduction(listEdges:aux)
 		for(int k = 0; k != vectorEdges.size(); k++){
+			cout << k << endl;
 			edge_EL* e = vectorEdges[k];
 			int p1 = u->find(e->source);
 			int p2 = u->find(e->target);
@@ -162,8 +163,7 @@ l_edge_EL_t parallel_sollin(Graph_EL g){
 		einit->source = -1;
 
 
-		v_edge_EL_t cheapest(u->numTrees,einit);
-		cout << "Length" << cheapest.size() << endl;;
+		v_edge_EL_t cheapest(n,einit);
 		for(l_edge_EL_it it = aux.list.begin(); it != aux.list.end(); it++){
 			edge_EL* e = *it;
 
@@ -184,13 +184,9 @@ l_edge_EL_t parallel_sollin(Graph_EL g){
 			#endif
 
 		   	
-				edge_EL* t = cheapest[source];
-				int a = t->source;
-			cout << "Weight: " << weight << endl;
 			if(cheapest[source]->source == -1 || weight < cheapest[source]->weight){
 				cheapest[source] = e;
 			}
-			cout << "Checked if cheapest" << endl;
 		}
 
 		#ifdef DEBUG
@@ -198,12 +194,17 @@ l_edge_EL_t parallel_sollin(Graph_EL g){
 		#endif
 		
 		// Connect the components via pointer-jump
-		for(int i = 0; i != cheapest.size(); i++){
+		for(int i = 0; i != n; i++){
 			edge_EL* e = cheapest[i];
 			// Merge the two components
-			bool b = u->unite(e->source,e->target);
-			if (b) mst.push_back(e);
+			if(e->source != -1){
+				bool b = u->unite(e->source,e->target);
+				if (b) mst.push_back(e);
+			}
 		}
+		#ifdef DEBUG
+		cout << "Connect " << endl;
+		#endif
 				
 	}
 	return mst;
