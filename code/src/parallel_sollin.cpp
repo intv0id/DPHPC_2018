@@ -12,26 +12,30 @@ using namespace std;
 
 typedef vector<node*> v_node_t; 
 typedef vector<edge*> v_edge_t;
-typedef list<edge_EL*> v_edge_EL_t;
+typedef list<edge_EL*> l_edge_EL_t;
+typedef vector<edge_EL*> v_edge_EL_t;
 
 typedef vector<node*>::iterator v_node_it;
 typedef vector<edge*>::iterator v_edge_it;
-typedef list<edge_EL*>::iterator v_edge_EL_it;
+typedef list<edge_EL*>::iterator l_edge_EL_it;
 
 struct result{
-	v_edge_EL_t list;
-	edge_EL first;
-	edge_EL last;
+	result() : firstSource(-1),firstTarget(-1),lastSource(-1),lastTarget(-1) {}
+	l_edge_EL_t list;
+	int firstSource, firstTarget;
+	int lastSource, lastTarget;
 };
 
 
 result merge(result v1, result v2){
-	if(v1.last.equals(v2.first)){
+	if(v1.lastSource == v2.firstSource && v1.lastTarget == v2.firstTarget ){
 		v2.list.pop_front();
 	}
 	result r;
-	r.first = v1.first;
-	r.last = v2.last;
+	r.firstSource = v1.firstSource;
+	r.lastSource = v1.lastSource;
+	r.firstTarget = v1.firstTarget;
+	r.lastTarget = v1.lastTarget;
 	v1.list.splice(v1.list.end(),v2.list);
 	r.list = v1.list;
 	return r;
@@ -40,6 +44,8 @@ result merge(result v1, result v2){
 
 #pragma omp declare reduction \
 	(listEdges:result:omp_out=merge(omp_out,omp_in))
+
+
 
 class union_find{
 	public:
@@ -92,14 +98,14 @@ class comp{
 	
 };
 
-v_edge_EL_t parallel_sollin(Graph_EL g){
+l_edge_EL_t parallel_sollin(Graph_EL g){
 
 	// Get graph data
 	int n = g.n;
-	v_edge_EL_t aux = g.edges;
+	l_edge_EL_t aux = g.edges;
 	
 	// Create MST
-	v_edge_EL_t mst;
+	l_edge_EL_t mst;
 
 	// Create union-find structure
 	union_find* u = new union_find(n);
@@ -118,35 +124,47 @@ v_edge_EL_t parallel_sollin(Graph_EL g){
 		// Remove self-loops and multiple edges (compact graph)
 		int source = -1;
 		int target = -1;
-		#pragma omp parallel for reduction(listEdges:aux)
-		for(v_edge_EL_it it = aux.begin(); it != aux.end();){
-			edge_EL* e = *it;
-			int p1 = u->find(e->source);
-			int p2 = u->find(e->target);
-			if(p1 == p2){
-				aux.erase(it++);
-			}
-			else if(p1 == source && p2 == target){
-				aux.erase(it++);
-			}
-			else{
-				it++;
-			}
-			source = p1;
-			target = p2;
+		
+		// Copy everything to a vector
+		v_edge_EL_t vectorEdges;
+		for(l_edge_EL_it it = aux.begin(); it != aux.end();it++){
+			vectorEdges.push_back(*it);
 		}
 
 		#ifdef DEBUG
-		cout << "Removed self-loops " << endl;
-		cout << "Size: " << aux.size() << endl;
+		cout << "Launching reduction" << endl;
+		#endif
+		
+		result aux;
+		#pragma omp parallel for num_threads(1) reduction(listEdges:aux)
+		for(int k = 0; k != vectorEdges.size(); k++){
+			edge_EL* e = vectorEdges[k];
+			int p1 = u->find(e->source);
+			int p2 = u->find(e->target);
+			if(aux.firstSource == -1){
+				aux.firstSource = p1;
+				aux.firstTarget = p2;
+			}
+			if(p1 != p2  && (p1 != aux.lastSource || p2 != aux.lastTarget)){
+				aux.list.push_back(e);
+				aux.lastSource = p1;
+				aux.lastTarget = p2;
+			}
+		}
+
+		#ifdef DEBUG
+		cout << endl << "Removed self-loops " << endl;
+		cout << "Size: " << aux.list.size() << endl;
 		#endif
 
 		// Find minimum ingoing edge
 		edge_EL* einit = new edge_EL();
 		einit->source = -1;
 
-		vector<edge_EL*> cheapest(u->numTrees,einit);
-		for(v_edge_EL_it it = aux.begin(); it != aux.end(); it++){
+
+		v_edge_EL_t cheapest(u->numTrees,einit);
+		cout << "Length" << cheapest.size() << endl;;
+		for(l_edge_EL_it it = aux.list.begin(); it != aux.list.end(); it++){
 			edge_EL* e = *it;
 
 			#ifdef DEBUG
@@ -154,18 +172,25 @@ v_edge_EL_t parallel_sollin(Graph_EL g){
 			#endif
 			
 			int source = u->find(e->source);
+			int target = u->find(e->target);
 			int weight = e->weight;
 			#ifdef DEBUG
 			cout << "Checking conditions " << endl;
 			cout << "Source: " << e->source << endl;
+			cout << "Source comp: " << source << endl;
 			cout << "Target: " << e->target << endl;
+			cout << "Target comp: " << target << endl;
 			cout << "Weight: " << weight << endl;
 			#endif
 
-			if(cheapest[source]->source == -1 ||
-			weight < cheapest[source]->weight){
+		   	
+				edge_EL* t = cheapest[source];
+				int a = t->source;
+			cout << "Weight: " << weight << endl;
+			if(cheapest[source]->source == -1 || weight < cheapest[source]->weight){
 				cheapest[source] = e;
 			}
+			cout << "Checked if cheapest" << endl;
 		}
 
 		#ifdef DEBUG

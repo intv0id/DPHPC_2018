@@ -3,7 +3,8 @@
 #include <mpi.h>
 
 
-#include <graph.hpp>
+#include "graph.hpp"
+#include "parallel_sollin.hpp"
 #include "sollin.hpp"
 #include "common.hpp"
 #include "algorithms.hpp"
@@ -15,13 +16,7 @@ using namespace std;
 
 typedef list<edge_EL*> v_edge_EL_t;
 
-
-void test_sollin(){
-
-	#ifdef DEBUG
-	cout << "Defining graph" << endl;
-	#endif
-
+Graph_EL graph1(){
 	// Test with a simple graph
 	Graph_EL g(4); 
 	// Add a few edges
@@ -29,16 +24,13 @@ void test_sollin(){
 	g.add_edge(1,2,2);
 	g.add_edge(2,3,1);
 	g.add_edge(1,3,3);
+	return g;
 
-	#ifdef DEBUG 
-	cout << "Graph is constructed" << endl;
-	#endif
+}
 
-	v_edge_EL_t mst = sollin(g);
-	print_edge_EL_list(mst);
-
+Graph_EL graph2(){
 	// Test with a second graph
-	g = Graph_EL(9); 
+	Graph_EL g(9); 
 	// Add a few edges
 	g.add_edge(0,1,10);
 	g.add_edge(0,2,12);
@@ -54,14 +46,7 @@ void test_sollin(){
 	g.add_edge(6,7,9);
 	g.add_edge(6,8,2);
 	g.add_edge(7,8,11);
-
-
-	#ifdef DEBUG 
-	cout << "Graph is constructed" << endl;
-	#endif
-
-	mst = sollin(g);
-	print_edge_EL_list(mst);
+	return g;
 
 	/* Must return:
 	 * (0,1)
@@ -73,6 +58,50 @@ void test_sollin(){
 	 * (5,7)
 	 * (6,8)
 	 */
+
+}
+void test_sollin(){
+
+	Graph_EL g = graph1();
+
+	#ifdef DEBUG 
+	cout << "Graph is constructed" << endl;
+	#endif
+
+	v_edge_EL_t mst = sollin(g);
+	print_edge_EL_list(mst);
+
+	g = graph2();
+
+	#ifdef DEBUG 
+	cout << "Graph is constructed" << endl;
+	#endif
+
+	mst = sollin(g);
+	print_edge_EL_list(mst);
+
+}
+
+void test_parallel_sollin(){
+
+	Graph_EL g = graph1();
+
+	#ifdef DEBUG 
+	cout << "Graph is constructed" << endl;
+	#endif
+
+	v_edge_EL_t mst = parallel_sollin(g);
+	print_edge_EL_list(mst);
+
+	g = graph2();
+
+	#ifdef DEBUG 
+	cout << "Graph is constructed" << endl;
+	#endif
+
+	mst = parallel_sollin(g);
+	print_edge_EL_list(mst);
+
 }
 
 void test_kruskal(){
@@ -134,8 +163,14 @@ int main(int argc, char *argv[]){
 	#ifdef DEBUG 
 	cout << "Hello world!" << endl;
 	#endif
-
-	test_sollin();
+	
+	int i;
+	cin >> i;
+	if(i == 0){
+		test_sollin();
+	}else if(i == 1){
+		test_parallel_sollin();
+	}
 
 	return 0;
 		
