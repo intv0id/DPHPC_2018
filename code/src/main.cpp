@@ -101,7 +101,7 @@ void test_parallel_sollin(int nTrials){
 	// Test a lot of random graphs and compare the weight with the boost implementation
 	for(int i = 0; i != nTrials; i++){
 		// Generate a random graph and the corresponding boost graph
-		Graph_EL g(1000,0.5,0,100);		
+		Graph_EL g(10000,0.01,0,100);		
 		// Apply sequential sollin
 		l_edge_EL_t mst = sollin(g);
 		int weight_seq(0);
