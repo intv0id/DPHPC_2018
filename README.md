@@ -32,8 +32,22 @@ cout << x << endl;
 
 **Doc:** (https://scicomp.ethz.ch/wiki/Getting\_started\_with\_clusters)
 
+### Install liblsb on euler
+
 ``` bash
-module load open_mpi
+cd /tmp && wget https://spcl.inf.ethz.ch/Research/Performance/LibLSB/liblsb-0.2.2.tar.gz
+tar xvf liblsb-0.2.2.tar.gz && rm liblsb-0.2.2.tar.gz
+cd liblsb-0.2.2
+./configure --prefix=~/liblsb && make && make install
+rm -r .
+```
+
+### Compile & run `exec` 
+
+``` bash
+# import modules
+module load open_mpi/1.6.5 gcc/4.9.2 cmake/3.5.2
+export LIBLSB_PATH=~/liblsb/lib
 cd ~
 git clone https://github.com/intv0id/DPHPC_2018
 cd DPHPC_2018/code
