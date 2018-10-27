@@ -1,0 +1,12 @@
+langage: bash
+install:
+  - apt install openmp cmake boost
+  - wget https://spcl.inf.ethz.ch/Research/Performance/LibLSB/liblsb-0.2.2.tar.gz && 
+    tar xvf liblsb-0.2.2.tar.gz && 
+    cd liblsb-0.2.2 && 
+    ./configure &&
+    make && make install
+
+script:
+  - cd code
+  - cmake && make
