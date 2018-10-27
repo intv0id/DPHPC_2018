@@ -38,7 +38,7 @@ cout << x << endl;
 cd /tmp && wget https://spcl.inf.ethz.ch/Research/Performance/LibLSB/liblsb-0.2.2.tar.gz
 tar xvf liblsb-0.2.2.tar.gz && rm liblsb-0.2.2.tar.gz
 cd liblsb-0.2.2
-./configure --prefix=${readlink -f ~/liblsb} && make && make install
+./configure --prefix=`readlink -f ~/liblsb` && make && make install
 rm -r .
 ```
 
@@ -47,7 +47,7 @@ rm -r .
 ``` bash
 # import modules
 module load open_mpi/1.6.5 gcc/4.9.2 cmake/3.5.2
-export LIBLSB_PATH=${readlink -f ~/liblsb/lib}
+export LIBLSB_PATH=`readlink -f ~/liblsb/lib`
 
 # Clone repo
 cd ~
