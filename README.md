@@ -40,7 +40,7 @@ cd /tmp && wget https://spcl.inf.ethz.ch/Research/Performance/LibLSB/liblsb-0.2.
 tar xvf liblsb-0.2.2.tar.gz && rm liblsb-0.2.2.tar.gz
 cd liblsb-0.2.2
 ./configure --prefix=`readlink -f ~/liblsb` && make && make install
-rm -r .
+cd .. && rm -r liblsb-0.2.2
 ```
 
 ### Compile & run `exec` 
