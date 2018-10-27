@@ -1,6 +1,6 @@
 language: bash
 install:
-  - sudo apt install openmp cmake boost
+  - sudo apt install libopenmpi3 libopenmpi-dev cmake libboost-all-dev
   - wget https://spcl.inf.ethz.ch/Research/Performance/LibLSB/liblsb-0.2.2.tar.gz && 
     tar xvf liblsb-0.2.2.tar.gz && 
     cd liblsb-0.2.2 && 
