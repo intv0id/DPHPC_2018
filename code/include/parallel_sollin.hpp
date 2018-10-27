@@ -5,5 +5,5 @@
 using namespace std;
 
 
-l_edge_EL_t sollin(Graph_EL g);
+l_edge_EL_t parallel_sollin(Graph_EL g);
 

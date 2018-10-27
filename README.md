@@ -14,15 +14,19 @@ Thibault Dardinier,
 Clément Trassoudaine
 
 ## Compiling
+``` bash
 cd code   
 cmake -DBUILD\_TDEBUG=ON/OFF  
 make  
 ./bin/exec  
+```
 
 ## Writing Debug Code
+``` C++
 #ifdef DEBUG  
 cout << x << endl;  
-#endif  
+#endif 
+```
 
 ## Run on EULER Cluster
 
@@ -40,5 +44,6 @@ bsub < euler/submit.sh
 **Note:** In order for this operation to work, the libraries must be statically compiled, or have to be downloaded in the cluster before using it.
 
 ## Dependencies
-MPI  
-LibLSB (https://spcl.inf.ethz.ch/Research/Performance/LibLSB/)
+* MPI  
+* LibLSB (https://spcl.inf.ethz.ch/Research/Performance/LibLSB/)
+* Boost Graph Library (libboost-all-dev or something like that)

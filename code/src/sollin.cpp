@@ -6,15 +6,10 @@
 #include <limits>
 #include <algorithm>
 
+#include "common.hpp"
+
 using namespace std;
 
-typedef vector<node*> v_node_t; 
-typedef vector<edge*> v_edge_t;
-typedef list<edge_EL*> v_edge_EL_t;
-
-typedef vector<node*>::iterator v_node_it;
-typedef vector<edge*>::iterator v_edge_it;
-typedef list<edge_EL*>::iterator v_edge_EL_it;
 
 
 class union_find{
@@ -47,19 +42,20 @@ class union_find{
 };
 
 class comp{
-	union_find u;
+	union_find* u;
 
 	public:
-	comp(union_find u_): u(u_){}
+	comp(union_find* u_): u(u_){}
+
 	bool operator()(edge_EL*e1, edge_EL* e2){
-		int p1 = u.find(e1->source);
-		int p2 = u.find(e2->source);
+		int p1 = u->find(e1->source);
+		int p2 = u->find(e2->source);
 		if(p1 < p2) return true;
 		if(p1 > p2) return false;
-		int p3 = u.find(e1->target);
-		int p4 = u.find(e2->target);
+		int p3 = u->find(e1->target);
+		int p4 = u->find(e2->target);
 		if(p3 < p4) return true;
-		if(p3 < p4) return false;
+		if(p3 > p4) return false;
 		int w1 = e1->weight;
 		int w2 = e2->weight;
 		return (w1 <= w2);
@@ -67,25 +63,25 @@ class comp{
 	
 };
 
-v_edge_EL_t sollin(Graph_EL g){
+l_edge_EL_t sollin(Graph_EL g){
 
 	// Get graph data
 	int n = g.n;
-	v_edge_EL_t aux = g.edges;
+	l_edge_EL_t aux = g.edges;
 	
 	// Create MST
-	v_edge_EL_t mst;
+	l_edge_EL_t mst;
 
 	// Create union-find structure
-	union_find u(n);
+	union_find* u = new union_find(n);
 	comp c(u);
 
 	// Create number of components variable
 
 	// While not connected
-	while(u.numTrees > 1){	
+	while(u->numTrees > 1){	
 		#ifdef DEBUG
-		cout << "Number of Trees: " << u.numTrees << endl;
+		cout << "Number of Trees: " << u->numTrees << endl;
 		#endif
 		// Sort the edge list according to supervertex
 		aux.sort(c);	
@@ -93,11 +89,13 @@ v_edge_EL_t sollin(Graph_EL g){
 		// Remove self-loops and multiple edges (compact graph)
 		int source = -1;
 		int target = -1;
-		for(v_edge_EL_it it = aux.begin(); it != aux.end();){
+		for(l_edge_EL_it it = aux.begin(); it != aux.end();){
 			edge_EL* e = *it;
-			int p1 = u.find(e->source);
-			int p2 = u.find(e->target);
-			if(p1 == p2) aux.erase(it++);
+			int p1 = u->find(e->source);
+			int p2 = u->find(e->target);
+			if(p1 == p2){
+				aux.erase(it++);
+			}
 			else if(p1 == source && p2 == target){
 				aux.erase(it++);
 			}
@@ -110,25 +108,28 @@ v_edge_EL_t sollin(Graph_EL g){
 
 		#ifdef DEBUG
 		cout << "Removed self-loops " << endl;
+		cout << "Size: " << aux.size() << endl;
 		#endif
 
 		// Find minimum ingoing edge
 		edge_EL* einit = new edge_EL();
 		einit->source = -1;
 
-		vector<edge_EL*> cheapest(u.numTrees,einit);
-		for(v_edge_EL_it it = aux.begin(); it != aux.end(); it++){
+		vector<edge_EL*> cheapest(n,einit);
+		for(l_edge_EL_it it = aux.begin(); it != aux.end(); it++){
 			edge_EL* e = *it;
 
 			#ifdef DEBUG
 			cout << "Got edge " << endl;
 			#endif
 			
-			int source = u.find(e->source);
+			int source = u->find(e->source);
 			int weight = e->weight;
 			#ifdef DEBUG
 			cout << "Checking conditions " << endl;
-			cout << "Source: " << source << endl;
+			cout << "Source: " << e->source << endl;
+			cout << "Target: " << e->target << endl;
+			cout << "Weight: " << weight << endl;
 			#endif
 
 			if(cheapest[source]->source == -1 ||
@@ -137,20 +138,19 @@ v_edge_EL_t sollin(Graph_EL g){
 			}
 		}
 
+		// Connect the components via pointer-jump
+		for(int i = 0; i != n; i++){
+			edge_EL* e = cheapest[i];
+			// Merge the two components
+			if(e->source != -1){
+				bool b = u->unite(e->source,e->target);
+				if (b) mst.push_back(e);
+			}
+		}
 		#ifdef DEBUG
 		cout << "Found minimum edge " << endl;
 		#endif
 		
-		// Connect the components via pointer-jump
-		for(int i = 0; i != cheapest.size(); i++){
-			#ifdef DEBUG
-			cout << "i: " << i << endl;
-			#endif
-			edge_EL* e = cheapest[i];
-			// Merge the two components
-			bool b = u.unite(e->source,e->target);
-			if (b) mst.push_back(e);
-		}
 				
 	}
 	return mst;

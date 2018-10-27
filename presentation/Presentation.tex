@@ -159,7 +159,7 @@ How to verify correctness of the parallelization?
 
 \vspace{.5 cm}
 
-Xeon E$x, x\in\{3, 5, 7\}$ ; x86\_64 architecture
+Xeon E$x, x\in\{3, 5, 7\}$\\x86\_64 architecture
 \vfill
 {
 \tiny
@@ -176,8 +176,11 @@ Source :
 
 \begin{column}{.6\linewidth}
 \begin{itemize}
-\item[•] C++ (gcc, mpicc wrapper)
-\item[•] OMP (shared memory)
+\item[•] CMake\\\hspace{.5cm}v3.3+
+\vspace{.2cm}
+\item[•] C++11\\\hspace{.5cm}GCC v4.9.2+
+\vspace{.2cm}
+\item[•] OpenMPI (shared memory)\\\hspace{.5cm}v1.6.5+
 \end{itemize}
 \end{column}
 \end{columns}
@@ -196,7 +199,11 @@ Source :
 
 \begin{itemize}
 \item[•] \textbf{Measures :} LibSciBench library
-\item[•] \textbf{Interpretation :} LibSciBench's R scripts
+\item[•] \textbf{Interpretation :} 
+\begin{itemize}
+\item[•] LibSciBench's R scripts
+\item[•] (Custom python scripts)
+\end{itemize}
 \end{itemize}
 
 {
@@ -224,6 +231,8 @@ $O(E \cdot log(V))$
 \end{column}
 \end{columns}
 {\tiny \url{https://en.wikipedia.org/wiki/Otakar_Bor\%C5\%AFvka}}
+
+
 
 \end{frame}
 
