@@ -16,7 +16,7 @@ Clément Trassoudaine
 ## Compiling
 ``` bash
 cd code   
-cmake -DBUILD_TDEBUG=ON/OFF  
+cmake -DBUILD\_TDEBUG=ON/OFF  
 make  
 ./bin/exec  
 ```
@@ -27,6 +27,21 @@ make
 cout << x << endl;  
 #endif 
 ```
+
+## Run on EULER Cluster
+
+**Doc:** (https://scicomp.ethz.ch/wiki/Getting\_started\_with\_clusters)
+
+``` bash
+module load open_mpi
+cd ~
+git clone https://github.com/intv0id/DPHPC_2018
+cd DPHPC_2018/code
+cmake . && make
+bsub < euler/submit.sh
+```
+
+**Note:** In order for this operation to work, the libraries must be statically compiled, or have to be downloaded in the cluster before using it.
 
 ## Dependencies
 * MPI  

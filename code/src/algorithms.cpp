@@ -26,7 +26,7 @@ Kruskal::Kruskal(Graph G){
 }
 
 
-bool Kruskal::Compare(edge_C &a, edge_C &b){
+bool Kruskal::Compare(const edge_C &a, const edge_C &b){
     return a.weight > b.weight;
 }
 

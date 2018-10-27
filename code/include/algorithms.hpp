@@ -24,7 +24,7 @@ private:
 
 public:
     Kruskal(Graph G);
-    static bool Compare(edge_C &a, edge_C &b);
+    static bool Compare(const edge_C &a, const edge_C &b);
     vector<edge_C> compute();
 };
 
