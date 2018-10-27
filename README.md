@@ -47,7 +47,7 @@ cd .. && rm -r liblsb-0.2.2
 
 ``` bash
 # import modules
-module load open_mpi/1.6.5 gcc/4.9.2 cmake/3.5.2
+module load open_mpi/1.6.5 gcc/4.9.2 cmake/3.5.2 boost/1.59.0
 export LIBLSB_PATH=`readlink -f ~/liblsb/lib`
 
 # Clone repo
