@@ -6,18 +6,11 @@
 
 #include <omp.h>
 
-#include <graph.hpp>
+#include "graph.hpp"
+#include "common.hpp"
 
 using namespace std;
 
-typedef vector<node*> v_node_t; 
-typedef vector<edge*> v_edge_t;
-typedef list<edge_EL*> l_edge_EL_t;
-typedef vector<edge_EL*> v_edge_EL_t;
-
-typedef vector<node*>::iterator v_node_it;
-typedef vector<edge*>::iterator v_edge_it;
-typedef list<edge_EL*>::iterator l_edge_EL_it;
 
 struct result{
 	result() : firstSource(-1),firstTarget(-1),lastSource(-1),lastTarget(-1) {}
@@ -27,24 +20,21 @@ struct result{
 };
 
 
-result merge(result v1, result v2){
+void merge(result& v1, result& v2){
 	if(v1.lastSource == v2.firstSource && v1.lastTarget == v2.firstTarget ){
 		v2.list.pop_front();
 	}
-	result r;
-	r.firstSource = v1.firstSource;
-	r.lastSource = v1.lastSource;
-	r.firstTarget = v1.firstTarget;
-	r.lastTarget = v1.lastTarget;
+	v1.lastSource = v2.lastSource;
+	v1.lastTarget = v2.lastTarget;
 	v1.list.splice(v1.list.end(),v2.list);
-	r.list = v1.list;
-	return r;
 }
 
 
 #pragma omp declare reduction \
-	(listEdges:result:omp_out=merge(omp_out,omp_in))
+	(listEdges:result:merge(omp_out,omp_in))
 
+#pragma omp declare reduction \
+	(addEdges:v_edge_EL_t: omp_out.insert(omp_out.end(),omp_in.begin(),omp_in.end()))
 
 
 class union_find{
@@ -102,7 +92,10 @@ l_edge_EL_t parallel_sollin(Graph_EL g){
 
 	// Get graph data
 	int n = g.n;
-	l_edge_EL_t aux = g.edges;
+	v_edge_EL_t vectorEdges;
+	for(l_edge_EL_it it = g.edges.begin(); it != g.edges.end();it++){
+		vectorEdges.push_back(*it);
+	}
 	
 	// Create MST
 	l_edge_EL_t mst;
@@ -111,38 +104,31 @@ l_edge_EL_t parallel_sollin(Graph_EL g){
 	union_find* u = new union_find(n);
 	comp c(u);
 
-	// Create number of components variable
-
 	// While not connected
 	while(u->numTrees > 1){	
 		#ifdef DEBUG
 		cout << "Number of Trees: " << u->numTrees << endl;
 		#endif
-		// Sort the edge list according to supervertex
-		aux.sort(c);	
 
 		// Remove self-loops and multiple edges (compact graph)
-		int source = -1;
-		int target = -1;
-		
-		// Copy everything to a vector
-		v_edge_EL_t vectorEdges;
-		for(l_edge_EL_it it = aux.begin(); it != aux.end();it++){
-			vectorEdges.push_back(*it);
-		}
-
-		#ifdef DEBUG
-		cout << "Launching reduction" << endl;
-		#endif
-		
 		result aux;
+		int k;
+		int nEdges = vectorEdges.size();
 		#pragma omp parallel for num_threads(4) reduction(listEdges:aux)
-		for(int k = 0; k != vectorEdges.size(); k++){
-			cout << k << endl;
+		for(k = 0; k < nEdges; k++){
 			edge_EL* e = vectorEdges[k];
-			int p1 = u->find(e->source);
-			int p2 = u->find(e->target);
+			int p1, p2;
+			#pragma omp critical
+			{
+				p1 = u->find(e->source);
+				p2 = u->find(e->target);
+			}
 			if(aux.firstSource == -1){
+				#ifdef DEBUG
+				int ID = omp_get_thread_num();
+				cout << ID << endl;
+				cout << k << endl;
+				#endif
 				aux.firstSource = p1;
 				aux.firstTarget = p2;
 			}
@@ -157,32 +143,47 @@ l_edge_EL_t parallel_sollin(Graph_EL g){
 		cout << endl << "Removed self-loops " << endl;
 		#endif
 
+		// Update vectorEdges
+		vectorEdges = vector<edge_EL*>(0);
+		for(l_edge_EL_it it = aux.list.begin(); it != aux.list.end();it++){
+			vectorEdges.push_back(*it);
+		}
+
 		// Find minimum ingoing edge
 		edge_EL* einit = new edge_EL();
 		einit->source = -1;
 
+		// Do loop in parallel
 
+		nEdges = vectorEdges.size();
 		v_edge_EL_t cheapest(n,einit);
-		for(l_edge_EL_it it = aux.list.begin(); it != aux.list.end(); it++){
-			edge_EL* e = *it;
+		#pragma omp parallel for num_threads(4)
+		for(k = 0; k < nEdges; k++){
+			edge_EL* e = vectorEdges[k];
 
 			#ifdef DEBUG
-			cout << "Got edge " << endl;
+			//cout << "Got edge " << endl;
 			#endif
-			
-			int source = u->find(e->source);
-			int target = u->find(e->target);
+
+			int source, target;
+			#pragma omp critical
+			{
+				source = u->find(e->source);
+				target = u->find(e->target);
+			}
 			int weight = e->weight;
+
 			#ifdef DEBUG
-			cout << "Checking conditions " << endl;
+			/*cout << "Checking conditions " << endl;
 			cout << "Source: " << e->source << endl;
 			cout << "Source comp: " << source << endl;
 			cout << "Target: " << e->target << endl;
 			cout << "Target comp: " << target << endl;
 			cout << "Weight: " << weight << endl;
+			*/
 			#endif
 
-		   	
+			
 			if(cheapest[source]->source == -1 || weight < cheapest[source]->weight){
 				cheapest[source] = e;
 			}
@@ -192,19 +193,23 @@ l_edge_EL_t parallel_sollin(Graph_EL g){
 		cout << "Found minimum edge " << endl;
 		#endif
 		
+		vector<edge_EL*> add_to_mst;
 		// Connect the components via pointer-jump
-		for(int i = 0; i != n; i++){
-			edge_EL* e = cheapest[i];
-			// Merge the two components
+		#pragma omp parallel for num_threads(4) reduction(addEdges:add_to_mst)
+		for(k = 0; k < n; k++){
+			edge_EL* e = cheapest[k];
 			if(e->source != -1){
-				bool b = u->unite(e->source,e->target);
-				if (b) mst.push_back(e);
+				bool b;
+				#pragma omp critical
+				{
+				b = u->unite(e->source,e->target);
+				}
+				if (b) add_to_mst.push_back(e);
 			}
 		}
-		#ifdef DEBUG
-		cout << "Connect " << endl;
-		#endif
-				
+		mst.insert(mst.end(),add_to_mst.begin(),add_to_mst.end());
+
+					
 	}
 	return mst;
 }

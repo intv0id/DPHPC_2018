@@ -5,12 +5,18 @@ project(DPHPC)
 option(BUILD_TDEBUG "Debug mode" OFF)
 
 # Set compile flags
-
 set(CMAKE_CXX_FLAGS "-std=c++11 ${OpenMP_CXX_FLAGS}")
 if(BUILD_TDEBUG)
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DDEBUG")
+	set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${OpenMP_EXE_LINKER_FLAGS}")
 endif(BUILD_TDEBUG)
 
+
+#OMP
+FIND_PACKAGE(OpenMP)
+if(OPENMP_FOUND)
+		message("OPENMP FOUND")
+endif()
 
 # MPI Support
 find_package(MPI) 

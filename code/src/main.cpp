@@ -1,7 +1,7 @@
 #include <iostream>
 #include <liblsb.h>
 #include <mpi.h>
-
+#include <boost/graph/kruskal_min_spanning_tree.hpp>
 
 #include "graph.hpp"
 #include "parallel_sollin.hpp"
@@ -14,7 +14,7 @@
 
 using namespace std;
 
-typedef list<edge_EL*> v_edge_EL_t;
+typedef boost::graph_traits<Boost_Graph>::edge_descriptor Boost_Edge;
 
 Graph_EL graph1(){
 	// Test with a simple graph
@@ -68,7 +68,7 @@ void test_sollin(){
 	cout << "Graph is constructed" << endl;
 	#endif
 
-	v_edge_EL_t mst = sollin(g);
+	l_edge_EL_t mst = sollin(g);
 	print_edge_EL_list(mst);
 
 	g = graph2();
@@ -80,27 +80,55 @@ void test_sollin(){
 	mst = sollin(g);
 	print_edge_EL_list(mst);
 
+
+
+
+
 }
 
-void test_parallel_sollin(){
+void test_parallel_sollin(int nTrials){
 
 	Graph_EL g = graph1();
 
-	#ifdef DEBUG 
-	cout << "Graph is constructed" << endl;
-	#endif
-
-	v_edge_EL_t mst = parallel_sollin(g);
+	l_edge_EL_t mst = parallel_sollin(g);
 	print_edge_EL_list(mst);
 
 	g = graph2();
 
-	#ifdef DEBUG 
-	cout << "Graph is constructed" << endl;
-	#endif
-
 	mst = parallel_sollin(g);
 	print_edge_EL_list(mst);
+
+	// Test a lot of random graphs and compare the weight with the boost implementation
+	for(int i = 0; i != nTrials; i++){
+		// Generate a random graph and the corresponding boost graph
+		Graph_EL g(10000,0.01,0,100);		
+		// Apply sequential sollin
+		l_edge_EL_t mst = sollin(g);
+		int weight_seq(0);
+		for(l_edge_EL_it it = mst.begin(); it != mst.end(); it++){
+			weight_seq += (*it)->weight;
+		}
+		cout << "Weight sequential: " << weight_seq << endl;
+		// Apply parallel sollin
+		mst = parallel_sollin(g);
+		int weight_par(0);
+		for(l_edge_EL_it it = mst.begin(); it != mst.end(); it++){
+			weight_par += (*it)->weight;
+		}
+		cout << "Weight parallel: " << weight_par << endl;
+		
+		// Apply boost algorithm
+		vector<Boost_Edge> v;
+		kruskal_minimum_spanning_tree(g.boost_rep,back_inserter(v));
+		// Print all weights
+		boost::property_map<Boost_Graph,boost::edge_weight_t>::type w = get(boost::edge_weight,g.boost_rep);
+		int weight_boost = 0;
+		for(vector<Boost_Edge>::iterator it = v.begin(); it != v.end(); it++){
+			weight_boost += w[*it];
+		}
+		cout << "Weight Boost: " << weight_par << endl;
+	}
+	
 
 }
 
@@ -169,7 +197,9 @@ int main(int argc, char *argv[]){
 	if(i == 0){
 		test_sollin();
 	}else if(i == 1){
-		test_parallel_sollin();
+		int nTrials;
+		cin >> nTrials;
+		test_parallel_sollin(nTrials);
 	}
 
 	return 0;
