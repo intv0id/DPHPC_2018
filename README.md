@@ -28,6 +28,11 @@ cout << x << endl;
 #endif 
 ```
 
+## Cleaning folders
+``` bash
+cd code && ./clean.sh [cmake|measures]
+```
+
 ## Run on EULER Cluster
 
 **Doc:** (https://scicomp.ethz.ch/wiki/Getting\_started\_with\_clusters)
