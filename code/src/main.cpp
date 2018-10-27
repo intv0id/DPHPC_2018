@@ -100,10 +100,9 @@ void test_parallel_sollin(int nTrials){
 	mst = parallel_sollin(g);
 	print_edge_EL_list(mst);
 
-	// Test a lot of random graphs and compare the weight with the boost implementation
 	for(int i = 0; i != nTrials; i++){
 		// Generate a random graph and the corresponding boost graph
-		Graph_EL g(10000,0.01,0,100);		
+		Graph_EL g(100,0.1,0,100);		
 		// Apply sequential sollin
 		l_edge_EL_t mst = sollin(g);
 		int weight_seq(0);
@@ -140,51 +139,60 @@ void time_sollin(int nTrials){
 	myfile.open("plots/sollin.txt");
 
 	// Test a lot of random graphs and compare the weight with the boost implementation
-	for(int i = 0; i != nTrials; i++){
+	vector<int> size = {10,30,100,300,1000,3000,10000};
 
-		double time1,time2;
+	myfile << size.size() << endl;
+	myfile << nTrials << endl;
+	// Test a lot of random graphs and compare the weight with the boost implementation
+	for(int j = 0; j != size.size(); j++){
 
-		// Generate a random graph and the corresponding boost graph
-		Graph_EL g(10000,0.01,0,100);		
-		// Apply sequential sollin
-		time1 = omp_get_wtime();
-		l_edge_EL_t mst = sollin(g);
-		time2 = omp_get_wtime();
-		myfile << time2 - time1 << " ";
+		myfile << size[j] << endl;
+		for(int i = 0; i != nTrials; i++){
 
-		int weight_seq(0);
-		for(l_edge_EL_it it = mst.begin(); it != mst.end(); it++){
-			weight_seq += (*it)->weight;
+			double time1,time2;
+
+			// Generate a random graph and the corresponding boost graph
+			Graph_EL g(size[j],100./size[j],0,100);		
+			// Apply sequential sollin
+			time1 = omp_get_wtime();
+			l_edge_EL_t mst = sollin(g);
+			time2 = omp_get_wtime();
+			myfile << time2 - time1 << " ";
+
+			int weight_seq(0);
+			for(l_edge_EL_it it = mst.begin(); it != mst.end(); it++){
+				weight_seq += (*it)->weight;
+			}
+			cout << "Weight sequential: " << weight_seq << endl;
+			// Apply parallel sollin
+			time1 = omp_get_wtime();
+			mst = parallel_sollin(g);
+			time2 = omp_get_wtime();
+			myfile << time2 - time1 << " ";
+
+			int weight_par(0);
+			for(l_edge_EL_it it = mst.begin(); it != mst.end(); it++){
+				weight_par += (*it)->weight;
+			}
+			cout << "Weight parallel: " << weight_par << endl;
+			
+			// Apply boost algorithm
+			vector<Boost_Edge> v;
+			time1 = omp_get_wtime();
+			kruskal_minimum_spanning_tree(g.boost_rep,back_inserter(v));
+			time2 = omp_get_wtime();
+			myfile << time2 - time1 << " ";
+
+			// Print all weights
+			boost::property_map<Boost_Graph,boost::edge_weight_t>::type w = get(boost::edge_weight,g.boost_rep);
+			int weight_boost = 0;
+			for(vector<Boost_Edge>::iterator it = v.begin(); it != v.end(); it++){
+				weight_boost += w[*it];
+			}
+			cout << "Weight Boost: " << weight_boost << endl;
+
+			myfile << endl;
 		}
-		cout << "Weight sequential: " << weight_seq << endl;
-		// Apply parallel sollin
-		time1 = omp_get_wtime();
-		mst = parallel_sollin(g);
-		time2 = omp_get_wtime();
-		myfile << time2 - time1 << " ";
-
-		int weight_par(0);
-		for(l_edge_EL_it it = mst.begin(); it != mst.end(); it++){
-			weight_par += (*it)->weight;
-		}
-		cout << "Weight parallel: " << weight_par << endl;
-		
-		// Apply boost algorithm
-		vector<Boost_Edge> v;
-		time1 = omp_get_wtime();
-		kruskal_minimum_spanning_tree(g.boost_rep,back_inserter(v));
-		time2 = omp_get_wtime();
-		myfile << time2 - time1 << " ";
-
-		// Print all weights
-		boost::property_map<Boost_Graph,boost::edge_weight_t>::type w = get(boost::edge_weight,g.boost_rep);
-		int weight_boost = 0;
-		for(vector<Boost_Edge>::iterator it = v.begin(); it != v.end(); it++){
-			weight_boost += w[*it];
-		}
-		cout << "Weight Boost: " << weight_boost << endl;
-
-		myfile << endl;
 	}
 	myfile.close();
 }
