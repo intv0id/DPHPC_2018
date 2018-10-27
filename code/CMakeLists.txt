@@ -42,7 +42,7 @@ else()
 endif()
 
 if(NOT EXISTS "${LIBLSB_PATH}/lib/liblsb.a")
-    message(WARNING "LIBLSB NOT FOUND IN LOCATION ${LIBLSB_PATH}/liblsb.a")
+    message(WARNING "LIBLSB NOT FOUND IN LOCATION ${LIBLSB_PATH}")
 endif()
 
 
@@ -50,7 +50,7 @@ endif()
 
 ## Precise includes
 include_directories(SYSTEM ${MPI_INCLUDE_PATH})
-include_directories("include/" "${LIBLSB_PATH}/include/liblsb.a")
+include_directories("include/" "${LIBLSB_PATH}/include/")
 
 ## Gather source for main executable 
 file(GLOB SRCS src/*)
