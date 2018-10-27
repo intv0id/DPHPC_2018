@@ -1,6 +1,8 @@
 # Design of Parallel and High-Performances Computing 
 **@ ETH Zürich - FALL 2018**
 
+[![Build Status](https://travis-ci.org/intv0id/DPHPC_2018.svg?branch=master)](https://travis-ci.org/intv0id/DPHPC_2018)
+
 ## Description
 
 This project aims to experiment optimizations using parallel programming for the Minimum Spawning Tree problem.
