@@ -5,8 +5,9 @@ install:
     tar xvf liblsb-0.2.2.tar.gz && 
     cd liblsb-0.2.2 && 
     ./configure &&
-    make && sudo make install
+    make && sudo make install &&
+    cd ..
 
 script:
-  - cd code
+  - cd ./code
   - cmake . && make
