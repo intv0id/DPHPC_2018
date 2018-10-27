@@ -48,9 +48,13 @@ rm -r .
 # import modules
 module load open_mpi/1.6.5 gcc/4.9.2 cmake/3.5.2
 export LIBLSB_PATH=~/liblsb/lib
+
+# Clone repo
 cd ~
 git clone https://github.com/intv0id/DPHPC_2018
 cd DPHPC_2018/code
+
+# Compile executable & submit job
 cmake . && make
 bsub < euler/submit.sh
 ```
