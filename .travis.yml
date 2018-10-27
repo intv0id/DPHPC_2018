@@ -9,4 +9,4 @@ install:
 
 script:
   - cd code
-  - cmake && make
+  - cmake . && make
