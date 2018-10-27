@@ -29,9 +29,28 @@ void merge(result& v1, result& v2){
 	v1.list.splice(v1.list.end(),v2.list);
 }
 
+void findmin(v_edge_EL_t& v1, v_edge_EL_t& v2){
+	for(int i = 0; i < v1.size(); i++){
+		if(v1[i] -> source == -1){
+			v1[i] = v2[i];
+		}else if(v2[i] -> source != -1){
+			int w1 = v1[i] -> weight;
+			int w2 = v2[i] -> weight;
+			if(w2 < w1){
+				v1[i] = v2[i];
+			}
+		}
+
+	}
+}
+
+#pragma omp declare reduction \
+	(findMin:v_edge_EL_t:findmin(omp_out,omp_in)) \
+	initializer(omp_priv(omp_orig))
 
 #pragma omp declare reduction \
 	(listEdges:result:merge(omp_out,omp_in))
+
 
 #pragma omp declare reduction \
 	(addEdges:v_edge_EL_t: omp_out.insert(omp_out.end(),omp_in.begin(),omp_in.end()))
@@ -141,6 +160,7 @@ l_edge_EL_t parallel_sollin(Graph_EL g){
 
 		#ifdef DEBUG
 		cout << endl << "Removed self-loops " << endl;
+		cout << "Size: " << aux.list.size() << endl;
 		#endif
 
 		// Update vectorEdges
@@ -157,12 +177,12 @@ l_edge_EL_t parallel_sollin(Graph_EL g){
 
 		nEdges = vectorEdges.size();
 		v_edge_EL_t cheapest(n,einit);
-		#pragma omp parallel for num_threads(4)
+		#pragma omp parallel for num_threads(4) reduction(findMin:cheapest)
 		for(k = 0; k < nEdges; k++){
 			edge_EL* e = vectorEdges[k];
 
 			#ifdef DEBUG
-			//cout << "Got edge " << endl;
+			cout << "Got edge " << endl;
 			#endif
 
 			int source, target;
@@ -174,13 +194,13 @@ l_edge_EL_t parallel_sollin(Graph_EL g){
 			int weight = e->weight;
 
 			#ifdef DEBUG
-			/*cout << "Checking conditions " << endl;
+			cout << "Checking conditions " << endl;
 			cout << "Source: " << e->source << endl;
 			cout << "Source comp: " << source << endl;
 			cout << "Target: " << e->target << endl;
 			cout << "Target comp: " << target << endl;
 			cout << "Weight: " << weight << endl;
-			*/
+			
 			#endif
 
 			
