@@ -1,4 +1,4 @@
-langage: bash
+language: bash
 install:
   - sudo apt install openmp cmake boost
   - wget https://spcl.inf.ethz.ch/Research/Performance/LibLSB/liblsb-0.2.2.tar.gz && 
