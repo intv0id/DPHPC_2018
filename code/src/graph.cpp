@@ -22,6 +22,18 @@ void Graph::add_edge(int u, int v, int weight){
 	e2->weight = weight;
 	edges.push_back(e1);
 	edges.push_back(e2);
+
+    if (u < v) {
+        unique_edges.push_back(e1);
+    }
+    else {
+        unique_edges.push_back(e2);
+    }
+
+    /*
+    adjacency_list[u].push_back(e1);
+    adjacency_list[v].push_back(e2);
+    */
 }
 
 Graph::Graph(int nVertices, double edgeProba, int min, int max) :
@@ -32,6 +44,8 @@ Graph::Graph(int nVertices, double edgeProba, int min, int max) :
     random_device rd;
     mt19937 rng(rd());
     uniform_int_distribution<int> uni(min,max);
+
+    // vector<list<edge*>> adjacency_list(n, list<edge*>());
 
     for(int i = 0; i !=nVertices; i++){
         for(int j = i+1; j!= nVertices; j++){

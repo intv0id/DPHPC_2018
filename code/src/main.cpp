@@ -9,7 +9,7 @@
 #include "parallel_sollin.hpp"
 #include "sollin.hpp"
 #include "common.hpp"
-// #include "kruskal.hpp"
+#include "kruskal.hpp"
 // #include "algorithms.hpp"
 
 #define N 100
@@ -63,6 +63,7 @@ Graph graph2(){
 	 */
 
 }
+
 void test_sollin(){
 
 	Graph g = graph1();
@@ -72,7 +73,9 @@ void test_sollin(){
 	#endif
 
 	l_edge_t mst = sollin(g);
+    l_edge_t mst_kruskal = seq_kruskal(g);
 	print_edge_list(mst);
+	print_edge_list(mst_kruskal);
 
 	g = graph2();
 
@@ -81,12 +84,9 @@ void test_sollin(){
 	#endif
 
 	mst = sollin(g);
+	mst_kruskal = seq_kruskal(g);
 	print_edge_list(mst);
-
-
-
-
-
+	print_edge_list(mst_kruskal);
 }
 
 void test_parallel_sollin(int nTrials){
@@ -216,23 +216,27 @@ void test_old_kruskal(){
 }
 */
 
-/*
+
 void test_kruskal(){
-    #ifdef DEBUG
-	cout << "Defining graph" << endl;
-	#endif
-	
-	Graph g(10,0.5,0,10);
-	
+
+	Graph g = graph1();
+
 	#ifdef DEBUG 
-	cout << "Graph is constructed : " << endl;
-	g.printGraph();
+	cout << "Graph is constructed" << endl;
 	#endif
-	
-	Kruskal k(g);			
-	vector<edge> MST = k.compute();
+
+	l_edge_t mst = seq_kruskal(g);
+	print_edge_list(mst);
+
+	g = graph2();
+
+	#ifdef DEBUG 
+	cout << "Graph is constructed" << endl;
+	#endif
+
+	mst = seq_kruskal(g);
+	print_edge_list(mst);
 }
-*/
 
 void find_a_name_2(int argc, char *argv[]){
 	
@@ -261,7 +265,7 @@ void find_a_name_2(int argc, char *argv[]){
  	// Measure param
  	i = 0; 	
  	
-	// test_kruskal();
+	test_kruskal();
 	test_sollin();
 	
 	// Stop & write measures
@@ -291,13 +295,9 @@ int main(int argc, char *argv[]){
 		cin >> nTrials;
 		time_sollin(nTrials);
 	}
-    /*
     else if (i == 3) {
-        int nTrials;
-        cin >> nTrials;
         test_kruskal();
     }
-    */
 
 	return 0;
 		

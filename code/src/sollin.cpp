@@ -11,36 +11,6 @@
 using namespace std;
 
 
-
-class union_find{
-	public:
-	vector<int> parents;
-	int size;
-	int numTrees;
-	union_find(int n) : parents(n), size(n), numTrees(n) {
-		for(int i = 0; i != n; i++){
-			parents[i] = i;
-		}
-	}
-	int find(int x){
-		if(parents[x] != x){
-			parents[x] = find(parents[x]);
-			return parents[x];
-		}
-		return x;
-	}
-	bool unite(int x, int y){
-		int px = find(x);
-		int py = find(y);
-		if(px != py){
-			parents[py] = px;
-			numTrees--;
-			return true;
-		}
-		return false;
-	}
-};
-
 class comp{
 	union_find* u;
 
@@ -155,7 +125,3 @@ l_edge_t sollin(Graph g){
 	}
 	return mst;
 }
-
-
-
-

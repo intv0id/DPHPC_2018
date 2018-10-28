@@ -14,24 +14,11 @@ typedef boost::adjacency_list<boost::vecS,boost::vecS,boost::undirectedS,
 
 
 struct edge {
-
     void print();
     int source;
     int target;
     int weight;
 };
-
-class node {
-
-    public:
-    node(int index_) :
-        index(index_)
-    {}
-
-    int index;
-    vector<edge*> adjacentEdges;
-};
-
 
 class Graph {
     public:
@@ -51,14 +38,14 @@ class Graph {
 
     int n;
     list<edge*> edges;
+    list<edge*> unique_edges; // Only min -> max
+    vector<list<edge*>> adjacency_list;
     Boost_Graph boost_rep;
 };
 
-typedef vector<node*> v_node_t; 
 typedef vector<edge*> v_edge_t;
 typedef list<edge*> l_edge_t;
 typedef vector<edge*> v_edge_t;
-typedef vector<node*>::iterator v_node_it;
 typedef vector<edge*>::iterator v_edge_it;
 typedef list<edge*>::iterator l_edge_it;
 typedef vector<edge*>::iterator v_edge_it;

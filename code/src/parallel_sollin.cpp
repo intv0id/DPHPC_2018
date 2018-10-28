@@ -55,36 +55,6 @@ void findmin(v_edge_t& v1, v_edge_t& v2){
 #pragma omp declare reduction \
 	(addEdges:v_edge_t: omp_out.insert(omp_out.end(),omp_in.begin(),omp_in.end()))
 
-
-class union_find{
-	public:
-	vector<int> parents;
-	int size;
-	int numTrees;
-	union_find(int n) : parents(n), size(n), numTrees(n) {
-		for(int i = 0; i != n; i++){
-			parents[i] = i;
-		}
-	}
-	int find(int x){
-		if(parents[x] != x){
-			parents[x] = find(parents[x]);
-			return parents[x];
-		}
-		return x;
-	}
-	bool unite(int x, int y){
-		int px = find(x);
-		int py = find(y);
-		if(px != py){
-			parents[py] = px;
-			numTrees--;
-			return true;
-		}
-		return false;
-	}
-};
-
 class comp{
 	union_find* u;
 
