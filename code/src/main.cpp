@@ -10,6 +10,7 @@
 #include "sollin.hpp"
 #include "common.hpp"
 #include "kruskal.hpp"
+#include "prim.hpp"
 // #include "algorithms.hpp"
 
 #define N 100
@@ -238,6 +239,28 @@ void test_kruskal(){
 	print_edge_list(mst);
 }
 
+void test_prim(){
+
+        Graph g = graph1();
+
+        #ifdef DEBUG 
+        cout << "Graph is constructed" << endl;
+        #endif
+
+        l_edge_t mst = seq_prim(g);
+        print_edge_list(mst);
+
+        g = graph2();
+
+        #ifdef DEBUG 
+        cout << "Graph is constructed" << endl;
+        #endif
+
+        mst = seq_prim(g);
+        print_edge_list(mst);
+}
+
+
 void find_a_name_2(int argc, char *argv[]){
 	
 	// Variables
@@ -278,27 +301,32 @@ void find_a_name_2(int argc, char *argv[]){
 }
 
 int main(int argc, char *argv[]){
-	#ifdef DEBUG 
-	cout << "Hello world!" << endl;
-	#endif
+    #ifdef DEBUG 
+    cout << "Hello world!" << endl;
+    #endif
 	
-	int i;
-	cin >> i;
-	if(i == 0){
-		test_sollin();
-	}else if(i == 1){
-		int nTrials;
-		cin >> nTrials;
-		test_parallel_sollin(nTrials);
-	}else if(i == 2){
-		int nTrials;
-		cin >> nTrials;
-		time_sollin(nTrials);
-	}
-    else if (i == 3) {
+    int i;
+    cin >> i;
+    if (i == 0){
+	test_sollin();
+    }
+    else if (i == 1){
+	int nTrials;
+	cin >> nTrials;
+	test_parallel_sollin(nTrials);
+    }
+    else if (i == 2){
+	int nTrials;
+	cin >> nTrials;
+	time_sollin(nTrials);
+    }
+    else if (i == 3){
         test_kruskal();
     }
+    else if (i == 4){
+	test_prim();
+    }
 
-	return 0;
+    return 0;
 		
 }
