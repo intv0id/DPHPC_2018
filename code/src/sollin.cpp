@@ -47,7 +47,7 @@ class comp{
 	public:
 	comp(union_find* u_): u(u_){}
 
-	bool operator()(edge_EL*e1, edge_EL* e2){
+	bool operator()(edge*e1, edge* e2){
 		int p1 = u->find(e1->source);
 		int p2 = u->find(e2->source);
 		if(p1 < p2) return true;
@@ -63,14 +63,14 @@ class comp{
 	
 };
 
-l_edge_EL_t sollin(Graph_EL g){
+l_edge_t sollin(Graph g){
 
 	// Get graph data
 	int n = g.n;
-	l_edge_EL_t aux = g.edges;
+	l_edge_t aux = g.edges;
 	
 	// Create MST
-	l_edge_EL_t mst;
+	l_edge_t mst;
 
 	// Create union-find structure
 	union_find* u = new union_find(n);
@@ -89,8 +89,8 @@ l_edge_EL_t sollin(Graph_EL g){
 		// Remove self-loops and multiple edges (compact graph)
 		int source = -1;
 		int target = -1;
-		for(l_edge_EL_it it = aux.begin(); it != aux.end();){
-			edge_EL* e = *it;
+		for(l_edge_it it = aux.begin(); it != aux.end();){
+			edge* e = *it;
 			int p1 = u->find(e->source);
 			int p2 = u->find(e->target);
 			if(p1 == p2){
@@ -112,12 +112,12 @@ l_edge_EL_t sollin(Graph_EL g){
 		#endif
 
 		// Find minimum ingoing edge
-		edge_EL* einit = new edge_EL();
+		edge* einit = new edge();
 		einit->source = -1;
 
-		vector<edge_EL*> cheapest(n,einit);
-		for(l_edge_EL_it it = aux.begin(); it != aux.end(); it++){
-			edge_EL* e = *it;
+		vector<edge*> cheapest(n,einit);
+		for(l_edge_it it = aux.begin(); it != aux.end(); it++){
+			edge* e = *it;
 
 			#ifdef DEBUG
 			cout << "Got edge " << endl;
@@ -140,7 +140,7 @@ l_edge_EL_t sollin(Graph_EL g){
 
 		// Connect the components via pointer-jump
 		for(int i = 0; i != n; i++){
-			edge_EL* e = cheapest[i];
+			edge* e = cheapest[i];
 			// Merge the two components
 			if(e->source != -1){
 				bool b = u->unite(e->source,e->target);

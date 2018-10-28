@@ -1,0 +1,14 @@
+#include <graph.hpp>
+
+// Kruskal algorithm
+
+class Kruskal {
+private:
+    std::vector<edge> edges;
+    int n_vertices;
+
+public:
+    Kruskal(Graph G);
+    static bool Compare(const edge &a, const edge &b);
+    vector<edge> compute();
+};

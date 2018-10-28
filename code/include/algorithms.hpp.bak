@@ -15,17 +15,15 @@ struct tree_C {
 };
 
 
-// Kruskal algorithm
+// Old_Kruskal algorithm
 
-class Kruskal {
+class Old_Kruskal {
 private:
     std::vector<edge_C> edges;
     int n_vertices;
 
 public:
-    Kruskal(Graph G);
+    Old_Kruskal(Graph G);
     static bool Compare(const edge_C &a, const edge_C &b);
     vector<edge_C> compute();
 };
-
-
