@@ -82,8 +82,9 @@
 	\textit{DPHPC}
 }
 
-
-
+\usepackage[backend=biber, style=authoryear, doi=false,isbn=false,url=false, giveninits=true]{biblatex}
+\bibliography{bib.bib}
+ 
 
 \begin{document}
 
@@ -93,6 +94,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % SECTION 1
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 \section{Problem definition}
 \begin{frame}
@@ -242,12 +244,24 @@
         \item $O(E)$ (in practice): For each edge: Add it to the MST if it doesn't create a cycle.
     \end{itemize}
 
-    We can parallelize the sort on $O(\log E)$ processors: $O(E)$ (in practice).
+    \visible<2>{We can parallelize the sort on $O(\log E)$ processors: $O(E)$ (in practice).}
 
 \end{frame}
 
 \begin{frame}
     \frametitle{A better parallel approach: Filter-Kruskal}
+    Similar to a quick sort\footcite{Osipov:2009:FMS:2791220.2791225}:
+    \begin{enumerate}
+        \item If $E < threshold$, solve using classical Kruskal
+        \item Choose a pivot (edge)
+        \item Partition in two sets $E_{\leq}, E_>$ (weight)
+        \item Recursive call to solve problem with $E_{\leq}$
+        \item Filter out the edges of $E_>$ that connect two vertices of the same component
+        \item Recursive call to solve problem with $E_>$
+    \end{enumerate}
+
+    \visible<2>{Better for parallelization since we can distribute the edges for filtering and partitioning.}
+
 \end{frame}
 
 \subsection{Borůvka (Sollin)}
@@ -354,6 +368,11 @@ $O(E \cdot log(V))$
 
 
 \end{frame}
+
+\begin{frame}
+    \printbibliography
+\end{frame} 
+
 
 
 \end{document}
