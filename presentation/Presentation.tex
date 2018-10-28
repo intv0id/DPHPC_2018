@@ -128,9 +128,128 @@
 \frametitle{Prim}
 \end{frame}
 \subsection{Kruskal}
+
 \begin{frame}
-\frametitle{Kruskal}
+    \frametitle{Sequential Kruskal}
+    \begin{itemize}
+        \item Sort all edges by growing weight.
+        \item For each edge: Add it to the MST if it doesn't create a cycle.
+    \end{itemize}
+
+    \visible<2>{
+        \begin{figure}
+            \includegraphics[width=.5\textwidth]{kruskal_1.png}
+        \end{figure}
+    }
+
 \end{frame}
+
+\begin{frame}
+    \frametitle{Sequential Kruskal}
+    \begin{itemize}
+        \item Sort all edges by growing weight.
+        \item For each edge: Add it to the MST if it doesn't create a cycle.
+    \end{itemize}
+
+    \begin{figure}
+        \includegraphics[width=.5\textwidth]{kruskal_2.png}
+    \end{figure}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Sequential Kruskal}
+    \begin{itemize}
+        \item Sort all edges by growing weight.
+        \item For each edge: Add it to the MST if it doesn't create a cycle.
+    \end{itemize}
+
+    \begin{figure}
+        \includegraphics[width=.5\textwidth]{kruskal_3.png}
+    \end{figure}
+
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Sequential Kruskal}
+    \begin{itemize}
+        \item Sort all edges by growing weight.
+        \item For each edge: Add it to the MST if it doesn't create a cycle.
+    \end{itemize}
+
+    \begin{figure}
+        \includegraphics[width=.5\textwidth]{kruskal_4.png}
+    \end{figure}
+
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Sequential Kruskal}
+    \begin{itemize}
+        \item Sort all edges by growing weight.
+        \item For each edge: Add it to the MST if it doesn't create a cycle.
+    \end{itemize}
+
+    \begin{figure}
+        \includegraphics[width=.5\textwidth]{kruskal_5.png}
+    \end{figure}
+
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Sequential Kruskal}
+    \begin{itemize}
+        \item Sort all edges by growing weight.
+        \item For each edge: Add it to the MST if it doesn't create a cycle.
+    \end{itemize}
+
+    \begin{figure}
+        \includegraphics[width=.5\textwidth]{kruskal_6.png}
+    \end{figure}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Data structure: Union-find}
+    Represents the connected components of the graph given our MST.
+    Implementation with an array $parent$ and 3 operations:
+    \begin{itemize}
+        \item Create: Every vertex is in its own component
+            \begin{enumerate}
+                \item $parent[x] = x$.
+            \end{enumerate}
+        \item<2-> Find(x): Find the component of this vertex.
+            \begin{enumerate}
+                \item If $parent[x] \neq x$, then $parent[x] = find(parent[x])$
+                \item Return $parent[x]$.
+            \end{enumerate}
+        \item<3-> Union(x, y): Unite two components.
+            \begin{enumerate}
+                \item $parent[find(x)] = find(y)$.
+            \end{enumerate}
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Sequential and parallel Kruskal}
+    Sequential complexity:
+    \begin{itemize}
+        \item $O(E \log E)$: Sort all edges by growing weight.
+        \item $O(E)$ (in practice): For each edge: Add it to the MST if it doesn't create a cycle.
+    \end{itemize}
+
+    We can parallelize the sort on $O(\log E)$ processors: $O(E)$ (in practice).
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{A better parallel approach: Filter-Kruskal}
+\end{frame}
+
 \subsection{Borůvka (Sollin)}
 \begin{frame}
 \frametitle{Borůvka (Sollin)}

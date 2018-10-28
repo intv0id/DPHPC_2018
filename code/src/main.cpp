@@ -75,8 +75,10 @@ void test_sollin(){
 
 	l_edge_t mst = sollin(g);
     l_edge_t mst_kruskal = seq_kruskal(g);
+    l_edge_t mst_prim = seq_prim(g);
 	print_edge_list(mst);
 	print_edge_list(mst_kruskal);
+	print_edge_list(mst_prim);
 
 	g = graph2();
 
@@ -86,8 +88,10 @@ void test_sollin(){
 
 	mst = sollin(g);
 	mst_kruskal = seq_kruskal(g);
+    mst_prim = seq_prim(g);
 	print_edge_list(mst);
 	print_edge_list(mst_kruskal);
+	print_edge_list(mst_prim);
 }
 
 void test_parallel_sollin(int nTrials){
@@ -324,7 +328,7 @@ int main(int argc, char *argv[]){
         test_kruskal();
     }
     else if (i == 4){
-	test_prim();
+        test_prim();
     }
 
     return 0;

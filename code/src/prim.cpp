@@ -16,7 +16,6 @@ int min_key(int key[], bool in_mst[], int n){
     return i_min;
 }
 
-
 l_edge_t seq_prim(Graph g){
     l_edge_t result;
     int n = g.n;
@@ -40,11 +39,12 @@ l_edge_t seq_prim(Graph g){
 
         // Update key values		
         for (int v = 0; v < n; v++){
-	    int w = g.adjacency_matrix[u][v];
-	    
-            if (w > 0 && !in_mst[v] && w < key[v])
+            int w = g.adjacency_matrix[u][v];
+            
+            if (w > 0 && !in_mst[v] && w < key[v]) {
                 prev[v] = u, key[v] = w;
-	}
+            }
+        }
     }
 
     list<edge*> edges = g.unique_edges;
@@ -58,5 +58,3 @@ l_edge_t seq_prim(Graph g){
 
     return result;
 }
-    
-
