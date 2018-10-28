@@ -21,6 +21,7 @@
 \usepackage{graphicx}
 \usepackage{listings}
 \usepackage{hyperref}
+\usepackage{verbatim}
 
 \graphicspath{{graphics/}}
 
@@ -265,18 +266,56 @@
 \end{frame}
 
 \subsection{Borůvka (Sollin)}
-\begin{frame}
+\begin{frame}[fragile]
 \frametitle{Borůvka (Sollin)}
-\end{frame}
-\subsection{Others}
-\begin{frame}
-\frametitle{A few ideas}
-\end{frame}
-\begin{frame}
-\frametitle{Correctness}
-How to verify correctness of the parallelization?
+\begin{columns}
+\begin{column}{.4\linewidth}
+\includegraphics[scale=.22]{Sollin.png}
+\end{column}
+
+\begin{column}{.5\linewidth}
+\begin{verbatim}
+1) Init V as independant sets.
+2) Initialize MST as empty.
+3) While #sets > 1, do:
+  a)  Find closest E 
+      from this set to another.
+  b)  Add this E to MST 
+      if not already added.  
+4) Return MST.
+\end{verbatim}
+\end{column}
+\end{columns}
 \end{frame}
 
+\subsection{Others}
+\begin{frame}
+\begin{columns}
+\begin{column}{.5\linewidth}
+\begin{itemize}
+\item[•] Prim (Parallel \& Seq)
+\item[•] Kruskal (Parallel \& Seq),\\Kruskal filter
+\item[•] Sollin (Parallel \& Seq)
+\end{itemize}
+\hfill
+\hrulefill
+\hfill
+\begin{itemize}
+\item[•] Randomization
+\end{itemize}
+\hfill
+\hrulefill
+\hfill
+\begin{itemize}
+\item[•] Correctness
+\end{itemize}
+\hfill
+\end{column}
+\begin{column}{.5\linewidth}
+\includegraphics[scale=.23]{Bench.png}
+\end{column}
+\end{columns}
+\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % SECTION 3
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
