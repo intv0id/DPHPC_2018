@@ -58,4 +58,4 @@ file(GLOB SRCS src/*)
 ## Add executable 
 add_executable(exec ${SRCS})
 
-target_link_libraries(exec ${MPI_CXX_LIBRARIES} ${LIBLSB_PATH}/lib/liblsb.h)
+target_link_libraries(exec ${MPI_CXX_LIBRARIES} ${LIBLSB_PATH}/lib/liblsb.a)
