@@ -50,7 +50,6 @@ endif()
 
 ## Precise includes
 include_directories(SYSTEM ${MPI_INCLUDE_PATH})
-include_directories("include/" "${LIBLSB_PATH}/include/")
 
 ## Gather source for main executable 
 file(GLOB SRCS src/*)
@@ -58,4 +57,4 @@ file(GLOB SRCS src/*)
 ## Add executable 
 add_executable(exec ${SRCS})
 
-target_link_libraries(exec ${MPI_CXX_LIBRARIES} ${LIBLSB_PATH}/lib/liblsb.a)
+target_link_libraries(exec ${MPI_CXX_LIBRARIES} ${LIBLSB_PATH}/lib/liblsb.h)
