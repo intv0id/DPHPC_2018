@@ -35,14 +35,14 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
 
 ## LibLSB
 if(NOT EXISTS $ENV{LIBLSB_PATH})
-    set(LIBLSB_PATH "/usr/local/lib")
+    set(LIBLSB_PATH "/usr/local")
     message("LIBLSB_PATH set to default")
 else()
     set(LIBLSB_PATH $ENV{LIBLSB_PATH})
 endif()
 
-if(NOT EXISTS "${LIBLSB_PATH}/liblsb.a")
-    message(WARNING "LIBLSB NOT FOUND IN LOCATION $ENV{LIBLSB_PATH}/liblsb.a")
+if(NOT EXISTS "${LIBLSB_PATH}/lib/liblsb.a")
+    message(WARNING "LIBLSB NOT FOUND IN LOCATION ${LIBLSB_PATH}")
 endif()
 
 
@@ -50,7 +50,7 @@ endif()
 
 ## Precise includes
 include_directories(SYSTEM ${MPI_INCLUDE_PATH})
-include_directories("include/")
+include_directories("include/" "${LIBLSB_PATH}/include/")
 
 ## Gather source for main executable 
 file(GLOB SRCS src/*)
@@ -58,4 +58,4 @@ file(GLOB SRCS src/*)
 ## Add executable 
 add_executable(exec ${SRCS})
 
-target_link_libraries(exec ${MPI_CXX_LIBRARIES} ${LIBLSB_PATH}/liblsb.a)
+target_link_libraries(exec ${MPI_CXX_LIBRARIES} ${LIBLSB_PATH}/lib/liblsb.a)

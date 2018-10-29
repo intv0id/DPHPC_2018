@@ -39,11 +39,30 @@ cd code && ./clean.sh [cmake|measures]
 
 **Doc:** (https://scicomp.ethz.ch/wiki/Getting\_started\_with\_clusters)
 
+### Install liblsb on euler
+
 ``` bash
-module load open_mpi
+module load open_mpi/1.6.5 gcc/4.9.2
+cd /tmp && wget https://spcl.inf.ethz.ch/Research/Performance/LibLSB/liblsb-0.2.2.tar.gz
+tar xvf liblsb-0.2.2.tar.gz && rm liblsb-0.2.2.tar.gz
+cd liblsb-0.2.2
+./configure --prefix=`readlink -f ~/liblsb` && make && make install
+cd .. && rm -r liblsb-0.2.2
+```
+
+### Compile & run `exec` 
+
+``` bash
+# import modules
+module load open_mpi/1.6.5 gcc/4.9.2 cmake/3.5.2 boost/1.59.0
+export LIBLSB_PATH=`readlink -f ~/liblsb/lib`
+
+# Clone repo
 cd ~
 git clone https://github.com/intv0id/DPHPC_2018
 cd DPHPC_2018/code
+
+# Compile executable & submit job
 cmake . && make
 bsub < euler/submit.sh
 ```
