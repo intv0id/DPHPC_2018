@@ -11,63 +11,9 @@ void edge::print(){
     cout << "Weight: " << weight << endl;
 }
 
-Graph::Graph(int nVertices, double edgeProba, int min, int max) :
-    nVertices(nVertices),
-    nodes(nVertices)
-{
-    // Generate all nodes
-    for(int i = 0; i != nVertices; i++){
-        nodes[i] = new node(i);
-    }
-
-    // For all pair of nodes, generate random edges
-    random_device rd;
-    mt19937 rng(rd());
-    uniform_int_distribution<int> uni(min,max);
-
-    for(int i = 0; i !=nVertices; i++){
-        for(int j = i+1; j!= nVertices; j++){
-
-	    double test = rand() / (double) RAND_MAX;
-            if(test <= edgeProba){
-                // Generate weight
-                int w = uni(rng);
-
-                // Create edges
-                edge* ei = new edge(i,w);
-                edge* ej = new edge(j,w);
-                nodes[j]->adjacentEdges.push_back(ei);
-                nodes[i]->adjacentEdges.push_back(ej);
-            }
-        }
-    }
-}
-
-void Graph::printGraph(){
-    for(vector<node*>::iterator it = nodes.begin(); it != nodes.end(); it++){
-        cout << endl << "Vertice: " << (*it)->index << endl;
-        for(vector<edge*>::iterator it0 = (*it)->adjacentEdges.begin(); it0 != (*it)->adjacentEdges.end(); it0++){
-            (*it0)->print();
-        }
-    }
-}
-
-Graph Graph::copy(){
-	Graph h;
-	for(v_node_it it = h.nodes.begin(); it != h.nodes.end(); it++){
-		node* n = *it;
-		h.nodes.push_back(n);
-		for(v_edge_it ite = n->adjacentEdges.begin(); ite != n->adjacentEdges.end(); ite++){
-				
-	
-		}
-	}
-	return h;
-}
-
-void Graph_EL::add_edge(int u, int v, int weight){
-	edge_EL* e1 = new edge_EL;
-	edge_EL* e2 = new edge_EL;
+void Graph::add_edge(int u, int v, int weight){
+	edge* e1 = new edge;
+	edge* e2 = new edge;
 	e1->source = u;
 	e2->source = v;
 	e1->target = v;
@@ -76,9 +22,24 @@ void Graph_EL::add_edge(int u, int v, int weight){
 	e2->weight = weight;
 	edges.push_back(e1);
 	edges.push_back(e2);
+
+    if (u < v) {
+        unique_edges.push_back(e1);
+    }
+    else {
+        unique_edges.push_back(e2);
+    }
+
+    adjacency_matrix[u][v] = weight;
+    adjacency_matrix[v][u] = weight;
+
+    /*
+    adjacency_list[u].push_back(e1);
+    adjacency_list[v].push_back(e2);
+    */
 }
 
-Graph_EL::Graph_EL(int nVertices, double edgeProba, int min, int max) :
+Graph::Graph(int nVertices, double edgeProba, int min, int max) :
     n(nVertices), boost_rep(n)
 {
 
@@ -86,6 +47,8 @@ Graph_EL::Graph_EL(int nVertices, double edgeProba, int min, int max) :
     random_device rd;
     mt19937 rng(rd());
     uniform_int_distribution<int> uni(min,max);
+
+    // vector<list<edge*>> adjacency_list(n, list<edge*>());
 
     for(int i = 0; i !=nVertices; i++){
         for(int j = i+1; j!= nVertices; j++){
@@ -96,8 +59,8 @@ Graph_EL::Graph_EL(int nVertices, double edgeProba, int min, int max) :
                 int w = uni(rng);
 
                 // Create edges
-                edge_EL* ei = new edge_EL;
-                edge_EL* ej = new edge_EL;
+                edge* ei = new edge;
+                edge* ej = new edge;
 		ei->source = i; ej->source = j;
 		ei->target = j; ej->target = i;
 		ei->weight = w; ej->weight = w;

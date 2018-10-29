@@ -21,6 +21,9 @@
 \usepackage{graphicx}
 \usepackage{listings}
 \usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{verbatim}
+\usetikzlibrary{arrows,shapes}
 
 \graphicspath{{graphics/}}
 
@@ -82,10 +85,14 @@
 	\textit{DPHPC}
 }
 
-
-
+\usepackage[backend=biber, style=authoryear, doi=false,isbn=false,url=false, giveninits=true]{biblatex}
+\bibliography{bib.bib}
+ 
 
 \begin{document}
+
+\pgfdeclarelayer{background}
+\pgfsetlayers{background,main}
 
 \frame{\titlepage}
 \frame{\tableofcontents}
@@ -93,6 +100,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % SECTION 1
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 \section{Problem definition}
 \begin{frame}
@@ -107,15 +115,17 @@
 \subsection{Use cases}
 
 \begin{frame}
-(Somewhat) realistic use-cases and input sets?
+\frametitle{Input sets: G(100, 0.02)}
+\begin{figure}
+ \includegraphics[width=.7\textwidth]{graphGNP.png}
+\end{figure}
+\end{frame}
 
-\begin{itemize}
-\item[•] $G(n, p)$
-\item[•] Preferential attachment
-	\begin{itemize}
-	\item Social networks
-	\end{itemize}
-\end{itemize}
+\begin{frame}
+\frametitle{Input sets: PA(100)}
+\begin{figure}
+ \includegraphics[width=.7\textwidth]{graphPA.png}
+\end{figure}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -125,25 +135,266 @@
 \section{Algorithms}
 \subsection{Prim}
 \begin{frame}
-\frametitle{Prim}
-\end{frame}
-\subsection{Kruskal}
-\begin{frame}
-\frametitle{Kruskal}
-\end{frame}
-\subsection{Borůvka (Sollin)}
-\begin{frame}
-\frametitle{Borůvka (Sollin)}
-\end{frame}
-\subsection{Others}
-\begin{frame}
-\frametitle{A few ideas}
-\end{frame}
-\begin{frame}
-\frametitle{Correctness}
-How to verify correctness of the parallelization?
+\frametitle{Sequential Prim}
+
+    \begin{itemize}
+        \item Initialise a tree with a single random vertex.
+        \item Among all the edges connecting the tree to another vertex, find the minimum-weighted one and transfer it to the tree.
+        \item Repeat until all vertices are in the tree.
+    \end{itemize}
+
 \end{frame}
 
+\begin{frame}
+\frametitle{Sequential Prim}
+
+%% Adjacency matrix of graph
+%% \  a  b  c  d  e  f  g
+%% a  x  7     5
+%% b  7  x  8  9  7
+%% c     8  x     5
+%% d  5  9     x 15  6
+%% e     7  5 15  x  8  9
+%% f           6  8  x 11
+%% g              9  11 x
+
+\tikzstyle{vertex}=[circle,fill=black!25,minimum size=20pt,inner sep=0pt]
+\tikzstyle{selected vertex} = [vertex, fill=red!24]
+\tikzstyle{edge} = [draw,thick,-]
+\tikzstyle{weight} = [font=\small]
+\tikzstyle{selected edge} = [draw,line width=5pt,-,red!50]
+\tikzstyle{ignored edge} = [draw,line width=5pt,-,black!20]
+
+\begin{figure}
+\begin{tikzpicture}[scale=1.8, auto,swap]
+    % Draw a 7,11 network
+    % First we draw the vertices
+    \foreach \pos/\name in {{(0,2)/a}, {(2,1)/b}, {(4,1)/c},
+                            {(0,0)/d}, {(3,0)/e}, {(2,-1)/f}, {(4,-1)/g}}
+        \node[vertex] (\name) at \pos {$\name$};
+    % Connect vertices with edges and draw weights
+    \foreach \source/ \dest /\weight in {b/a/7, c/b/8,d/a/5,d/b/9,
+                                         e/b/7, e/c/5,e/d/15,
+                                         f/d/6,f/e/8,
+                                         g/e/9,g/f/11}
+        \path[edge] (\source) -- node[weight] {$\weight$} (\dest);
+    % Start animating the vertex and edge selection. 
+    \foreach \vertex / \fr in {d/1,a/2,f/3,b/4,e/5,c/6,g/7}
+        \path<\fr-> node[selected vertex] at (\vertex) {$\vertex$};
+    % For convenience we use a background layer to highlight edges
+    % This way we don't have to worry about the highlighting covering
+    % weight labels. 
+    \begin{pgfonlayer}{background}
+        \pause
+        \foreach \source / \dest in {d/a,d/f,a/b,b/e,e/c,e/g}
+            \path<+->[selected edge] (\source.center) -- (\dest.center);
+        \foreach \source / \dest / \fr in {d/b/4,d/e/5,e/f/5,b/c/6,f/g/7}
+            \path<\fr->[ignored edge] (\source.center) -- (\dest.center);
+    \end{pgfonlayer}
+\end{tikzpicture}
+\end{figure}
+
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Sequential and parallel Prim}
+    Sequential complexity:
+    \begin{itemize}
+        \item $O(V^{2})$: Adjacency matrix representation
+        \item $O(E \log V)$: Adjacency list representation with the use of a binary heap
+    \end{itemize}
+
+    \visible<2>{We can parallelize the search of the edge of minimum weight by dividing the vertices and edges between processors to compute local minima.}
+
+\end{frame}
+
+\subsection{Kruskal}
+
+\begin{frame}
+    \frametitle{Sequential Kruskal}
+    \begin{itemize}
+        \item Sort all edges by growing weight.
+        \item For each edge: Add it to the MST if it doesn't create a cycle.
+    \end{itemize}
+
+    \visible<2>{
+        \begin{figure}
+            \includegraphics[width=.5\textwidth]{kruskal_1.png}
+        \end{figure}
+    }
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Sequential Kruskal}
+    \begin{itemize}
+        \item Sort all edges by growing weight.
+        \item For each edge: Add it to the MST if it doesn't create a cycle.
+    \end{itemize}
+
+    \begin{figure}
+        \includegraphics[width=.5\textwidth]{kruskal_2.png}
+    \end{figure}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Sequential Kruskal}
+    \begin{itemize}
+        \item Sort all edges by growing weight.
+        \item For each edge: Add it to the MST if it doesn't create a cycle.
+    \end{itemize}
+
+    \begin{figure}
+        \includegraphics[width=.5\textwidth]{kruskal_3.png}
+    \end{figure}
+
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Sequential Kruskal}
+    \begin{itemize}
+        \item Sort all edges by growing weight.
+        \item For each edge: Add it to the MST if it doesn't create a cycle.
+    \end{itemize}
+
+    \begin{figure}
+        \includegraphics[width=.5\textwidth]{kruskal_4.png}
+    \end{figure}
+
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Sequential Kruskal}
+    \begin{itemize}
+        \item Sort all edges by growing weight.
+        \item For each edge: Add it to the MST if it doesn't create a cycle.
+    \end{itemize}
+
+    \begin{figure}
+        \includegraphics[width=.5\textwidth]{kruskal_5.png}
+    \end{figure}
+
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Sequential Kruskal}
+    \begin{itemize}
+        \item Sort all edges by growing weight.
+        \item For each edge: Add it to the MST if it doesn't create a cycle.
+    \end{itemize}
+
+    \begin{figure}
+        \includegraphics[width=.5\textwidth]{kruskal_6.png}
+    \end{figure}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Data structure: Union-find}
+    Represents the connected components of the graph given our MST.
+    Implementation with an array $parent$ and 3 operations:
+    \begin{itemize}
+        \item Create: Every vertex is in its own component
+            \begin{enumerate}
+                \item $parent[x] = x$.
+            \end{enumerate}
+        \item<2-> Find(x): Find the component of this vertex.
+            \begin{enumerate}
+                \item If $parent[x] \neq x$, then $parent[x] = find(parent[x])$
+                \item Return $parent[x]$.
+            \end{enumerate}
+        \item<3-> Union(x, y): Unite two components.
+            \begin{enumerate}
+                \item $parent[find(x)] = find(y)$.
+            \end{enumerate}
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Sequential and parallel Kruskal}
+    Sequential complexity:
+    \begin{itemize}
+        \item $O(E \log E)$: Sort all edges by growing weight.
+        \item $O(E)$ (in practice): For each edge: Add it to the MST if it doesn't create a cycle.
+    \end{itemize}
+
+    \visible<2>{We can parallelize the sort on $O(\log E)$ processors: $O(E)$ (in practice).}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{A better parallel approach: Filter-Kruskal}
+    Similar to a quick sort\footcite{Osipov:2009:FMS:2791220.2791225}:
+    \begin{enumerate}
+        \item If $E < threshold$, solve using classical Kruskal
+        \item Choose a pivot (edge)
+        \item Partition in two sets $E_{\leq}, E_>$ (weight)
+        \item Recursive call to solve problem with $E_{\leq}$
+        \item Filter out the edges of $E_>$ that connect two vertices of the same component
+        \item Recursive call to solve problem with $E_>$
+    \end{enumerate}
+
+    \visible<2>{Better for parallelization since we can distribute the edges for filtering and partitioning.}
+
+\end{frame}
+
+\subsection{Borůvka (Sollin)}
+\begin{frame}[fragile]
+\frametitle{Borůvka (Sollin)}
+\begin{columns}
+\begin{column}{.4\linewidth}
+\includegraphics[scale=.22]{Sollin.png}
+\end{column}
+
+\begin{column}{.5\linewidth}
+\begin{verbatim}
+1) Init V as independant sets.
+2) Initialize MST as empty.
+3) While #sets > 1, do:
+  a)  Find closest E 
+      from this set to another.
+  b)  Add this E to MST 
+      if not already added.  
+4) Return MST.
+\end{verbatim}
+\end{column}
+\end{columns}
+\end{frame}
+
+\subsection{Others}
+\begin{frame}
+\begin{columns}
+\begin{column}{.5\linewidth}
+\begin{itemize}
+\item[•] Prim (Parallel \& Seq)
+\item[•] Kruskal (Parallel \& Seq),\\Kruskal filter
+\item[•] Sollin (Parallel \& Seq)
+\end{itemize}
+\hfill
+\hrulefill
+\hfill
+\begin{itemize}
+\item[•] Randomization
+\end{itemize}
+\hfill
+\hrulefill
+\hfill
+\begin{itemize}
+\item[•] Correctness
+\end{itemize}
+\hfill
+\end{column}
+\begin{column}{.5\linewidth}
+\includegraphics[scale=.23]{Bench.png}
+\end{column}
+\end{columns}
+\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % SECTION 3
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -235,6 +486,11 @@ $O(E \cdot log(V))$
 
 
 \end{frame}
+
+\begin{frame}
+    \printbibliography
+\end{frame} 
+
 
 
 \end{document}

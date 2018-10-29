@@ -9,7 +9,7 @@
 using namespace std;
 
 
-Kruskal::Kruskal(Graph G){
+Old_Kruskal::Old_Kruskal(Graph G){
     // Convert graph type
     this -> n_vertices = G.nVertices;
     for (auto n: G.nodes){
@@ -26,11 +26,11 @@ Kruskal::Kruskal(Graph G){
 }
 
 
-bool Kruskal::Compare(const edge_C &a, const edge_C &b){
+bool Old_Kruskal::Compare(const edge_C &a, const edge_C &b){
     return a.weight > b.weight;
 }
 
-vector<edge_C> Kruskal::compute(){
+vector<edge_C> Old_Kruskal::compute(){
     vector<edge_C> result;
 
     // Hashmap which links the index of a node to a pointer its tree

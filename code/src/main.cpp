@@ -9,7 +9,9 @@
 #include "parallel_sollin.hpp"
 #include "sollin.hpp"
 #include "common.hpp"
-#include "algorithms.hpp"
+#include "kruskal.hpp"
+#include "prim.hpp"
+// #include "algorithms.hpp"
 
 #define N 100
 #define RUNS 10
@@ -18,9 +20,9 @@ using namespace std;
 
 typedef boost::graph_traits<Boost_Graph>::edge_descriptor Boost_Edge;
 
-Graph_EL graph1(){
+Graph graph1(){
 	// Test with a simple graph
-	Graph_EL g(4); 
+	Graph g(4); 
 	// Add a few edges
 	g.add_edge(0,1,1);
 	g.add_edge(1,2,2);
@@ -30,9 +32,9 @@ Graph_EL graph1(){
 
 }
 
-Graph_EL graph2(){
+Graph graph2(){
 	// Test with a second graph
-	Graph_EL g(9); 
+	Graph g(9); 
 	// Add a few edges
 	g.add_edge(0,1,10);
 	g.add_edge(0,2,12);
@@ -62,16 +64,21 @@ Graph_EL graph2(){
 	 */
 
 }
+
 void test_sollin(){
 
-	Graph_EL g = graph1();
+	Graph g = graph1();
 
 	#ifdef DEBUG 
 	cout << "Graph is constructed" << endl;
 	#endif
 
-	l_edge_EL_t mst = sollin(g);
-	print_edge_EL_list(mst);
+	l_edge_t mst = sollin(g);
+    l_edge_t mst_kruskal = seq_kruskal(g);
+    l_edge_t mst_prim = seq_prim(g);
+	print_edge_list(mst);
+	print_edge_list(mst_kruskal);
+	print_edge_list(mst_prim);
 
 	g = graph2();
 
@@ -80,40 +87,39 @@ void test_sollin(){
 	#endif
 
 	mst = sollin(g);
-	print_edge_EL_list(mst);
-
-
-
-
-
+	mst_kruskal = seq_kruskal(g);
+    mst_prim = seq_prim(g);
+	print_edge_list(mst);
+	print_edge_list(mst_kruskal);
+	print_edge_list(mst_prim);
 }
 
 void test_parallel_sollin(int nTrials){
 
-	Graph_EL g = graph1();
+	Graph g = graph1();
 
-	l_edge_EL_t mst = parallel_sollin(g);
-	print_edge_EL_list(mst);
+	l_edge_t mst = parallel_sollin(g);
+	print_edge_list(mst);
 
 	g = graph2();
 
 	mst = parallel_sollin(g);
-	print_edge_EL_list(mst);
+	print_edge_list(mst);
 
 	for(int i = 0; i != nTrials; i++){
 		// Generate a random graph and the corresponding boost graph
-		Graph_EL g(100,0.1,0,100);		
+		Graph g(100,0.1,0,100);		
 		// Apply sequential sollin
-		l_edge_EL_t mst = sollin(g);
+		l_edge_t mst = sollin(g);
 		int weight_seq(0);
-		for(l_edge_EL_it it = mst.begin(); it != mst.end(); it++){
+		for(l_edge_it it = mst.begin(); it != mst.end(); it++){
 			weight_seq += (*it)->weight;
 		}
 		cout << "Weight sequential: " << weight_seq << endl;
 		// Apply parallel sollin
 		mst = parallel_sollin(g);
 		int weight_par(0);
-		for(l_edge_EL_it it = mst.begin(); it != mst.end(); it++){
+		for(l_edge_it it = mst.begin(); it != mst.end(); it++){
 			weight_par += (*it)->weight;
 		}
 		cout << "Weight parallel: " << weight_par << endl;
@@ -152,15 +158,15 @@ void time_sollin(int nTrials){
 			double time1,time2;
 
 			// Generate a random graph and the corresponding boost graph
-			Graph_EL g(size[j],100./size[j],0,100);		
+			Graph g(size[j],100./size[j],0,100);		
 			// Apply sequential sollin
 			time1 = omp_get_wtime();
-			l_edge_EL_t mst = sollin(g);
+			l_edge_t mst = sollin(g);
 			time2 = omp_get_wtime();
 			myfile << time2 - time1 << " ";
 
 			int weight_seq(0);
-			for(l_edge_EL_it it = mst.begin(); it != mst.end(); it++){
+			for(l_edge_it it = mst.begin(); it != mst.end(); it++){
 				weight_seq += (*it)->weight;
 			}
 			cout << "Weight sequential: " << weight_seq << endl;
@@ -171,7 +177,7 @@ void time_sollin(int nTrials){
 			myfile << time2 - time1 << " ";
 
 			int weight_par(0);
-			for(l_edge_EL_it it = mst.begin(); it != mst.end(); it++){
+			for(l_edge_it it = mst.begin(); it != mst.end(); it++){
 				weight_par += (*it)->weight;
 			}
 			cout << "Weight parallel: " << weight_par << endl;
@@ -197,7 +203,8 @@ void time_sollin(int nTrials){
 	myfile.close();
 }
 
-void test_kruskal(){
+/*
+void test_old_kruskal(){
     #ifdef DEBUG
 	cout << "Defining graph" << endl;
 	#endif
@@ -209,9 +216,54 @@ void test_kruskal(){
 	g.printGraph();
 	#endif
 	
-	Kruskal k(g);			
+	Old_Kruskal k(g);			
 	vector<edge_C> MST = k.compute();
 }
+*/
+
+
+void test_kruskal(){
+
+	Graph g = graph1();
+
+	#ifdef DEBUG 
+	cout << "Graph is constructed" << endl;
+	#endif
+
+	l_edge_t mst = seq_kruskal(g);
+	print_edge_list(mst);
+
+	g = graph2();
+
+	#ifdef DEBUG 
+	cout << "Graph is constructed" << endl;
+	#endif
+
+	mst = seq_kruskal(g);
+	print_edge_list(mst);
+}
+
+void test_prim(){
+
+        Graph g = graph1();
+
+        #ifdef DEBUG 
+        cout << "Graph is constructed" << endl;
+        #endif
+
+        l_edge_t mst = seq_prim(g);
+        print_edge_list(mst);
+
+        g = graph2();
+
+        #ifdef DEBUG 
+        cout << "Graph is constructed" << endl;
+        #endif
+
+        mst = seq_prim(g);
+        print_edge_list(mst);
+}
+
 
 void find_a_name_2(int argc, char *argv[]){
 	
@@ -253,24 +305,32 @@ void find_a_name_2(int argc, char *argv[]){
 }
 
 int main(int argc, char *argv[]){
-	#ifdef DEBUG 
-	cout << "Hello world!" << endl;
-	#endif
+    #ifdef DEBUG 
+    cout << "Hello world!" << endl;
+    #endif
 	
-	int i;
-	cin >> i;
-	if(i == 0){
-		test_sollin();
-	}else if(i == 1){
-		int nTrials;
-		cin >> nTrials;
-		test_parallel_sollin(nTrials);
-	}else if(i == 2){
-		int nTrials;
-		cin >> nTrials;
-		time_sollin(nTrials);
-	}
+    int i;
+    cin >> i;
+    if (i == 0){
+	test_sollin();
+    }
+    else if (i == 1){
+	int nTrials;
+	cin >> nTrials;
+	test_parallel_sollin(nTrials);
+    }
+    else if (i == 2){
+	int nTrials;
+	cin >> nTrials;
+	time_sollin(nTrials);
+    }
+    else if (i == 3){
+        test_kruskal();
+    }
+    else if (i == 4){
+        test_prim();
+    }
 
-	return 0;
+    return 0;
 		
 }

@@ -14,7 +14,7 @@ using namespace std;
 
 struct result{
 	result() : firstSource(-1),firstTarget(-1),lastSource(-1),lastTarget(-1) {}
-	l_edge_EL_t list;
+	l_edge_t list;
 	int firstSource, firstTarget;
 	int lastSource, lastTarget;
 };
@@ -29,7 +29,7 @@ void merge(result& v1, result& v2){
 	v1.list.splice(v1.list.end(),v2.list);
 }
 
-void findmin(v_edge_EL_t& v1, v_edge_EL_t& v2){
+void findmin(v_edge_t& v1, v_edge_t& v2){
 	for(int i = 0; i < v1.size(); i++){
 		if(v1[i] -> source == -1){
 			v1[i] = v2[i];
@@ -45,7 +45,7 @@ void findmin(v_edge_EL_t& v1, v_edge_EL_t& v2){
 }
 
 #pragma omp declare reduction \
-	(findMin:v_edge_EL_t:findmin(omp_out,omp_in)) \
+	(findMin:v_edge_t:findmin(omp_out,omp_in)) \
 	initializer(omp_priv(omp_orig))
 
 #pragma omp declare reduction \
@@ -53,37 +53,7 @@ void findmin(v_edge_EL_t& v1, v_edge_EL_t& v2){
 
 
 #pragma omp declare reduction \
-	(addEdges:v_edge_EL_t: omp_out.insert(omp_out.end(),omp_in.begin(),omp_in.end()))
-
-
-class union_find{
-	public:
-	vector<int> parents;
-	int size;
-	int numTrees;
-	union_find(int n) : parents(n), size(n), numTrees(n) {
-		for(int i = 0; i != n; i++){
-			parents[i] = i;
-		}
-	}
-	int find(int x){
-		if(parents[x] != x){
-			parents[x] = find(parents[x]);
-			return parents[x];
-		}
-		return x;
-	}
-	bool unite(int x, int y){
-		int px = find(x);
-		int py = find(y);
-		if(px != py){
-			parents[py] = px;
-			numTrees--;
-			return true;
-		}
-		return false;
-	}
-};
+	(addEdges:v_edge_t: omp_out.insert(omp_out.end(),omp_in.begin(),omp_in.end()))
 
 class comp{
 	union_find* u;
@@ -91,7 +61,7 @@ class comp{
 	public:
 	comp(union_find* u_): u(u_){}
 
-	bool operator()(edge_EL*e1, edge_EL* e2){
+	bool operator()(edge*e1, edge* e2){
 		int p1 = u->find(e1->source);
 		int p2 = u->find(e2->source);
 		if(p1 < p2) return true;
@@ -107,17 +77,17 @@ class comp{
 	
 };
 
-l_edge_EL_t parallel_sollin(Graph_EL g){
+l_edge_t parallel_sollin(Graph g){
 
 	// Get graph data
 	int n = g.n;
-	v_edge_EL_t vectorEdges;
-	for(l_edge_EL_it it = g.edges.begin(); it != g.edges.end();it++){
+	v_edge_t vectorEdges;
+	for(l_edge_it it = g.edges.begin(); it != g.edges.end();it++){
 		vectorEdges.push_back(*it);
 	}
 	
 	// Create MST
-	l_edge_EL_t mst;
+	l_edge_t mst;
 
 	// Create union-find structure
 	union_find* u = new union_find(n);
@@ -135,7 +105,7 @@ l_edge_EL_t parallel_sollin(Graph_EL g){
 		int nEdges = vectorEdges.size();
 		#pragma omp parallel for num_threads(4) reduction(listEdges:aux)
 		for(k = 0; k < nEdges; k++){
-			edge_EL* e = vectorEdges[k];
+			edge* e = vectorEdges[k];
 			int p1, p2;
 			#pragma omp critical
 			{
@@ -164,22 +134,22 @@ l_edge_EL_t parallel_sollin(Graph_EL g){
 		#endif
 
 		// Update vectorEdges
-		vectorEdges = vector<edge_EL*>(0);
-		for(l_edge_EL_it it = aux.list.begin(); it != aux.list.end();it++){
+		vectorEdges = vector<edge*>(0);
+		for(l_edge_it it = aux.list.begin(); it != aux.list.end();it++){
 			vectorEdges.push_back(*it);
 		}
 
 		// Find minimum ingoing edge
-		edge_EL* einit = new edge_EL();
+		edge* einit = new edge();
 		einit->source = -1;
 
 		// Do loop in parallel
 
 		nEdges = vectorEdges.size();
-		v_edge_EL_t cheapest(n,einit);
+		v_edge_t cheapest(n,einit);
 		#pragma omp parallel for num_threads(4) reduction(findMin:cheapest)
 		for(k = 0; k < nEdges; k++){
-			edge_EL* e = vectorEdges[k];
+			edge* e = vectorEdges[k];
 
 			#ifdef DEBUG
 			cout << "Got edge " << endl;
@@ -213,11 +183,11 @@ l_edge_EL_t parallel_sollin(Graph_EL g){
 		cout << "Found minimum edge " << endl;
 		#endif
 		
-		vector<edge_EL*> add_to_mst;
+		vector<edge*> add_to_mst;
 		// Connect the components via pointer-jump
 		#pragma omp parallel for num_threads(4) reduction(addEdges:add_to_mst)
 		for(k = 0; k < n; k++){
-			edge_EL* e = cheapest[k];
+			edge* e = cheapest[k];
 			if(e->source != -1){
 				bool b;
 				#pragma omp critical
