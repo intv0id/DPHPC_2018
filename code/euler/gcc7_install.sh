@@ -9,7 +9,7 @@ echo "Running job"
 
 hostname
 
-cd ~
+cd ~/gcc-7.3.0
 $PWD/configure --prefix=$HOME/gcc-7 --disable-multilib --enable-languages=c,c++ && \
 make && \
 make install && \
