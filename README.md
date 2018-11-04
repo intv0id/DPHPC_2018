@@ -39,6 +39,32 @@ cd code && ./clean.sh [cmake|measures]
 
 **Doc:** (https://scicomp.ethz.ch/wiki/Getting\_started\_with\_clusters)
 
+### Install gcc 7.3.0 on EULER
+
+```bash
+cd /tmp
+
+wget http://www.netgull.com/gcc/releases/gcc-7.3.0/gcc-7.3.0.tar.gz && \
+tar xzf gcc-7.3.0.tar.gz && \
+cd gcc-7.3.0 && \
+./contrib/download_prerequisites && \
+cd .. && \
+mkdir objdir && \
+cd objdir && \
+$PWD/../gcc-7.3.0/configure --prefix=$HOME/gcc-7.3.0 --enable-languages=c,c++,fortran && \
+make && \
+make install && \
+cd /tmp && \
+rm -rf gcc-7.3.0.tar.gz gcc-7.3.0/
+
+echo "# GCC 7.3 Compiler" >> ~/.bashrc
+echo "export PATH=~/gcc-7.3.0/bin:$PATH" >> ~/.bashrc
+echo "export LD_LIBRARY_PATH=~/gcc-7.3.0/lib:$LD_LIBRARY_PATH" >> ~/.bashrc
+echo "export LD_LIBRARY_PATH=~/gcc-7.3.0/lib64:$LD_LIBRARY_PATH" >> ~/.bashrc
+
+source ~/.bashrc
+```
+
 ### Install liblsb on euler
 
 ``` bash
