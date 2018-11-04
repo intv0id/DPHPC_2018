@@ -1,3 +1,4 @@
+dist: bionic
 language: bash
 install:
   - sudo apt update -qq && sudo apt install -y -qq openmpi-bin libopenmpi-dev cmake libboost-all-dev
