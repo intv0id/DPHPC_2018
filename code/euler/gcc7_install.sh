@@ -17,9 +17,9 @@ cd ~ && \
 rm -rf gcc-7.3.0.tar.gz gcc-7.3.0/
 
 echo "# GCC 7.3 Compiler" >> ~/.bashrc
-echo "export PATH=~/gcc-7/bin:$PATH" >> ~/.bashrc
-echo "export LD_LIBRARY_PATH=~/gcc-7/lib:$LD_LIBRARY_PATH" >> ~/.bashrc
-echo "export LD_LIBRARY_PATH=~/gcc-7/lib64:$LD_LIBRARY_PATH" >> ~/.bashrc
+echo "export PATH=~/gcc-7/bin:\$PATH" >> ~/.bashrc
+echo "export LD_LIBRARY_PATH=~/gcc-7/lib:\$LD_LIBRARY_PATH" >> ~/.bashrc
+echo "export LD_LIBRARY_PATH=~/gcc-7/lib64:\$LD_LIBRARY_PATH" >> ~/.bashrc
 
 source ~/.bashrc
 
