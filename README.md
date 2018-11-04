@@ -46,7 +46,7 @@ module load gcc
 cd ~ 
 wget http://www.netgull.com/gcc/releases/gcc-7.3.0/gcc-7.3.0.tar.gz
 git clone https://github.com/intv0id/PMST
-bsub < PSMT/code/euler/gcc7_install.sh
+bsub < ./PMST/code/euler/gcc7_install.sh
 module unload gcc
 ```
 
