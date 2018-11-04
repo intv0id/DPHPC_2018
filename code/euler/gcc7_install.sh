@@ -10,10 +10,6 @@ echo "Running job"
 hostname
 
 cd ~
-
-tar xzf gcc-7.3.0.tar.gz && \
-cd gcc-7.3.0 && \
-./contrib/download_prerequisites && \
 $PWD/configure --prefix=$HOME/gcc-7 --disable-multilib --enable-languages=c,c++ && \
 make && \
 make install && \
