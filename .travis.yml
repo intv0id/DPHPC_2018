@@ -1,6 +1,7 @@
 language: bash
 install:
-  - sudo apt update -qq && sudo apt install -y -qq openmpi-bin libopenmpi-dev cmake libboost-all-dev g++
+  - sudo add-apt-repository ppa:jonathonf/gcc-7.2
+  - sudo apt update -qq && sudo apt install -y -qq openmpi-bin libopenmpi-dev cmake libboost-all-dev gcc-7 g++-7
   - wget https://spcl.inf.ethz.ch/Research/Performance/LibLSB/liblsb-0.2.2.tar.gz && 
     tar xvf liblsb-0.2.2.tar.gz && 
     cd liblsb-0.2.2 && 
