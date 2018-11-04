@@ -42,24 +42,12 @@ cd code && ./clean.sh [cmake|measures]
 ### Install gcc 7.3.0 on EULER
 
 ```bash
-cd /tmp
-
-wget http://www.netgull.com/gcc/releases/gcc-7.3.0/gcc-7.3.0.tar.gz && \
-tar xzf gcc-7.3.0.tar.gz && \
-cd gcc-7.3.0 && \
-./contrib/download_prerequisites && \
-$PWD/configure --prefix=$HOME/gcc-7.3.0 --disable-multilib --enable-languages=c,c++ && \
-make && \
-make install && \
-cd /tmp && \
-rm -rf gcc-7.3.0.tar.gz gcc-7.3.0/
-
-echo "# GCC 7.3 Compiler" >> ~/.bashrc
-echo "export PATH=~/gcc-7.3.0/bin:$PATH" >> ~/.bashrc
-echo "export LD_LIBRARY_PATH=~/gcc-7.3.0/lib:$LD_LIBRARY_PATH" >> ~/.bashrc
-echo "export LD_LIBRARY_PATH=~/gcc-7.3.0/lib64:$LD_LIBRARY_PATH" >> ~/.bashrc
-
-source ~/.bashrc
+module load gcc
+cd ~ 
+wget http://www.netgull.com/gcc/releases/gcc-7.3.0/gcc-7.3.0.tar.gz
+git clone https://github.com/intv0id/PMST
+bsub < PSMT/code/euler/gcc7_install.sh
+module unload gcc
 ```
 
 ### Install liblsb on euler
@@ -82,7 +70,7 @@ export LIBLSB_PATH=`readlink -f ~/liblsb/lib`
 
 # Clone repo
 cd ~
-git clone https://github.com/intv0id/DPHPC_2018
+git clone https://github.com/intv0id/PMST
 cd DPHPC_2018/code
 
 # Compile executable & submit job
