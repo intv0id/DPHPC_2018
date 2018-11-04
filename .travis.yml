@@ -3,7 +3,7 @@ language: bash
 install:
   - sudo apt update -qq && 
     sudo apt install -y -qq --only-upgrade build-essential && 
-    sudo apt install -y -qq openmpi-bin libopenmpi-dev libboost-all-dev
+    sudo apt install -y -qq openmpi-bin libopenmpi-dev libboost-all-dev g++-7
   - wget https://spcl.inf.ethz.ch/Research/Performance/LibLSB/liblsb-0.2.2.tar.gz && 
     tar xvf liblsb-0.2.2.tar.gz && 
     cd liblsb-0.2.2 && 
