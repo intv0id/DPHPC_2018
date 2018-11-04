@@ -1,7 +1,5 @@
-dist: bionic
-language: bash
 install:
-  - sudo apt update -qq && sudo apt install -y -qq openmpi-bin libopenmpi-dev cmake libboost-all-dev
+  - sudo apt update -qq && sudo apt install -y -qq openmpi-bin libopenmpi-dev cmake libboost-all-dev && apt upgrade -y -qq
   - wget https://spcl.inf.ethz.ch/Research/Performance/LibLSB/liblsb-0.2.2.tar.gz && 
     tar xvf liblsb-0.2.2.tar.gz && 
     cd liblsb-0.2.2 && 
