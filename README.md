@@ -48,10 +48,7 @@ wget http://www.netgull.com/gcc/releases/gcc-7.3.0/gcc-7.3.0.tar.gz && \
 tar xzf gcc-7.3.0.tar.gz && \
 cd gcc-7.3.0 && \
 ./contrib/download_prerequisites && \
-cd .. && \
-mkdir objdir && \
-cd objdir && \
-$PWD/../gcc-7.3.0/configure --prefix=$HOME/gcc-7.3.0 --enable-languages=c,c++,fortran && \
+$PWD/configure --prefix=$HOME/gcc-7.3.0 --disable-multilib --enable-languages=c,c++ && \
 make && \
 make install && \
 cd /tmp && \
@@ -80,7 +77,7 @@ cd .. && rm -r liblsb-0.2.2
 
 ``` bash
 # import modules
-module load open_mpi/1.6.5 gcc/4.9.2 cmake/3.5.2 boost/1.59.0
+module load open_mpi/1.6.5 cmake/3.5.2 boost/1.59.0
 export LIBLSB_PATH=`readlink -f ~/liblsb/lib`
 
 # Clone repo
@@ -89,7 +86,7 @@ git clone https://github.com/intv0id/DPHPC_2018
 cd DPHPC_2018/code
 
 # Compile executable & submit job
-cmake . && make
+cmake -DCMAKE_CXX_COMPILER=g++ -DCMAKE_CC_COMPILER=gcc . && make
 bsub < euler/submit.sh
 ```
 
