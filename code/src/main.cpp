@@ -6,6 +6,7 @@
 #include <boost/graph/kruskal_min_spanning_tree.hpp>
 #include <boost/graph/prim_minimum_spanning_tree.hpp>
 
+#include "tbb/task_scheduler_init.h"
 #include "graph.hpp"
 #include "parallel_sollin.hpp"
 #include "sollin.hpp"
@@ -99,12 +100,12 @@ void test_parallel_sollin(int nTrials){
 
 	Graph g = graph1();
 
-	l_edge_t mst = parallel_sollin_EL(g);
+	l_edge_t mst = parallel_sollin_AL(g);
 	print_edge_list(mst);
 
-	g = graph2();
+	Graph g2 = graph2();
 
-	mst = parallel_sollin_EL(g);
+	mst = parallel_sollin_AL(g2);
 	print_edge_list(mst);
 
 	for(int i = 0; i != nTrials; i++){
@@ -348,6 +349,10 @@ void find_a_name_2(int argc, char *argv[]){
 }
 
 int main(int argc, char *argv[]){
+
+	// Init tbb
+	tbb::task_scheduler_init init(4);
+
     cout << "Hello world!" << endl;
     cout << "Enter a command" << endl;
 	

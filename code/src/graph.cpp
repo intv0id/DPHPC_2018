@@ -22,6 +22,8 @@ void Graph::add_edge(int u, int v, int weight){
 	e2->weight = weight;
 	edges.push_back(e1);
 	edges.push_back(e2);
+	adjacency_list[u]->adjacent_vertices.push_back(e1);
+	adjacency_list[v]->adjacent_vertices.push_back(e2);
 
     if (u < v) {
         unique_edges.push_back(e1);
@@ -30,13 +32,22 @@ void Graph::add_edge(int u, int v, int weight){
         unique_edges.push_back(e2);
     }
 
-    adjacency_matrix[u][v] = weight;
+    //adjacency_matrix[u][v] = weight;
     /*
     adjacency_list[u].push_back(e1);
     adjacency_list[v].push_back(e2);
     */
 }
-
+Graph::Graph(int n_) :
+	n(n_){
+	
+    for(int i = 0; i != n; i++){
+	vertex_adjacency_list* val = new vertex_adjacency_list;
+	val->index = i;
+	adjacency_list.push_back(val);
+    }
+	
+}
 Graph::Graph(int nVertices, double edgeProba, int min, int max) :
     n(nVertices), boost_rep(n)
 {
@@ -80,6 +91,7 @@ Graph::Graph(int nVertices, double edgeProba, int min, int max) :
 }
 
 Graph::~Graph(){
+	cout << "Graph is destructed" << endl;
 	for(auto e : edges){
 		delete e;
 	}

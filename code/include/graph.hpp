@@ -29,15 +29,15 @@ class vertex_adjacency_list{
 class Graph {
     public:
     //Constructs a graph with n vertices and no edges 
-    Graph(int n_) : n(n_) {
-	int** adj = new int* [n];
+    Graph(int n_)  ;
+	/*int** adj = new int* [n];
         for (int i = 0; i < n; i++) {
             adj[i] = new int [n];
             for(int j = 0; j < n; j++)
                 adj[i][j] = 0;
         }
 	this->adjacency_matrix = adj;
-    };
+	*/
     // Constructor to generate a Erdos-Renyi random graph
     // Proba of an edge p
     // min <= weight <= max

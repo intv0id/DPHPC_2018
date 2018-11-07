@@ -4,7 +4,6 @@
 #include <limits>
 #include <algorithm>
 
-#include "tbb/task_scheduler_init.h"
 #include "tbb/parallel_sort.h"
 #include "omp.h"
 
@@ -60,8 +59,6 @@ void findmin(v_edge_t& v1, v_edge_t& v2){
 
 l_edge_t parallel_sollin_EL(Graph& g){
 
-	// Init tbb
-	tbb::task_scheduler_init init(4);
 
 	// Get graph data
 	int n = g.n;
@@ -79,9 +76,10 @@ l_edge_t parallel_sollin_EL(Graph& g){
 
 	// While not connected
 	while(u->numTrees > 1){	
-		cout << "Number of Trees: " << u->numTrees << endl;
+		//cout << "Number of Trees: " << u->numTrees << endl;
 		// Sort the edge list and supervertex
 		tbb::parallel_sort(vectorEdges.begin(),vectorEdges.end(),c);
+		//cout << "Sorted " << endl;
 
 		// Remove self-loops and multiple edges (compact graph)
 		result aux;
@@ -131,7 +129,7 @@ l_edge_t parallel_sollin_EL(Graph& g){
 
 		nEdges = vectorEdges.size();
 		v_edge_t cheapest(n,einit);
-		#pragma omp parallel for num_threads(4) reduction(findMin:cheapest)
+		#pragma omp parallel for num_threads(1) reduction(findMin:cheapest)
 		for(k = 0; k < nEdges; k++){
 			edge* e = vectorEdges[k];
 
@@ -227,20 +225,17 @@ l_edge_t parallel_sollin_AL(Graph& g){
 
 	// While not connected
 	while(u->numTrees > 1){	
+		#ifdef DEBUG
 		cout << "Number of Trees: " << u->numTrees << endl;
+		#endif
 		// Sort by parent vertex
-		sort(edges.begin(),edges.end(),cV);
+		tbb::parallel_sort(edges.begin(),edges.end(),cV);
 
-		// Sort each list by target parent vertex
-		int nVertex = edges.size();
-		#pragma omp parallel for num_threads(4)
-		for(int i = 0; i < nVertex; i++){
-			edges[i]->adjacent_vertices.sort(cTV);
-		}
 
-		cout << "Sorted vertices"  << endl;
+		//cout << "Sorted vertices"  << endl;
 
 		// Merge same parent vertex
+		int nVertex = edges.size();
 		result_AL aux;
 		int k;
 		#pragma omp parallel for num_threads(1) reduction(compactVertexAL:aux)
@@ -277,12 +272,17 @@ l_edge_t parallel_sollin_AL(Graph& g){
 			edges.push_back(*it);
 		}
 
+		// Sort each list by target parent vertex
+		nVertex = edges.size();
+		#pragma omp parallel for num_threads(4)
+		for(int i = 0; i < nVertex; i++){
+			edges[i]->adjacent_vertices.sort(cTV);
+		}
 
 		// For each list merge target vertex
-		nVertex = edges.size();
-		cout << "Copied back in vector" << nVertex << endl;
+		//cout << "Copied back in vector" << nVertex << endl;
 
-		#pragma omp parallel for num_threads(1)
+		#pragma omp parallel for num_threads(4)
 		for(int i = 0; i < nVertex; i++){
 			int target = -1;
 			int p1 = u->find(edges[i]->index);
@@ -304,8 +304,10 @@ l_edge_t parallel_sollin_AL(Graph& g){
 				target = p2;
 			}
 		}
-
+		
+		#ifdef DEBUG
 		cout << endl << "Removed self-loops " << endl;
+		#endif
 
 
 		// For all vertice find minimum outgoing edge
@@ -331,13 +333,12 @@ l_edge_t parallel_sollin_AL(Graph& g){
 					target = u->find((*it)->target);
 				}
 				int weight = (*it)->weight;
+				edge* e = *it;
 
 				#ifdef DEBUG
 				cout << "Checking conditions " << endl;
 				cout << "Source: " << e->source << endl;
-				cout << "Source comp: " << source << endl;
 				cout << "Target: " << e->target << endl;
-				cout << "Target comp: " << target << endl;
 				cout << "Weight: " << weight << endl;
 				
 				#endif
