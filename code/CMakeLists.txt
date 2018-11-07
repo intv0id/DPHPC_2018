@@ -9,25 +9,23 @@ option(BUILD_TDEBUG "Debug mode" OFF)
 ## OMP
 FIND_PACKAGE(OpenMP)
 if(OPENMP_FOUND)
-		message("OPENMP FOUND")
+	message("OPENMP FOUND")
 endif()
 
 ## TBB
-find_package(TBB REQUIRED tbb)
-if(TBB_FOUND)
-		message("TBB FOUND")
-endif()
-
-#TODO: MOVE
-link_libraries(tbb)
 if(EXISTS $ENV{TBB_PATH})
-	include_directories("$ENV{TBB_PATH}/include")
+	find_package(TBB REQUIRED tbb)
+else()
+	find_package(TBB)
+endif()
+if(TBB_FOUND)
+	message("TBB FOUND")
 endif()
 
 ## MPI Support
 find_package(MPI) 
 if(OPENMP_FOUND)
-		message("MPI FOUND")
+	message("MPI FOUND")
 endif()
 
 # Set variables
@@ -52,6 +50,13 @@ if(NOT EXISTS $ENV{LIBLSB_PATH})
 else()
     set(LIBLSB_PATH $ENV{LIBLSB_PATH})
 endif()
+
+## TBB
+link_libraries(tbb)
+if(EXISTS $ENV{TBB_PATH})
+	include_directories("$ENV{TBB_PATH}/include")
+endif()
+
 
 if(NOT EXISTS "${LIBLSB_PATH}/lib/liblsb.a")
     message(WARNING "LIBLSB NOT FOUND IN LOCATION ${LIBLSB_PATH}")
