@@ -49,7 +49,7 @@ cd liblsb-0.2.2
 ./configure --prefix=`readlink -f ~/liblsb` && make && make install
 cd .. && rm -r liblsb-0.2.2
 
-echo "export LIBLSB_PATH=`readlink -f ~/liblsb/lib`" >> ~/.bashrc
+echo "export LIBLSB_PATH=`readlink -f ~/liblsb`" >> ~/.bashrc
 ```
 
 ### Compile & run `exec` 
