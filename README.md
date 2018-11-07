@@ -39,10 +39,23 @@ cd code && ./clean.sh [cmake|measures]
 
 **Doc:** (https://scicomp.ethz.ch/wiki/Getting\_started\_with\_clusters)
 
-### Install liblsb on euler
+### Setup dependancies
+
+Before doing anything:
 
 ``` bash
 module load new gcc/5.2.0 open_mpi/1.6.5
+```
+
+After any `~/.bashrc`  changes:
+
+``` bash
+source ~/.bashrc
+```
+
+#### Install liblsb
+
+``` bash
 cd /tmp && wget https://spcl.inf.ethz.ch/Research/Performance/LibLSB/liblsb-0.2.2.tar.gz
 tar xvf liblsb-0.2.2.tar.gz && rm liblsb-0.2.2.tar.gz
 cd liblsb-0.2.2
@@ -52,16 +65,41 @@ cd .. && rm -r liblsb-0.2.2
 echo "export LIBLSB_PATH=`readlink -f ~/liblsb`" >> ~/.bashrc
 ```
 
-### Compile & run `exec` 
+#### Install tbb
 
 ``` bash
-# import modules
-module load new gcc/5.2.0 open_mpi/1.6.5 cmake/3.11.4 boost/1.62.0 
+cd /tmp
+wget https://github.com/01org/tbb/releases/download/2019_U1/tbb2019_20181003oss_lin.tgz
+tar xvf tbb2019_20181003oss_lin.tgz ~/tbb2019
+echo "export TBB_PATH=`readlink -f ~/tbb2019`" >> ~/.bashrc
+```
 
-# Clone repo
+### Compile & run `exec` 
+
+#### Required modules
+
+``` bash
+module load new gcc/5.2.0 open_mpi/1.6.5 cmake/3.11.4 boost/1.62.0 
+```
+
+#### Cloning / Updating files
+
+``` bash
 cd ~
 git clone https://github.com/intv0id/PMST
-cd DPHPC_2018/code
+```
+
+**Update:**
+
+``` bash
+cd ~/PMST
+git pull
+```
+
+#### Compile and submit to euler as a job
+
+``` bash
+cd ~/PMST/code
 
 # Compile executable & submit job
 cmake . && make
