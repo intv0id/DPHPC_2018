@@ -58,7 +58,9 @@ bool compVertex::operator()(const vertex_adjacency_list* v1,const vertex_adjacen
 bool compTargetVertex::operator()(edge* v1, edge* v2) const {
 	int p1 = u->find(v1->target);
 	int p2 = u->find(v2->target);
-	return p1 < p2;
+	if (p1 < p2) return true;
+	else if(p1>p2) return false;
+	else return v1->weight < v2->weight;
 }
 
 void print_edge_list(l_edge_t mst){
