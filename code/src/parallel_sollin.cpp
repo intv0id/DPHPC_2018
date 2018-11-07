@@ -229,7 +229,7 @@ l_edge_t parallel_sollin_AL(Graph& g){
 		cout << "Number of Trees: " << u->numTrees << endl;
 		#endif
 		// Sort by parent vertex
-		sort(edges.begin(),edges.end(),cV);
+		tbb::parallel_sort(edges.begin(),edges.end(),cV);
 
 
 		//cout << "Sorted vertices"  << endl;
