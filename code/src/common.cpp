@@ -49,9 +49,9 @@ bool comp::operator()(edge*e1, edge* e2) const {
 	return (w1 < w2);
 }
 
-bool compVertex::operator()(const vertex_adjacency_list v1,const vertex_adjacency_list v2) const {
-	int p1 = u->find(v1.index);
-	int p2 = u->find(v2.index);
+bool compVertex::operator()(const vertex_adjacency_list* v1,const vertex_adjacency_list* v2) const {
+	int p1 = u->find(v1->index);
+	int p2 = u->find(v2->index);
 	return p1 < p2;
 }
 

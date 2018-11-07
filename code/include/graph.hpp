@@ -54,7 +54,7 @@ class Graph {
     int n;
     list<edge*> edges;
     list<edge*> unique_edges; // Only min -> max
-    vector<vertex_adjacency_list> adjacency_list;
+    vector<vertex_adjacency_list*> adjacency_list;
     Boost_Graph boost_rep;
     int** adjacency_matrix;
 };
@@ -64,5 +64,6 @@ typedef vector<edge*> v_edge_t;
 typedef vector<edge*>::iterator v_edge_it;
 typedef list<edge*>::iterator l_edge_it;
 typedef vector<edge*>::iterator v_edge_it;
+typedef list<vertex_adjacency_list*>::iterator l_val_it;
 
 #endif

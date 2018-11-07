@@ -46,7 +46,12 @@ Graph::Graph(int nVertices, double edgeProba, int min, int max) :
     mt19937 rng(rd());
     uniform_int_distribution<int> uni(min,max);
 
-    // vector<list<edge*>> adjacency_list(n, list<edge*>());
+
+    for(int i = 0; i != nVertices; i++){
+	vertex_adjacency_list* val = new vertex_adjacency_list;
+	val->index = i;
+	adjacency_list.push_back(val);
+    }
 
     for(int i = 0; i !=nVertices; i++){
         for(int j = i+1; j!= nVertices; j++){
@@ -64,8 +69,8 @@ Graph::Graph(int nVertices, double edgeProba, int min, int max) :
 		ei->weight = w; ej->weight = w;
 		edges.push_back(ei);
 		edges.push_back(ej);
-		adjacency_list[i].push_back(ei);
-		adjacency_list[j].push_back(ej);
+		adjacency_list[i]->adjacent_vertices.push_back(ei);
+		adjacency_list[j]->adjacent_vertices.push_back(ej);
 
 		// Add edge to boost graph
 		boost::add_edge(i,j,w,boost_rep);
@@ -82,8 +87,6 @@ Graph::~Graph(){
 		delete e;
 	}
 	for(auto v : adjacency_list){
-		for(auto e : v){
-			delete e;
-		}
+		delete v;
 	}
 }

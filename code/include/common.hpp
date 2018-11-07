@@ -23,7 +23,7 @@ class compVertex{
 	union_find* u;
 	public:
 	compVertex(union_find*);
-	bool operator() (const vertex_adjacency_list,const vertex_adjacency_list) const;
+	bool operator() (const vertex_adjacency_list*,const vertex_adjacency_list*) const;
 };
 
 

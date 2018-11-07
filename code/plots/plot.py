@@ -7,7 +7,7 @@ pars = [[]]
 boostKruskal = [[]]
 boostPrim = [[]]
 
-file1 = "log.txt"
+file1 = "log_varSize_edgePerVertex=20.txt"
 with open(file1) as f1:
     #read sizes
     content = f1.readlines()
@@ -77,4 +77,4 @@ pypl.xscale('log')
 pypl.ylim(ymin=0)
 #pypl.yscale('log')
 #pypl.show()
-pypl.savefig("Times")
+pypl.savefig("Plots_varSize_edgePerVertex=20")
