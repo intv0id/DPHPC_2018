@@ -13,7 +13,16 @@ if(OPENMP_FOUND)
 endif()
 
 ## TBB
+find_package(TBB REQUIRED tbb)
+if(TBB_FOUND)
+		message("TBB FOUND")
+endif()
+
+#TODO: MOVE
 link_libraries(tbb)
+if(EXISTS $ENV{TBB_PATH})
+	include_directories("$ENV{TBB_PATH}/include")
+endif()
 
 ## MPI Support
 find_package(MPI) 
@@ -63,3 +72,7 @@ file(GLOB SRCS src/*)
 add_executable(exec ${SRCS})
 
 target_link_libraries(exec ${MPI_CXX_LIBRARIES} ${LIBLSB_PATH}/lib/liblsb.a)
+if(EXISTS $ENV{TBB_PATH})
+	target_link_libraries(exec "$ENV{TBB_PATH}/lib/intel64/gcc4.7/libtbb.so")
+endif()
+
