@@ -31,8 +31,6 @@ void Graph::add_edge(int u, int v, int weight){
     }
 
     adjacency_matrix[u][v] = weight;
-    adjacency_matrix[v][u] = weight;
-
     /*
     adjacency_list[u].push_back(e1);
     adjacency_list[v].push_back(e2);
@@ -66,6 +64,8 @@ Graph::Graph(int nVertices, double edgeProba, int min, int max) :
 		ei->weight = w; ej->weight = w;
 		edges.push_back(ei);
 		edges.push_back(ej);
+		adjacency_list[i].push_back(ei);
+		adjacency_list[j].push_back(ej);
 
 		// Add edge to boost graph
 		boost::add_edge(i,j,w,boost_rep);
@@ -74,3 +74,16 @@ Graph::Graph(int nVertices, double edgeProba, int min, int max) :
     }
 }
 
+Graph::~Graph(){
+	for(auto e : edges){
+		delete e;
+	}
+	for(auto e : unique_edges){
+		delete e;
+	}
+	for(auto v : adjacency_list){
+		for(auto e : v){
+			delete e;
+		}
+	}
+}

@@ -12,6 +12,9 @@ if(OPENMP_FOUND)
 		message("OPENMP FOUND")
 endif()
 
+## TBB
+link_libraries(tbb)
+
 ## MPI Support
 find_package(MPI) 
 if(OPENMP_FOUND)
@@ -22,9 +25,9 @@ endif()
 
 ## Set compile flags
 set(CMAKE_CXX_FLAGS "-std=c++11 ${OpenMP_CXX_FLAGS}")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS}  ${OpenMP_EXE_LINKER_FLAGS}")
 if(BUILD_TDEBUG)
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DDEBUG")
-	set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${OpenMP_EXE_LINKER_FLAGS}")
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -DDEBUG")
 endif(BUILD_TDEBUG)
 
 ## Support for vim YCM

@@ -20,6 +20,11 @@ struct edge {
     int weight;
 };
 
+class vertex_adjacency_list{
+	public:
+	int index;
+	list<edge*> adjacent_vertices;
+};
 
 class Graph {
     public:
@@ -37,6 +42,7 @@ class Graph {
     // Proba of an edge p
     // min <= weight <= max
     Graph(int nVertices, double p, int min, int max);
+    ~Graph();
 
     // Function to print a graph
     void printGraph();
@@ -48,12 +54,11 @@ class Graph {
     int n;
     list<edge*> edges;
     list<edge*> unique_edges; // Only min -> max
-    vector<list<edge*>> adjacency_list;
-    int** adjacency_matrix;
+    vector<vertex_adjacency_list> adjacency_list;
     Boost_Graph boost_rep;
+    int** adjacency_matrix;
 };
 
-typedef vector<edge*> v_edge_t;
 typedef list<edge*> l_edge_t;
 typedef vector<edge*> v_edge_t;
 typedef vector<edge*>::iterator v_edge_it;

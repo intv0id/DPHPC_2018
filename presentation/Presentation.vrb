@@ -1,0 +1,21 @@
+\frametitle{Borůvka (Sollin)}
+\begin{columns}
+\begin{column}{.4\linewidth}
+\includegraphics[scale=.22]{Sollin.png}
+\end{column}
+
+\begin{column}{.5\linewidth}
+\begin{verbatim}
+1) Init V as independant sets.
+2) Initialize MST as empty.
+3) While #sets > 1, do:
+  a)  Find closest E
+      from this set to another.
+  b)  Add this E to MST
+      if not already added.
+4) Return MST.
+\end{verbatim}
+\end{column}
+\end{columns}
+\footcite{chung1996parallel}
+\footcite{bader2006fast}

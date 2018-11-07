@@ -11,29 +11,8 @@
 using namespace std;
 
 
-class comp{
-	union_find* u;
 
-	public:
-	comp(union_find* u_): u(u_){}
-
-	bool operator()(edge*e1, edge* e2){
-		int p1 = u->find(e1->source);
-		int p2 = u->find(e2->source);
-		if(p1 < p2) return true;
-		if(p1 > p2) return false;
-		int p3 = u->find(e1->target);
-		int p4 = u->find(e2->target);
-		if(p3 < p4) return true;
-		if(p3 > p4) return false;
-		int w1 = e1->weight;
-		int w2 = e2->weight;
-		return (w1 <= w2);
-	}
-	
-};
-
-l_edge_t sollin(Graph g){
+l_edge_t sollin(Graph& g){
 
 	// Get graph data
 	int n = g.n;
@@ -50,9 +29,6 @@ l_edge_t sollin(Graph g){
 
 	// While not connected
 	while(u->numTrees > 1){	
-		#ifdef DEBUG
-		cout << "Number of Trees: " << u->numTrees << endl;
-		#endif
 		// Sort the edge list according to supervertex
 		aux.sort(c);	
 
@@ -76,10 +52,6 @@ l_edge_t sollin(Graph g){
 			target = p2;
 		}
 
-		#ifdef DEBUG
-		cout << "Removed self-loops " << endl;
-		cout << "Size: " << aux.size() << endl;
-		#endif
 
 		// Find minimum ingoing edge
 		edge* einit = new edge();

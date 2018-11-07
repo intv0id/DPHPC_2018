@@ -4,7 +4,9 @@
 #include <limits>
 #include <algorithm>
 
-#include <omp.h>
+#include "tbb/task_scheduler_init.h"
+#include "tbb/parallel_sort.h"
+#include "omp.h"
 
 #include "graph.hpp"
 #include "common.hpp"
@@ -55,29 +57,11 @@ void findmin(v_edge_t& v1, v_edge_t& v2){
 #pragma omp declare reduction \
 	(addEdges:v_edge_t: omp_out.insert(omp_out.end(),omp_in.begin(),omp_in.end()))
 
-class comp{
-	union_find* u;
 
-	public:
-	comp(union_find* u_): u(u_){}
+l_edge_t parallel_sollin_EL(Graph& g){
 
-	bool operator()(edge*e1, edge* e2){
-		int p1 = u->find(e1->source);
-		int p2 = u->find(e2->source);
-		if(p1 < p2) return true;
-		if(p1 > p2) return false;
-		int p3 = u->find(e1->target);
-		int p4 = u->find(e2->target);
-		if(p3 < p4) return true;
-		if(p3 > p4) return false;
-		int w1 = e1->weight;
-		int w2 = e2->weight;
-		return (w1 <= w2);
-	}
-	
-};
-
-l_edge_t parallel_sollin(Graph g){
+	// Init tbb
+	tbb::task_scheduler_init init(4);
 
 	// Get graph data
 	int n = g.n;
@@ -98,6 +82,8 @@ l_edge_t parallel_sollin(Graph g){
 		#ifdef DEBUG
 		cout << "Number of Trees: " << u->numTrees << endl;
 		#endif
+		// Sort the edge list and supervertex
+		tbb::parallel_sort(vectorEdges.begin(),vectorEdges.end(),c);
 
 		// Remove self-loops and multiple edges (compact graph)
 		result aux;
@@ -204,6 +190,163 @@ l_edge_t parallel_sollin(Graph g){
 	return mst;
 }
 
+struct result_AL{
+	result() : firstSource(-1),lastSource(-1) {}
+	l_edge_t list;
+	int firstSource,lastSource;
+};
 
+void merge_AL(result_AL& v1, result_AL& v2){
+	if(v1.lastSource == v2.firstSource && v1.lastTarget == v2.firstTarget ){
+		v2.list.pop_front();
+	}
+	v1.lastSource = v2.lastSource;
+	v1.lastTarget = v2.lastTarget;
+	v1.list.splice(v1.list.end(),v2.list);
+}
+
+l_edge_t parallel_sollin_AL(Graph& g){
+
+	vector<vertex_adjacency_list> edges = g.adjacency_list;
+	// Create MST
+	l_edge_t mst;
+
+	// Create union-find structure
+	union_find* u = new union_find(n);
+	compVertex cV(u);
+	compTargetVertex cTV(u);
+
+	// While not connected
+	while(u->numTrees > 1){	
+		#ifdef DEBUG
+		cout << "Number of Trees: " << u->numTrees << endl;
+		#endif
+		// Sort by parent vertex
+		sort(edges.begin(),edges.end(),cV);
+
+		// Sort each list by target parent vertex
+		#pragma omp parallel for num_threads(4)
+		for(int i = 0; i != g.n; i++){
+			edges[i].adjacent_vertices.sort(cTV);
+		}
+
+		result aux;
+		int k;
+		int nEdges = vectorEdges.size();
+		#pragma omp parallel for num_threads(4) reduction(listEdges:aux)
+		for(k = 0; k < nEdges; k++){
+			edge* e = vectorEdges[k];
+			int p1, p2;
+			#pragma omp critical
+			{
+				p1 = u->find(e->source);
+				p2 = u->find(e->target);
+			}
+			if(aux.firstSource == -1){
+				#ifdef DEBUG
+				int ID = omp_get_thread_num();
+				cout << ID << endl;
+				cout << k << endl;
+				#endif
+				aux.firstSource = p1;
+				aux.firstTarget = p2;
+			}
+			if(p1 != p2  && (p1 != aux.lastSource || p2 != aux.lastTarget)){
+				aux.list.push_back(e);
+				aux.lastSource = p1;
+				aux.lastTarget = p2;
+			}
+		}
+
+		#pragma omp parallel for num_threads(4)
+		for(int i = 0; i != g.n; i++){
+			int target = -1;
+			int p1 = u->find(edges[i].index);
+			for(l_edge_it it = edges[i].adjacent_vertices.begin(); it != edges[i].adjacent_vertices.end(); it++){
+				edge* e = *it;
+				int p2 = u->find(e->target);
+				if(p1 == p2){
+					aux.erase(it++);
+				}
+				else if(p2 == target){
+					aux.erase(it++);
+				}
+				else{
+					it++;
+				}
+				target = p2;
+			}
+		}
+
+		#ifdef DEBUG
+		cout << endl << "Removed self-loops " << endl;
+		#endif
+
+		// For all vertice find minimu outgoing edge
+		// Find minimum ingoing edge
+		edge* einit = new edge();
+		einit->source = -1;
+
+		// Do loop in parallel
+
+		nEdges = vectorEdges.size();
+		v_edge_t cheapest(n,einit);
+		#pragma omp parallel for num_threads(4) reduction(findMin:cheapest)
+		for(k = 0; k < nEdges; k++){
+			edge* e = vectorEdges[k];
+
+			#ifdef DEBUG
+			cout << "Got edge " << endl;
+			#endif
+
+			int source, target;
+			#pragma omp critical
+			{
+				source = u->find(e->source);
+				target = u->find(e->target);
+			}
+			int weight = e->weight;
+
+			#ifdef DEBUG
+			cout << "Checking conditions " << endl;
+			cout << "Source: " << e->source << endl;
+			cout << "Source comp: " << source << endl;
+			cout << "Target: " << e->target << endl;
+			cout << "Target comp: " << target << endl;
+			cout << "Weight: " << weight << endl;
+			
+			#endif
+
+			
+			if(cheapest[source]->source == -1 || weight < cheapest[source]->weight){
+				cheapest[source] = e;
+			}
+		}
+
+		#ifdef DEBUG
+		cout << "Found minimum edge " << endl;
+		#endif
+	
+		// For all vertices, connect components
+		vector<edge*> add_to_mst;
+		// Connect the components via pointer-jump
+		#pragma omp parallel for num_threads(4) reduction(addEdges:add_to_mst)
+		for(k = 0; k < n; k++){
+			edge* e = cheapest[k];
+			if(e->source != -1){
+				bool b;
+				#pragma omp critical
+				{
+				b = u->unite(e->source,e->target);
+				}
+				if (b) add_to_mst.push_back(e);
+			}
+		}
+		mst.insert(mst.end(),add_to_mst.begin(),add_to_mst.end());
+
+					
+	}
+	return mst;
+}
 
 

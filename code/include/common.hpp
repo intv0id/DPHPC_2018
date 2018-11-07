@@ -12,4 +12,26 @@ class union_find {
         bool unite(int x, int y);
 };
 
+class comp{
+	union_find* u;
+	public:
+	comp(union_find*);
+	bool operator() (edge*,edge*) const;
+};
+
+class compVertex{
+	union_find* u;
+	public:
+	compVertex(union_find*);
+	bool operator() (const vertex_adjacency_list,const vertex_adjacency_list) const;
+};
+
+
+class compTargetVertex{
+	union_find* u;
+	public:
+	compTargetVertex(union_find*);
+	bool operator() (edge*,edge*) const;
+};
+
 void print_edge_list(l_edge_t);

@@ -4,4 +4,4 @@
 
 using namespace std;
 
-l_edge_t sollin(Graph g);
+l_edge_t sollin(Graph& g);
