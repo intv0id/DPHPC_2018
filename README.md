@@ -39,43 +39,24 @@ cd code && ./clean.sh [cmake|measures]
 
 **Doc:** (https://scicomp.ethz.ch/wiki/Getting\_started\_with\_clusters)
 
-### Install gcc 7.3.0 on EULER
-
-```bash
-module load gcc
-
-cd ~ 
-
-git clone https://github.com/intv0id/PMST
-
-wget http://www.netgull.com/gcc/releases/gcc-7.3.0/gcc-7.3.0.tar.gz && \
-tar xzf gcc-7.3.0.tar.gz && \
-cd gcc-7.3.0 && \
-./contrib/download_prerequisites && \
-cd ~
-
-bsub < ./PMST/code/euler/gcc7_install.sh
-
-module unload gcc
-```
-
 ### Install liblsb on euler
 
 ``` bash
-module load open_mpi/1.6.5 gcc/4.9.2
+module load new gcc/5.2.0 open_mpi/1.6.5
 cd /tmp && wget https://spcl.inf.ethz.ch/Research/Performance/LibLSB/liblsb-0.2.2.tar.gz
 tar xvf liblsb-0.2.2.tar.gz && rm liblsb-0.2.2.tar.gz
 cd liblsb-0.2.2
 ./configure --prefix=`readlink -f ~/liblsb` && make && make install
 cd .. && rm -r liblsb-0.2.2
+
+echo "export LIBLSB_PATH=`readlink -f ~/liblsb/lib`" >> ~/.bashrc
 ```
 
 ### Compile & run `exec` 
 
 ``` bash
 # import modules
-module load open_mpi/1.6.5 cmake/3.5.2 boost/1.59.0
-export LIBLSB_PATH=`readlink -f ~/liblsb/lib`
+module load new gcc/5.2.0 open_mpi/1.6.5 cmake/3.11.4 boost/1.62.0 
 
 # Clone repo
 cd ~
@@ -83,7 +64,7 @@ git clone https://github.com/intv0id/PMST
 cd DPHPC_2018/code
 
 # Compile executable & submit job
-cmake -DCMAKE_CXX_COMPILER=g++ -DCMAKE_CC_COMPILER=gcc . && make
+cmake . && make
 bsub < euler/submit.sh
 ```
 
