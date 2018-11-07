@@ -53,6 +53,7 @@ endif()
 
 ## Precise includes
 include_directories(SYSTEM ${MPI_INCLUDE_PATH})
+include_directories(SYSTEM "${LIBLSB_PATH}/include")
 include_directories("include/")
 
 ## Gather source for main executable 
