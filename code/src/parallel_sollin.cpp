@@ -259,16 +259,19 @@ l_edge_t parallel_sollin_AL(Graph& g){
 				aux.liste.push_back(adj);
 				aux.lastSource = p1;
 			}else{
-	aux.liste.back()->adjacent_vertices.insert(aux.liste.back()->adjacent_vertices.end(),
-		adj->adjacent_vertices.begin(),
-		adj->adjacent_vertices.end());
+				l_edge_t& ref = aux.liste.back()->adjacent_vertices;
+				l_edge_t& ref0 = adj->adjacent_vertices;
+		ref.insert(ref.end(),
+		ref0.begin(),
+		ref0.end());
 	
 			}
 		}
 
 		// Copy list in vector
 		edges.clear();
-		for(l_val_it it = aux.liste.begin(); it != aux.liste.end();it++){
+		list<vertex_adjacency_list*> & aLRef = aux.liste;
+		for(l_val_it it = aLRef.begin(); it != aLRef.end();it++){
 			edges.push_back(*it);
 		}
 
@@ -287,16 +290,17 @@ l_edge_t parallel_sollin_AL(Graph& g){
 			int target = -1;
 			int p1 = u->find(edges[i]->index);
 			int nit = 0;
-			for(l_edge_it it = edges[i]->adjacent_vertices.begin(); it != edges[i]->adjacent_vertices.end();){
+			l_edge_t& ref = edges[i]->adjacent_vertices;
+			for(l_edge_it it = ref.begin(); it != ref.end();){
 				nit++;
 				//cout << "nit: " << nit << endl;
 				edge* e = *it;
 				int p2 = u->find(e->target);
 				if(p1 == p2){
-					edges[i]->adjacent_vertices.erase(it++);
+					ref.erase(it++);
 				}
 				else if(p2 == target){
-					edges[i]->adjacent_vertices.erase(it++);
+					ref.erase(it++);
 				}
 				else{
 					it++;
@@ -321,8 +325,8 @@ l_edge_t parallel_sollin_AL(Graph& g){
 		#pragma omp parallel for num_threads(4)
 		for(k = 0; k < nComps; k++){
 			vertex_adjacency_list* val = edges[k];
-
-			for(l_edge_it it = val->adjacent_vertices.begin(); it != val->adjacent_vertices.end(); it++){
+			l_edge_t& ref = val->adjacent_vertices;
+			for(l_edge_it it = ref.begin(); it != ref.end(); it++){
 				#ifdef DEBUG
 				cout << "Got edge " << endl;
 				#endif
