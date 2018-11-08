@@ -9,16 +9,23 @@ option(BUILD_TDEBUG "Debug mode" OFF)
 ## OMP
 FIND_PACKAGE(OpenMP)
 if(OPENMP_FOUND)
-		message("OPENMP FOUND")
+	message("OPENMP FOUND")
 endif()
 
 ## TBB
-link_libraries(tbb)
+if(EXISTS $ENV{TBB_PATH})
+	find_package(TBB REQUIRED tbb)
+else()
+	find_package(TBB)
+endif()
+if(TBB_FOUND)
+	message("TBB FOUND")
+endif()
 
 ## MPI Support
 find_package(MPI) 
 if(OPENMP_FOUND)
-		message("MPI FOUND")
+	message("MPI FOUND")
 endif()
 
 # Set variables
@@ -44,6 +51,13 @@ else()
     set(LIBLSB_PATH $ENV{LIBLSB_PATH})
 endif()
 
+## TBB
+link_libraries(tbb)
+if(EXISTS $ENV{TBB_PATH})
+	include_directories("$ENV{TBB_PATH}/include")
+endif()
+
+
 if(NOT EXISTS "${LIBLSB_PATH}/lib/liblsb.a")
     message(WARNING "LIBLSB NOT FOUND IN LOCATION ${LIBLSB_PATH}")
 endif()
@@ -63,3 +77,7 @@ file(GLOB SRCS src/*)
 add_executable(exec ${SRCS})
 
 target_link_libraries(exec ${MPI_CXX_LIBRARIES} ${LIBLSB_PATH}/lib/liblsb.a)
+if(EXISTS $ENV{TBB_PATH})
+	target_link_libraries(exec "$ENV{TBB_PATH}/lib/intel64/gcc4.7/libtbb.so")
+endif()
+
