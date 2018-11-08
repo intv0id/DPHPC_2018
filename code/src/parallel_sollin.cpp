@@ -129,7 +129,7 @@ l_edge_t parallel_sollin_EL(Graph& g){
 
 		nEdges = vectorEdges.size();
 		v_edge_t cheapest(n,einit);
-		#pragma omp parallel for num_threads(1) reduction(findMin:cheapest)
+		#pragma omp parallel for num_threads(4) reduction(findMin:cheapest)
 		for(k = 0; k < nEdges; k++){
 			edge* e = vectorEdges[k];
 
@@ -193,13 +193,36 @@ struct result_AL{
 };
 
 void merge_AL(result_AL& v1, result_AL& v2){
+
+	// Get size of v1
+	int t = v1.liste.size();
+	int u = v2.liste.size();
+	cout << "v1:" << t << endl;
+	cout << "v2:" << u << endl;
+	cout << "v1.firstSource: " << v1.firstSource << endl;
+	cout << "v1.lastSource: " << v1.lastSource << endl;
+	cout << "v2.firstSource: " << v2.firstSource << endl;
+	cout << "v2.lastSource: " << v2.lastSource << endl;
 	if(v1.lastSource == v2.firstSource){
-		v1.liste.back()->adjacent_vertices.insert(v1.liste.back()->adjacent_vertices.begin(),
-				v2.liste.front()->adjacent_vertices.begin(),v2.liste.back()->adjacent_vertices.end());
+		l_edge_t& ref1 = v1.liste.back()->adjacent_vertices;
+		l_edge_t& ref2 = v2.liste.front()->adjacent_vertices;
+		cout << "v1.back.size:" << ref1.size() << endl;
+		cout << "v2.front.size:" << ref2.size() << endl;
 		v2.liste.pop_front();
+		ref1.splice(ref1.end(),ref2);
 	}
-	v1.lastSource = v2.lastSource;
+	if(t == 0){
+		v1.firstSource = v2.firstSource;
+	}
+	if(u != 0){
+		v1.lastSource = v2.lastSource;
+	}
 	v1.liste.splice(v1.liste.end(),v2.liste);
+		
+	cout << "merged:" << v1.liste.size() << endl;
+	cout << "v1.firstSource: " << v1.firstSource << endl;
+	cout << "v2.lastSource: " << v2.lastSource << endl;
+	cout << endl;
 }
 
 #pragma omp declare reduction \
@@ -229,18 +252,19 @@ l_edge_t parallel_sollin_AL(Graph& g){
 		cout << "Number of Trees: " << u->numTrees << endl;
 		#endif
 		// Sort by parent vertex
-		tbb::parallel_sort(edges.begin(),edges.end(),cV);
+		//tbb::parallel_sort(edges.begin(),edges.end(),cV);
+		sort(edges.begin(),edges.end(),cV);
 
 
 		//cout << "Sorted vertices"  << endl;
 
 		// Merge same parent vertex
 		int nVertex = edges.size();
-		result_AL aux;
 		int k;
-		#pragma omp parallel for num_threads(1) reduction(compactVertexAL:aux)
+
+		result_AL aux;
+		#pragma omp parallel for num_threads(4) reduction(compactVertexAL:aux)
 		for(k = 0; k < nVertex; k++){
-			//cout << "k: " << k << endl;
 			vertex_adjacency_list* adj = edges[k];
 			int p1;
 			#pragma omp critical
@@ -251,7 +275,6 @@ l_edge_t parallel_sollin_AL(Graph& g){
 				#ifdef DEBUG
 				int ID = omp_get_thread_num();
 				cout << ID << endl;
-				cout << k << endl;
 				#endif
 				aux.firstSource = p1;
 			}
@@ -261,9 +284,9 @@ l_edge_t parallel_sollin_AL(Graph& g){
 			}else{
 				l_edge_t& ref = aux.liste.back()->adjacent_vertices;
 				l_edge_t& ref0 = adj->adjacent_vertices;
-		ref.insert(ref.end(),
-		ref0.begin(),
-		ref0.end());
+				ref.insert(ref.end(),
+				ref0.begin(),
+				ref0.end());
 	
 			}
 		}
