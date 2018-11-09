@@ -13,6 +13,7 @@
 #include "common.hpp"
 #include "kruskal.hpp"
 #include "prim.hpp"
+#include "timer.hpp"
 // #include "algorithms.hpp"
 
 #define N 100
@@ -155,17 +156,16 @@ void time(){
 	int minWeight = 0;
 	int maxWeight = 100;
 
-	ofstream myfile;
 	string name = "plots/log_varSize_edgePerVertex="+to_string(edgePerVertex)+".txt";
-	myfile.open(name);
+	Timer t(name);
+	t.printF(nSizes);
+	t.printF(nTrials);
 
-	myfile << nSizes << endl;
-	myfile << nTrials << endl;
 	// Test a lot of random graphs and compare the weight with the boost implementation
 	for(int j = 0; j != nSizes; j++){
 
 		cout << endl << "Size: " << size[j] << endl;
-		myfile << size[j] << endl;
+		t.printF(size[j]);
 		for(int i = 0; i != nTrials; i++){
 
 			double time1,time2;
@@ -173,38 +173,10 @@ void time(){
 			// Generate a random graph and the corresponding boost graph
 			Graph g(size[j],(float)edgePerVertex/size[j],minWeight,maxWeight);		
 			// Apply sequential sollin
-			time1 = omp_get_wtime();
-			l_edge_t mst = sollin(g);
-			time2 = omp_get_wtime();
-			myfile << time2 - time1 << " ";
-
-			int weight_seq(0);
-			for(l_edge_it it = mst.begin(); it != mst.end(); it++){
-				weight_seq += (*it)->weight;
-			}
-			cout << "Weight sequential: " << weight_seq << endl;
+			t.time(sollin,g);
 			// Apply parallel sollin
-			time1 = omp_get_wtime();
-			mst = parallel_sollin_EL(g);
-			time2 = omp_get_wtime();
-			myfile << time2 - time1 << " ";
-
-			int weight_par_el(0);
-			for(l_edge_it it = mst.begin(); it != mst.end(); it++){
-				weight_par_el += (*it)->weight;
-			}
-			cout << "Weight parallel EL: " << weight_par_el << endl;
-			
-			time1 = omp_get_wtime();
-			mst = parallel_sollin_AL(g);
-			time2 = omp_get_wtime();
-			myfile << time2 - time1 << " ";
-
-			int weight_par_al(0);
-			for(l_edge_it it = mst.begin(); it != mst.end(); it++){
-				weight_par_al += (*it)->weight;
-			}
-			cout << "Weight parallel AL: " << weight_par_al << endl;
+			t.time(parallel_sollin_EL,g);
+			t.time(parallel_sollin_AL,g);
 
 			// Apply boost algorithm
 			boost::property_map<Boost_Graph,boost::edge_weight_t>::type w = get(boost::edge_weight,g.boost_rep);
@@ -214,7 +186,7 @@ void time(){
 			time1 = omp_get_wtime();
 			kruskal_minimum_spanning_tree(g.boost_rep,back_inserter(v));
 			time2 = omp_get_wtime();
-			myfile << time2 - time1 << " ";
+			t.o << time2 - time1 << " ";
 
 			// Print all weights
 			int weight_kruskal_boost = 0;
@@ -228,7 +200,7 @@ void time(){
 			time1 = omp_get_wtime();
 			prim_minimum_spanning_tree(g.boost_rep,boost::make_iterator_property_map(predMap.begin(),get(boost::vertex_index,g.boost_rep)));
 			time2 = omp_get_wtime();
-			myfile << time2 - time1 << " ";
+			t.o << time2 - time1 << " ";
 
 			// Print all weights
 			int weight_prim_boost = 0;
@@ -241,10 +213,10 @@ void time(){
 			}
 			cout << "Weight Prim Boost: " << weight_prim_boost << endl;
 
-			myfile << endl;
+			t.o << endl;
 		}
 	}
-	myfile.close();
+	t.o.close();
 }
 
 /*
