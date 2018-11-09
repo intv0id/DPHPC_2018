@@ -73,6 +73,7 @@ wget https://github.com/01org/tbb/releases/download/2019_U1/tbb2019_20181003oss_
 tar xvf tbb2019_20181003oss_lin.tgz 
 mkdir ~/tbb2019 && mv tbb2019_20181003oss/* ~/tbb2019/
 echo "export TBB_PATH=`readlink -f ~/tbb2019`" >> ~/.bashrc
+echo "export TBB_DIR=`readlink -f ~/tbb2019`" >> ~/.bashrc
 ```
 
 #### Install `boost` (**DCO**)
