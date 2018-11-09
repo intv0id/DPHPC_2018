@@ -1,0 +1,101 @@
+%%% Décommenter pour une présentation
+\documentclass{beamer}
+%%%
+
+%%% Décommenter pour avoir un article
+%\documentclass[handout]{beamer}
+%\usepackage{pgfpages}
+%\pgfpagesuselayout{2 on 1}[a4paper,border shrink=5mm]
+%\setbeameroption{show notes on second screen=bottom} % Beamer manual, section 19.3
+%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% NE PAS MODIFIER CETTE PARTIE
+
+\usetheme{Warsaw}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{verbatim}
+\usetikzlibrary{arrows,shapes}
+
+\graphicspath{{graphics/}}
+
+\hypersetup{pdfstartview={Fit}}
+
+
+
+\AtBeginSection[]{
+  \begin{frame}
+  \vfill
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{title}
+    \usebeamerfont{title}\insertsectionhead\par%
+  \end{beamercolorbox}
+  \vfill
+  \end{frame}
+}
+
+\setbeamertemplate{note page}[plain] % Beamer manual, section 19.1
+\newlength{\parskipbackup}
+\setlength{\parskipbackup}{\parskip}
+\newlength{\parindentbackup}
+\setlength{\parindentbackup}{\parindent}
+\newcommand{\baselinestretchbackup}{\baselinestretch}
+\usetemplatenote{\rmfamily \scriptsize%
+  \setlength{\parindent}{1em} \setlength{\parskip}{1ex}%
+  \renewcommand{\baselinestretch}{1}%
+  \noindent \insertnote%
+
+  \setlength{\parskip}{\parskipbackup}%
+  \setlength{\parindent}{\parindentbackup}%
+  \renewcommand{\baselinestretch}{\baselinestretchbackup}%
+}
+
+\logo{
+	\includegraphics[scale=0.1]{SPCL.png}
+} 
+\institute[ETH Zürich]{\textbf{ETH Zürich}}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%TODO : PARTIE A MODIFIER 
+
+\date{December 2018}	
+
+\author{
+    Th. Cambier
+    R. Dang-Nhu
+    Th. Dardinier
+    C. Trassoudaine
+}
+\title{
+	\textbf{Minimum Spanning Tree}\\
+	-\\ 
+	\textit{DPHPC}
+}
+
+\usepackage[backend=biber, style=authoryear, doi=false,isbn=false,url=false, giveninits=true]{biblatex}
+\bibliography{bib.bib}
+ 
+
+\begin{document}
+
+\pgfdeclarelayer{background}
+\pgfsetlayers{background,main}
+
+\frame{\titlepage}
+\frame{\tableofcontents}
+
+\end{document}
+
