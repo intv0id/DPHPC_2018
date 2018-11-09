@@ -73,12 +73,17 @@ wget https://github.com/01org/tbb/releases/download/2019_U1/tbb2019_20181003oss_
 tar xvf tbb2019_20181003oss_lin.tgz 
 mkdir ~/tbb2019 && mv tbb2019_20181003oss/* ~/tbb2019/
 echo "export TBB_PATH=`readlink -f ~/tbb2019`" >> ~/.bashrc
+echo "export TBB_DIR=`readlink -f ~/tbb2019`" >> ~/.bashrc
 ```
 
 #### Install `boost` (**DCO**)
 
 ``` bash
-#TODO
+cd /tmp
+wget https://dl.bintray.com/boostorg/release/1.68.0/source/boost_1_68_0.tar.bz2
+tar jxvf boost_1_68_0.tar.bz2
+mv boost_1_68_0 ~/boost
+echo "export BOOST_PATH=`readlink -f ~/boost`" >> ~/.bashrc
 ```
 
 #### Install `cmake` (**DCO**)
