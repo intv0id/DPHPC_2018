@@ -53,7 +53,7 @@ After any `~/.bashrc`  changes:
 source ~/.bashrc
 ```
 
-#### Install liblsb (EULER & DCO)
+#### Install `liblsb` (**EULER & DCO**)
 
 ``` bash
 cd /tmp && wget https://spcl.inf.ethz.ch/Research/Performance/LibLSB/liblsb-0.2.2.tar.gz
@@ -65,7 +65,7 @@ cd .. && rm -r liblsb-0.2.2
 echo "export LIBLSB_PATH=`readlink -f ~/liblsb`" >> ~/.bashrc
 ```
 
-#### Install tbb (EULER & DCO)
+#### Install `tbb` (**EULER & DCO**)
 
 ``` bash
 cd /tmp
@@ -73,6 +73,22 @@ wget https://github.com/01org/tbb/releases/download/2019_U1/tbb2019_20181003oss_
 tar xvf tbb2019_20181003oss_lin.tgz 
 mkdir ~/tbb2019 && mv tbb2019_20181003oss/* ~/tbb2019/
 echo "export TBB_PATH=`readlink -f ~/tbb2019`" >> ~/.bashrc
+```
+
+#### Install `boost` (**DCO**)
+
+``` bash
+#TODO
+```
+
+#### Install `cmake` (**DCO**)
+
+``` bash
+cd /tmp
+wget https://cmake.org/files/v3.13/cmake-3.13.0-rc3.tar.gz
+tar xvf cmake-3.13.0-rc3.tar.gz && cd cmake-3.13.0-rc3/
+./bootstrap --prefix=`readlink -f ~/cmake` && make && make install
+echo "export PATH=`readlink -f ~/cmake/bin`:\$PATH" >> ~/.bashrc
 ```
 
 ### Compile & run `exec` 
