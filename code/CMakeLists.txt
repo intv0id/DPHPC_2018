@@ -57,6 +57,9 @@ if(EXISTS $ENV{TBB_PATH})
 	include_directories("$ENV{TBB_PATH}/include")
 endif()
 
+if(EXISTS $ENV{BOOST_PATH})
+	include_directories("$ENV{BOOST_PATH}")
+endif()
 
 if(NOT EXISTS "${LIBLSB_PATH}/lib/liblsb.a")
     message(WARNING "LIBLSB NOT FOUND IN LOCATION ${LIBLSB_PATH}")
