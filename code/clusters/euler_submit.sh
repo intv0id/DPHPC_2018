@@ -1,8 +1,8 @@
 #! /bin/bash -l
 
 #BSUB -q normal.4h
-#BSUB -o %J.out
-#BSUB -e %J.err
+#BSUB -o job_%J.out
+#BSUB -e job_%J.err
 #BSUB -n 4
 
 echo "Running job"
