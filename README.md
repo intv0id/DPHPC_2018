@@ -70,7 +70,8 @@ echo "export LIBLSB_PATH=`readlink -f ~/liblsb`" >> ~/.bashrc
 ``` bash
 cd /tmp
 wget https://github.com/01org/tbb/releases/download/2019_U1/tbb2019_20181003oss_lin.tgz
-tar xvf tbb2019_20181003oss_lin.tgz ~/tbb2019
+tar xvf tbb2019_20181003oss_lin.tgz 
+mkdir ~/tbb2019 && mv tbb2019_20181003oss/* ~/tbb2019/
 echo "export TBB_PATH=`readlink -f ~/tbb2019`" >> ~/.bashrc
 ```
 
