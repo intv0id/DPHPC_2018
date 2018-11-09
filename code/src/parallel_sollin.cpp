@@ -10,6 +10,8 @@
 #include "graph.hpp"
 #include "common.hpp"
 
+#define NUM_THREADS 4
+
 using namespace std;
 
 
@@ -85,7 +87,7 @@ l_edge_t parallel_sollin_EL(Graph& g){
 		result aux;
 		int k;
 		int nEdges = vectorEdges.size();
-		#pragma omp parallel for num_threads(4) reduction(listEdges:aux)
+		#pragma omp parallel for ordered num_threads(NUM_THREADS) reduction(listEdges:aux)
 		for(k = 0; k < nEdges; k++){
 			edge* e = vectorEdges[k];
 			int p1, p2;
@@ -129,7 +131,7 @@ l_edge_t parallel_sollin_EL(Graph& g){
 
 		nEdges = vectorEdges.size();
 		v_edge_t cheapest(n,einit);
-		#pragma omp parallel for num_threads(4) reduction(findMin:cheapest)
+		#pragma omp parallel for num_threads(NUM_THREADS) reduction(findMin:cheapest)
 		for(k = 0; k < nEdges; k++){
 			edge* e = vectorEdges[k];
 
@@ -167,7 +169,7 @@ l_edge_t parallel_sollin_EL(Graph& g){
 		
 		vector<edge*> add_to_mst;
 		// Connect the components via pointer-jump
-		#pragma omp parallel for num_threads(4) reduction(addEdges:add_to_mst)
+		#pragma omp parallel for num_threads(NUM_THREADS) reduction(addEdges:add_to_mst)
 		for(k = 0; k < n; k++){
 			edge* e = cheapest[k];
 			if(e->source != -1){
@@ -197,19 +199,19 @@ void merge_AL(result_AL& v1, result_AL& v2){
 	// Get size of v1
 	int t = v1.liste.size();
 	int u = v2.liste.size();
-	cout << "v1:" << t << endl;
+	
+	/*cout << "v1:" << t << endl;
 	cout << "v2:" << u << endl;
 	cout << "v1.firstSource: " << v1.firstSource << endl;
 	cout << "v1.lastSource: " << v1.lastSource << endl;
 	cout << "v2.firstSource: " << v2.firstSource << endl;
 	cout << "v2.lastSource: " << v2.lastSource << endl;
+	*/
 	if(v1.lastSource == v2.firstSource){
 		l_edge_t& ref1 = v1.liste.back()->adjacent_vertices;
 		l_edge_t& ref2 = v2.liste.front()->adjacent_vertices;
-		cout << "v1.back.size:" << ref1.size() << endl;
-		cout << "v2.front.size:" << ref2.size() << endl;
-		v2.liste.pop_front();
 		ref1.splice(ref1.end(),ref2);
+		v2.liste.pop_front();
 	}
 	if(t == 0){
 		v1.firstSource = v2.firstSource;
@@ -219,10 +221,11 @@ void merge_AL(result_AL& v1, result_AL& v2){
 	}
 	v1.liste.splice(v1.liste.end(),v2.liste);
 		
-	cout << "merged:" << v1.liste.size() << endl;
+	/*cout << "merged:" << v1.liste.size() << endl;
 	cout << "v1.firstSource: " << v1.firstSource << endl;
 	cout << "v2.lastSource: " << v2.lastSource << endl;
 	cout << endl;
+	*/
 }
 
 #pragma omp declare reduction \
@@ -262,33 +265,43 @@ l_edge_t parallel_sollin_AL(Graph& g){
 		int nVertex = edges.size();
 		int k;
 
+		vector<result_AL> auxs(NUM_THREADS);
+		#pragma omp parallel num_threads(NUM_THREADS) 
+		{
+			int id = omp_get_thread_num();
+			#pragma omp for
+			for(k = 0; k < nVertex; k++){
+				vertex_adjacency_list* adj = edges[k];
+				int p1;
+				#pragma omp critical
+				{
+					p1 = u->find(adj->index);
+				}
+				if(auxs[id].firstSource == -1){
+					#ifdef DEBUG
+					int ID = omp_get_thread_num();
+					cout << ID << endl;
+					#endif
+					auxs[id].firstSource = p1;
+				}
+				if(p1 != auxs[id].lastSource){
+					auxs[id].liste.push_back(adj);
+					auxs[id].lastSource = p1;
+				}else{
+					l_edge_t& ref = auxs[id].liste.back()->adjacent_vertices;
+					l_edge_t& ref0 = adj->adjacent_vertices;
+					ref.insert(ref.end(),
+					ref0.begin(),
+					ref0.end());
+		
+				}
+			}
+		}
+
+		// Merge partial results
 		result_AL aux;
-		#pragma omp parallel for num_threads(4) reduction(compactVertexAL:aux)
-		for(k = 0; k < nVertex; k++){
-			vertex_adjacency_list* adj = edges[k];
-			int p1;
-			#pragma omp critical
-			{
-				p1 = u->find(adj->index);
-			}
-			if(aux.firstSource == -1){
-				#ifdef DEBUG
-				int ID = omp_get_thread_num();
-				cout << ID << endl;
-				#endif
-				aux.firstSource = p1;
-			}
-			if(p1 != aux.lastSource){
-				aux.liste.push_back(adj);
-				aux.lastSource = p1;
-			}else{
-				l_edge_t& ref = aux.liste.back()->adjacent_vertices;
-				l_edge_t& ref0 = adj->adjacent_vertices;
-				ref.insert(ref.end(),
-				ref0.begin(),
-				ref0.end());
-	
-			}
+		for(int k = 0; k != NUM_THREADS; k++){
+			merge_AL(aux,auxs[k]);
 		}
 
 		// Copy list in vector
@@ -300,7 +313,7 @@ l_edge_t parallel_sollin_AL(Graph& g){
 
 		// Sort each list by target parent vertex
 		nVertex = edges.size();
-		#pragma omp parallel for num_threads(4)
+		#pragma omp parallel for num_threads(NUM_THREADS)
 		for(int i = 0; i < nVertex; i++){
 			edges[i]->adjacent_vertices.sort(cTV);
 		}
@@ -308,7 +321,7 @@ l_edge_t parallel_sollin_AL(Graph& g){
 		// For each list merge target vertex
 		//cout << "Copied back in vector" << nVertex << endl;
 
-		#pragma omp parallel for num_threads(4)
+		#pragma omp parallel for num_threads(NUM_THREADS)
 		for(int i = 0; i < nVertex; i++){
 			int target = -1;
 			int p1 = u->find(edges[i]->index);
@@ -345,7 +358,7 @@ l_edge_t parallel_sollin_AL(Graph& g){
 
 		// Do loop in parallel
 
-		#pragma omp parallel for num_threads(4)
+		#pragma omp parallel for num_threads(NUM_THREADS)
 		for(k = 0; k < nComps; k++){
 			vertex_adjacency_list* val = edges[k];
 			l_edge_t& ref = val->adjacent_vertices;
@@ -384,7 +397,7 @@ l_edge_t parallel_sollin_AL(Graph& g){
 		// For all vertices, connect components
 		vector<edge*> add_to_mst;
 		// Connect the components via pointer-jump
-		#pragma omp parallel for num_threads(4) reduction(addEdges:add_to_mst)
+		#pragma omp parallel for num_threads(NUM_THREADS) reduction(addEdges:add_to_mst)
 		for(k = 0; k < nComps; k++){
 			edge* e = cheapest[k];
 			bool b;
