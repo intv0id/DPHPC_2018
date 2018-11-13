@@ -12,7 +12,7 @@ bool compare(const edge* a, const edge* b){
     return a->weight < b->weight;
 }
 
-l_edge_t seq_kruskal(Graph g){
+l_edge_t seq_kruskal(Graph &g){
     l_edge_t result;
 
     list<edge*> edges = g.unique_edges;

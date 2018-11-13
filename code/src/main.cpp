@@ -14,6 +14,7 @@
 #include "kruskal.hpp"
 #include "prim.hpp"
 #include "timer.hpp"
+#include "verifier.hpp"
 // #include "algorithms.hpp"
 
 #define N 100
@@ -79,6 +80,7 @@ void test_sollin(){
 	l_edge_t mst = sollin(g);
     l_edge_t mst_kruskal = seq_kruskal(g);
     l_edge_t mst_prim = seq_prim(g);
+
 	print_edge_list(mst);
 	print_edge_list(mst_kruskal);
 	print_edge_list(mst_prim);
@@ -92,6 +94,7 @@ void test_sollin(){
 	mst = sollin(g);
 	mst_kruskal = seq_kruskal(g);
     mst_prim = seq_prim(g);
+
 	print_edge_list(mst);
 	print_edge_list(mst_kruskal);
 	print_edge_list(mst_prim);
@@ -237,7 +240,6 @@ void test_old_kruskal(){
 }
 */
 
-
 void test_kruskal(){
 
 	Graph g = graph1();
@@ -249,14 +251,28 @@ void test_kruskal(){
 	l_edge_t mst = seq_kruskal(g);
 	print_edge_list(mst);
 
-	g = graph2();
+    if (verify(g, mst)) {
+        cout << "Worked" << endl;
+    }
+    else {
+        cout << "Didn't work" << endl;
+    }
+
+	Graph g2 = graph2();
 
 	#ifdef DEBUG 
 	cout << "Graph is constructed" << endl;
 	#endif
 
-	mst = seq_kruskal(g);
+	mst = seq_kruskal(g2);
 	print_edge_list(mst);
+
+    if (verify(g2, mst)) {
+        cout << "Worked" << endl;
+    }
+    else {
+        cout << "Didn't work" << endl;
+    }
 }
 
 void test_prim(){
@@ -332,7 +348,7 @@ int main(int argc, char *argv[]){
     cin >> i;
     cout << "Understood." << endl;
     if (i == 0){
-	test_sollin();
+        test_sollin();
     }
     else if (i == 1){
         cout << "Enter n trials" << endl;
@@ -341,7 +357,7 @@ int main(int argc, char *argv[]){
 	test_parallel_sollin(nTrials);
     }
     else if (i == 2){
-	time();
+        time();
     }
     else if (i == 3){
         test_kruskal();
