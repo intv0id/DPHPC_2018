@@ -1,31 +1,48 @@
-<<<<<<< HEAD
 number of sizes: 4
 number of trials: 3
 size: 3000
 trial: 0
-sollin 0.288312
-parallel_sollin_EL 0.205201
-parallel_sollin_AL 0.202336
-0.0702634 0.0339652 
+Sollin 0.280407
+parallel_sollin_EL 0.188507
+parallel_sollin_EL 0.192932
+Sequential Filter Kruskal 4.1638e-05
+Sequential Kruskal 1.8257e-05
+0.0702383 0.0309934 
 trial: 1
-sollin 0.294429
-parallel_sollin_EL 0.205908
-parallel_sollin_AL 0.207605
-0.0696189 0.0329928 
+Sollin 0.277386
+parallel_sollin_EL 0.188658
+parallel_sollin_EL 0.192908
+Sequential Filter Kruskal 3.6889e-05
+Sequential Kruskal 1.8377e-05
+0.0699943 0.0323972 
 trial: 2
-sollin 0.276807
-parallel_sollin_EL 0.195764
-parallel_sollin_AL 0.198037
-0.0690877 0.0306518 
+Sollin 0.277513
+parallel_sollin_EL 0.197395
+parallel_sollin_EL 0.199438
+Sequential Filter Kruskal 3.6306e-05
+Sequential Kruskal 1.8264e-05
+0.0694811 0.0317142 
 size: 10000
 trial: 0
-=======
-4
-3
-3000
-2.20601 3.41375 2.36744 0.0676593 0.03172 
-2.26011 3.46355 2.41256 0.0658727 0.0330491 
-2.21526 3.28043 2.35782 0.0666938 0.0314085 
-10000
-10.4453 14.8935 10.1321 0.260136 0.10154 
->>>>>>> cb2f060c0b9df1e2d9d7b7d16bc5f42a150e6016
+Sollin 1.39999
+parallel_sollin_EL 0.74812
+parallel_sollin_EL 0.745062
+Sequential Filter Kruskal 0.000116906
+Sequential Kruskal 5.889e-05
+0.252339 0.107804 
+trial: 1
+Sollin 1.35513
+parallel_sollin_EL 0.729324
+parallel_sollin_EL 0.728446
+Sequential Filter Kruskal 0.000114181
+Sequential Kruskal 5.8706e-05
+0.248928 0.10682 
+trial: 2
+Sollin 1.39522
+parallel_sollin_EL 0.731977
+parallel_sollin_EL 0.732967
+Sequential Filter Kruskal 0.000115884
+Sequential Kruskal 5.8626e-05
+0.253543 0.107746 
+size: 30000
+trial: 0

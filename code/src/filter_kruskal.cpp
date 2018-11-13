@@ -11,7 +11,7 @@
 
 using namespace std;
 
-l_edge_t seq_filter_kruskal(Graph &g){
+l_edge_t seq_filter_kruskal::algorithm(Graph &g){
     l_edge_t result;
     list<edge*> edges = g.unique_edges;
     union_find* u_find = new union_find(g.n);

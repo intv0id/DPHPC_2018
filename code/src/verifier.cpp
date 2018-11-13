@@ -46,7 +46,8 @@ bool isEveryNodeReachable(int n, l_edge_t &mst) {
 bool verify(Graph &g, l_edge_t &solution) {
     bool verified = true;
 
-    l_edge_t other_solution = seq_kruskal(g);
+    seq_kruskal s;
+    l_edge_t other_solution = s.algorithm(g);
 
     // 1. Is it spanning?
     verified = verified && isEveryNodeReachable(g.n, solution);

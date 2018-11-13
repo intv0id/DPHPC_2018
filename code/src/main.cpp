@@ -164,9 +164,12 @@ void time(){
 
 	// Declare algorithms
 	list<mst_algorithm*> l;
-	l.push_back(new sollin("sollin"));
-	l.push_back(new parallel_sollin_EL("parallel_sollin_EL"));
-	l.push_back(new parallel_sollin_EL("parallel_sollin_AL"));
+	l.push_back(new sollin);
+	l.push_back(new parallel_sollin_EL);
+	l.push_back(new parallel_sollin_EL);
+	l.push_back(new seq_filter_kruskal);
+	l.push_back(new seq_kruskal);
+	// Problème !l.push_back(new seq_prim);
 
 	// Create timer
 	Timer t(name,l);
