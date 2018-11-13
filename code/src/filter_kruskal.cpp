@@ -5,6 +5,7 @@
 #include <stdlib.h> 
 #include <iostream>
 
+#include "tbb/parallel_sort.h"
 #include "filter_kruskal.hpp"
 #include "kruskal.hpp"
 #include "common.hpp"
@@ -13,16 +14,17 @@ using namespace std;
 
 l_edge_t seq_filter_kruskal(Graph &g){
     l_edge_t result;
-    list<edge*> edges = g.unique_edges;
+    vector<edge*> edges {g.unique_edges.begin(), g.unique_edges.end()};
     union_find* u_find = new union_find(g.n);
 
     return seq_filter_kruskal_main(g, edges, u_find);
 }
 
-l_edge_t seq_filter_kruskal_main(Graph &g, list<edge*> &edges, union_find *u) {
+l_edge_t seq_filter_kruskal_main(Graph &g, vector<edge*> &edges, union_find *u) {
 
-    if (edges.size() < 3) {
-        return seq_kruskal_main(g, edges, u);
+    if (edges.size() < 10) {
+        tbb::parallel_sort(edges, compare);
+        return kruskal_main(g, edges, u);
     }
     int pivot = find_pivot(edges);
     auto couple = partition(edges, pivot);
@@ -35,7 +37,7 @@ l_edge_t seq_filter_kruskal_main(Graph &g, list<edge*> &edges, union_find *u) {
     return partial_solution;
 }
 
-int find_pivot(list<edge*> &edges) {
+int find_pivot(vector<edge*> &edges) {
     int n = edges.size();
     int pivot_id = rand() % n;
     int pivot = -1;
@@ -50,9 +52,9 @@ int find_pivot(list<edge*> &edges) {
     return pivot;
 }
 
-list<edge*> filter(list<edge*> &edges, union_find *u_find) {
+vector<edge*> filter(vector<edge*> &edges, union_find *u_find) {
 
-    list<edge*> filtered (edges.size());
+    vector<edge*> filtered (edges.size());
 
     auto it = copy_if (edges.begin(), edges.end(), filtered.begin(),
             [u_find](edge* e) {
@@ -66,8 +68,8 @@ list<edge*> filter(list<edge*> &edges, union_find *u_find) {
     return filtered;
 }
 
-list<edge*> old_filter(list<edge*> &edges, union_find *u_find) {
-    list<edge*> filtered;
+vector<edge*> old_filter(vector<edge*> &edges, union_find *u_find) {
+    vector<edge*> filtered;
     for (auto e : edges) {
         int u = e->source;
         int v = e->target;
@@ -78,10 +80,10 @@ list<edge*> old_filter(list<edge*> &edges, union_find *u_find) {
     return filtered;
 }
 
-pair<list<edge*>, list<edge*>> partition(list<edge*> &edges, int pivot) {
+pair<vector<edge*>, vector<edge*>> partition(vector<edge*> &edges, int pivot) {
 
-    list<edge*> e_minus (edges.size());
-    list<edge*> e_plus (edges.size());
+    vector<edge*> e_minus (edges.size());
+    vector<edge*> e_plus (edges.size());
 
     auto it_minus = copy_if (edges.begin(), edges.end(), e_minus.begin(),
             [pivot](edge* e) {return e->weight <= pivot;});
@@ -97,10 +99,10 @@ pair<list<edge*>, list<edge*>> partition(list<edge*> &edges, int pivot) {
 }
 
 
-pair<list<edge*>, list<edge*>> old_partition(list<edge*> &edges, int pivot) {
+pair<vector<edge*>, vector<edge*>> old_partition(vector<edge*> &edges, int pivot) {
 
-    list<edge*> e_minus;
-    list<edge*> e_plus;
+    vector<edge*> e_minus;
+    vector<edge*> e_plus;
 
     for (auto e : edges){
         if (e->weight <= pivot) {
