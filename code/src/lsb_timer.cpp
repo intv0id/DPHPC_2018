@@ -2,6 +2,9 @@
 #include <fstream>
 #include <string>
 
+#include <liblsb.h>
+#include <stdlib.h>
+#include <time.h>
 #include <omp.h>
 
 #include "graph.hpp"
@@ -19,8 +22,10 @@ LsbTimer::LsbTimer(string filename,list<mst_algorithm*> l) : algorithms(l)
 {
 	o.open(filename);
 }
+void LsbTimer::clock(list<Graph> g_list)
+{
 
-void LsbTimer::time(list<Graph&> g_list){
+	int run;
 
 	srand(time(NULL));
 	LSB_Init("Algo time", 0);
@@ -28,12 +33,12 @@ void LsbTimer::time(list<Graph&> g_list){
 	LSB_Set_Rparam_int("runs", RUNS);
 
 	for(mst_algorithm* mst_alg : algorithms){
-		LSB_Set_Rparam_int("algo name", mst_algo.name);
+
+        mst_algorithm &mst_algo = *mst_alg;
+		LSB_Set_Rparam_string("algo name", mst_algo.name.c_str());
 
 		for (Graph& g : g_list) {
 			for (run=0; run<RUNS; run++) {
-				mst_algorithm &mst_algo = *mst_alg;
-
 				/* Reset the counters */
 				LSB_Res();
 
