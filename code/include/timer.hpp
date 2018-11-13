@@ -1,14 +1,24 @@
 #include <iostream>
 #include <fstream>
+#include <list>
 
+#include "common.hpp"
 #include "graph.hpp"
 
 using namespace std;
 
 class Timer{
-	public:
 	ofstream o;
-	Timer(string name); 
-	void printF(int n);
-	void time(l_edge_t (Graph&), Graph& g);
+	const list<mst_algorithm*> algorithms;
+	public:
+	// Open file, create list of algorithms
+	Timer(string name,list<mst_algorithm*> algorithms); 
+	// Print a string
+	void printF(string field, string s) ;
+	void printF(string field, int s) ;
+	// Time a graph
+	void time(Graph& g) ;
+	~Timer(){
+		o.close();
+	}
 };

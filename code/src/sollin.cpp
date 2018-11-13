@@ -10,9 +10,7 @@
 
 using namespace std;
 
-
-
-l_edge_t sollin(Graph& g){
+l_edge_t sollin::algorithm(Graph& g){
 
 	// Get graph data
 	int n = g.n;

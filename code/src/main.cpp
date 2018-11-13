@@ -3,8 +3,6 @@
 #include <liblsb.h>
 #include <mpi.h>
 #include <omp.h>
-#include <boost/graph/kruskal_min_spanning_tree.hpp>
-#include <boost/graph/prim_minimum_spanning_tree.hpp>
 
 #include "tbb/task_scheduler_init.h"
 #include "graph.hpp"
@@ -21,7 +19,6 @@
 
 using namespace std;
 
-typedef boost::graph_traits<Boost_Graph>::edge_descriptor Boost_Edge;
 
 Graph graph1(){
 	// Test with a simple graph
@@ -67,7 +64,8 @@ Graph graph2(){
 	 */
 
 }
-
+ 
+/*
 void test_sollin(){
 
 	Graph g = graph1();
@@ -141,12 +139,13 @@ void test_parallel_sollin(int nTrials){
 	
 
 }
-
+*/
 /* Sharp connectivity threshold:
  * 10^4 -> 9.2
  * 10^5 -> 11.5
  * 10^6 -> 13.8
  * */
+
 void time(){
 
 	int edgePerVertex = 20;
@@ -156,67 +155,31 @@ void time(){
 	int minWeight = 0;
 	int maxWeight = 100;
 
+	// Declare name
 	string name = "plots/log_varSize_edgePerVertex="+to_string(edgePerVertex)+".txt";
-	Timer t(name);
-	t.printF(nSizes);
-	t.printF(nTrials);
+
+	// Declare algorithms
+	list<mst_algorithm*> l;
+	l.push_back(new sollin("sollin"));
+	l.push_back(new parallel_sollin_EL("parallel_sollin_EL"));
+	l.push_back(new parallel_sollin_EL("parallel_sollin_AL"));
+
+	// Create timer
+	Timer t(name,l);
+	t.printF("number of sizes",nSizes);
+	t.printF("number of trials",nTrials);
 
 	// Test a lot of random graphs and compare the weight with the boost implementation
 	for(int j = 0; j != nSizes; j++){
-
-		cout << endl << "Size: " << size[j] << endl;
-		t.printF(size[j]);
+		t.printF("size",size[j]);
 		for(int i = 0; i != nTrials; i++){
+			t.printF("trial",i);
 
-			double time1,time2;
-
-			// Generate a random graph and the corresponding boost graph
 			Graph g(size[j],(float)edgePerVertex/size[j],minWeight,maxWeight);		
-			// Apply sequential sollin
-			t.time(sollin,g);
-			// Apply parallel sollin
-			t.time(parallel_sollin_EL,g);
-			t.time(parallel_sollin_AL,g);
+			t.time(g);
 
-			// Apply boost algorithm
-			boost::property_map<Boost_Graph,boost::edge_weight_t>::type w = get(boost::edge_weight,g.boost_rep);
-			vector<Boost_Edge> v;
-
-			// Kruskal
-			time1 = omp_get_wtime();
-			kruskal_minimum_spanning_tree(g.boost_rep,back_inserter(v));
-			time2 = omp_get_wtime();
-			t.o << time2 - time1 << " ";
-
-			// Print all weights
-			int weight_kruskal_boost = 0;
-			for(vector<Boost_Edge>::iterator it = v.begin(); it != v.end(); it++){
-				weight_kruskal_boost += w[*it];
-			}
-			cout << "Weight Kruskal Boost: " << weight_kruskal_boost << endl;
-
-			// Prim
-			vector<int> predMap(g.n);
-			time1 = omp_get_wtime();
-			prim_minimum_spanning_tree(g.boost_rep,boost::make_iterator_property_map(predMap.begin(),get(boost::vertex_index,g.boost_rep)));
-			time2 = omp_get_wtime();
-			t.o << time2 - time1 << " ";
-
-			// Print all weights
-			int weight_prim_boost = 0;
-			for(int vertex = 1; vertex != g.n; vertex++){
-				bool success;
-				boost::graph_traits<Boost_Graph>::edge_descriptor e;
-				boost::tie(e,success) = boost::edge(predMap[vertex],vertex,g.boost_rep);
-				assert(success);
-				weight_prim_boost += w[e];
-			}
-			cout << "Weight Prim Boost: " << weight_prim_boost << endl;
-
-			t.o << endl;
 		}
 	}
-	t.o.close();
 }
 
 /*
@@ -237,7 +200,7 @@ void test_old_kruskal(){
 }
 */
 
-
+/*
 void test_kruskal(){
 
 	Graph g = graph1();
@@ -249,13 +212,13 @@ void test_kruskal(){
 	l_edge_t mst = seq_kruskal(g);
 	print_edge_list(mst);
 
-	g = graph2();
+	Graph g2 = graph2();
 
 	#ifdef DEBUG 
 	cout << "Graph is constructed" << endl;
 	#endif
 
-	mst = seq_kruskal(g);
+	mst = seq_kruskal(g2);
 	print_edge_list(mst);
 }
 
@@ -318,38 +281,21 @@ void find_a_name_2(int argc, char *argv[]){
 	LSB_Finalize();
 	MPI_Finalize();
 
-}
+}*/
 
 int main(int argc, char *argv[]){
 
-	// Init tbb
-	tbb::task_scheduler_init init(4);
+    // Init tbb
+    tbb::task_scheduler_init init(4);
 
     cout << "Hello world!" << endl;
     cout << "Enter a command" << endl;
 	
     int i;
     cin >> i;
-    cout << "Understood." << endl;
-    if (i == 0){
-	test_sollin();
-    }
-    else if (i == 1){
-        cout << "Enter n trials" << endl;
-	int nTrials;
-	cin >> nTrials;
-	test_parallel_sollin(nTrials);
-    }
-    else if (i == 2){
+    if (i == 2){
 	time();
     }
-    else if (i == 3){
-        test_kruskal();
-    }
-    else if (i == 4){
-        test_prim();
-    }
-
     return 0;
 		
 }

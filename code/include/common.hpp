@@ -1,6 +1,16 @@
+#ifndef COMMON_H
+#define COMMON_H
+
 #include "graph.hpp"
 #include <list>
 using namespace std;
+
+class mst_algorithm {
+	public:
+	const string name;
+	virtual l_edge_t algorithm(Graph& g) = 0;
+	mst_algorithm(string name_) : name(name_) {};
+};
 
 class union_find {
 	public:
@@ -35,3 +45,5 @@ class compTargetVertex{
 };
 
 void print_edge_list(l_edge_t);
+
+#endif

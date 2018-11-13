@@ -7,6 +7,7 @@
 #include "tbb/parallel_sort.h"
 #include "omp.h"
 
+#include "parallel_sollin.hpp"
 #include "graph.hpp"
 #include "common.hpp"
 
@@ -59,7 +60,7 @@ void findmin(v_edge_t& v1, v_edge_t& v2){
 	(addEdges:v_edge_t: omp_out.insert(omp_out.end(),omp_in.begin(),omp_in.end()))
 
 
-l_edge_t parallel_sollin_EL(Graph& g){
+l_edge_t parallel_sollin_EL::algorithm(Graph& g){
 
 
 	// Get graph data
@@ -231,7 +232,7 @@ void merge_AL(result_AL& v1, result_AL& v2){
 #pragma omp declare reduction \
 	(compactVertexAL:result_AL:merge_AL(omp_out,omp_in))
 
-l_edge_t parallel_sollin_AL(Graph& g){
+l_edge_t parallel_sollin_AL::algorithm(Graph& g){
 
 	// Copy adjacency list
 	vector<vertex_adjacency_list*> edges(g.n);
