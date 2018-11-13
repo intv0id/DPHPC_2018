@@ -13,11 +13,11 @@ with open(file1) as f1:
     content = f1.readlines()
     lsizes = content[0]
     linesizes = lsizes.split()
-    sizes = int(linesizes[0])
+    sizes = int(linesizes[-1])
     # read trials
     ltrials = content[1]
     linetrials = ltrials.split()
-    trials = int(linetrials[0])
+    trials = int(linetrials[-1])
 
     index = 2
     sizeindex = 0
@@ -25,7 +25,7 @@ with open(file1) as f1:
     for _ in range(sizes):
 
         line = content[index].split()
-        sizelist.append(int(line[0]))
+        sizelist.append(int(line[-1]))
         seqs.append([]);
         pars.append([]);
         boostKruskal.append([]);
@@ -35,7 +35,7 @@ with open(file1) as f1:
         for _ in range(trials):
             line = content[index].split()
 
-            seqs[sizeindex].append(float(line[0]));
+            seqs[sizeindex].append(float(line[-1]));
             pars[sizeindex].append(float(line[1]));
             boostKruskal[sizeindex].append(float(line[2]));
             boostPrim[sizeindex].append(float(line[3]));

@@ -14,7 +14,8 @@ void time_variable_size(){
 	int edgePerVertex = 20;
 	int nTrials = 3;
 	//vector<int> size = {100, 200};
-	vector<int> size = {3000,10000,30000,100000};
+	// vector<int> size = {3000,10000,30000,100000};
+	vector<int> size = {3000,10000,30000};
 	int nSizes = size.size();
 	int minWeight = 0;
 	int maxWeight = 100;

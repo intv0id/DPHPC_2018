@@ -33,7 +33,7 @@ l_edge_t kruskal::algorithm(Graph &g) {
     bool parallel = true;
 
     if (parallel) {
-        tbb::parallel_sort(edges, compare);
+        tbb::parallel_sort(edges.begin(), edges.end(), compare);
     }
     else {
         sort(edges.begin(), edges.end(), compare);

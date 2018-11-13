@@ -24,7 +24,7 @@ l_edge_t filter_kruskal::algorithm(Graph &g) {
 l_edge_t filter_kruskal_main(Graph &g, vector<edge*> &edges, union_find *u, unsigned long* old_size) {
 
     if (edges.size() < 20 || (*old_size) == edges.size() ) {
-        tbb::parallel_sort(edges, compare);
+        tbb::parallel_sort(edges.begin(), edges.end(), compare);
         return kruskal_main(edges, u);
     }
 
