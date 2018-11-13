@@ -13,7 +13,7 @@ bool compare(const edge* a, const edge* b){
     return a->weight < b->weight;
 }
 
-l_edge_t kruskal_main(Graph &g, vector<edge*> &edges, union_find* u_find){
+l_edge_t kruskal_main(vector<edge*> &edges, union_find* u_find){
     l_edge_t result;
 
     for (auto e : edges){
@@ -26,16 +26,18 @@ l_edge_t kruskal_main(Graph &g, vector<edge*> &edges, union_find* u_find){
     return result;
 }
 
-l_edge_t seq_kruskal(Graph &g){
+l_edge_t kruskal::algorithm(Graph &g) {
     vector<edge*> edges {g.unique_edges.begin(), g.unique_edges.end()};
-    sort(edges.begin(), edges.end(), compare);
     union_find* u_find = new union_find(g.n);
-    return kruskal_main(g, edges, u_find);
-}
 
-l_edge_t par_kruskal(Graph &g){
-    vector<edge*> edges {g.unique_edges.begin(), g.unique_edges.end()};
-    tbb::parallel_sort(edges, compare);
-    union_find* u_find = new union_find(g.n);
-    return kruskal_main(g, edges, u_find);
+    bool parallel = true;
+
+    if (parallel) {
+        tbb::parallel_sort(edges, compare);
+    }
+    else {
+        sort(edges.begin(), edges.end(), compare);
+    }
+
+    return kruskal_main(edges, u_find);
 }

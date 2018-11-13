@@ -12,27 +12,26 @@
 
 using namespace std;
 
-l_edge_t seq_filter_kruskal(Graph &g){
+l_edge_t filter_kruskal::algorithm(Graph &g) {
     l_edge_t result;
     vector<edge*> edges {g.unique_edges.begin(), g.unique_edges.end()};
     union_find* u_find = new union_find(g.n);
-
-    return seq_filter_kruskal_main(g, edges, u_find);
+    return filter_kruskal_main(g, edges, u_find);
 }
 
-l_edge_t seq_filter_kruskal_main(Graph &g, vector<edge*> &edges, union_find *u) {
+l_edge_t filter_kruskal_main(Graph &g, vector<edge*> &edges, union_find *u) {
 
-    if (edges.size() < 10) {
+    if (edges.size() < 20) {
         tbb::parallel_sort(edges, compare);
-        return kruskal_main(g, edges, u);
+        return kruskal_main(edges, u);
     }
     int pivot = find_pivot(edges);
     auto couple = partition(edges, pivot);
 
-    l_edge_t partial_solution = seq_filter_kruskal_main(g, couple.first, u);
+    l_edge_t partial_solution = filter_kruskal_main(g, couple.first, u);
 
     auto e_plus = filter(couple.second, u);
-    partial_solution.merge(seq_filter_kruskal_main(g, e_plus, u));
+    partial_solution.merge(filter_kruskal_main(g, e_plus, u));
 
     return partial_solution;
 }
@@ -58,8 +57,6 @@ vector<edge*> filter(vector<edge*> &edges, union_find *u_find) {
 
     auto it = copy_if (edges.begin(), edges.end(), filtered.begin(),
             [u_find](edge* e) {
-            int u = e->source;
-            int v = e->target;
             return u_find->find(e->source) != u_find->find(e->target);
             });
 
@@ -71,8 +68,6 @@ vector<edge*> filter(vector<edge*> &edges, union_find *u_find) {
 vector<edge*> old_filter(vector<edge*> &edges, union_find *u_find) {
     vector<edge*> filtered;
     for (auto e : edges) {
-        int u = e->source;
-        int v = e->target;
         if (u_find->find(e->source) != u_find->find(e->target)) {
             filtered.push_back(e);
         }
@@ -97,7 +92,6 @@ pair<vector<edge*>, vector<edge*>> partition(vector<edge*> &edges, int pivot) {
 
     return make_pair(e_minus, e_plus);
 }
-
 
 pair<vector<edge*>, vector<edge*>> old_partition(vector<edge*> &edges, int pivot) {
 

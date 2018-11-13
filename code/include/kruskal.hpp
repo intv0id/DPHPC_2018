@@ -5,6 +5,11 @@
 using namespace std;
 
 bool compare(const edge* a, const edge* b);
-l_edge_t kruskal_main(Graph &g, vector<edge*> &edges, union_find* u_find);
-l_edge_t seq_kruskal(Graph &g);
-l_edge_t par_kruskal(Graph &g);
+
+l_edge_t kruskal_main(vector<edge*> &edges, union_find* u_find);
+
+class kruskal : public mst_algorithm {
+	public:
+	kruskal() : mst_algorithm("Sequential Kruskal") {}
+	virtual l_edge_t algorithm(Graph &g);
+};

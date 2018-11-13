@@ -164,9 +164,11 @@ void time(){
 
 	// Declare algorithms
 	list<mst_algorithm*> l;
-	l.push_back(new sollin("sollin"));
-	l.push_back(new parallel_sollin_EL("parallel_sollin_EL"));
-	l.push_back(new parallel_sollin_EL("parallel_sollin_AL"));
+	l.push_back(new filter_kruskal);
+	l.push_back(new kruskal);
+	l.push_back(new sollin);
+	l.push_back(new parallel_sollin_EL);
+	// Problème !l.push_back(new seq_prim);
 
 	// Create timer
 	Timer t(name,l);
@@ -179,6 +181,7 @@ void time(){
 		for(int i = 0; i != nTrials; i++){
 			t.printF("trial",i);
 			Graph g(size[j],(float)edgePerVertex/size[j],minWeight,maxWeight);		
+            cout << "Graph " << g.unique_edges.size() << endl;
 			t.time(g);
 
 		}
@@ -203,6 +206,7 @@ void test_old_kruskal(){
 }
 */
 
+/*
 void test_filter_kruskal(){
 
 	Graph g = graph1();
@@ -329,36 +333,9 @@ int main(int argc, char *argv[]){
 	
     int i;
     cin >> i;
-<<<<<<< HEAD
     if (i == 2){
-	time();
-    }
-=======
-    cout << "Understood." << endl;
-    if (i == 0){
-        test_sollin();
-    }
-    else if (i == 1){
-        cout << "Enter n trials" << endl;
-	int nTrials;
-	cin >> nTrials;
-	test_parallel_sollin(nTrials);
-    }
-    else if (i == 2){
         time();
     }
-    else if (i == 3){
-        test_kruskal();
-    }
-    else if (i == 4){
-        test_prim();
-    }
-    else if (i == 5){
-        test_filter_kruskal();
-    }
- 
-
->>>>>>> cb2f060c0b9df1e2d9d7b7d16bc5f42a150e6016
     return 0;
 		
 }

@@ -42,9 +42,9 @@ Graph::Graph(int n_) :
 	n(n_){
 	
     for(int i = 0; i != n; i++){
-	vertex_adjacency_list* val = new vertex_adjacency_list;
-	val->index = i;
-	adjacency_list.push_back(val);
+        vertex_adjacency_list* val = new vertex_adjacency_list;
+        val->index = i;
+        adjacency_list.push_back(val);
     }
 	
 }
@@ -59,9 +59,9 @@ Graph::Graph(int nVertices, double edgeProba, int min, int max) :
 
 
     for(int i = 0; i != nVertices; i++){
-	vertex_adjacency_list* val = new vertex_adjacency_list;
-	val->index = i;
-	adjacency_list.push_back(val);
+        vertex_adjacency_list* val = new vertex_adjacency_list;
+        val->index = i;
+        adjacency_list.push_back(val);
     }
 
     for(int i = 0; i !=nVertices; i++){
