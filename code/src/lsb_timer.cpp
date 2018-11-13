@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <omp.h>
+#include <mpi.h>
 
 #include "graph.hpp"
 #include "lsb_timer.hpp"
@@ -22,13 +23,17 @@ LsbTimer::LsbTimer(string filename,list<mst_algorithm*> l) : algorithms(l)
 {
 	o.open(filename);
 }
-void LsbTimer::clock(list<Graph> g_list)
+void LsbTimer::clock(list<Graph*> g_list, int *argc, char **argv[])
 {
 
-	int run;
+	int run, rank;
 
 	srand(time(NULL));
+
+    MPI_Init(argc, argv);
 	LSB_Init("Algo time", 0);
+
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 
 	LSB_Set_Rparam_int("runs", RUNS);
 
@@ -36,20 +41,20 @@ void LsbTimer::clock(list<Graph> g_list)
 
         mst_algorithm &mst_algo = *mst_alg;
 		LSB_Set_Rparam_string("algo name", mst_algo.name.c_str());
-
-		for (Graph& g : g_list) {
+		for (Graph* g : g_list) {
+            Graph &graph = *g;
 			for (run=0; run<RUNS; run++) {
 				/* Reset the counters */
 				LSB_Res();
 
 				/* Perform the operation */
-				l_edge_t mst = mst_algo.algorithm(g);
+				l_edge_t mst = mst_algo.algorithm(graph);
 
 				/* Register the run-th measurement with the number of node of the current graph */
-				LSB_Rec(g.n);
+				LSB_Rec(graph.n);
 			}
 		}
 	}
-
 	LSB_Finalize();
+    MPI_Finalize();
 }

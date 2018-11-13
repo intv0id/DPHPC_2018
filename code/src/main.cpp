@@ -150,7 +150,7 @@ void test_parallel_sollin(int nTrials){
  * 10^6 -> 13.8
  * */
 
-void lsb_time(){
+void lsb_time(int *argc, char **argv[]){
 
 	// Declare graph params
 	int edgePerVertex = 20;
@@ -168,17 +168,16 @@ void lsb_time(){
 	l.push_back(new parallel_sollin_EL("parallel_sollin_AL"));
 
 	// Declare graphs
-	list<Graph> g_list;
+	list<Graph*> g_list;
 	for (int i: size) {
-        Graph g(i, (float) edgePerVertex / i, minWeight, maxWeight);
-		g_list.push_back(g);
+		g_list.push_back(new Graph(i, (float) edgePerVertex / i, minWeight, maxWeight));
 	}
 
 	// Create timer
 	LsbTimer t(name, l);
 
 	// Time
-	t.clock(g_list);
+	t.clock(g_list, argc, argv);
 }
 
 /*
@@ -364,7 +363,7 @@ int main(int argc, char *argv[]){
     int i;
     cin >> i;
     if (i == 2){
-	lsb_time();
+	lsb_time(&argc, &argv);
     }
     return 0;
 		
