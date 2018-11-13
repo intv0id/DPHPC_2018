@@ -10,7 +10,7 @@ using namespace std;
 
 typedef boost::adjacency_list<boost::vecS,boost::vecS,boost::undirectedS,
 	boost::no_property,
-	boost::property<boost::edge_weight_t,int>> Boost_Graph;
+	boost::property<boost::edge_weight_t,int> > Boost_Graph;
 
 
 struct edge {

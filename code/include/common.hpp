@@ -3,6 +3,7 @@
 
 #include "graph.hpp"
 #include <list>
+
 using namespace std;
 
 class mst_algorithm {
