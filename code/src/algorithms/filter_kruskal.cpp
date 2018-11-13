@@ -16,22 +16,27 @@ l_edge_t filter_kruskal::algorithm(Graph &g) {
     l_edge_t result;
     vector<edge*> edges {g.unique_edges.begin(), g.unique_edges.end()};
     union_find* u_find = new union_find(g.n);
-    return filter_kruskal_main(g, edges, u_find);
+    unsigned long x = 0;
+    unsigned long* old_size = &x;
+    return filter_kruskal_main(g, edges, u_find, old_size);
 }
 
-l_edge_t filter_kruskal_main(Graph &g, vector<edge*> &edges, union_find *u) {
+l_edge_t filter_kruskal_main(Graph &g, vector<edge*> &edges, union_find *u, unsigned long* old_size) {
 
-    if (edges.size() < 20) {
+    if (edges.size() < 20 || (*old_size) == edges.size() ) {
         tbb::parallel_sort(edges, compare);
         return kruskal_main(edges, u);
     }
+
+    (*old_size) = edges.size();
+
     int pivot = find_pivot(edges);
     auto couple = partition(edges, pivot);
 
-    l_edge_t partial_solution = filter_kruskal_main(g, couple.first, u);
+    l_edge_t partial_solution = filter_kruskal_main(g, couple.first, u, old_size);
 
     auto e_plus = filter(couple.second, u);
-    partial_solution.merge(filter_kruskal_main(g, e_plus, u));
+    partial_solution.merge(filter_kruskal_main(g, e_plus, u, old_size));
 
     return partial_solution;
 }
@@ -76,21 +81,27 @@ vector<edge*> old_filter(vector<edge*> &edges, union_find *u_find) {
 }
 
 pair<vector<edge*>, vector<edge*>> partition(vector<edge*> &edges, int pivot) {
+    
+    // edge* random_edge = edges.front();
 
-    vector<edge*> e_minus (edges.size());
-    vector<edge*> e_plus (edges.size());
+    vector<edge*> e_minus = vector<edge*>();
+    vector<edge*> e_plus = vector<edge*>();
 
-    auto it_minus = copy_if (edges.begin(), edges.end(), e_minus.begin(),
-            [pivot](edge* e) {return e->weight <= pivot;});
+    copy_if (edges.begin(), edges.end(), back_inserter(e_minus),
+            [pivot](edge* e) {return e->weight < pivot;});
 
-    e_minus.resize(distance(e_minus.begin(), it_minus));
+    // e_minus.resize(distance(e_minus.begin(), it_minus));
 
-    auto it_plus = copy_if (edges.begin(), edges.end(), e_plus.begin(),
-            [pivot](edge* e) {return e->weight > pivot;});
+    //auto it_plus = copy_if (edges.begin(), edges.end(), e_plus.begin(),
+            //[pivot](edge* e) {return e->weight > pivot;});
 
-    e_plus.resize(distance(e_plus.begin(), it_plus));
-
+    copy_if (edges.begin(), edges.end(), back_inserter(e_plus),
+            [pivot](edge* e) {return e->weight >= pivot;});
+    
+    // e_plus.resize(distance(e_plus.begin(), it_plus));
+    //
     return make_pair(e_minus, e_plus);
+
 }
 
 pair<vector<edge*>, vector<edge*>> old_partition(vector<edge*> &edges, int pivot) {
