@@ -10,8 +10,10 @@
 #include "sollin.hpp"
 #include "common.hpp"
 #include "kruskal.hpp"
+#include "filter_kruskal.hpp"
 #include "prim.hpp"
 #include "timer.hpp"
+#include "verifier.hpp"
 // #include "algorithms.hpp"
 
 #define N 100
@@ -77,6 +79,7 @@ void test_sollin(){
 	l_edge_t mst = sollin(g);
     l_edge_t mst_kruskal = seq_kruskal(g);
     l_edge_t mst_prim = seq_prim(g);
+
 	print_edge_list(mst);
 	print_edge_list(mst_kruskal);
 	print_edge_list(mst_prim);
@@ -90,6 +93,7 @@ void test_sollin(){
 	mst = sollin(g);
 	mst_kruskal = seq_kruskal(g);
     mst_prim = seq_prim(g);
+
 	print_edge_list(mst);
 	print_edge_list(mst_kruskal);
 	print_edge_list(mst_prim);
@@ -174,7 +178,6 @@ void time(){
 		t.printF("size",size[j]);
 		for(int i = 0; i != nTrials; i++){
 			t.printF("trial",i);
-
 			Graph g(size[j],(float)edgePerVertex/size[j],minWeight,maxWeight);		
 			t.time(g);
 
@@ -200,27 +203,60 @@ void test_old_kruskal(){
 }
 */
 
-/*
+void test_filter_kruskal(){
+
+	Graph g = graph1();
+
+	l_edge_t mst = seq_filter_kruskal(g);
+	print_edge_list(mst);
+
+    if (verify(g, mst)) {
+        cout << "Worked" << endl;
+    }
+    else {
+        cout << "Didn't work" << endl;
+    }
+
+	Graph g2 = graph2();
+
+	mst = seq_filter_kruskal(g2);
+	print_edge_list(mst);
+
+    if (verify(g2, mst)) {
+        cout << "Worked" << endl;
+    }
+    else {
+        cout << "Didn't work" << endl;
+    }
+}
+
 void test_kruskal(){
 
 	Graph g = graph1();
 
-	#ifdef DEBUG 
-	cout << "Graph is constructed" << endl;
-	#endif
-
 	l_edge_t mst = seq_kruskal(g);
 	print_edge_list(mst);
 
-	Graph g2 = graph2();
+    if (verify(g, mst)) {
+        cout << "Worked" << endl;
+    }
+    else {
+        cout << "Didn't work" << endl;
+    }
 
-	#ifdef DEBUG 
-	cout << "Graph is constructed" << endl;
-	#endif
+	Graph g2 = graph2();
 
 	mst = seq_kruskal(g2);
 	print_edge_list(mst);
+
+    if (verify(g2, mst)) {
+        cout << "Worked" << endl;
+    }
+    else {
+        cout << "Didn't work" << endl;
+    }
 }
+
 
 void test_prim(){
 
@@ -293,9 +329,36 @@ int main(int argc, char *argv[]){
 	
     int i;
     cin >> i;
+<<<<<<< HEAD
     if (i == 2){
 	time();
     }
+=======
+    cout << "Understood." << endl;
+    if (i == 0){
+        test_sollin();
+    }
+    else if (i == 1){
+        cout << "Enter n trials" << endl;
+	int nTrials;
+	cin >> nTrials;
+	test_parallel_sollin(nTrials);
+    }
+    else if (i == 2){
+        time();
+    }
+    else if (i == 3){
+        test_kruskal();
+    }
+    else if (i == 4){
+        test_prim();
+    }
+    else if (i == 5){
+        test_filter_kruskal();
+    }
+ 
+
+>>>>>>> cb2f060c0b9df1e2d9d7b7d16bc5f42a150e6016
     return 0;
 		
 }

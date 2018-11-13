@@ -79,7 +79,11 @@ echo "export TBB_DIR=`readlink -f ~/tbb2019`" >> ~/.bashrc
 #### Install `boost` (**DCO**)
 
 ``` bash
-#TODO
+cd /tmp
+wget https://dl.bintray.com/boostorg/release/1.68.0/source/boost_1_68_0.tar.bz2
+tar jxvf boost_1_68_0.tar.bz2
+mv boost_1_68_0 ~/boost
+echo "export BOOST_PATH=`readlink -f ~/boost`" >> ~/.bashrc
 ```
 
 #### Install `cmake` (**DCO**)

@@ -31,7 +31,7 @@ endif()
 # Set variables
 
 ## Set compile flags
-set(CMAKE_CXX_FLAGS "-std=c++11 -Wall -Wextra ${OpenMP_CXX_FLAGS}")
+set(CMAKE_CXX_FLAGS "-std=c++17 -Wall -Wextra ${OpenMP_CXX_FLAGS}")
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS}  ${OpenMP_EXE_LINKER_FLAGS}")
 if(BUILD_TDEBUG)
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -DDEBUG")
@@ -57,6 +57,9 @@ if(EXISTS $ENV{TBB_PATH})
 	include_directories("$ENV{TBB_PATH}/include")
 endif()
 
+if(EXISTS $ENV{BOOST_PATH})
+	include_directories("$ENV{BOOST_PATH}")
+endif()
 
 if(NOT EXISTS "${LIBLSB_PATH}/lib/liblsb.a")
     message(WARNING "LIBLSB NOT FOUND IN LOCATION ${LIBLSB_PATH}")

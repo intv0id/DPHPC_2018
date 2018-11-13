@@ -4,9 +4,9 @@ install:
   - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test &&
     sudo apt update -qq && 
     sudo apt install -y -qq --only-upgrade build-essential g++ gcc && 
-    sudo apt install -y -qq openmpi-bin libopenmpi-dev libboost-all-dev g++-7 gcc-7 libtbb-dev &&
-    sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-7 60 &&
-    sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 60
+    sudo apt install -y -qq openmpi-bin libopenmpi-dev libboost-all-dev g++-5 gcc-5 libtbb-dev &&
+    sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-5 60 &&
+    sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 60
   - wget https://spcl.inf.ethz.ch/Research/Performance/LibLSB/liblsb-0.2.2.tar.gz && 
     tar xvf liblsb-0.2.2.tar.gz && 
     cd liblsb-0.2.2 && 
