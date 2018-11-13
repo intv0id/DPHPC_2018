@@ -1,5 +1,9 @@
+#ifndef COMMON
+#define COMMON
+
 #include "graph.hpp"
 #include <list>
+
 using namespace std;
 
 class union_find {
@@ -35,3 +39,5 @@ class compTargetVertex{
 };
 
 void print_edge_list(l_edge_t);
+
+#endif

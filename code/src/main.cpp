@@ -12,6 +12,7 @@
 #include "sollin.hpp"
 #include "common.hpp"
 #include "kruskal.hpp"
+#include "filter_kruskal.hpp"
 #include "prim.hpp"
 #include "timer.hpp"
 #include "verifier.hpp"
@@ -240,13 +241,36 @@ void test_old_kruskal(){
 }
 */
 
-void test_kruskal(){
+void test_filter_kruskal(){
 
 	Graph g = graph1();
 
-	#ifdef DEBUG 
-	cout << "Graph is constructed" << endl;
-	#endif
+	l_edge_t mst = seq_filter_kruskal(g);
+	print_edge_list(mst);
+
+    if (verify(g, mst)) {
+        cout << "Worked" << endl;
+    }
+    else {
+        cout << "Didn't work" << endl;
+    }
+
+	Graph g2 = graph2();
+
+	mst = seq_filter_kruskal(g2);
+	print_edge_list(mst);
+
+    if (verify(g2, mst)) {
+        cout << "Worked" << endl;
+    }
+    else {
+        cout << "Didn't work" << endl;
+    }
+}
+
+void test_kruskal(){
+
+	Graph g = graph1();
 
 	l_edge_t mst = seq_kruskal(g);
 	print_edge_list(mst);
@@ -259,10 +283,6 @@ void test_kruskal(){
     }
 
 	Graph g2 = graph2();
-
-	#ifdef DEBUG 
-	cout << "Graph is constructed" << endl;
-	#endif
 
 	mst = seq_kruskal(g2);
 	print_edge_list(mst);
@@ -365,6 +385,10 @@ int main(int argc, char *argv[]){
     else if (i == 4){
         test_prim();
     }
+    else if (i == 5){
+        test_filter_kruskal();
+    }
+ 
 
     return 0;
 		

@@ -12,12 +12,10 @@ bool compare(const edge* a, const edge* b){
     return a->weight < b->weight;
 }
 
-l_edge_t seq_kruskal(Graph &g){
+l_edge_t seq_kruskal_main(Graph &g, list<edge*> &edges, union_find* u_find){
     l_edge_t result;
 
-    list<edge*> edges = g.unique_edges;
     edges.sort(compare);
-    union_find* u_find = new union_find(g.n);
 
     // Merge trees
     for (auto e : edges){
@@ -28,4 +26,10 @@ l_edge_t seq_kruskal(Graph &g){
     }
 
     return result;
+}
+
+l_edge_t seq_kruskal(Graph &g){
+    list<edge*> edges = g.unique_edges;
+    union_find* u_find = new union_find(g.n);
+    return seq_kruskal_main(g, edges, u_find);
 }
