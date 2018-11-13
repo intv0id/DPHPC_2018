@@ -14,6 +14,7 @@
 #include "prim.hpp"
 #include "timer.hpp"
 #include "verifier.hpp"
+#include "experiments.hpp"
 // #include "algorithms.hpp"
 
 #define N 100
@@ -67,68 +68,8 @@ Graph graph2(){
 
 }
  
-/* Sharp connectivity threshold:
- * 10^4 -> 9.2
- * 10^5 -> 11.5
- * 10^6 -> 13.8
- * */
 
-void time(){
 
-	int edgePerVertex = 20;
-	int nTrials = 3;
-	vector<int> size = {100};
-	//vector<int> size = {3000,10000,30000,100000};
-	int nSizes = size.size();
-	int minWeight = 0;
-	int maxWeight = 100;
-
-	// Declare name
-	string name = "plots/log_varSize_edgePerVertex="+to_string(edgePerVertex)+".txt";
-
-	// Declare algorithms
-	list<mst_algorithm*> l;
-	l.push_back(new filter_kruskal);
-	l.push_back(new kruskal);
-	l.push_back(new sollin);
-	l.push_back(new parallel_sollin_EL);
-	// Problème !l.push_back(new seq_prim);
-
-	// Create timer
-	Timer t(name,l);
-	t.printF("number of sizes",nSizes);
-	t.printF("number of trials",nTrials);
-
-	// Test a lot of random graphs and compare the weight with the boost implementation
-	for(int j = 0; j != nSizes; j++){
-		t.printF("size",size[j]);
-		for(int i = 0; i != nTrials; i++){
-			t.printF("trial",i);
-			Graph g(size[j],(float)edgePerVertex/size[j],minWeight,maxWeight);		
-            cout << "Graph " << g.unique_edges.size() << endl;
-			t.time(g);
-
-		}
-	}
-}
-
-/*
-void test_old_kruskal(){
-    #ifdef DEBUG
-	cout << "Defining graph" << endl;
-	#endif
-	
-	Graph g(10,0.5,0,10);
-	
-	#ifdef DEBUG 
-	cout << "Graph is constructed : " << endl;
-	g.printGraph();
-	#endif
-	
-	Old_Kruskal k(g);			
-	vector<edge_C> MST = k.compute();
-}
-*/
 
 /*
 void test_filter_kruskal(){
@@ -258,7 +199,7 @@ int main(int argc, char *argv[]){
     int i;
     cin >> i;
     if (i == 2){
-        time();
+        time_variable_size();
     }
     return 0;
 		
