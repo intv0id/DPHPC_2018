@@ -11,32 +11,36 @@ void edge::print(){
     cout << "Weight: " << weight << endl;
 }
 
-void Graph::add_edge(int u, int v, int weight){
-	edge* e1 = new edge;
-	edge* e2 = new edge;
-	e1->source = u;
-	e2->source = v;
-	e1->target = v;
-	e2->target = u;
-	e1->weight = weight;
-	e2->weight = weight;
-	edges.push_back(e1);
-	edges.push_back(e2);
-	adjacency_list[u]->adjacent_vertices.push_back(e1);
-	adjacency_list[v]->adjacent_vertices.push_back(e2);
+void Graph::add_edge(int i, int j, int w){
 
-    if (u < v) {
-        unique_edges.push_back(e1);
-    }
-    else {
-        unique_edges.push_back(e2);
-    }
 
-    //adjacency_matrix[u][v] = weight;
-    /*
-    adjacency_list[u].push_back(e1);
-    adjacency_list[v].push_back(e2);
-    */
+	// Create edges
+	edge* ei = new edge;
+	edge* ej = new edge;
+	ei->source = i; ej->source = j;
+	ei->target = j; ej->target = i;
+	ei->weight = w; ej->weight = w;
+	edges.push_back(ei);
+	edges.push_back(ej);
+	adjacency_list[i]->adjacent_vertices.push_back(ei);
+	adjacency_list[j]->adjacent_vertices.push_back(ej);
+
+	// Add edge to boost graph
+	boost::add_edge(i,j,w,boost_rep);
+
+	
+	if (i < j) {
+		unique_edges.push_back(ei);
+	}
+	else {
+		unique_edges.push_back(ej);
+	}
+	
+	//adjacency_matrix[u][v] = weight;
+	/*
+	adjacency_list[u].push_back(e1);
+	adjacency_list[v].push_back(e2);
+	*/
 }
 Graph::Graph(int n_) :
 	n(n_){
@@ -46,6 +50,7 @@ Graph::Graph(int n_) :
         val->index = i;
         adjacency_list.push_back(val);
     }
+
 	
 }
 Graph::Graph(int nVertices, double edgeProba, int min, int max) :
@@ -71,20 +76,8 @@ Graph::Graph(int nVertices, double edgeProba, int min, int max) :
             if(test <= edgeProba){
                 // Generate weight
                 int w = uni(rng);
+		add_edge(i,j,w);
 
-                // Create edges
-                edge* ei = new edge;
-                edge* ej = new edge;
-		ei->source = i; ej->source = j;
-		ei->target = j; ej->target = i;
-		ei->weight = w; ej->weight = w;
-		edges.push_back(ei);
-		edges.push_back(ej);
-		adjacency_list[i]->adjacent_vertices.push_back(ei);
-		adjacency_list[j]->adjacent_vertices.push_back(ej);
-
-		// Add edge to boost graph
-		boost::add_edge(i,j,w,boost_rep);
             }
         }
     }
@@ -93,9 +86,6 @@ Graph::Graph(int nVertices, double edgeProba, int min, int max) :
 Graph::~Graph(){
 	cout << "Graph is destructed" << endl;
 	for(auto e : edges){
-		delete e;
-	}
-	for(auto e : unique_edges){
 		delete e;
 	}
 	for(auto v : adjacency_list){

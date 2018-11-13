@@ -77,7 +77,7 @@ void time(){
 
 	int edgePerVertex = 20;
 	int nTrials = 3;
-	vector<int> size = {100};
+	vector<int> size = {3000};
 	//vector<int> size = {3000,10000,30000,100000};
 	int nSizes = size.size();
 	int minWeight = 0;
