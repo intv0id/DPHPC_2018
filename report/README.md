@@ -1,4 +1,4 @@
-# Compilin instructions
+# Compiling instructions
 
 ``` bash
 latex report.tex
