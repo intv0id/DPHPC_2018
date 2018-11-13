@@ -1,6 +1,5 @@
-# Compiling instructions
+#! /bin/bash
 
-``` bash
 latex report.tex
 bibtex report.tex
 latex report.tex
@@ -11,4 +10,3 @@ dvips -t letter -o report.ps -Pdf -G0 report.dvi
 
 #Now you have a ps file. Get a pdf as:
 ps2pdf report.ps
-```
