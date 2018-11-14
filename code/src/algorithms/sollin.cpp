@@ -1,12 +1,12 @@
 #include <iostream>
-#include <sollin.hpp>
-#include <graph.hpp>
 #include <vector>
 #include <list>
 #include <limits>
 #include <algorithm>
 
 #include "common.hpp"
+#include "sollin.hpp"
+#include "graph.hpp"
 
 using namespace std;
 

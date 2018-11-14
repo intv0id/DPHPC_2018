@@ -3,14 +3,15 @@
 #include <mpi.h>
 #include <omp.h>
 
-#include "tbb/task_scheduler_init.h"
-#include "graph.hpp"
 #include "parallel_sollin.hpp"
 #include "sollin.hpp"
-#include "common.hpp"
 #include "kruskal.hpp"
 #include "filter_kruskal.hpp"
 #include "prim.hpp"
+
+#include "tbb/task_scheduler_init.h"
+#include "graph.hpp"
+#include "common.hpp"
 #include "timer.hpp"
 #include "lsb_timer.hpp"
 #include "verifier.hpp"
@@ -32,9 +33,9 @@ void lsb_time(int *argc, char **argv[]){
 
 	// Declare algorithms
 	list<mst_algorithm*> l;
-	l.push_back(new sollin("sollin"));
-	l.push_back(new parallel_sollin_EL("parallel_sollin_EL"));
-	l.push_back(new parallel_sollin_EL("parallel_sollin_AL"));
+	l.push_back(new sollin());
+	l.push_back(new parallel_sollin_EL());
+	l.push_back(new parallel_sollin_AL());
 
 	// Declare graphs
 	list<Graph*> g_list;
