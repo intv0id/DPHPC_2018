@@ -15,8 +15,6 @@
 #include "lsb_timer.hpp"
 #include "verifier.hpp"
 
-#define N 100
-#define RUNS 10
 
 using namespace std;
 
