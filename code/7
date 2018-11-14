@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <liblsb.h>
 #include <mpi.h>
 #include <omp.h>
 
@@ -12,9 +13,7 @@
 #include "filter_kruskal.hpp"
 #include "prim.hpp"
 #include "timer.hpp"
-#include "lsb_timer.hpp"
 #include "verifier.hpp"
-#include "experiments.hpp"
 // #include "algorithms.hpp"
 
 #define N 100
@@ -68,51 +67,18 @@ Graph graph2(){
 
 }
  
-
-}
-*/
 /* Sharp connectivity threshold:
  * 10^4 -> 9.2
  * 10^5 -> 11.5
  * 10^6 -> 13.8
  * */
 
-void lsb_time(int *argc, char **argv[]){
-
-	// Declare graph params
-	int edgePerVertex = 20;
-	vector<int> size = {3000,10000,30000,100000};
-	int minWeight = 0;
-	int maxWeight = 100;
-
-	// Declare name
-	string name = "plots/lsb_log_varSize_edgePerVertex="+to_string(edgePerVertex)+".txt";
-
-	// Declare algorithms
-	list<mst_algorithm*> l;
-	l.push_back(new sollin("sollin"));
-	l.push_back(new parallel_sollin_EL("parallel_sollin_EL"));
-	l.push_back(new parallel_sollin_EL("parallel_sollin_AL"));
-
-	// Declare graphs
-	list<Graph*> g_list;
-	for (int i: size) {
-		g_list.push_back(new Graph(i, (float) edgePerVertex / i, minWeight, maxWeight));
-	}
-
-	// Create timer
-	LsbTimer t(name, l);
-
-	// Time
-	t.clock(g_list, argc, argv);
-}
-
-/*
 void time(){
 
 	int edgePerVertex = 20;
 	int nTrials = 3;
-	vector<int> size = {3000,10000,30000,100000};
+	vector<int> size = {3000};
+	//vector<int> size = {3000,10000,30000,100000};
 	int nSizes = size.size();
 	int minWeight = 0;
 	int maxWeight = 100;
@@ -122,9 +88,11 @@ void time(){
 
 	// Declare algorithms
 	list<mst_algorithm*> l;
-	l.push_back(new sollin("sollin"));
-	l.push_back(new parallel_sollin_EL("parallel_sollin_EL"));
-	l.push_back(new parallel_sollin_EL("parallel_sollin_AL"));
+	l.push_back(new filter_kruskal);
+	l.push_back(new kruskal);
+	l.push_back(new sollin);
+	l.push_back(new parallel_sollin_EL);
+	// Problème !l.push_back(new seq_prim);
 
 	// Create timer
 	Timer t(name,l);
@@ -136,13 +104,13 @@ void time(){
 		t.printF("size",size[j]);
 		for(int i = 0; i != nTrials; i++){
 			t.printF("trial",i);
-			Graph g(size[j],(float)edgePerVertex/size[j],minWeight,maxWeight);
+			Graph g(size[j],(float)edgePerVertex/size[j],minWeight,maxWeight);		
+            cout << "Graph " << g.unique_edges.size() << endl;
 			t.time(g);
 
 		}
 	}
 }
- */
 
 /*
 void test_old_kruskal(){
@@ -290,10 +258,7 @@ int main(int argc, char *argv[]){
     int i;
     cin >> i;
     if (i == 2){
-	    lsb_time(&argc, &argv);
-    }
-    else if (i == 3){
-        time_variable_size();
+        time();
     }
     return 0;
 		

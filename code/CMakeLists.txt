@@ -72,12 +72,14 @@ endif()
 include_directories(SYSTEM ${MPI_INCLUDE_PATH})
 include_directories(SYSTEM "${LIBLSB_PATH}/include")
 include_directories("include/")
+include_directories("include/algorithms/")
 
 ## Gather source for main executable 
 file(GLOB SRCS src/*)
+file(GLOB SRCS1 src/algorithms/*)
 
 ## Add executable 
-add_executable(exec ${SRCS})
+add_executable(exec ${SRCS} ${SRCS1})
 
 target_link_libraries(exec ${MPI_CXX_LIBRARIES} ${LIBLSB_PATH}/lib/liblsb.a)
 if(EXISTS $ENV{TBB_PATH})
