@@ -5,6 +5,7 @@
 
 #include "kruskal.hpp"
 #include "common.hpp"
+#include "tbb/parallel_sort.h"
 
 using namespace std;
 
@@ -12,12 +13,9 @@ bool compare(const edge* a, const edge* b){
     return a->weight < b->weight;
 }
 
-l_edge_t seq_kruskal_main(Graph &g, list<edge*> &edges, union_find* u_find){
+l_edge_t kruskal_main(vector<edge*> &edges, union_find* u_find){
     l_edge_t result;
 
-    edges.sort(compare);
-
-    // Merge trees
     for (auto e : edges){
         if (u_find->find(e->source) != u_find->find(e->target)) {
             u_find->unite(e->source, e->target);
@@ -28,8 +26,18 @@ l_edge_t seq_kruskal_main(Graph &g, list<edge*> &edges, union_find* u_find){
     return result;
 }
 
-l_edge_t seq_kruskal(Graph &g){
-    list<edge*> edges = g.unique_edges;
+l_edge_t kruskal::algorithm(Graph &g) {
+    vector<edge*> edges {g.unique_edges.begin(), g.unique_edges.end()};
     union_find* u_find = new union_find(g.n);
-    return seq_kruskal_main(g, edges, u_find);
+
+    bool parallel = true;
+
+    if (parallel) {
+        tbb::parallel_sort(edges.begin(), edges.end(), compare);
+    }
+    else {
+        sort(edges.begin(), edges.end(), compare);
+    }
+
+    return kruskal_main(edges, u_find);
 }

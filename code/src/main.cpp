@@ -14,6 +14,7 @@
 #include "timer.hpp"
 #include "lsb_timer.hpp"
 #include "verifier.hpp"
+#include "experiments.hpp"
 
 
 using namespace std;
@@ -56,7 +57,6 @@ int main(int argc, char *argv[]){
 
     // Init tbb
     tbb::task_scheduler_init init(4);
-
 
     // Check the number of parameters
     if (argc < 2) {
