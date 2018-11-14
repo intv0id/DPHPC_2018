@@ -34,3 +34,8 @@ Clément Trassoudaine
 * LibLSB (https://spcl.inf.ethz.ch/Research/Performance/LibLSB/)
 * Boost Graph Library (libboost-all-dev or something like that)
 * TBB(libtbb-dev)
+
+## Benchmark
+* Erdos-Renyi random graphs
+* USA road network from the 9th DIMACS challenge (http://www.diag.uniroma1.it/challenge9/download.shtml)
+* Stanford large networks dataset collection (https://snap.stanford.edu/data/)
