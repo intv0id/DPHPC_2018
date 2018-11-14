@@ -20,6 +20,11 @@
 
 using namespace std;
 
+/*
+ * CUSTOM FUNCTIONS SPACE
+ */
+
+
 void lsb_time(){
 
 	// Declare graph params
@@ -50,10 +55,36 @@ void lsb_time(){
 	t.clock(g_list);
 }
 
-void print_help(int *rank){
-    if (*rank  == 0)
+
+/*
+ * PARSING AND ARGUMENTS HELP
+ */
+
+void print_help(int rank){
+    if (rank  == 0)
         cout << endl << "USAGE: ./bin/exec [ lsb_time ]" << endl << endl;
 }
+
+void parse(int *argc, char **argv[], int rank){
+    // Check the number of parameters
+    if (*argc < 2) {
+        print_help(rank);
+        return;
+    }
+
+    // Use the first parameter as the main one. Others can be used as options
+    string arg = (*argv)[1];
+    if (arg == "lsb_time") {
+        lsb_time();
+    } else {
+        print_help(rank);
+    }
+}
+
+
+/*
+ * MAIN: keep it simple
+ */
 
 int main(int argc, char *argv[]){
 
@@ -65,18 +96,7 @@ int main(int argc, char *argv[]){
     MPI_Init(&argc, &argv);
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 
-    // Check the number of parameters
-    if (argc < 2) {
-        print_help(&rank);
-        return 1;
-    }
-
-    string arg = argv[1];
-    if (arg == "lsb_time") {
-        lsb_time();
-    } else {
-        print_help(&rank);
-    }
+    parse(&argc, &argv, rank);
 
     MPI_Finalize();
     return 0;
