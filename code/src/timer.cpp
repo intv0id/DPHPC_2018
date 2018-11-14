@@ -1,14 +1,15 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-
 #include <omp.h>
+
+#include <boost/graph/kruskal_min_spanning_tree.hpp>
+#include <boost/graph/prim_minimum_spanning_tree.hpp>
 
 #include "graph.hpp"
 #include "timer.hpp"
 
-#include <boost/graph/kruskal_min_spanning_tree.hpp>
-#include <boost/graph/prim_minimum_spanning_tree.hpp>
+
 
 typedef boost::graph_traits<Boost_Graph>::edge_descriptor Boost_Edge;
 using namespace std;

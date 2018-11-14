@@ -4,8 +4,8 @@
 #include <limits>
 #include <algorithm>
 
+#include "algorithms/sollin.hpp"
 #include "common.hpp"
-#include "sollin.hpp"
 #include "graph.hpp"
 
 using namespace std;

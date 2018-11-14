@@ -7,7 +7,7 @@
 #include "tbb/parallel_sort.h"
 #include "omp.h"
 
-#include "parallel_sollin.hpp"
+#include "algorithms/parallel_sollin.hpp"
 #include "graph.hpp"
 #include "common.hpp"
 

@@ -8,11 +8,13 @@
 #include <omp.h>
 #include <mpi.h>
 
+#include <boost/graph/kruskal_min_spanning_tree.hpp>
+#include <boost/graph/prim_minimum_spanning_tree.hpp>
+
 #include "graph.hpp"
 #include "lsb_timer.hpp"
 
-#include <boost/graph/kruskal_min_spanning_tree.hpp>
-#include <boost/graph/prim_minimum_spanning_tree.hpp>
+
 
 #define RUNS 10 //TODO: to define
 

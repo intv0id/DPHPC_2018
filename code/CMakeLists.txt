@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.3)
-project(DPHPC)
+project(PMST)
 
 # Option
 option(BUILD_TDEBUG "Debug mode" OFF)
@@ -72,14 +72,13 @@ endif()
 include_directories(SYSTEM ${MPI_INCLUDE_PATH})
 include_directories(SYSTEM "${LIBLSB_PATH}/include")
 include_directories("include/")
-include_directories("include/algorithms/")
+
 
 ## Gather source for main executable 
-file(GLOB SRCS src/*)
-file(GLOB SRCS1 src/algorithms/*)
+file(GLOB SRCS src/* src/*/*)
 
 ## Add executable 
-add_executable(exec ${SRCS} ${SRCS1})
+add_executable(exec ${SRCS})
 
 target_link_libraries(exec ${MPI_CXX_LIBRARIES} ${LIBLSB_PATH}/lib/liblsb.a)
 if(EXISTS $ENV{TBB_PATH})

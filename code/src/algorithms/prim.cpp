@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "prim.hpp"
+#include "algorithms/prim.hpp"
 // #include "common.hpp"
 
 using namespace std;

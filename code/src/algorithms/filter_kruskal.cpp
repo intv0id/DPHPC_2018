@@ -5,9 +5,9 @@
 #include <stdlib.h> 
 #include <iostream>
 
+#include "algorithms/filter_kruskal.hpp"
+#include "algorithms/kruskal.hpp"
 #include "tbb/parallel_sort.h"
-#include "filter_kruskal.hpp"
-#include "kruskal.hpp"
 #include "common.hpp"
 
 using namespace std;

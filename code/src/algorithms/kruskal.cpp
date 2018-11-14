@@ -3,7 +3,7 @@
 #include <map>
 #include <cstdlib>
 
-#include "kruskal.hpp"
+#include "algorithms/kruskal.hpp"
 #include "common.hpp"
 #include "tbb/parallel_sort.h"
 

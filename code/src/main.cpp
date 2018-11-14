@@ -3,11 +3,11 @@
 #include <mpi.h>
 #include <omp.h>
 
-#include "parallel_sollin.hpp"
-#include "sollin.hpp"
-#include "kruskal.hpp"
-#include "filter_kruskal.hpp"
-#include "prim.hpp"
+#include "algorithms/parallel_sollin.hpp"
+#include "algorithms/sollin.hpp"
+#include "algorithms/kruskal.hpp"
+#include "algorithms/filter_kruskal.hpp"
+#include "algorithms/prim.hpp"
 
 #include "tbb/task_scheduler_init.h"
 #include "graph.hpp"

@@ -3,7 +3,7 @@
 #include <graph.hpp>
 
 #include "verifier.hpp"
-#include "kruskal.hpp"
+#include "algorithms/kruskal.hpp"
 
 using namespace std;
 
