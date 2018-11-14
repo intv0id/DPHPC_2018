@@ -15,7 +15,7 @@ class LsbTimer{
 	// Open file, create list of algorithms
 	LsbTimer(string filename,list<mst_algorithm*> algorithms);
 	// Time a list of graphs
-	void clock(list<Graph*> g_list, int *argc, char **argv[]);
+	void clock(list<Graph*> g_list);
 	~LsbTimer(){
 		o.close();
 	}

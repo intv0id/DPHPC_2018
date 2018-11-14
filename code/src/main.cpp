@@ -20,7 +20,7 @@
 
 using namespace std;
 
-void lsb_time(int *argc, char **argv[]){
+void lsb_time(){
 
 	// Declare graph params
 	int edgePerVertex = 20;
@@ -47,11 +47,12 @@ void lsb_time(int *argc, char **argv[]){
 	LsbTimer t(name, l);
 
 	// Time
-	t.clock(g_list, argc, argv);
+	t.clock(g_list);
 }
 
-void print_help(){
-    cout << endl << "USAGE: ./bin/exec [ lsb_time ]" << endl << endl;
+void print_help(int *rank){
+    if (*rank  == 0)
+        cout << endl << "USAGE: ./bin/exec [ lsb_time ]" << endl << endl;
 }
 
 int main(int argc, char *argv[]){
@@ -59,18 +60,25 @@ int main(int argc, char *argv[]){
     // Init tbb
     tbb::task_scheduler_init init(4);
 
+    // Initialize MPI
+    int rank;
+    MPI_Init(&argc, &argv);
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+
     // Check the number of parameters
     if (argc < 2) {
-        print_help();
+        print_help(&rank);
         return 1;
     }
 
     string arg = argv[1];
     if (arg == "lsb_time") {
-        lsb_time(&argc, &argv);
+        lsb_time();
     } else {
-        print_help();
+        print_help(&rank);
     }
+
+    MPI_Finalize();
     return 0;
 		
 }

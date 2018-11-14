@@ -23,18 +23,15 @@ LsbTimer::LsbTimer(string filename,list<mst_algorithm*> l) : algorithms(l)
 {
 	o.open(filename);
 }
-void LsbTimer::clock(list<Graph*> g_list, int *argc, char **argv[])
+void LsbTimer::clock(list<Graph*> g_list)
 {
 
-	int run, rank;
+	int run;
 
 	srand(time(NULL));
 
-    MPI_Init(argc, argv);
+
 	LSB_Init("Algo time", 0);
-
-    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-
 	LSB_Set_Rparam_int("runs", RUNS);
 
 	for(mst_algorithm* mst_alg : algorithms){
@@ -56,5 +53,4 @@ void LsbTimer::clock(list<Graph*> g_list, int *argc, char **argv[])
 		}
 	}
 	LSB_Finalize();
-    MPI_Finalize();
 }

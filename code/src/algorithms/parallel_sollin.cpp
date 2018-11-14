@@ -34,7 +34,7 @@ void merge(result& v1, result& v2){
 }
 
 void findmin(v_edge_t& v1, v_edge_t& v2){
-	for(int i = 0; i < v1.size(); i++){
+	for(unsigned int i = 0; i < v1.size(); i++){
 		if(v1[i] -> source == -1){
 			v1[i] = v2[i];
 		}else if(v2[i] -> source != -1){
@@ -236,7 +236,7 @@ l_edge_t parallel_sollin_AL::algorithm(Graph& g){
 
 	// Copy adjacency list
 	vector<vertex_adjacency_list*> edges(g.n);
-	for(int i = 0; i != g.adjacency_list.size(); i++){
+	for(unsigned int i = 0; i != g.adjacency_list.size(); i++){
 		vertex_adjacency_list* v = new vertex_adjacency_list();
 		v->index = g.adjacency_list[i]->index;
 		v->adjacent_vertices = g.adjacency_list[i]->adjacent_vertices;
