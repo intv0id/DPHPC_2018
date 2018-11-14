@@ -25,7 +25,7 @@ using namespace std;
  */
 
 
-void lsb_time(){
+void lsb_time(string output_file, int n_threads){
 
 	// Declare graph params
 	int edgePerVertex = 20;
@@ -40,13 +40,16 @@ void lsb_time(){
 	l.push_back(new parallel_sollin_AL());
 
 	// Declare graphs
+	cout << "Creating graphs";
 	list<Graph*> g_list;
 	for (int i: size) {
 		g_list.push_back(new Graph(i, (float) edgePerVertex / i, minWeight, maxWeight));
+		cout << ".";
 	}
+	cout << " done." << endl;
 
 	// Create timer
-	LsbTimer t(l);
+	LsbTimer t(l, output_file, n_threads);
 
 	// Time
 	t.clock(g_list);
@@ -59,12 +62,12 @@ void lsb_time(){
 
 void print_help(int rank){
     if (rank  == 0)
-        cout << endl << "USAGE: ./bin/exec [ lsb_time ]" << endl << endl;
+        cout << endl << "USAGE: ./bin/exec lsb_time <filename> <max threads>" << endl << endl;
 }
 
 void parse(int *argc, char **argv[], int rank){
     // Check the number of parameters
-    if (*argc < 2) {
+    if (*argc < 3) {
         print_help(rank);
         return;
     }
@@ -72,10 +75,15 @@ void parse(int *argc, char **argv[], int rank){
     // Use the first parameter as the main one. Others can be used as options
     string arg = (*argv)[1];
     if (arg == "lsb_time") {
-        lsb_time();
-    } else {
-        print_help(rank);
+        // Get args
+        string fn = (*argv)[2];
+        int n_threads = atoi((*argv)[3]);
+        // call time function
+        lsb_time(fn, n_threads);
+        return;
     }
+
+    print_help(rank);
 }
 
 
