@@ -13,7 +13,7 @@ class LsbTimer{
 	const list<mst_algorithm*> algorithms;
 	public:
 	// Open file, create list of algorithms
-	LsbTimer(string filename,list<mst_algorithm*> algorithms);
+	LsbTimer(list<mst_algorithm*> algorithms);
 	// Time a list of graphs
 	void clock(list<Graph*> g_list);
 	~LsbTimer(){

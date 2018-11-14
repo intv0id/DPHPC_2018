@@ -33,9 +33,6 @@ void lsb_time(){
 	int minWeight = 0;
 	int maxWeight = 100;
 
-	// Declare name
-	string name = "plots/lsb_log_varSize_edgePerVertex="+to_string(edgePerVertex)+".txt";
-
 	// Declare algorithms
 	list<mst_algorithm*> l;
 	l.push_back(new sollin());
@@ -49,7 +46,7 @@ void lsb_time(){
 	}
 
 	// Create timer
-	LsbTimer t(name, l);
+	LsbTimer t(l);
 
 	// Time
 	t.clock(g_list);

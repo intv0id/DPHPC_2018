@@ -21,10 +21,8 @@
 typedef boost::graph_traits<Boost_Graph>::edge_descriptor Boost_Edge;
 using namespace std;
 
-LsbTimer::LsbTimer(string filename,list<mst_algorithm*> l) : algorithms(l)
-{
-	o.open(filename);
-}
+LsbTimer::LsbTimer(list<mst_algorithm*> l) : algorithms(l){}
+
 void LsbTimer::clock(list<Graph*> g_list)
 {
 
@@ -33,7 +31,7 @@ void LsbTimer::clock(list<Graph*> g_list)
 	srand(time(NULL));
 
 
-	LSB_Init("Algo time", 0);
+	LSB_Init("Algo time", time(NULL));
 	LSB_Set_Rparam_int("runs", RUNS);
 
 	for(mst_algorithm* mst_alg : algorithms){

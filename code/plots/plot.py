@@ -7,7 +7,7 @@ pars = [[]]
 boostKruskal = [[]]
 boostPrim = [[]]
 
-file1 = "log_varSize_edgePerVertex=20.txt"
+file1 = "data/log_varSize_edgePerVertex=20.txt"
 with open(file1) as f1:
     #read sizes
     content = f1.readlines()
