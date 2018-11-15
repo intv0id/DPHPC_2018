@@ -1,11 +1,12 @@
 #include "graph.hpp"
 #include "timer.hpp"
 #include "common.hpp"
-#include "filter_kruskal.hpp"
-#include "kruskal.hpp"
-#include "sollin.hpp"
-#include "parallel_sollin.hpp"
-#include "prim.hpp"
+
+#include "algorithms/filter_kruskal.hpp"
+#include "algorithms/kruskal.hpp"
+#include "algorithms/sollin.hpp"
+#include "algorithms/parallel_sollin.hpp"
+#include "algorithms/prim.hpp"
 
 using namespace std;
 

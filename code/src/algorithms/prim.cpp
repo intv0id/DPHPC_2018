@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "prim.hpp"
+#include "algorithms/prim.hpp"
 // #include "common.hpp"
 
 using namespace std;
@@ -16,7 +16,7 @@ int min_key(int key[], bool in_mst[], int n){
     return i_min;
 }
 
-l_edge_t seq_prim::algorithm(Graph &g){
+l_edge_t seq_prim::algorithm(Graph &g, unsigned int n_threads){
     l_edge_t result;
     int n = g.n;
     int key[n];

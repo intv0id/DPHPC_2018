@@ -4,13 +4,13 @@
 #include <limits>
 #include <algorithm>
 
+#include "algorithms/sollin.hpp"
 #include "common.hpp"
-#include "sollin.hpp"
 #include "graph.hpp"
 
 using namespace std;
 
-l_edge_t sollin::algorithm(Graph& g){
+l_edge_t sollin::algorithm(Graph& g, unsigned int n_threads){
 
 	// Get graph data
 	int n = g.n;

@@ -8,7 +8,7 @@ for i in $(seq 1 $#); do
 		;;
 	"cmake")
 		# Remove makefiles 
-		rm -r CMakeFiles/ Makefile compile_commands.json cmake_install.cmake CMakeCache.txt 	
+		rm -r CMakeFiles/ Makefile compile_commands.json cmake_install.cmake CMakeCache.txt	
 		;;
 	esac
 	shift

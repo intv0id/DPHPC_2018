@@ -12,5 +12,5 @@ l_edge_t filter_kruskal_main(Graph &g, vector<edge*> &edges, union_find *u, unsi
 class filter_kruskal : public mst_algorithm {
 	public:
 	filter_kruskal() : mst_algorithm("Filter Kruskal") {}
-	virtual l_edge_t algorithm(Graph &g);
+	virtual l_edge_t algorithm(Graph &g, unsigned int n_threads = 1);
 };

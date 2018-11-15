@@ -5,14 +5,14 @@
 #include <stdlib.h> 
 #include <iostream>
 
+#include "algorithms/filter_kruskal.hpp"
+#include "algorithms/kruskal.hpp"
 #include "tbb/parallel_sort.h"
-#include "filter_kruskal.hpp"
-#include "kruskal.hpp"
 #include "common.hpp"
 
 using namespace std;
 
-l_edge_t filter_kruskal::algorithm(Graph &g) {
+l_edge_t filter_kruskal::algorithm(Graph &g, unsigned int n_threads) {
     l_edge_t result;
     vector<edge*> edges {g.unique_edges.begin(), g.unique_edges.end()};
     union_find* u_find = new union_find(g.n);

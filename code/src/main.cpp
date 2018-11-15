@@ -3,13 +3,12 @@
 #include <mpi.h>
 #include <omp.h>
 
-#include "parallel_sollin.hpp"
-#include "sollin.hpp"
-#include "kruskal.hpp"
-#include "filter_kruskal.hpp"
-#include "prim.hpp"
+#include "algorithms/parallel_sollin.hpp"
+#include "algorithms/sollin.hpp"
+#include "algorithms/kruskal.hpp"
+#include "algorithms/filter_kruskal.hpp"
+#include "algorithms/prim.hpp"
 
-#include "tbb/task_scheduler_init.h"
 #include "graph.hpp"
 #include "common.hpp"
 #include "timer.hpp"
@@ -20,16 +19,18 @@
 
 using namespace std;
 
-void lsb_time(int *argc, char **argv[]){
+/*
+ * CUSTOM FUNCTIONS SPACE
+ */
+
+
+void lsb_time(string output_file, int n_threads){
 
 	// Declare graph params
 	int edgePerVertex = 20;
 	vector<int> size = {3000,10000,30000,100000};
 	int minWeight = 0;
 	int maxWeight = 100;
-
-	// Declare name
-	string name = "plots/lsb_log_varSize_edgePerVertex="+to_string(edgePerVertex)+".txt";
 
 	// Declare algorithms
 	list<mst_algorithm*> l;
@@ -38,46 +39,66 @@ void lsb_time(int *argc, char **argv[]){
 	l.push_back(new parallel_sollin_AL());
 
 	// Declare graphs
+	cout << "Creating graphs";
 	list<Graph*> g_list;
 	for (int i: size) {
 		g_list.push_back(new Graph(i, (float) edgePerVertex / i, minWeight, maxWeight));
+		cout << ".";
 	}
+	cout << " done." << endl;
 
 	// Create timer
-	LsbTimer t(name, l);
+	LsbTimer t(l, output_file, n_threads);
 
 	// Time
-	t.clock(g_list, argc, argv);
+	t.clock(g_list);
+}
+    
+
+/*
+ * PARSING AND ARGUMENTS HELP
+ */
+
+
+void print_help(int rank){
+    if (rank  == 0)
+        cout << endl << "USAGE: ./bin/exec lsb_time <filename> <max threads>" << endl << endl;
 }
 
-void print_help(){
-    cout << endl << "USAGE: ./bin/exec [ lsb_time ]" << endl << endl;
+void parse(int *argc, char **argv[], int rank){
+    // Check the number of parameters
+    if (*argc < 3) {
+        print_help(rank);
+        return;
+    }
+
+    // Use the first parameter as the main one. Others can be used as options
+    string arg = (*argv)[1];
+    if (arg == "lsb_time") {
+        // Get args
+        string fn = (*argv)[2];
+        int n_threads = atoi((*argv)[3]);
+        // call time function
+        lsb_time(fn, n_threads);
+        return;
+    }
+
+    print_help(rank);
 }
+
+
+/*
+ * MAIN: keep it simple
+ */
 
 int main(int argc, char *argv[]){
-    
-    Graph* g1 = new Graph("BAY", "d");
-    //Graph* g2 = new Graph("BAY", "t");
-    //Graph* g3 = new Graph("NY", "d");	
-    //Graph* g4 = new Graph("NY", "t");
+    // Initialize MPI
+    int rank;
+    MPI_Init(&argc, &argv);
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 
-    Graph* g5 = new Graph(10, 2, 0, 100);
+    parse(&argc, &argv, rank);
 
-    // Init tbb
-    tbb::task_scheduler_init init(4);
-
-    // Check the number of parameters
-    if (argc < 2) {
-        print_help();
-        return 1;
-    }
-
-    string arg = argv[1];
-    if (arg == "lsb_time") {
-        lsb_time(&argc, &argv);
-    } else {
-        print_help();
-    }
+    MPI_Finalize();
     return 0;
-		
 }

@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <list>
+#include <string>
 #include <liblsb.h>
 
 #include "common.hpp"
@@ -9,14 +10,13 @@
 using namespace std;
 
 class LsbTimer{
-	ofstream o;
+	string filename;
+    unsigned int max_threads;
 	const list<mst_algorithm*> algorithms;
 	public:
 	// Open file, create list of algorithms
-	LsbTimer(string filename,list<mst_algorithm*> algorithms);
+	LsbTimer(list<mst_algorithm*> algorithms, string fname, unsigned int m_threads);
 	// Time a list of graphs
-	void clock(list<Graph*> g_list, int *argc, char **argv[]);
-	~LsbTimer(){
-		o.close();
-	}
+	void clock(list<Graph*> g_list);
+	~LsbTimer(){}
 };
