@@ -34,6 +34,7 @@ void LsbTimer::clock(list<Graph*> g_list)
 
 	for(mst_algorithm* mst_alg : algorithms){
         mst_algorithm &mst_algo = *mst_alg;
+        LSB_Set_Rparam_string("Algorithm", mst_algo.name.c_str());
 
 		for (Graph* g : g_list) {
             Graph &graph = *g;
