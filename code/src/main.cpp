@@ -55,6 +55,13 @@ void print_help(){
 }
 
 int main(int argc, char *argv[]){
+    
+    Graph* g1 = new Graph("BAY", "d");
+    //Graph* g2 = new Graph("BAY", "t");
+    //Graph* g3 = new Graph("NY", "d");	
+    //Graph* g4 = new Graph("NY", "t");
+
+    Graph* g5 = new Graph(10, 2, 0, 100);
 
     // Init tbb
     tbb::task_scheduler_init init(4);
