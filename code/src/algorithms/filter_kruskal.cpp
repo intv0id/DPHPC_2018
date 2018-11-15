@@ -12,7 +12,7 @@
 
 using namespace std;
 
-l_edge_t filter_kruskal::algorithm(Graph &g) {
+l_edge_t filter_kruskal::algorithm(Graph &g, unsigned int n_threads) {
     l_edge_t result;
     vector<edge*> edges {g.unique_edges.begin(), g.unique_edges.end()};
     union_find* u_find = new union_find(g.n);

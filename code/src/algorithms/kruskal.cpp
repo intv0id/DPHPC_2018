@@ -5,6 +5,7 @@
 
 #include "algorithms/kruskal.hpp"
 #include "common.hpp"
+#include "tbb/task_scheduler_init.h"
 #include "tbb/parallel_sort.h"
 
 using namespace std;
@@ -26,13 +27,12 @@ l_edge_t kruskal_main(vector<edge*> &edges, union_find* u_find){
     return result;
 }
 
-l_edge_t kruskal::algorithm(Graph &g) {
+l_edge_t kruskal::algorithm(Graph &g, unsigned int n_threads) {
     vector<edge*> edges {g.unique_edges.begin(), g.unique_edges.end()};
     union_find* u_find = new union_find(g.n);
 
-    bool parallel = true;
-
-    if (parallel) {
+    if (n_threads > 1) {
+        tbb::task_scheduler_init init(n_threads);
         tbb::parallel_sort(edges.begin(), edges.end(), compare);
     }
     else {

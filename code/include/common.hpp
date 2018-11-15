@@ -9,7 +9,7 @@ using namespace std;
 class mst_algorithm {
 	public:
 	const string name;
-	virtual l_edge_t algorithm(Graph& g) = 0;
+	virtual l_edge_t algorithm(Graph& g, unsigned int n_threads = 1) = 0;
 	mst_algorithm(string name_) : name(name_) {};
 };
 

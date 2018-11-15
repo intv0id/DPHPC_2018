@@ -60,7 +60,7 @@ void findmin(v_edge_t& v1, v_edge_t& v2){
 	(addEdges:v_edge_t: omp_out.insert(omp_out.end(),omp_in.begin(),omp_in.end()))
 
 
-l_edge_t parallel_sollin_EL::algorithm(Graph& g){
+l_edge_t parallel_sollin_EL::algorithm(Graph& g, unsigned int n_threads){
 
 
 	// Get graph data
@@ -86,9 +86,9 @@ l_edge_t parallel_sollin_EL::algorithm(Graph& g){
 
 		// Remove self-loops and multiple edges (compact graph)
 		result aux;
-		int k;
+		unsigned int k;
 		int nEdges = vectorEdges.size();
-		#pragma omp parallel for ordered num_threads(NUM_THREADS) reduction(listEdges:aux)
+		#pragma omp parallel for ordered num_threads(n_threads) reduction(listEdges:aux)
 		for(k = 0; k < nEdges; k++){
 			edge* e = vectorEdges[k];
 			int p1, p2;
@@ -132,7 +132,7 @@ l_edge_t parallel_sollin_EL::algorithm(Graph& g){
 
 		nEdges = vectorEdges.size();
 		v_edge_t cheapest(n,einit);
-		#pragma omp parallel for num_threads(NUM_THREADS) reduction(findMin:cheapest)
+		#pragma omp parallel for num_threads(n_threads) reduction(findMin:cheapest)
 		for(k = 0; k < nEdges; k++){
 			edge* e = vectorEdges[k];
 
@@ -170,7 +170,7 @@ l_edge_t parallel_sollin_EL::algorithm(Graph& g){
 		
 		vector<edge*> add_to_mst;
 		// Connect the components via pointer-jump
-		#pragma omp parallel for num_threads(NUM_THREADS) reduction(addEdges:add_to_mst)
+		#pragma omp parallel for num_threads(n_threads) reduction(addEdges:add_to_mst)
 		for(k = 0; k < n; k++){
 			edge* e = cheapest[k];
 			if(e->source != -1){
@@ -232,7 +232,7 @@ void merge_AL(result_AL& v1, result_AL& v2){
 #pragma omp declare reduction \
 	(compactVertexAL:result_AL:merge_AL(omp_out,omp_in))
 
-l_edge_t parallel_sollin_AL::algorithm(Graph& g){
+l_edge_t parallel_sollin_AL::algorithm(Graph& g, unsigned int n_threads){
 
 	// Copy adjacency list
 	vector<vertex_adjacency_list*> edges(g.n);
@@ -264,10 +264,10 @@ l_edge_t parallel_sollin_AL::algorithm(Graph& g){
 
 		// Merge same parent vertex
 		int nVertex = edges.size();
-		int k;
+		unsigned int k;
 
-		vector<result_AL> auxs(NUM_THREADS);
-		#pragma omp parallel num_threads(NUM_THREADS) 
+		vector<result_AL> auxs(n_threads);
+		#pragma omp parallel num_threads(n_threads)
 		{
 			int id = omp_get_thread_num();
 			#pragma omp for
@@ -301,7 +301,7 @@ l_edge_t parallel_sollin_AL::algorithm(Graph& g){
 
 		// Merge partial results
 		result_AL aux;
-		for(int k = 0; k != NUM_THREADS; k++){
+		for(int k = 0; k != n_threads; k++){
 			merge_AL(aux,auxs[k]);
 		}
 
@@ -314,7 +314,7 @@ l_edge_t parallel_sollin_AL::algorithm(Graph& g){
 
 		// Sort each list by target parent vertex
 		nVertex = edges.size();
-		#pragma omp parallel for num_threads(NUM_THREADS)
+		#pragma omp parallel for num_threads(n_threads)
 		for(int i = 0; i < nVertex; i++){
 			edges[i]->adjacent_vertices.sort(cTV);
 		}
@@ -322,7 +322,7 @@ l_edge_t parallel_sollin_AL::algorithm(Graph& g){
 		// For each list merge target vertex
 		//cout << "Copied back in vector" << nVertex << endl;
 
-		#pragma omp parallel for num_threads(NUM_THREADS)
+		#pragma omp parallel for num_threads(n_threads)
 		for(int i = 0; i < nVertex; i++){
 			int target = -1;
 			int p1 = u->find(edges[i]->index);
@@ -359,7 +359,7 @@ l_edge_t parallel_sollin_AL::algorithm(Graph& g){
 
 		// Do loop in parallel
 
-		#pragma omp parallel for num_threads(NUM_THREADS)
+		#pragma omp parallel for num_threads(n_threads)
 		for(k = 0; k < nComps; k++){
 			vertex_adjacency_list* val = edges[k];
 			l_edge_t& ref = val->adjacent_vertices;
@@ -398,7 +398,7 @@ l_edge_t parallel_sollin_AL::algorithm(Graph& g){
 		// For all vertices, connect components
 		vector<edge*> add_to_mst;
 		// Connect the components via pointer-jump
-		#pragma omp parallel for num_threads(NUM_THREADS) reduction(addEdges:add_to_mst)
+		#pragma omp parallel for num_threads(n_threads) reduction(addEdges:add_to_mst)
 		for(k = 0; k < nComps; k++){
 			edge* e = cheapest[k];
 			bool b;

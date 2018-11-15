@@ -9,7 +9,6 @@
 #include "algorithms/filter_kruskal.hpp"
 #include "algorithms/prim.hpp"
 
-#include "tbb/task_scheduler_init.h"
 #include "graph.hpp"
 #include "common.hpp"
 #include "timer.hpp"
@@ -92,10 +91,6 @@ void parse(int *argc, char **argv[], int rank){
  */
 
 int main(int argc, char *argv[]){
-
-    // Init tbb
-    tbb::task_scheduler_init init(4);
-
     // Initialize MPI
     int rank;
     MPI_Init(&argc, &argv);
@@ -105,5 +100,4 @@ int main(int argc, char *argv[]){
 
     MPI_Finalize();
     return 0;
-		
 }

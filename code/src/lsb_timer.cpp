@@ -53,7 +53,7 @@ void LsbTimer::clock(list<Graph*> g_list)
                     LSB_Res();
 
                     /* Perform the operation */
-                    l_edge_t mst = mst_algo.algorithm(graph);
+                    l_edge_t mst = mst_algo.algorithm(graph, thread_nb);
 
                     /* Register the run-th measurement with the number of node of the current graph */
                     LSB_Rec(graph.n);
