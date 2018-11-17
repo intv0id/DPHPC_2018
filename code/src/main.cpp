@@ -53,11 +53,12 @@ void lsb_time(string output_file, int n_threads){
 	// Time
 	t.clock(g_list);
 }
-
+    
 
 /*
  * PARSING AND ARGUMENTS HELP
  */
+
 
 void print_help(int rank){
     if (rank  == 0)

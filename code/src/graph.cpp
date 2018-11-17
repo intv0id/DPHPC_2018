@@ -1,7 +1,10 @@
 #include <graph.hpp>
 
+#include <iomanip>
+#include <fstream>
 #include <iostream>
 #include <random>
+#include <string>
 
 using namespace std;
 
@@ -12,7 +15,6 @@ void edge::print(){
 }
 
 void Graph::add_edge(int i, int j, int w){
-
 
 	// Create edges
 	edge* ei = new edge;
@@ -81,6 +83,79 @@ Graph::Graph(int nVertices, double edgeProba, int min, int max) :
             }
         }
     }
+}
+Graph::Graph(int nVertices, int m, int min, int max) : n(nVertices)
+{
+    if (nVertices < 3 || m > nVertices) {
+        cout << "Preferential Attachment graph should have at least 3 vertices" << endl;
+        exit(1);
+    }
+	
+    // For all pair of nodes, generate random edges
+    random_device rd;
+    mt19937 rng(rd());
+    uniform_int_distribution<int> uni(min,max);
+
+    for(int i = 0; i != nVertices; i++){
+        vertex_adjacency_list* val = new vertex_adjacency_list;
+        val->index = i;
+        adjacency_list.push_back(val);
+    }
+
+    vector<int> vect{1,1,2,2,3,3};
+
+    for (int i = 4; i != nVertices; i++){
+	for (int k = 0; k != m; k++) {
+	    // Generate random node to connect
+	    uniform_int_distribution<int> dist(0, vect.size() - 1);
+	    int j = vect[dist(rng)];	
+
+	    // Generate weight
+            int w = uni(rng);
+            add_edge(i,j,w);
+    	    vect.push_back(i);
+	    vect.push_back(j);
+
+	}
+    }
+}
+Graph::Graph(string name, string type){
+    int nVertices = 0;
+    char a;
+    int i, j, w;
+    ifstream inFile;
+
+    inFile.open("USA_graphs/USA-road-"+ type + "." + name +".gr");
+    if (!inFile) {
+        cout << "Unable to open file";
+        exit(1);
+    }
+
+    for (int count=0; count !=7; count++) {
+        string line;
+        getline(inFile, line);
+	
+	if (count == 4){
+	    string s1, s2;
+	    int nEdges;
+	    stringstream ss(line);
+	    ss >> s1 >> s2 >> nVertices >> nEdges;
+	    
+	    n = nVertices;
+	}
+    }
+
+    for(int i = 0; i != nVertices; i++){
+        vertex_adjacency_list* val = new vertex_adjacency_list;
+        val->index = i;
+        adjacency_list.push_back(val);
+    }
+
+    while (inFile >> a >> i >> j >> w) {
+        add_edge(i-1,j-1,w);
+    }
+    
+    inFile.close(); 
 }
 
 Graph::~Graph(){

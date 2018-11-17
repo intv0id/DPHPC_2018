@@ -29,7 +29,7 @@ class vertex_adjacency_list{
 class Graph {
     public:
     //Constructs a graph with n vertices and no edges 
-    Graph(int n_)  ;
+    Graph(int n_);
 	/*int** adj = new int* [n];
         for (int i = 0; i < n; i++) {
             adj[i] = new int [n];
@@ -42,6 +42,14 @@ class Graph {
     // Proba of an edge p
     // min <= weight <= max
     Graph(int nVertices, double p, int min, int max);
+    // Constructor to generate a Preferential Attachment graph
+    // At each iteration, new vertex connect to m neighbours
+    // min <= weight <= max
+    Graph(int nVertices, int m, int min, int max);
+    // Constructor to generate a graph based on one of the files found on
+    // http://www.diag.uniroma1.it/challenge9/download.shtml
+    // file name : "USA-road-"+ type + "." + name +".gr"
+    Graph(string name, string type);
     ~Graph();
 
     // Function to print a graph
