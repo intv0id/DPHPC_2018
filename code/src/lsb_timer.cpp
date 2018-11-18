@@ -31,6 +31,7 @@ void LsbTimer::clock(list<Graph*> g_list)
 	srand(time(NULL));
 
 	LSB_Init(filename.c_str(), time(NULL));
+	unsigned int counter = 0; // Records counter
 
 	for(mst_algorithm* mst_alg : algorithms){
         mst_algorithm &mst_algo = *mst_alg;
@@ -38,6 +39,10 @@ void LsbTimer::clock(list<Graph*> g_list)
 
 		for (Graph* g : g_list) {
             Graph &graph = *g;
+            LSB_Set_Rparam_int("Graph nodes", graph.n);
+            /* TODO: set graph names
+                LSB_Set_Rparam_string("Graph name", graph.name.c_str());
+                */
 
             for (unsigned int thread_nb=1; thread_nb <= max_threads; thread_nb *= 2){
                 omp_set_num_threads(thread_nb);
@@ -56,8 +61,8 @@ void LsbTimer::clock(list<Graph*> g_list)
                     /* Perform the operation */
                     l_edge_t mst = mst_algo.algorithm(graph, thread_nb);
 
-                    /* Register the run-th measurement with the number of node of the current graph */
-                    LSB_Rec(graph.n);
+                    /* Register the run-th measurement and increase counter*/
+                    LSB_Rec(counter++);
                 }
             }
 		}
