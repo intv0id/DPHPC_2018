@@ -40,9 +40,7 @@ void LsbTimer::clock(list<Graph*> g_list)
 		for (Graph* g : g_list) {
             Graph &graph = *g;
             LSB_Set_Rparam_int("Graph nodes", graph.n);
-            /* TODO: set graph names
-                LSB_Set_Rparam_string("Graph name", graph.name.c_str());
-                */
+            LSB_Set_Rparam_string("Graph name", graph.name.c_str());
 
             for (unsigned int thread_nb=1; thread_nb <= max_threads; thread_nb *= 2){
                 omp_set_num_threads(thread_nb);

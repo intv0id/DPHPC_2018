@@ -46,6 +46,8 @@ void Graph::add_edge(int i, int j, int w){
 }
 Graph::Graph(int n_) :
 	n(n_){
+
+    name="void";
 	
     for(int i = 0; i != n; i++){
         vertex_adjacency_list* val = new vertex_adjacency_list;
@@ -58,6 +60,7 @@ Graph::Graph(int n_) :
 Graph::Graph(int nVertices, double edgeProba, int min, int max) :
     n(nVertices), boost_rep(n)
 {
+    name = "Erdos-Renyi random";
 
     // For all pair of nodes, generate random edges
     random_device rd;
@@ -86,6 +89,9 @@ Graph::Graph(int nVertices, double edgeProba, int min, int max) :
 }
 Graph::Graph(int nVertices, int m, int min, int max) : n(nVertices)
 {
+
+    name = "Preferential attachment";
+
     if (nVertices < 3 || m > nVertices) {
         cout << "Preferential Attachment graph should have at least 3 vertices" << endl;
         exit(1);
@@ -119,13 +125,16 @@ Graph::Graph(int nVertices, int m, int min, int max) : n(nVertices)
 	}
     }
 }
-Graph::Graph(string name, string type){
+Graph::Graph(string fname, string type){
+
+    name = "USA-road-"+ type + "." + name;
+
     int nVertices = 0;
     char a;
     int i, j, w;
     ifstream inFile;
 
-    inFile.open("USA_graphs/USA-road-"+ type + "." + name +".gr");
+    inFile.open("USA_graphs/USA-road-"+ type + "." + fname +".gr");
     if (!inFile) {
         cout << "Unable to open file";
         exit(1);
