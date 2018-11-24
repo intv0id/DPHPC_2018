@@ -11,7 +11,7 @@ using namespace std;
 
 class LsbTimer{
 	string filename;
-	int runs;
+	unsigned int runs;
     unsigned int max_threads;
 	const list<mst_algorithm*> algorithms;
 	public:
