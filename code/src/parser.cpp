@@ -27,7 +27,7 @@ parser::parser(int * argc, char ** argv[], int MPI_rank) {
             return;
         } else if (arg == "--algorithm") {
             while (i + 1 < *argc && parse_algonames((*argv)[i+1])) {i++;}
-        } else if (arg == "--USA_Graph") {
+        } else if (arg == "--USA-Graph") {
             //TODO
             cout << "DISABLED FEATURE" << endl;
         } else if (arg == "--generate-graph") {
@@ -74,13 +74,13 @@ void parser::print_help(int MPI_rank, bool syntax_error) {
 
         cout << "Mandatory args" << endl;
         cout << "--algorithm [Algorithm name 1] [Algorithm name 2] ..." << endl;
-        cout << "--USA_graph [USA graph name] | --generate-graph [size (nodes)]" << endl;
+        cout << "--USA-graph [USA graph name] | --generate-graph [size (nodes)]" << endl;
         cout << endl;
 
         cout << "Optionnal args" << endl;
         cout << "--max-threads [Maximum number of thread (preferably a power of 2)]" << endl <<"DEFAULT=1" << endl;
         cout << "--runs [Number of measurement for each parameters set]" << endl <<"DEFAULT=5" << endl;
-        cout << "--lsb_filename [LSB filename]" << endl << "DEFAULT=\"measure\"" << endl;
+        cout << "--lsb-filename [LSB filename]" << endl << "DEFAULT=\"measure\"" << endl;
         cout << endl ;
     }
 }
