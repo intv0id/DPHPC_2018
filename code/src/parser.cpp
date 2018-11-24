@@ -49,7 +49,7 @@ parser::parser(int * argc, char ** argv[], int MPI_rank) {
                 i++;
             } else goto syntaxerror;
         } else {
-            cout << "Unknown argument" << endl;
+            cout << "Unknown argument: " << arg << endl;
         }
     }
     if ( selected_graphs.size() == 0 || selected_algorithms.size() == 0 ) goto syntaxerror;
