@@ -18,10 +18,10 @@
 typedef boost::graph_traits<Boost_Graph>::edge_descriptor Boost_Edge;
 using namespace std;
 
-LsbTimer::LsbTimer(list<mst_algorithm*> l, string fname, unsigned int m_threads, unsigned int runs) : algorithms(l){
+LsbTimer::LsbTimer(list<mst_algorithm*> l, string fname, unsigned int m_threads, unsigned int n_runs) : algorithms(l){
     filename = fname;
     max_threads = m_threads;
-    runs = runs;
+    runs = n_runs;
 }
 
 void LsbTimer::clock(list<Graph*> g_list)

@@ -16,7 +16,7 @@ class LsbTimer{
 	const list<mst_algorithm*> algorithms;
 	public:
 	// Open file, create list of algorithms
-	LsbTimer(list<mst_algorithm*> algorithms, string fname, unsigned int m_threads, unsigned int runs);
+	LsbTimer(list<mst_algorithm*> algorithms, string fname, unsigned int m_threads, unsigned int n_runs);
 	// Time a list of graphs
 	void clock(list<Graph*> g_list);
 	~LsbTimer(){}
