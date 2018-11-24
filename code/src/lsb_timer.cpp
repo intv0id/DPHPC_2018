@@ -21,7 +21,7 @@ using namespace std;
 LsbTimer::LsbTimer(list<mst_algorithm*> l, string fname, unsigned int m_threads, unsigned int runs) : algorithms(l){
     filename = fname;
     max_threads = m_threads;
-    runs = 5;
+    runs = runs;
 }
 
 void LsbTimer::clock(list<Graph*> g_list)
