@@ -2,9 +2,17 @@
 
 for i in $(seq 1 $#); do
 	case $1 in 
-	"measures")
+	"rmlsb")
 		# Remove measures
-		rm lsb.tests.r*
+		rm lsb.*.r*
+		;;
+	"rmout")
+		# Remove standard output and error output files
+		rm job*.err job*.out
+		;;
+	"mvlsb")
+		# Move lsb measures to data location
+		mv lsb.*.r* ../interpret/data/
 		;;
 	"cmake")
 		# Remove makefiles 

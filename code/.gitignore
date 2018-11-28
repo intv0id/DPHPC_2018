@@ -7,4 +7,6 @@ Makefile
 .vscode/
 .idea/
 lsb.*
+*.out
+*.err
 bin/*
