@@ -1,42 +1,42 @@
 # Sysname : Linux
-# Nodename: eu-a6-002-04
+# Nodename: eu-a6-012-16
 # Release : 3.10.0-862.14.4.el7.x86_64
 # Version : #1 SMP Wed Sep 26 15:12:11 UTC 2018
 # Machine : x86_64
-# Execution time and date (UTC): Wed Nov 28 14:50:43 2018
-# Execution time and date (local): Wed Nov 28 15:50:43 2018
+# Execution time and date (UTC): Wed Nov 28 19:34:24 2018
+# Execution time and date (local): Wed Nov 28 20:34:24 2018
 # MPI execution on rank 0 with 1 processes in world
 # Reported time measurements are in microseconds
 # pretty output format
-    Algorithm  Graph nodes   Graph name  Max threads          run       id         time     overhead 
-       Sollin           100  Erdos-Renyi random             1             0          0 9791.586182            0 
-       Sollin           100  Erdos-Renyi random             1             1          1 4089.327637            0 
-       Sollin           100  Erdos-Renyi random             1             2          2 4031.069092            0 
-       Sollin           100  Erdos-Renyi random             1             3          3 3734.379883            0 
-       Sollin           100  Erdos-Renyi random             1             4          4 3144.047852            0 
-       Sollin           100  Erdos-Renyi random             1             5          5 3124.541016            0 
-       Sollin           100  Erdos-Renyi random             1             6          6 3132.331055            0 
-       Sollin           100  Erdos-Renyi random             1             7          7 3136.990723            0 
-       Sollin           100  Erdos-Renyi random             1             8          8 3124.543701            0 
-       Sollin           100  Erdos-Renyi random             1             9          9 3122.328857            0 
-       Sollin          1000  Erdos-Renyi random             1             0         10 59692.019287            0 
-       Sollin          1000  Erdos-Renyi random             1             1         11 54730.187744            0 
-       Sollin          1000  Erdos-Renyi random             1             2         12 54196.857910            0 
-       Sollin          1000  Erdos-Renyi random             1             3         13 54152.381104            0 
-       Sollin          1000  Erdos-Renyi random             1             4         14 54307.721924            0 
-       Sollin          1000  Erdos-Renyi random             1             5         15 54290.115234            0 
-       Sollin          1000  Erdos-Renyi random             1             6         16 54184.132080            0 
-       Sollin          1000  Erdos-Renyi random             1             7         17 54435.720459            0 
-       Sollin          1000  Erdos-Renyi random             1             8         18 54354.778320            0 
-       Sollin          1000  Erdos-Renyi random             1             9         19 54264.376465            0 
-       Sollin         10000  Erdos-Renyi random             1             0         20 994470.189697            0 
-       Sollin         10000  Erdos-Renyi random             1             1         21 988946.331787            0 
-       Sollin         10000  Erdos-Renyi random             1             2         22 990286.651855            0 
-       Sollin         10000  Erdos-Renyi random             1             3         23 982377.029053            0 
-       Sollin         10000  Erdos-Renyi random             1             4         24 967086.299805            0 
-       Sollin         10000  Erdos-Renyi random             1             5         25 996910.892334            0 
-       Sollin         10000  Erdos-Renyi random             1             6         26 975792.443848            0 
-       Sollin         10000  Erdos-Renyi random             1             7         27 972684.006836            0 
-       Sollin         10000  Erdos-Renyi random             1             8         28 971033.936035            0 
-       Sollin         10000  Erdos-Renyi random             1             9         29 972450.737549            0 
-# Runtime: 10.408735 s (overhead: 0.000000 %) 30 records
+    Algorithm  Graph_nodes   Graph_name  Max_threads          run       id         time     overhead 
+       Sollin           100  Erdos-Renyi_random             1             0          0 9838.101196            0 
+       Sollin           100  Erdos-Renyi_random             1             1          1 4058.248779            0 
+       Sollin           100  Erdos-Renyi_random             1             2          2 3943.625488            0 
+       Sollin           100  Erdos-Renyi_random             1             3          3 3487.000488            0 
+       Sollin           100  Erdos-Renyi_random             1             4          4 3196.748169            0 
+       Sollin           100  Erdos-Renyi_random             1             5          5 3189.852295            0 
+       Sollin           100  Erdos-Renyi_random             1             6          6 3176.254761            0 
+       Sollin           100  Erdos-Renyi_random             1             7          7 3186.962280            0 
+       Sollin           100  Erdos-Renyi_random             1             8          8 3199.669312            0 
+       Sollin           100  Erdos-Renyi_random             1             9          9 3180.076050            0 
+       Sollin          1000  Erdos-Renyi_random             1             0         10 63059.848755            0 
+       Sollin          1000  Erdos-Renyi_random             1             1         11 58593.954468            0 
+       Sollin          1000  Erdos-Renyi_random             1             2         12 55122.717896            0 
+       Sollin          1000  Erdos-Renyi_random             1             3         13 54865.039062            0 
+       Sollin          1000  Erdos-Renyi_random             1             4         14 55015.865234            0 
+       Sollin          1000  Erdos-Renyi_random             1             5         15 55124.337646            0 
+       Sollin          1000  Erdos-Renyi_random             1             6         16 55191.763184            0 
+       Sollin          1000  Erdos-Renyi_random             1             7         17 55684.486816            0 
+       Sollin          1000  Erdos-Renyi_random             1             8         18 55742.874390            0 
+       Sollin          1000  Erdos-Renyi_random             1             9         19 55480.904663            0 
+       Sollin         10000  Erdos-Renyi_random             1             0         20 1096369.019653            0 
+       Sollin         10000  Erdos-Renyi_random             1             1         21 970545.312744            0 
+       Sollin         10000  Erdos-Renyi_random             1             2         22 992188.042847            0 
+       Sollin         10000  Erdos-Renyi_random             1             3         23 972101.447266            0 
+       Sollin         10000  Erdos-Renyi_random             1             4         24 993713.209473            0 
+       Sollin         10000  Erdos-Renyi_random             1             5         25 974964.414307            0 
+       Sollin         10000  Erdos-Renyi_random             1             6         26 975171.926758            0 
+       Sollin         10000  Erdos-Renyi_random             1             7         27 985960.051514            0 
+       Sollin         10000  Erdos-Renyi_random             1             8         28 998379.300171            0 
+       Sollin         10000  Erdos-Renyi_random             1             9         29 979105.994019            0 
+# Runtime: 10.547100 s (overhead: 0.000000 %) 30 records
