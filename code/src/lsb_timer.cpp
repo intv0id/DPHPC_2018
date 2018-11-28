@@ -37,12 +37,12 @@ void LsbTimer::clock(list<Graph*> g_list)
 
 		for (Graph* g : g_list) {
             Graph &graph = *g;
-            LSB_Set_Rparam_int("Graph nodes", graph.n);
-            LSB_Set_Rparam_string("Graph name", graph.name.c_str());
+            LSB_Set_Rparam_int("Graph_nodes", graph.n);
+            LSB_Set_Rparam_string("Graph_name", graph.name.c_str());
 
             for (unsigned int thread_nb=1; thread_nb <= max_threads; thread_nb *= 2){
                 omp_set_num_threads(thread_nb);
-                LSB_Set_Rparam_int("Max threads", thread_nb);
+                LSB_Set_Rparam_int("Max_threads", thread_nb);
 
                 for (unsigned int run = 0; run < runs; run++) {
                     LSB_Set_Rparam_int("run", run);

@@ -60,7 +60,7 @@ Graph::Graph(int n_) :
 Graph::Graph(int nVertices, double edgeProba, int min, int max) :
     n(nVertices), boost_rep(n)
 {
-    name = "Erdos-Renyi random";
+    name = "Erdos-Renyi_random";
 
     // For all pair of nodes, generate random edges
     random_device rd;
