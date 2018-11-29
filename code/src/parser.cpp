@@ -28,9 +28,11 @@ parser::parser(int * argc, char ** argv[], int MPI_rank) {
         } else if (arg == "--algorithm") {
             while (i + 1 < *argc && parse_algonames((*argv)[i+1])) {i++;}
         } else if (arg == "--USA-Graph") {
-            //TODO
-            cout << "DISABLED FEATURE" << endl;
-        } else if (arg == "--generate-graph") {
+            if (i + 2 < *argc) {
+                selected_graphs.push_back(new Graph((*argv)[i+1], (*argv)[i+2]));
+                i+=2;
+            } else goto syntaxerror;
+        } else if (arg == "--generate-graph" && (nb_nodes = atoi((*argv)[i+1])) > 0) {
             if (i + 1 < *argc && (nb_nodes = atoi((*argv)[i+1])) > 0) {
                 selected_graphs.push_back(new Graph(nb_nodes, (float) edgePerVertex / nb_nodes, minWeight, maxWeight));
                 i++;
@@ -74,7 +76,7 @@ void parser::print_help(int MPI_rank, bool syntax_error) {
 
         cout << "Mandatory args" << endl;
         cout << "--algorithm [Algorithm name 1] [Algorithm name 2] ..." << endl;
-        cout << "--USA-graph [USA graph name] | --generate-graph [size (nodes)]" << endl;
+        cout << "--USA-graph [USA graph name] [USA graph type] | --generate-graph [size (nodes)]" << endl;
         cout << endl;
 
         cout << "Optionnal args" << endl;
