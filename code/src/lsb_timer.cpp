@@ -28,6 +28,8 @@ void LsbTimer::clock(list<Graph*> g_list)
 {
     unsigned int counter = 0; // Records counter
 
+    omp_set_dynamic(0);
+
     srand(time(NULL));
 	LSB_Init(filename.c_str(), time(NULL));
 
