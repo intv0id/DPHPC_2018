@@ -92,6 +92,10 @@ bool parser::parse_algonames(string algoname) {
         selected_algorithms.push_back(new parallel_sollin_EL());
     } else if (algoname == "ParallelSollinAL") {
         selected_algorithms.push_back(new parallel_sollin_AL());
+    } else if (algoname == "Kruskal") {
+        selected_algorithms.push_back(new kruskal());
+    } else if (algoname == "FilterKruskal") {
+        selected_algorithms.push_back(new filter_kruskal());
     } else {
         return false;
     }
@@ -103,6 +107,8 @@ void parser::print_algos(){
     cout << "Sollin" << endl;
     cout << "ParallelSollinEL" << endl;
     cout << "ParallelSollinAL" << endl;
+    cout << "Kruskal" << endl;
+    cout << "FilterKruskal" << endl;
 }
 
 void parser::compute(){
