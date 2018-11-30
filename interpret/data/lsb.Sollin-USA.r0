@@ -1,62 +1,62 @@
 # Sysname : Linux
-# Nodename: eu-a6-010-14
+# Nodename: eu-a6-008-23
 # Release : 3.10.0-862.14.4.el7.x86_64
 # Version : #1 SMP Wed Sep 26 15:12:11 UTC 2018
 # Machine : x86_64
-# Execution time and date (UTC): Thu Nov 29 21:59:18 2018
-# Execution time and date (local): Thu Nov 29 22:59:18 2018
+# Execution time and date (UTC): Thu Nov 29 23:04:42 2018
+# Execution time and date (local): Fri Nov 30 00:04:42 2018
 # MPI execution on rank 0 with 1 processes in world
 # Reported time measurements are in microseconds
 # pretty output format
     Algorithm  Graph_nodes   Graph_name  Max_threads          run       id         time     overhead 
-       Sollin        264346   USA-road-d.             1             0          0 4332558.216919            0 
-       Sollin        264346   USA-road-d.             1             1          1 4847790.926270            0 
-       Sollin        264346   USA-road-d.             1             2          2 4835829.208862            0 
-       Sollin        264346   USA-road-d.             1             3          3 4737408.598389            0 
-       Sollin        264346   USA-road-d.             1             4          4 4754633.693115            1 
-       Sollin        264346   USA-road-d.             1             5          5 4716916.439209            0 
-       Sollin        264346   USA-road-d.             1             6          6 4738494.388062            0 
-       Sollin        264346   USA-road-d.             1             7          7 4800484.115234            0 
-       Sollin        264346   USA-road-d.             1             8          8 4709659.163574            0 
-       Sollin        264346   USA-road-d.             1             9          9 4706771.581177            0 
-       Sollin        264346   USA-road-d.             1            10         10 4740737.711304            0 
-       Sollin        264346   USA-road-d.             1            11         11 4676834.119385            0 
-       Sollin        264346   USA-road-d.             1            12         12 4213139.632446            0 
-       Sollin        264346   USA-road-d.             1            13         13 4527067.642212            0 
-       Sollin        264346   USA-road-d.             1            14         14 4727211.129639            0 
-       Sollin        264346   USA-road-d.             1            15         15 4694371.192993            0 
-       Sollin        264346   USA-road-d.             1            16         16 4709309.852051            0 
-       Sollin        264346   USA-road-d.             1            17         17 4673707.981689            0 
-       Sollin        264346   USA-road-d.             1            18         18 4753160.469971            0 
-       Sollin        264346   USA-road-d.             1            19         19 4698972.878784            0 
-       Sollin        264346   USA-road-d.             1            20         20 4695401.965088            0 
-       Sollin        264346   USA-road-d.             1            21         21 4782711.527100            0 
-       Sollin        264346   USA-road-d.             1            22         22 4709178.072510            0 
-       Sollin        264346   USA-road-d.             1            23         23 4717208.344604            0 
-       Sollin        264346   USA-road-d.             1            24         24 4683252.314209            0 
-       Sollin        264346   USA-road-d.             1            25         25 4752763.115601            0 
-       Sollin        264346   USA-road-d.             1            26         26 4702824.078979            0 
-       Sollin        264346   USA-road-d.             1            27         27 4679402.476318            0 
-       Sollin        264346   USA-road-d.             1            28         28 4157604.576904            0 
-       Sollin        264346   USA-road-d.             1            29         29 4532903.336548            0 
-       Sollin        264346   USA-road-d.             1            30         30 4647265.772705            0 
-       Sollin        264346   USA-road-d.             1            31         31 4718563.141113            0 
-       Sollin        264346   USA-road-d.             1            32         32 4716257.171753          201 
-       Sollin        264346   USA-road-d.             1            33         33 4727372.405396            0 
-       Sollin        264346   USA-road-d.             1            34         34 4704947.461548            0 
-       Sollin        264346   USA-road-d.             1            35         35 4704382.726685            0 
-       Sollin        264346   USA-road-d.             1            36         36 4702273.742432            0 
-       Sollin        264346   USA-road-d.             1            37         37 4727014.284302            0 
-       Sollin        264346   USA-road-d.             1            38         38 4738112.150269            0 
-       Sollin        264346   USA-road-d.             1            39         39 4740759.724731            0 
-       Sollin        264346   USA-road-d.             1            40         40 4722350.544922            0 
-       Sollin        264346   USA-road-d.             1            41         41 4688557.854614            0 
-       Sollin        264346   USA-road-d.             1            42         42 4764951.229736            0 
-       Sollin        264346   USA-road-d.             1            43         43 4762502.431519            0 
-       Sollin        264346   USA-road-d.             1            44         44 4719075.551025            0 
-       Sollin        264346   USA-road-d.             1            45         45 4725232.376221            0 
-       Sollin        264346   USA-road-d.             1            46         46 4752917.329346            0 
-       Sollin        264346   USA-road-d.             1            47         47 4707250.319702            0 
-       Sollin        264346   USA-road-d.             1            48         48 4684513.722046            0 
-       Sollin        264346   USA-road-d.             1            49         49 4756664.930298            0 
-# Runtime: 235.737180 s (overhead: 0.000086 %) 50 records
+       Sollin        264346   USA-road-d.             1             0          0 4277215.998779            1 
+       Sollin        264346   USA-road-d.             1             1          1 4614906.224854            2 
+       Sollin        264346   USA-road-d.             1             2          2 4674693.823486            0 
+       Sollin        264346   USA-road-d.             1             3          3 4703735.072754            0 
+       Sollin        264346   USA-road-d.             1             4          4 4657902.337891            0 
+       Sollin        264346   USA-road-d.             1             5          5 4686205.643555            0 
+       Sollin        264346   USA-road-d.             1             6          6 4667096.422119            0 
+       Sollin        264346   USA-road-d.             1             7          7 4731803.472900            0 
+       Sollin        264346   USA-road-d.             1             8          8 4663604.091553            0 
+       Sollin        264346   USA-road-d.             1             9          9 4707419.408936            0 
+       Sollin        264346   USA-road-d.             1            10         10 4685527.124756            0 
+       Sollin        264346   USA-road-d.             1            11         11 4659544.985107            0 
+       Sollin        264346   USA-road-d.             1            12         12 4109700.919922            0 
+       Sollin        264346   USA-road-d.             1            13         13 4529111.684326            0 
+       Sollin        264346   USA-road-d.             1            14         14 4607773.693359            0 
+       Sollin        264346   USA-road-d.             1            15         15 4643377.680908            0 
+       Sollin        264346   USA-road-d.             1            16         16 4717266.687500            1 
+       Sollin        264346   USA-road-d.             1            17         17 4613051.926758            0 
+       Sollin        264346   USA-road-d.             1            18         18 4653971.566895            0 
+       Sollin        264346   USA-road-d.             1            19         19 4626000.656738            0 
+       Sollin        264346   USA-road-d.             1            20         20 4647895.573975            0 
+       Sollin        264346   USA-road-d.             1            21         21 4671797.352539            1 
+       Sollin        264346   USA-road-d.             1            22         22 4644401.761963            0 
+       Sollin        264346   USA-road-d.             1            23         23 4697206.373535            0 
+       Sollin        264346   USA-road-d.             1            24         24 4657042.735840            0 
+       Sollin        264346   USA-road-d.             1            25         25 4639504.090576            0 
+       Sollin        264346   USA-road-d.             1            26         26 4627990.804443            0 
+       Sollin        264346   USA-road-d.             1            27         27 4698614.721436            0 
+       Sollin        264346   USA-road-d.             1            28         28 4101536.349854            0 
+       Sollin        264346   USA-road-d.             1            29         29 4502588.752686            0 
+       Sollin        264346   USA-road-d.             1            30         30 4624230.329590            0 
+       Sollin        264346   USA-road-d.             1            31         31 4681847.447754            0 
+       Sollin        264346   USA-road-d.             1            32         32 4645309.461426          207 
+       Sollin        264346   USA-road-d.             1            33         33 4714955.705811            0 
+       Sollin        264346   USA-road-d.             1            34         34 4690500.532715            0 
+       Sollin        264346   USA-road-d.             1            35         35 4680762.398926            0 
+       Sollin        264346   USA-road-d.             1            36         36 4712352.361816            0 
+       Sollin        264346   USA-road-d.             1            37         37 4656491.787842            0 
+       Sollin        264346   USA-road-d.             1            38         38 4654807.956543            0 
+       Sollin        264346   USA-road-d.             1            39         39 4659627.785400            0 
+       Sollin        264346   USA-road-d.             1            40         40 4704286.478760            0 
+       Sollin        264346   USA-road-d.             1            41         41 4678016.389648            0 
+       Sollin        264346   USA-road-d.             1            42         42 4681158.877930            0 
+       Sollin        264346   USA-road-d.             1            43         43 4723129.280518            0 
+       Sollin        264346   USA-road-d.             1            44         44 4666867.652100            0 
+       Sollin        264346   USA-road-d.             1            45         45 4658905.888672            0 
+       Sollin        264346   USA-road-d.             1            46         46 4638797.005371            0 
+       Sollin        264346   USA-road-d.             1            47         47 4627540.870361            0 
+       Sollin        264346   USA-road-d.             1            48         48 4704503.656494            0 
+       Sollin        264346   USA-road-d.             1            49         49 4649632.091797            0 
+# Runtime: 232.858240 s (overhead: 0.000091 %) 50 records
