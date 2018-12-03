@@ -4,7 +4,7 @@ install:
   - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test &&
     sudo apt update -qq && 
     sudo apt install -y -qq --only-upgrade build-essential g++ gcc && 
-    sudo apt install -y -qq openmpi-bin libopenmpi-dev libboost-all-dev g++-5 gcc-5 libtbb-dev &&
+    sudo apt install -y -qq openmpi-bin libopenmpi-dev libboost-all-dev g++-5 gcc-5 &&
     sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-5 60 &&
     sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 60
   - wget https://spcl.inf.ethz.ch/Research/Performance/LibLSB/liblsb-0.2.2.tar.gz && 
@@ -13,6 +13,11 @@ install:
     ./configure &&
     make && sudo make install &&
     cd ..
+  - wget https://github.com/01org/tbb/releases/download/2019_U1/tbb2019_20181003oss_lin.tgz &&
+    tar xvf tbb2019_20181003oss_lin.tgz &&
+    mkdir ~/tbb2019 && mv tbb2019_20181003oss/* ~/tbb2019/ &&
+    export TBB_PATH=`readlink -f ~/tbb2019` &&
+    export TBB_DIR=`readlink -f ~/tbb2019`
   - git clone https://github.com/intel/parallelstl &&
     export PSTL_PATH="`pwd`/parallelstl"
 
