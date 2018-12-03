@@ -31,6 +31,9 @@ void merge(result& v1, result& v2){
 	v1.lastSource = v2.lastSource;
 	v1.lastTarget = v2.lastTarget;
 	v1.list.splice(v1.list.end(),v2.list);
+	#ifdef DEBUG
+	cout << "\nThread "<<omp_get_thread_num()<<" on cpu "<<sched_getcpu()<<endl;
+	#endif
 }
 
 void findmin(v_edge_t& v1, v_edge_t& v2){
