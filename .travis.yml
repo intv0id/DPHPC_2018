@@ -13,6 +13,8 @@ install:
     ./configure &&
     make && sudo make install &&
     cd ..
+  - git clone https://github.com/intel/parallelstl &&
+    export PSTL_PATH="`pwd`/parallelstl"
 
 script:
   - cd ./code
