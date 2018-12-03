@@ -65,6 +65,14 @@ if(NOT EXISTS "${LIBLSB_PATH}/lib/liblsb.a")
     message(WARNING "LIBLSB NOT FOUND IN LOCATION ${LIBLSB_PATH}")
 endif()
 
+## Parallel STL
+if(EXISTS $ENV{PSTL_PATH})
+	include_directories("$ENV{PSTL_PATH}/include")
+	message("Parallel STL found")
+else()
+	message(WARNING "LIBLSB NOT FOUND IN LOCATION ${LIBLSB_PATH}")
+endif()
+
 
 # Define files to compile
 
