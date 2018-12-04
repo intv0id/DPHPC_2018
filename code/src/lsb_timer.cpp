@@ -10,6 +10,7 @@
 
 #include <boost/graph/kruskal_min_spanning_tree.hpp>
 #include <boost/graph/prim_minimum_spanning_tree.hpp>
+#include "tbb/task_scheduler_init.h"
 
 #include "graph.hpp"
 #include "lsb_timer.hpp"
@@ -44,14 +45,15 @@ void LsbTimer::clock(list<Graph*> g_list)
 
             for (unsigned int thread_nb=1; thread_nb <= max_threads; thread_nb *= 2){
                 omp_set_num_threads(thread_nb);
+                tbb::task_scheduler_init tbb_scheduler(thread_nb);
                 LSB_Set_Rparam_int("Max_threads", thread_nb);
 
                 for (unsigned int run = 0; run < runs; run++) {
                     LSB_Set_Rparam_int("run", run);
                     cout << "Algorithm: " << mst_algo.name.c_str();
                     cout << "\t; Nodes number:" << graph.n;
-                    cout << "\t; Max threads: " << thread_nb ;
-                    cout <<"\t; Run " << run << endl;
+                    cout << "\t; Max threads: " << thread_nb;
+                    cout << "\t; Run " << run << endl;
 
                     /* Reset the counters */
                     LSB_Res();

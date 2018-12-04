@@ -5,7 +5,6 @@
 
 #include "algorithms/kruskal.hpp"
 #include "common.hpp"
-#include "tbb/task_scheduler_init.h"
 #include "tbb/parallel_sort.h"
 
 using namespace std;
@@ -32,7 +31,6 @@ l_edge_t kruskal::algorithm(Graph &g, unsigned int n_threads) {
     union_find* u_find = new union_find(g.n);
 
     if (n_threads > 1) {
-        tbb::task_scheduler_init init(n_threads);
         tbb::parallel_sort(edges.begin(), edges.end(), compare);
     }
     else {
