@@ -10,8 +10,8 @@
 #include "tbb/parallel_sort.h"
 #include "common.hpp"
 
-#include "pstl/execution"
-#include "pstl/algorithm"
+// #include "pstl/execution"
+// #include "pstl/algorithm"
 
 using namespace std;
 
@@ -47,23 +47,15 @@ l_edge_t filter_kruskal_main(Graph &g, vector<edge*> &edges, union_find *u, unsi
 int find_pivot(vector<edge*> &edges) {
     int n = edges.size();
     int pivot_id = rand() % n;
-    int pivot = -1;
-    int i = 0;
-    for (auto e: edges) {
-        if (i == pivot_id) {
-            pivot = e->weight;
-        }
-        i++;
-    }
-
-    return pivot;
+    return edges[pivot_id]->weight;
 }
 
 vector<edge*> filter(vector<edge*> &edges, union_find *u_find) {
 
     vector<edge*> filtered (edges.size());
 
-    auto it = copy_if (pstl::execution::par,
+    // auto it = copy_if (pstl::execution::par,
+    auto it = copy_if (
             edges.begin(), edges.end(), filtered.begin(),
             [u_find](edge* e) {
             return u_find->find(e->source) != u_find->find(e->target);
@@ -91,7 +83,8 @@ pair<vector<edge*>, vector<edge*>> partition(vector<edge*> &edges, int pivot) {
     vector<edge*> e_minus = vector<edge*>();
     vector<edge*> e_plus = vector<edge*>();
 
-    copy_if (pstl::execution::par,
+    // copy_if (pstl::execution::par,
+    copy_if (
             edges.begin(), edges.end(), back_inserter(e_minus),
             [pivot](edge* e) {return e->weight < pivot;});
 
@@ -100,7 +93,8 @@ pair<vector<edge*>, vector<edge*>> partition(vector<edge*> &edges, int pivot) {
     //auto it_plus = copy_if (edges.begin(), edges.end(), e_plus.begin(),
             //[pivot](edge* e) {return e->weight > pivot;});
 
-    copy_if (pstl::execution::par,
+    // copy_if (pstl::execution::par,
+    copy_if (
             edges.begin(), edges.end(), back_inserter(e_plus),
             [pivot](edge* e) {return e->weight >= pivot;});
     
