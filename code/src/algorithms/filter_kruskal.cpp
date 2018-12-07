@@ -13,9 +13,12 @@
 #include "pstl/execution"
 #include "pstl/algorithm"
 
+#include <ctime>
+
 using namespace std;
 
 l_edge_t filter_kruskal::algorithm(Graph &g, unsigned int n_threads) {
+    cout << endl << "KOIS" << endl;
     l_edge_t result;
     vector<edge*> edges {g.unique_edges.begin(), g.unique_edges.end()};
     union_find* u_find = new union_find(g.n);
@@ -26,27 +29,30 @@ l_edge_t filter_kruskal::algorithm(Graph &g, unsigned int n_threads) {
 
 l_edge_t filter_kruskal_main(Graph &g, vector<edge*> &edges, union_find *u, unsigned long* old_size) {
 
-    if (edges.size() < 20 || (*old_size) == edges.size() ) {
+    if (edges.size() < 50 || (*old_size) == edges.size() ) {
         tbb::parallel_sort(edges.begin(), edges.end(), compare);
         return kruskal_main(edges, u);
     }
+    else {
 
-    (*old_size) = edges.size();
+	(*old_size) = edges.size();
 
-    int pivot = find_pivot(edges);
-    auto couple = partition(edges, pivot);
+	int pivot = find_pivot(edges);
+	auto couple = partition(edges, pivot);
 
-    l_edge_t partial_solution = filter_kruskal_main(g, couple.first, u, old_size);
+	l_edge_t partial_solution = filter_kruskal_main(g, couple.first, u, old_size);
 
-    auto e_plus = filter(couple.second, u);
-    partial_solution.merge(filter_kruskal_main(g, e_plus, u, old_size));
+	auto e_plus = filter(couple.second, u);
+	partial_solution.merge(filter_kruskal_main(g, e_plus, u, old_size));
 
-    return partial_solution;
+	return partial_solution;
+    }
 }
 
 int find_pivot(vector<edge*> &edges) {
     int n = edges.size();
     int pivot_id = rand() % n;
+    // pivot_id = 10;
     return edges[pivot_id]->weight;
 }
 
@@ -83,8 +89,8 @@ pair<vector<edge*>, vector<edge*>> partition(vector<edge*> &edges, int pivot) {
     vector<edge*> e_minus = vector<edge*>();
     vector<edge*> e_plus = vector<edge*>();
 
-    copy_if (pstl::execution::par,
     // copy_if (
+    copy_if (pstl::execution::par,
             edges.begin(), edges.end(), back_inserter(e_minus),
             [pivot](edge* e) {return e->weight < pivot;});
 
@@ -93,8 +99,8 @@ pair<vector<edge*>, vector<edge*>> partition(vector<edge*> &edges, int pivot) {
     //auto it_plus = copy_if (edges.begin(), edges.end(), e_plus.begin(),
             //[pivot](edge* e) {return e->weight > pivot;});
 
-    copy_if (pstl::execution::par,
     // copy_if (
+    copy_if (pstl::execution::par,
             edges.begin(), edges.end(), back_inserter(e_plus),
             [pivot](edge* e) {return e->weight >= pivot;});
     

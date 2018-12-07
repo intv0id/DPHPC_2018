@@ -15,7 +15,7 @@ class parser {
 	string lsb_name = "measures";
 
 	// Variables for graph generation
-	const int edgePerVertex = 20;
+	const int edgePerVertex = 50;
 	const int minWeight = 0;
 	const int maxWeight = 100;
 
