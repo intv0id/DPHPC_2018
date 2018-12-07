@@ -34,18 +34,37 @@ l_edge_t filter_kruskal_main(Graph &g, vector<edge*> &edges, union_find *u, unsi
         return kruskal_main(edges, u);
     }
     else {
+        
+        int old = *old_size;
 
-	(*old_size) = edges.size();
+        (*old_size) = edges.size();
 
-	int pivot = find_pivot(edges);
-	auto couple = partition(edges, pivot);
+        clock_t t0 = clock();
 
-	l_edge_t partial_solution = filter_kruskal_main(g, couple.first, u, old_size);
+        int pivot = find_pivot(edges);
+        clock_t t1 = clock();
 
-	auto e_plus = filter(couple.second, u);
-	partial_solution.merge(filter_kruskal_main(g, e_plus, u, old_size));
+        auto couple = partition(edges, pivot);
+        clock_t t2 = clock();
 
-	return partial_solution;
+        l_edge_t partial_solution = filter_kruskal_main(g, couple.first, u, old_size);
+        clock_t t3 = clock();
+
+        auto e_plus = filter(couple.second, u);
+        clock_t t4 = clock();
+
+        partial_solution.merge(filter_kruskal_main(g, e_plus, u, old_size));
+        clock_t t5 = clock();
+
+        if (old == 0) {
+            cout << "Find pivot: " << t1 - t0 << endl;
+            cout << "Partition: " << t2 - t1 << endl;
+            cout << "Appel recursif: " << t3 - t2 << endl;
+            cout << "Filter: " << t4 - t3 << endl;
+            cout << "Merge: " << t5 - t4 << endl;
+        }
+
+        return partial_solution;
     }
 }
 
