@@ -19,8 +19,7 @@
 using namespace std;
 
 l_edge_t filter_kruskal::algorithm(Graph &g, unsigned int n_threads) {
-    srand(42);
-    cout << endl << "KOIS" << endl;
+    // srand(42);
     l_edge_t result;
     vector<edge*> edges {g.unique_edges.begin(), g.unique_edges.end()};
     union_find* u_find = new union_find(g.n);
@@ -46,7 +45,7 @@ l_edge_t filter_kruskal_main(Graph &g, vector<edge*> &edges, union_find *u, unsi
 
         (*old_size) = edges.size();
 
-	struct timeval t0, t1, t2, t3, t4, t5;
+	struct timeval t0, t1, t2, t3, t4, t5, t6;
 
         gettimeofday(&t0, NULL);
 
@@ -62,15 +61,22 @@ l_edge_t filter_kruskal_main(Graph &g, vector<edge*> &edges, union_find *u, unsi
         auto e_plus = filter(couple.second, u);
         gettimeofday(&t4, NULL);
 
-        partial_solution.merge(filter_kruskal_main(g, e_plus, u, old_size));
+        l_edge_t other_solution = filter_kruskal_main(g, e_plus, u, old_size);
         gettimeofday(&t5, NULL);
+
+        //partial_solution.splice(partial_solution.end(), other_solution);
+        // other_solution.splice(other_solution.end(), partial_solution);
+        
+        partial_solution.merge(other_solution);
+        gettimeofday(&t6, NULL);
 
         if (old == 0) {
             cout << "Find pivot: " << getTime(t1, t0) << endl;
             cout << "Partition: " << getTime(t2, t1) << endl;
             cout << "Appel recursif: " << getTime(t3, t2) << endl;
             cout << "Filter: " << getTime(t4, t3) << endl;
-            cout << "Merge: " << getTime(t5, t4) << endl;
+            cout << "Appel recursif 2: " << getTime(t5, t4) << endl;
+            cout << "Merge: " << getTime(t6, t5) << endl;
         }
 
         return partial_solution;
@@ -80,7 +86,6 @@ l_edge_t filter_kruskal_main(Graph &g, vector<edge*> &edges, union_find *u, unsi
 int find_pivot(vector<edge*> &edges) {
     int n = edges.size();
     int pivot_id = rand() % n;
-    // pivot_id = 10;
     return edges[pivot_id]->weight;
 }
 
