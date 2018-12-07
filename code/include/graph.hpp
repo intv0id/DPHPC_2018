@@ -53,6 +53,7 @@ class Graph {
     void add_edge(int u, int v, int weight);
 
     int n;
+    int n_edges;
     list<edge*> edges;
     list<edge*> unique_edges; // Only min -> max
     vector<edge*> unique_edges_vector; // Only min -> max

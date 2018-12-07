@@ -4,15 +4,13 @@
 
 using namespace std;
 
-l_edge_t filter_kruskal_main(Graph &g, vector<edge*> &edges, union_find *u, unsigned long* old_size);
+l_edge_t filter_kruskal_main(Graph &g, vector<edge*> &edges, union_find *u, unsigned long* old_size, int n_nodes, int n_edges);
 
 double getTime(struct timeval end, struct timeval start);
 
-l_edge_t filter_kruskal_main(Graph &g, vector<edge*> &edges, union_find *u, unsigned long* old_size);
-
 int getMedian(vector<int> &values);
 
-int find_pivot(vector<edge*> &edges);
+int find_pivot(vector<edge*> &edges, int n_nodes, int n_edges);
 
 vector<edge*> filter(vector<edge*> &edges, union_find *u_find);
 

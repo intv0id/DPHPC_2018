@@ -22,7 +22,7 @@ l_edge_t filter_kruskal::algorithm(Graph &g, unsigned int n_threads) {
 
     struct timeval t0, t1, t2;
 
-    srand(42);
+    // srand(42);
     l_edge_t result;
 
     gettimeofday(&t0, NULL);
@@ -39,10 +39,12 @@ l_edge_t filter_kruskal::algorithm(Graph &g, unsigned int n_threads) {
 
     int n_nodes = g.n;
     int n_edges = g.n_edges;
+    
+    cout << n_nodes << ", " << n_edges << endl;
 
     cout << "Init time: " << getTime(t1, t0) << ", " << getTime(t2, t1) << endl;
 
-    return filter_kruskal_main(g, edges, u_find, old_size);
+    return filter_kruskal_main(g, edges, u_find, old_size, n_nodes, n_edges);
 }
 
 double getTime(struct timeval end, struct timeval start) {
@@ -50,7 +52,7 @@ double getTime(struct timeval end, struct timeval start) {
          end.tv_usec - start.tv_usec) / 1.e6;
 }
 
-l_edge_t filter_kruskal_main(Graph &g, vector<edge*> &edges, union_find *u, unsigned long* old_size) {
+l_edge_t filter_kruskal_main(Graph &g, vector<edge*> &edges, union_find *u, unsigned long* old_size, int n_nodes, int n_edges) {
 
     if (edges.size() < 5000 || (*old_size) == edges.size() ) {
         struct timeval t0, t1;
@@ -70,19 +72,19 @@ l_edge_t filter_kruskal_main(Graph &g, vector<edge*> &edges, union_find *u, unsi
 
         gettimeofday(&t0, NULL);
 
-        int pivot = find_pivot(edges);
+        int pivot = find_pivot(edges, n_nodes, n_edges);
         gettimeofday(&t1, NULL);
 
         auto couple = partition(edges, pivot);
         gettimeofday(&t2, NULL);
 
-        l_edge_t partial_solution = filter_kruskal_main(g, couple.first, u, old_size);
+        l_edge_t partial_solution = filter_kruskal_main(g, couple.first, u, old_size, n_nodes, n_edges);
         gettimeofday(&t3, NULL);
 
         auto e_plus = filter(couple.second, u);
         gettimeofday(&t4, NULL);
 
-        l_edge_t other_solution = filter_kruskal_main(g, e_plus, u, old_size);
+        l_edge_t other_solution = filter_kruskal_main(g, e_plus, u, old_size, n_nodes, n_edges);
         gettimeofday(&t5, NULL);
 
         partial_solution.splice(partial_solution.end(), other_solution);
@@ -117,10 +119,11 @@ int getMedian(vector<int> &values) {
 
 }
 
-int find_pivot(vector<edge*> &edges) {
+int find_pivot(vector<edge*> &edges, int n_nodes, int n_edges) {
 
     int n = edges.size();
-    int n_samples = 512;
+    int n_samples = 128;
+
     vector<int> values(n_samples);
 
     #pragma omp parallel
@@ -136,6 +139,11 @@ int find_pivot(vector<edge*> &edges) {
 
     }
 
+    tbb::parallel_sort(values.begin(), values.end());
+
+    // return getMedian(values);
+    int index = n_samples * n_nodes / n_edges;
+    index = min(n_samples, index);
     return getMedian(values);
 }
 

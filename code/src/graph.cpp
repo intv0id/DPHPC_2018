@@ -39,6 +39,8 @@ void Graph::add_edge(int i, int j, int w){
 		unique_edges.push_back(ej);
 		unique_edges_vector.push_back(ej);
 	}
+
+    n_edges++;
 	
 	//adjacency_matrix[u][v] = weight;
 	/*
