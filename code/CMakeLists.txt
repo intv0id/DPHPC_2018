@@ -31,7 +31,8 @@ endif()
 # Set variables
 
 ## Set compile flags
-set(CMAKE_CXX_FLAGS "-std=c++17 -Wall -Wextra ${OpenMP_CXX_FLAGS}")
+# set(CMAKE_CXX_FLAGS "-std=c++17 -O3 -Wall -Wextra ${OpenMP_CXX_FLAGS}")
+set(CMAKE_CXX_FLAGS "-std=c++17 -O3 ${OpenMP_CXX_FLAGS}")
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS}  ${OpenMP_EXE_LINKER_FLAGS}")
 if(BUILD_TDEBUG)
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -DDEBUG")
