@@ -44,7 +44,7 @@ l_edge_t filter_kruskal::algorithm(Graph &g, unsigned int n_threads) {
 
     cout << "Init time: " << getTime(t1, t0) << ", " << getTime(t2, t1) << endl;
 
-    return filter_kruskal_main(g, edges, u_find, old_size, n_nodes, n_edges);
+    return filter_kruskal_main(g, edges, u_find, old_size, n_nodes, n_edges, edges.begin(), edges.end());
 }
 
 double getTime(struct timeval end, struct timeval start) {
@@ -52,76 +52,68 @@ double getTime(struct timeval end, struct timeval start) {
          end.tv_usec - start.tv_usec) / 1.e6;
 }
 
-l_edge_t filter_kruskal_main(Graph &g, vector<edge*> &edges, union_find *u, unsigned long* old_size, int n_nodes, int n_edges) {
+l_edge_t filter_kruskal_main(Graph &g, vector<edge*> &edges, union_find *u, unsigned long* old_size,
+                             int n_nodes, int n_edges, vector<edge*>::iterator start, vector<edge*>::iterator end) {
+    // start = edges.begin();
+    // end = edges.end();
 
-    if (edges.size() < 5000 || (*old_size) == edges.size() ) {
-        struct timeval t0, t1;
-        gettimeofday(&t0, NULL);
-        tbb::parallel_sort(edges.begin(), edges.end(), compare);
-        gettimeofday(&t1, NULL);
-        // cout << "Sort " << edges.size() << ", " << getTime(t1, t0) << endl;
-        return kruskal_main(edges, u);
+    int size = end - start;
+    int old = (*old_size);
+
+    if (size < 5000 || (*old_size) == size) {
+        tbb::parallel_sort(start, end, compare);
+        return kruskal_main(start, end, u);
     }
     else {
         
         int old = *old_size;
 
-        (*old_size) = edges.size();
+        (*old_size) = size;
 
         struct timeval t0, t1, t2, t3, t4, t5, t6;
 
         gettimeofday(&t0, NULL);
 
-        int pivot = find_pivot(edges, n_nodes, n_edges);
+        int pivot = find_pivot(start, end, n_nodes, n_edges);
         gettimeofday(&t1, NULL);
 
-        auto couple = partition(edges, pivot);
+        auto middle = partition(start, end, pivot);
         gettimeofday(&t2, NULL);
 
-        l_edge_t partial_solution = filter_kruskal_main(g, couple.first, u, old_size, n_nodes, n_edges);
+        l_edge_t partial_solution = filter_kruskal_main(g, edges, u, old_size, n_nodes, n_edges, start, middle);
         gettimeofday(&t3, NULL);
 
-        auto e_plus = filter(couple.second, u);
-        gettimeofday(&t4, NULL);
+        if (end - middle > 0) {
 
-        l_edge_t other_solution = filter_kruskal_main(g, e_plus, u, old_size, n_nodes, n_edges);
-        gettimeofday(&t5, NULL);
+            auto new_end = filter(middle, end, u);
+            gettimeofday(&t4, NULL);
 
-        partial_solution.splice(partial_solution.end(), other_solution);
-        gettimeofday(&t6, NULL);
+            if (new_end - middle > 0) {
 
-        if (old == 0) {
-            cout << "Find pivot: " << getTime(t1, t0) << endl;
-            cout << "Partition: " << getTime(t2, t1) << endl;
-            cout << "Appel recursif: " << getTime(t3, t2) << endl;
-            cout << "Filter: " << getTime(t4, t3) << endl;
-            cout << "Appel recursif 2: " << getTime(t5, t4) << endl;
-            cout << "Merge: " << getTime(t6, t5) << endl;
+                l_edge_t other_solution = filter_kruskal_main(g, edges, u, old_size, n_nodes, n_edges, middle, new_end);
+                gettimeofday(&t5, NULL);
+
+                partial_solution.splice(partial_solution.end(), other_solution);
+                gettimeofday(&t6, NULL);
+
+                if (old == 0) {
+                    cout << "Find pivot: " << getTime(t1, t0) << endl;
+                    cout << "Partition: " << getTime(t2, t1) << endl;
+                    cout << "Appel recursif: " << getTime(t3, t2) << endl;
+                    cout << "Filter: " << getTime(t4, t3) << endl;
+                    cout << "Appel recursif 2: " << getTime(t5, t4) << endl;
+                    cout << "Merge: " << getTime(t6, t5) << endl;
+                }
+            }
         }
 
         return partial_solution;
     }
 }
 
-int getMedian(vector<int> &values) {
+int find_pivot(vector<edge*>::iterator start, vector<edge*>::iterator end, int n_nodes, int n_edges) {
 
-    tbb::parallel_sort(values.begin(), values.end());
-
-    int n = values.size();
-
-    if (n % 2 == 0) {
-        int m = n / 2;
-        return (values[m - 1] + values[m]) / 2;
-    }
-    else {
-        return values[(n - 1) / 2];
-    }
-
-}
-
-int find_pivot(vector<edge*> &edges, int n_nodes, int n_edges) {
-
-    int n = edges.size();
+    int n = end - start;
     int n_samples = 128;
 
     vector<int> values(n_samples);
@@ -134,76 +126,30 @@ int find_pivot(vector<edge*> &edges, int n_nodes, int n_edges) {
         int offset = per_thread * ID;
 
         for (int i = 0; i < per_thread; i++) {
-            values[offset + i] = edges[rand() % n]->weight;
+            values[offset + i] = (*(start + (rand() % n)))->weight;
         }
 
     }
 
     tbb::parallel_sort(values.begin(), values.end());
 
-    // return getMedian(values);
-    int index = n_samples * n_nodes / n_edges;
+    int index = 5 * n_samples * n_nodes / n_edges;
     index = min(n_samples, index);
-    return getMedian(values);
+    return values[index];
 }
 
-vector<edge*> filter(vector<edge*> &edges, union_find *u_find) {
+vector<edge*>::iterator filter(vector<edge*>::iterator start, vector<edge*>::iterator end, union_find *u_find) {
 
-    vector<edge*> filtered (edges.size());
-
-    auto it = copy_if (pstl::execution::par,
-    // auto it = copy_if (
-            edges.begin(), edges.end(), filtered.begin(),
-            [u_find](edge* e) {
-            return u_find->find(e->source) != u_find->find(e->target);
-            });
-
-    filtered.resize(distance(filtered.begin(), it));
-
-    return filtered;
+    return partition(pstl::execution::par,
+                     start, end,
+                     [u_find](edge* e) {
+                     return u_find->find(e->source) != u_find->find(e->target);
+                     });
 }
 
-pair<vector<edge*>, vector<edge*>> partition(vector<edge*> &edges, int pivot) {
+vector<edge*>::iterator partition(vector<edge*>::iterator start, vector<edge*>::iterator end, int pivot) {
 
-    vector<edge*> e_minus = vector<edge*>(edges.size());
-    vector<edge*> e_plus = vector<edge*>(edges.size());
-
-    struct timeval t0, t1;
-
-    gettimeofday(&t0, NULL);
-
-    auto pair = partition_copy(pstl::execution::par,
-                    edges.begin(), edges.end(),
-                    e_minus.begin(), e_plus.begin(),
-                    [pivot](edge* e) {return e->weight <= pivot;});
-
-    gettimeofday(&t1, NULL);
-
-    cout << "PARTITION_COPY: " << getTime(t1, t0) << endl;
-
-    e_minus.resize(distance(e_minus.begin(), pair.first));
-    e_plus.resize(distance(e_plus.begin(), pair.second));
-
-    return make_pair(e_minus, e_plus);
-}
-
-pair<vector<edge*>, vector<edge*>> old_partition(vector<edge*> &edges, int pivot) {
-    
-    vector<edge*> e_minus = vector<edge*>(edges.size());
-    vector<edge*> e_plus = vector<edge*>(edges.size());
-
-    auto it_minus = copy_if (pstl::execution::par,
-            edges.begin(), edges.end(), e_minus.begin(),
-            [pivot](edge* e) {return e->weight < pivot;});
-
-    e_minus.resize(distance(e_minus.begin(), it_minus));
-
-    auto it_plus = copy_if (pstl::execution::par,
-            edges.begin(), edges.end(), e_plus.begin(),
-            [pivot](edge* e) {return e->weight >= pivot;});
-    
-    e_plus.resize(distance(e_plus.begin(), it_plus));
-
-    return make_pair(e_minus, e_plus);
-
+    return partition(pstl::execution::par,
+                     start, end,
+                     [pivot](edge* e) {return e->weight <= pivot;});
 }

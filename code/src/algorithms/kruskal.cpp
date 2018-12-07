@@ -13,14 +13,17 @@ bool compare(const edge* a, const edge* b){
     return a->weight < b->weight;
 }
 
-l_edge_t kruskal_main(vector<edge*> &edges, union_find* u_find){
+l_edge_t kruskal_main(vector<edge*>::iterator start, vector<edge*>::iterator end, union_find* u_find){
     l_edge_t result;
 
-    for (auto e : edges){
+    auto it = start;
+    while (it != end) {
+        edge* e = *it;
         if (u_find->find(e->source) != u_find->find(e->target)) {
             u_find->unite(e->source, e->target);
             result.push_back(e);
         }
+        it++;
     }
 
     return result;
@@ -37,5 +40,5 @@ l_edge_t kruskal::algorithm(Graph &g, unsigned int n_threads) {
         sort(edges.begin(), edges.end(), compare);
     }
 
-    return kruskal_main(edges, u_find);
+    return kruskal_main(edges.begin(), edges.end(), u_find);
 }

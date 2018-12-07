@@ -6,7 +6,7 @@ using namespace std;
 
 bool compare(const edge* a, const edge* b);
 
-l_edge_t kruskal_main(vector<edge*> &edges, union_find* u_find);
+l_edge_t kruskal_main(vector<edge*>::iterator start, vector<edge*>::iterator end, union_find* u_find);
 
 class kruskal : public mst_algorithm {
 	public:
