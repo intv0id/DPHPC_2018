@@ -66,6 +66,7 @@ Graph::Graph(int nVertices, double edgeProba, int min, int max) :
     random_device rd;
     mt19937 rng(rd());
     uniform_int_distribution<int> uni(min,max);
+    srand(42);
 
 
     for(int i = 0; i != nVertices; i++){

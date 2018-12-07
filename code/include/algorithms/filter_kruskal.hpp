@@ -4,10 +4,19 @@
 
 using namespace std;
 
-int find_pivot(vector<edge*> &edges);
-vector<edge*> filter(vector<edge*> &edges, union_find *u_find);
-pair<vector<edge*>, vector<edge*>> partition(vector<edge*> &edges, int pivot);
 l_edge_t filter_kruskal_main(Graph &g, vector<edge*> &edges, union_find *u, unsigned long* old_size);
+
+double getTime(struct timeval end, struct timeval start);
+
+l_edge_t filter_kruskal_main(Graph &g, vector<edge*> &edges, union_find *u, unsigned long* old_size);
+
+int getMedian(vector<int> &values);
+
+int find_pivot(vector<edge*> &edges);
+
+vector<edge*> filter(vector<edge*> &edges, union_find *u_find);
+
+pair<vector<edge*>, vector<edge*>> partition(vector<edge*> &edges, int pivot);
 
 class filter_kruskal : public mst_algorithm {
 	public:

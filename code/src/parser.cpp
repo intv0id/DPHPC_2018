@@ -39,7 +39,7 @@ parser::parser(int * argc, char ** argv[], int MPI_rank) {
                 i++;
             } else goto syntaxerror;
         } else if (arg == "--PA-graph") {
-            if (i + 2 < *argc && (nb_nodes = atoi((*argv)[i+1])) > 0 && (nb_neighbors = atoi((*argv)[i+1])) > 0) {
+            if (i + 2 < *argc && (nb_nodes = atoi((*argv)[i+1])) > 0 && (nb_neighbors = atoi((*argv)[i+2])) > 0) {
                 selected_graphs.push_back(new Graph(nb_nodes, nb_neighbors, minWeight, maxWeight));
                 i+=2;
             } else goto syntaxerror;

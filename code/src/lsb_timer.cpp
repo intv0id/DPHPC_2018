@@ -31,7 +31,8 @@ void LsbTimer::clock(list<Graph*> g_list)
 
     omp_set_dynamic(0);
 
-    srand(time(NULL));
+    // srand(time(NULL));
+    srand(42);
 	LSB_Init(filename.c_str(), time(NULL));
 
 	for(mst_algorithm* mst_alg : algorithms){
