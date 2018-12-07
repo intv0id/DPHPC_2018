@@ -53,7 +53,9 @@ l_edge_t filter_kruskal_main(Graph &g, vector<edge*> &edges, union_find *u, unsi
         auto e_plus = filter(couple.second, u);
         clock_t t4 = clock();
 
-        partial_solution.merge(filter_kruskal_main(g, e_plus, u, old_size));
+        l_edge_t other_solution = filter_kruskal_main(g, e_plus, u, old_size);
+        partial_solution.splice(partial_solution.end(), other_solution);
+        // partial_solution.merge(filter_kruskal_main(g, e_plus, u, old_size));
         clock_t t5 = clock();
 
         if (old == 0) {
