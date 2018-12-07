@@ -164,6 +164,30 @@ vector<edge*> filter(vector<edge*> &edges, union_find *u_find) {
 }
 
 pair<vector<edge*>, vector<edge*>> partition(vector<edge*> &edges, int pivot) {
+
+    vector<edge*> e_minus = vector<edge*>(edges.size());
+    vector<edge*> e_plus = vector<edge*>(edges.size());
+
+    struct timeval t0, t1;
+
+    gettimeofday(&t0, NULL);
+
+    auto pair = partition_copy(pstl::execution::par,
+                    edges.begin(), edges.end(),
+                    e_minus.begin(), e_plus.begin(),
+                    [pivot](edge* e) {return e->weight <= pivot;});
+
+    gettimeofday(&t1, NULL);
+
+    cout << "PARTITION_COPY: " << getTime(t1, t0) << endl;
+
+    e_minus.resize(distance(e_minus.begin(), pair.first));
+    e_plus.resize(distance(e_plus.begin(), pair.second));
+
+    return make_pair(e_minus, e_plus);
+}
+
+pair<vector<edge*>, vector<edge*>> old_partition(vector<edge*> &edges, int pivot) {
     
     vector<edge*> e_minus = vector<edge*>(edges.size());
     vector<edge*> e_plus = vector<edge*>(edges.size());
