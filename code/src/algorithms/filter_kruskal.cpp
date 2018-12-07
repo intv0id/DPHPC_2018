@@ -19,7 +19,7 @@
 using namespace std;
 
 l_edge_t filter_kruskal::algorithm(Graph &g, unsigned int n_threads) {
-    // srand(42);
+    srand(42);
     l_edge_t result;
     vector<edge*> edges {g.unique_edges.begin(), g.unique_edges.end()};
     union_find* u_find = new union_find(g.n);
@@ -35,8 +35,12 @@ auto getTime(struct timeval end, struct timeval start) {
 
 l_edge_t filter_kruskal_main(Graph &g, vector<edge*> &edges, union_find *u, unsigned long* old_size) {
 
-    if (edges.size() < 50 || (*old_size) == edges.size() ) {
+    if (edges.size() < 5000 || (*old_size) == edges.size() ) {
+        struct timeval t0, t1;
+        gettimeofday(&t0, NULL);
         tbb::parallel_sort(edges.begin(), edges.end(), compare);
+        gettimeofday(&t1, NULL);
+        // cout << "Sort " << edges.size() << ", " << getTime(t1, t0) << endl;
         return kruskal_main(edges, u);
     }
     else {
@@ -45,7 +49,7 @@ l_edge_t filter_kruskal_main(Graph &g, vector<edge*> &edges, union_find *u, unsi
 
         (*old_size) = edges.size();
 
-	struct timeval t0, t1, t2, t3, t4, t5, t6;
+        struct timeval t0, t1, t2, t3, t4, t5, t6;
 
         gettimeofday(&t0, NULL);
 
