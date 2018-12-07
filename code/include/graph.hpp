@@ -55,6 +55,7 @@ class Graph {
     int n;
     list<edge*> edges;
     list<edge*> unique_edges; // Only min -> max
+    vector<edge*> unique_edges_vector; // Only min -> max
     vector<vertex_adjacency_list*> adjacency_list;
     Boost_Graph boost_rep;
     int** adjacency_matrix;

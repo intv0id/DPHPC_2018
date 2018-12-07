@@ -14,25 +14,33 @@
 #include "pstl/algorithm"
 
 #include <sys/time.h>
+#include "omp.h"
 
 using namespace std;
 
 l_edge_t filter_kruskal::algorithm(Graph &g, unsigned int n_threads) {
 
-    struct timeval t0, t1;
-
-    gettimeofday(&t0, NULL);
+    struct timeval t0, t1, t2;
 
     srand(42);
     l_edge_t result;
-    vector<edge*> edges {g.unique_edges.begin(), g.unique_edges.end()};
+
+    gettimeofday(&t0, NULL);
+
+    // vector<edge*> edges {g.unique_edges.begin(), g.unique_edges.end()};
+    vector<edge*> edges = g.unique_edges_vector;
+    gettimeofday(&t1, NULL);
+
     union_find* u_find = new union_find(g.n);
+    gettimeofday(&t2, NULL);
+
     unsigned long x = 0;
     unsigned long* old_size = &x;
 
-    gettimeofday(&t1, NULL);
+    int n_nodes = g.n;
+    int n_edges = g.n_edges;
 
-    cout << "Init time: " << getTime(t1, t0) << endl;
+    cout << "Init time: " << getTime(t1, t0) << ", " << getTime(t2, t1) << endl;
 
     return filter_kruskal_main(g, edges, u_find, old_size);
 }
@@ -94,8 +102,11 @@ l_edge_t filter_kruskal_main(Graph &g, vector<edge*> &edges, union_find *u, unsi
 }
 
 int getMedian(vector<int> &values) {
+
     tbb::parallel_sort(values.begin(), values.end());
+
     int n = values.size();
+
     if (n % 2 == 0) {
         int m = n / 2;
         return (values[m - 1] + values[m]) / 2;
@@ -103,12 +114,29 @@ int getMedian(vector<int> &values) {
     else {
         return values[(n - 1) / 2];
     }
+
 }
 
 int find_pivot(vector<edge*> &edges) {
+
     int n = edges.size();
-    int pivot_id = rand() % n;
-    return edges[pivot_id]->weight;
+    int n_samples = 512;
+    vector<int> values(n_samples);
+
+    #pragma omp parallel
+    {
+        int n_threads = omp_get_num_threads();
+        int ID = omp_get_thread_num();
+        int per_thread = n_samples / n_threads;
+        int offset = per_thread * ID;
+
+        for (int i = 0; i < per_thread; i++) {
+            values[offset + i] = edges[rand() % n]->weight;
+        }
+
+    }
+
+    return getMedian(values);
 }
 
 vector<edge*> filter(vector<edge*> &edges, union_find *u_find) {
