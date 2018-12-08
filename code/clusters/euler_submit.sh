@@ -8,7 +8,7 @@
 #BSUB -R "span[ptile=36]"
 
 
-RUNS=50
+RUNS=5
 MAX_THREAD=32
 
 echo "Hostname=`hostname`"
@@ -23,7 +23,7 @@ echo "Running job"
 ~/PMST/code/bin/exec --algorithm ParallelSollinEL --Erdos-Renyi-graph 100 --Erdos-Renyi-graph 1000 --Erdos-Renyi-graph 10000 --lsb-filename SollinParallelEL-ERG --runs ${RUNS} --max-threads ${MAX_THREAD}
 ~/PMST/code/bin/exec --algorithm ParallelSollinAL --Erdos-Renyi-graph 100 --Erdos-Renyi-graph 1000 --Erdos-Renyi-graph 10000 --lsb-filename SollinParallelAL-ERG --runs ${RUNS} --max-threads ${MAX_THREAD}
 ~/PMST/code/bin/exec --algorithm Sollin --Erdos-Renyi-graph 100 --Erdos-Renyi-graph 1000 --Erdos-Renyi-graph 10000 --lsb-filename Sollin-ERG --runs ${RUNS} --max-threads 1
-~/PMST/code/bin/exec --algorithm FilterKruskal --Erdos-Renyi-graph 100 --Erdos-Renyi-graph 1000 --Erdos-Renyi-graph 10000 --lsb-filename FilterKruskal-ERG --runs ${RUNS} --max-threads ${MAX_THREAD} > ~/times.out
+~/PMST/code/bin/exec --algorithm FilterKruskal --Erdos-Renyi-graph 100 --Erdos-Renyi-graph 1000 --Erdos-Renyi-graph 10000 --Erdos-Renyi-graph 100000 --Erdos-Renyi-graph 1000000  --lsb-filename FilterKruskal-ERG --runs ${RUNS} --max-threads ${MAX_THREAD} > ~/times.out
 ~/PMST/code/bin/exec --algorithm Kruskal --Erdos-Renyi-graph 100 --Erdos-Renyi-graph 1000 --Erdos-Renyi-graph 10000 --lsb-filename Kruskal-ERG --runs ${RUNS} --max-threads ${MAX_THREAD}
 
 # USA graphs
