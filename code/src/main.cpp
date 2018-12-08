@@ -1,16 +1,6 @@
-#include <iostream>
-#include <fstream>
 #include <mpi.h>
-#include <omp.h>
 
-#include "graph.hpp"
-#include "common.hpp"
-#include "verifier.hpp"
-#include "experiments.hpp"
 #include "parser.hpp"
-
-
-using namespace std;
 
 /*
  * MAIN: keep it simple
