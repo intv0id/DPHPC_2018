@@ -25,6 +25,7 @@ class parser {
 	bool parse_algonames(string algoname);
 	void print_algos();
     void compute();
+	void check_correctness();
 };
 
 #endif

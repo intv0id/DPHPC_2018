@@ -3,6 +3,7 @@
 
 #include "parser.hpp"
 #include "timer.hpp"
+#include "verifier.hpp"
 #include "lsb_timer.hpp"
 
 #include "algorithms/parallel_sollin.hpp"
@@ -17,6 +18,7 @@ using namespace std;
 parser::parser(int * argc, char ** argv[], int MPI_rank) {
     int nb_nodes;
     int nb_neighbors;
+    bool verify = false;
 
     if (*argc <= 1) goto syntaxerror;
     for (int i = 1; i < *argc; i++) {
@@ -27,6 +29,8 @@ parser::parser(int * argc, char ** argv[], int MPI_rank) {
         } else if (arg == "--lsalg") {
             print_algos();
             return;
+        } else if (arg == "--verify") {
+            verify = true;
         } else if (arg == "--algorithm") {
             while (i + 1 < *argc && parse_algonames((*argv)[i+1])) {i++;}
         } else if (arg == "--USA-Graph") {
@@ -64,7 +68,10 @@ parser::parser(int * argc, char ** argv[], int MPI_rank) {
     if ( selected_graphs.size() == 0 || selected_algorithms.size() == 0 ) goto syntaxerror;
 
     // Parsing success : start measuring
-    compute();
+    if (verify)
+        check_correctness();
+    else
+        compute();
     return;
 
     syntaxerror:
@@ -87,6 +94,7 @@ void parser::print_help(int MPI_rank, bool syntax_error) {
         cout << endl;
 
         cout << "Optionnal args" << endl;
+        cout << "--verify (check for correctness instead of timing)" << endl;
         cout << "--max-threads [Maximum number of thread (preferably a power of 2)]" << endl <<"DEFAULT=1" << endl;
         cout << "--runs [Number of measurement for each parameters set]" << endl <<"DEFAULT=5" << endl;
         cout << "--lsb-filename [LSB filename]" << endl << "DEFAULT=\"measure\"" << endl;
@@ -129,4 +137,9 @@ void parser::compute(){
 
     // Time
     t.clock(selected_graphs);
+}
+
+void parser::check_correctness(){
+    Verifier v(selected_algorithms, max_threads);
+    v.check(selected_graphs);
 }

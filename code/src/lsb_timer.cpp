@@ -8,15 +8,12 @@
 #include <omp.h>
 #include <mpi.h>
 
-#include <boost/graph/kruskal_min_spanning_tree.hpp>
-#include <boost/graph/prim_minimum_spanning_tree.hpp>
 #include "tbb/task_scheduler_init.h"
 
 #include "graph.hpp"
 #include "lsb_timer.hpp"
 #include "verifier.hpp"
 
-typedef boost::graph_traits<Boost_Graph>::edge_descriptor Boost_Edge;
 using namespace std;
 
 LsbTimer::LsbTimer(list<mst_algorithm*> l, string fname, unsigned int m_threads, unsigned int n_runs) : algorithms(l){
@@ -61,7 +58,6 @@ void LsbTimer::clock(list<Graph*> g_list)
 
                     /* Perform the operation */
                     l_edge_t mst = mst_algo.algorithm(graph, thread_nb);
-                    // cout << "VERIFY: " << verify(graph, mst) << endl;
 
                     /* Register the run-th measurement of id counter*/
                     LSB_Rec(counter++);
