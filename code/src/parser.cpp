@@ -120,6 +120,7 @@ void parser::print_algos(){
     cout << "ParallelSollinAL" << endl;
     cout << "Kruskal" << endl;
     cout << "FilterKruskal" << endl;
+    cout << "BoostKruskal" << endl;
 }
 
 void parser::compute(){
