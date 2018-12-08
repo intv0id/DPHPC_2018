@@ -10,6 +10,7 @@
 #include "algorithms/kruskal.hpp"
 #include "algorithms/filter_kruskal.hpp"
 #include "algorithms/prim.hpp"
+#include "algorithms/boost_wrapper.hpp"
 
 using namespace std;
 
@@ -104,6 +105,8 @@ bool parser::parse_algonames(string algoname) {
         selected_algorithms.push_back(new kruskal());
     } else if (algoname == "FilterKruskal") {
         selected_algorithms.push_back(new filter_kruskal());
+    } else if (algoname == "BoostKruskal") {
+        selected_algorithms.push_back(new boost_wrapper());
     } else {
         return false;
     }
