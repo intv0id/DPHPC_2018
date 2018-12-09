@@ -39,10 +39,11 @@ l_edge_t filter_kruskal::algorithm(Graph &g, unsigned int n_threads) {
 
     int n_nodes = g.n;
     int n_edges = g.n_edges;
-    
-    cout << n_nodes << ", " << n_edges << endl;
 
+    #ifdef DEBUG
+    cout << n_nodes << ", " << n_edges << endl;
     cout << "Init time: " << getTime(t1, t0) << ", " << getTime(t2, t1) << endl;
+    #endif
 
     return filter_kruskal_main(g, edges, u_find, old_size, n_nodes, n_edges, edges.begin(), edges.end());
 }
@@ -96,7 +97,9 @@ l_edge_t filter_kruskal_main(Graph &g, vector<edge*> &edges, union_find *u, unsi
                 partial_solution.splice(partial_solution.end(), other_solution);
                 gettimeofday(&t6, NULL);
 
+                #ifdef DEBUG
                 if (old == 0) {
+
                     cout << "Find pivot: " << getTime(t1, t0) << endl;
                     cout << "Partition: " << getTime(t2, t1) << endl;
                     cout << "Appel recursif: " << getTime(t3, t2) << endl;
@@ -104,6 +107,7 @@ l_edge_t filter_kruskal_main(Graph &g, vector<edge*> &edges, union_find *u, unsi
                     cout << "Appel recursif 2: " << getTime(t5, t4) << endl;
                     cout << "Merge: " << getTime(t6, t5) << endl;
                 }
+                #endif
             }
         }
 

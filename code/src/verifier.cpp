@@ -42,9 +42,9 @@ void Verifier::check(list<Graph*> g_list)
                 bool passed = verify_one(*g, mst);
 
                 if (passed)
-                    cout << "; Correct result" << endl;
+                    cout << "\t; Correct result" << endl;
                 else
-                    cout << "; Failed" << endl;
+                    cout << "\t; Failed" << endl;
 
             }
         }
