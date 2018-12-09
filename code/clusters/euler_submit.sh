@@ -9,18 +9,23 @@
 
 
 RUNS=5
+MAX_THREAD=4
+
+if [ -z ${PMST_PATH} ]; then 
+echo "PMST_PATH not detected : switch to EULER mode"
+PMST_PATH ="~/PMST/code"
+module load new gcc/5.2.0 open_mpi/1.6.5 cmake/3.11.4 boost/1.62.0
 MAX_THREAD=32
-executable
+fi
 
 echo "Hostname=`hostname`"
 echo "Number of available cores=`nproc --all`"
 echo "Loading modules ..."
-#module load new gcc/5.2.0 open_mpi/1.6.5 cmake/3.11.4 boost/1.62.0
 
 echo "Running job"
 
-#path_exec="~/PMST/code/bin/exec"
-path_exec="/home/raphael/Documents/4A/DPHPC/Repo/code/bin/exec"
+cd $PMST_PATH
+executable="${PMST_PATH}/bin/exec"
 
 list_algorithms=("ParallelSollinEL" "ParallelSollinAL" "Sollin" 'FilterKruskal' 'Kruskal')
 erdos_graphs="--Erdos-Renyi-graph 100 --Erdos-Renyi-graph 1000 --Erdos-Renyi-graph 10000 "
@@ -43,8 +48,8 @@ cmd_exp_algos(){
 	done;
 }
 
-cmd_exp_algos "$path_exec" "$erdos_graphs" 
-cmd_exp_algos "$path_exec" "$usa_graphs" 
+cmd_exp_algos "$executable" "$erdos_graphs" 
+cmd_exp_algos "$executable" "$usa_graphs" 
 
 echo "Job ended"
 
