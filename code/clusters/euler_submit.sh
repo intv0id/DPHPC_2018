@@ -27,11 +27,11 @@ echo "Running job"
 ~/PMST/code/bin/exec --algorithm Kruskal --Erdos-Renyi-graph 100 --Erdos-Renyi-graph 1000 --Erdos-Renyi-graph 10000 --lsb-filename Kruskal-ERG --runs ${RUNS} --max-threads ${MAX_THREAD}
 
 # USA graphs
-~/PMST/code/bin/exec --algorithm ParallelSollinEL --USA-Graph NY d --USA-graph BAY t --lsb-filename SollinParallelEL-USA --runs ${RUNS} --max-threads ${MAX_THREAD}
-~/PMST/code/bin/exec --algorithm ParallelSollinAL --USA-Graph NY d --USA-graph BAY t --lsb-filename SollinParallelAL-USA --runs ${RUNS} --max-threads ${MAX_THREAD}
-~/PMST/code/bin/exec --algorithm Sollin --USA-Graph NY d --USA-graph BAY t --lsb-filename Sollin-USA --runs ${RUNS} --max-threads 1
-~/PMST/code/bin/exec --algorithm FilterKruskal --USA-Graph NY d --USA-graph BAY t --lsb-filename FilterKruskal-USA --runs ${RUNS} --max-threads ${MAX_THREAD}
-~/PMST/code/bin/exec --algorithm Kruskal --USA-Graph NY d --USA-graph BAY t --lsb-filename Kruskal-USA --runs ${RUNS} --max-threads ${MAX_THREAD}
+~/PMST/code/bin/exec --algorithm ParallelSollinEL --USA-graph NY d --USA-graph BAY t --lsb-filename SollinParallelEL-USA --runs ${RUNS} --max-threads ${MAX_THREAD}
+~/PMST/code/bin/exec --algorithm ParallelSollinAL --USA-graph NY d --USA-graph BAY t --lsb-filename SollinParallelAL-USA --runs ${RUNS} --max-threads ${MAX_THREAD}
+~/PMST/code/bin/exec --algorithm Sollin --USA-graph NY d --USA-graph BAY t --lsb-filename Sollin-USA --runs ${RUNS} --max-threads 1
+~/PMST/code/bin/exec --algorithm FilterKruskal --USA-graph NY d --USA-graph BAY t --lsb-filename FilterKruskal-USA --runs ${RUNS} --max-threads ${MAX_THREAD}
+~/PMST/code/bin/exec --algorithm Kruskal --USA-graph NY d --USA-graph BAY t --lsb-filename Kruskal-USA --runs ${RUNS} --max-threads ${MAX_THREAD}
 
 echo "Job ended"
 

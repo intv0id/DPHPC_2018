@@ -33,7 +33,7 @@ parser::parser(int * argc, char ** argv[], int MPI_rank) {
             verify = true;
         } else if (arg == "--algorithm") {
             while (i + 1 < *argc && parse_algonames((*argv)[i+1])) {i++;}
-        } else if (arg == "--USA-Graph") {
+        } else if (arg == "--USA-graph") {
             if (i + 2 < *argc) {
                 selected_graphs.push_back(new Graph((*argv)[i+1], (*argv)[i+2]));
                 i+=2;
