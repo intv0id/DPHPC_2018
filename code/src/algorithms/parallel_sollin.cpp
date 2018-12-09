@@ -431,12 +431,18 @@ l_edge_t parallel_sollin_AL::algorithm(Graph& g, unsigned int n_threads){
 		mst.insert(mst.end(),add_to_mst.begin(),add_to_mst.end());
 
 		t1 = omp_get_wtime();
-		time_find_min += t1 - t0;
+		time_connect += t1 - t0;
 					
 	}
-	internal_timings.push_back(time_compact_step);
-	internal_timings.push_back(time_find_min);
-	internal_timings.push_back(time_connect);
+	timing t_init("Init Time",constant_time);
+	timing t_compact("Compact Step",time_compact_step);
+	timing t_find_min("Find Min Step",time_find_min);
+	timing t_connect("Connect Step",time_connect);
+
+	internal_timings.push_back(t_init);
+	internal_timings.push_back(t_compact);
+	internal_timings.push_back(t_find_min);
+	internal_timings.push_back(t_connect);
 	return mst;
 }
 

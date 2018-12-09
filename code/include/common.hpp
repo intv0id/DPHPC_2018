@@ -6,12 +6,21 @@
 
 using namespace std;
 
+class timing {
+	public:
+	string name;	
+	double measurement;
+	timing(string name_,double measurement_) : name(name_),measurement(measurement_) {}
+};
+
 class mst_algorithm {
 	public:
 	const string name;
 	virtual l_edge_t algorithm(Graph& g, unsigned int n_threads = 1) = 0;
-	vector<double> internal_timings; 
+	vector<timing> internal_timings; 
 	mst_algorithm(string name_) : name(name_) {};
+	string get_measurements_names();
+	string get_measurements_values();
 };
 
 class union_find {

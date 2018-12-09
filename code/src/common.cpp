@@ -73,3 +73,19 @@ void print_edge_list(l_edge_t mst){
 	cout << endl;
     cout << "Cout total : " << c << endl;
 }
+
+string mst_algorithm::get_measurements_names(){
+	stringstream ss;
+	for(auto x : internal_timings){
+		ss << x.name << " ";
+	}
+	return ss.str();
+}
+
+string mst_algorithm::get_measurements_values(){
+	stringstream ss;
+	for(auto x : internal_timings){
+		ss << x.name << " ";
+	}
+	return ss.str();
+}

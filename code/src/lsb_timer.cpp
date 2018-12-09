@@ -65,17 +65,20 @@ void LsbTimer::clock(list<Graph*> g_list)
                     /* Perform the operation */
                     l_edge_t mst = mst_algo.algorithm(graph, thread_nb);
 
-		    /* Register the internal measurements */
-		    for(auto x : mst_algo.internal_timings){
-			cout << x << endl;
-		    }
-		    mst_algo.internal_timings.clear();
 
                     /* Register the run-th measurement of id counter*/
-                    LSB_Rec(counter++);
+		    LSB_Set_Rparam_string("Internal Measurements Names", mst_algo.get_measurements_names().c_str());
+		    LSB_Set_Rparam_string("Internal Measurements Values", mst_algo.get_measurements_values().c_str());
+                    LSB_Rec(counter);
+		    mst_algo.internal_timings.clear();
+
+
 
                     double t2 = omp_get_wtime();
                     times.push_back(t2 - t1);
+
+		    // Increment counter
+		    counter++;
                 }
                 print_times(times);
 
