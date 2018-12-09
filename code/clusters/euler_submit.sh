@@ -16,6 +16,7 @@ echo "PMST_PATH not detected : switch to EULER mode"
 PMST_PATH ="~/PMST/code"
 module load new gcc/5.2.0 open_mpi/1.6.5 cmake/3.11.4 boost/1.62.0
 MAX_THREAD=32
+RUNS=50
 fi
 
 echo "Hostname=`hostname`"
