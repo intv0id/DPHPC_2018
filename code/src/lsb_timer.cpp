@@ -59,6 +59,12 @@ void LsbTimer::clock(list<Graph*> g_list)
                     /* Perform the operation */
                     l_edge_t mst = mst_algo.algorithm(graph, thread_nb);
 
+		    /* Register the internal measurements */
+		    for(auto x : mst_algo.internal_timings){
+			cout << x << endl;
+		    }
+		    mst_algo.internal_timings.clear();
+
                     /* Register the run-th measurement of id counter*/
                     LSB_Rec(counter++);
                 }

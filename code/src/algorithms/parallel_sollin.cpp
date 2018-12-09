@@ -236,6 +236,13 @@ void merge_AL(result_AL& v1, result_AL& v2){
 	(compactVertexAL:result_AL:merge_AL(omp_out,omp_in))
 
 l_edge_t parallel_sollin_AL::algorithm(Graph& g, unsigned int n_threads){
+	// Internal Time Measurements
+	double constant_time = 0;
+	double time_compact_step = 0;
+	double time_find_min = 0;
+	double time_connect = 0;
+
+	double t0 = omp_get_wtime();
 
 	// Copy adjacency list
 	vector<vertex_adjacency_list*> edges(g.n);
@@ -253,11 +260,16 @@ l_edge_t parallel_sollin_AL::algorithm(Graph& g, unsigned int n_threads){
 	compVertex cV(u);
 	compTargetVertex cTV(u);
 
+	double t1 = omp_get_wtime();
+	constant_time = t1 - t0;
+
 	// While not connected
 	while(u->numTrees > 1){	
 		#ifdef DEBUG
 		cout << "Number of Trees: " << u->numTrees << endl;
 		#endif
+
+		t0 = omp_get_wtime();
 		// Sort by parent vertex
 		//tbb::parallel_sort(edges.begin(),edges.end(),cV);
 		sort(edges.begin(),edges.end(),cV);
@@ -353,6 +365,8 @@ l_edge_t parallel_sollin_AL::algorithm(Graph& g, unsigned int n_threads){
 		cout << endl << "Removed self-loops " << endl;
 		#endif
 
+		t1 = omp_get_wtime();
+		time_compact_step += t1 - t0;
 
 		// For all vertice find minimum outgoing edge
 		int nComps = edges.size();
@@ -398,6 +412,9 @@ l_edge_t parallel_sollin_AL::algorithm(Graph& g, unsigned int n_threads){
 		cout << "Found minimum edges " << endl;
 		#endif
 	
+		t0 = omp_get_wtime();
+		time_find_min += t0 - t1;
+
 		// For all vertices, connect components
 		vector<edge*> add_to_mst;
 		// Connect the components via pointer-jump
@@ -413,8 +430,13 @@ l_edge_t parallel_sollin_AL::algorithm(Graph& g, unsigned int n_threads){
 		}
 		mst.insert(mst.end(),add_to_mst.begin(),add_to_mst.end());
 
+		t1 = omp_get_wtime();
+		time_find_min += t1 - t0;
 					
 	}
+	internal_timings.push_back(time_compact_step);
+	internal_timings.push_back(time_find_min);
+	internal_timings.push_back(time_connect);
 	return mst;
 }
 
