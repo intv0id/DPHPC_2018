@@ -434,10 +434,10 @@ l_edge_t parallel_sollin_AL::algorithm(Graph& g, unsigned int n_threads){
 		time_connect += t1 - t0;
 					
 	}
-	timing t_init("Init Time",constant_time);
-	timing t_compact("Compact Step",time_compact_step);
-	timing t_find_min("Find Min Step",time_find_min);
-	timing t_connect("Connect Step",time_connect);
+	timing t_init("Init_time",constant_time);
+	timing t_compact("Compact_step",time_compact_step);
+	timing t_find_min("Find_min_step",time_find_min);
+	timing t_connect("Connect_step",time_connect);
 
 	internal_timings.push_back(t_init);
 	internal_timings.push_back(t_compact);

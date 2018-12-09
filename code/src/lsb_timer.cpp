@@ -67,9 +67,12 @@ void LsbTimer::clock(list<Graph*> g_list)
 
 
                     /* Register the run-th measurement of id counter*/
-		    LSB_Set_Rparam_string("Internal Measurements Names", mst_algo.get_measurements_names().c_str());
-		    LSB_Set_Rparam_string("Internal Measurements Values", mst_algo.get_measurements_values().c_str());
-                    LSB_Rec(counter);
+		    for(auto x : mst_algo.internal_timings){
+			    cout << "test: " << x.name.c_str() << endl;
+			    LSB_Set_Rparam_double(x.name.c_str(),x.measurement);
+			    LSB_Set_Rparam_int("test",0);
+		    }
+		    LSB_Rec(0);
 		    mst_algo.internal_timings.clear();
 
 
@@ -78,7 +81,6 @@ void LsbTimer::clock(list<Graph*> g_list)
                     times.push_back(t2 - t1);
 
 		    // Increment counter
-		    counter++;
                 }
                 print_times(times);
 

@@ -85,7 +85,7 @@ string mst_algorithm::get_measurements_names(){
 string mst_algorithm::get_measurements_values(){
 	stringstream ss;
 	for(auto x : internal_timings){
-		ss << x.name << " ";
+		ss << x.measurement << " ";
 	}
 	return ss.str();
 }
