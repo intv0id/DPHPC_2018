@@ -29,8 +29,11 @@ l_edge_t boost_wrapper::algorithm(Graph &g, unsigned int n_threads) {
 	l_edge_t result;
 
 	for (vector<Boost_Edge>::iterator it = v.begin(); it != v.end(); it++) {
-        // result.push_back(g.edges[]
-        // weight_kruskal_boost += w[*it];
+		edge* e = new edge();
+		e->source = boost::source(*it,g.boost_rep);
+		e->target = boost::target(*it,g.boost_rep);
+		e->weight=w[*it];
+		result.push_back(e);
     }
 
     return result;
