@@ -57,16 +57,20 @@ void LsbTimer::clock(list<Graph*> g_list)
                     cout << "\t; Max threads: " << thread_nb;
                     cout << "\t; Run " << run ;
 
-                    double t1 = omp_get_wtime();
 
+		    /* Copy Graph */
+		    Graph graph_copy(graph);
                     /* Reset the counters */
+
+                    double t1 = omp_get_wtime();
                     LSB_Res();
-
                     /* Perform the operation */
-                    l_edge_t mst = mst_algo.algorithm(graph, thread_nb);
-
+                    l_edge_t mst = mst_algo.algorithm(graph_copy, thread_nb);
 
 		    LSB_Rec(0);
+                    double t2 = omp_get_wtime();
+                    times.push_back(t2 - t1);
+
                     /* Register the run-th measurement of id counter*/
 		    for(auto x : mst_algo.internal_timings){
 			    cout << "\t; "+ x.name << " " << x.measurement ;
@@ -76,8 +80,6 @@ void LsbTimer::clock(list<Graph*> g_list)
 
 
 
-                    double t2 = omp_get_wtime();
-                    times.push_back(t2 - t1);
 
 		    // Increment counter
                 }

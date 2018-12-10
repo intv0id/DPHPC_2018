@@ -72,6 +72,9 @@ parser::parser(int * argc, char ** argv[], int MPI_rank) {
         check_correctness();
     else
         compute();
+    for(auto g : selected_graphs){
+	    delete g;
+    }
     return;
 
     syntaxerror:

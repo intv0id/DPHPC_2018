@@ -172,6 +172,19 @@ Graph::Graph(string fname, string type){
     inFile.close(); 
 }
 
+Graph::Graph(Graph& h) : name(h.name), n(h.n), boost_rep(h.n) {
+	    // Init adj list
+	    for(int i = 0; i != n; i++){
+		vertex_adjacency_list* val = new vertex_adjacency_list;
+		val->index = i;
+		adjacency_list.push_back(val);
+	    }
+	    // Add all edges
+	    for(edge* e : h.unique_edges){
+		add_edge(e->source,e->target,e->weight);
+	    }
+}
+
 Graph::~Graph(){
 	cout << "Graph is destructed" << endl;
 	for(auto e : edges){
@@ -180,4 +193,5 @@ Graph::~Graph(){
 	for(auto v : adjacency_list){
 		delete v;
 	}
+	boost_rep.clear();
 }

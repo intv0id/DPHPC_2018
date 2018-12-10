@@ -42,6 +42,8 @@ class Graph {
     // Constructor to generate a graph based on one of the files found on
     // http://www.diag.uniroma1.it/challenge9/download.shtml
     // file name : "USA-road-"+ type + "." + name +".gr"
+    // Copy constructor
+    Graph(Graph &h);
     Graph(string fname, string type);
     ~Graph();
 

@@ -188,6 +188,7 @@ l_edge_t parallel_sollin_EL::algorithm(Graph& g, unsigned int n_threads){
 
 					
 	}
+	delete u;
 	return mst;
 }
 
@@ -203,17 +204,11 @@ void merge_AL(result_AL& v1, result_AL& v2){
 	int t = v1.liste.size();
 	int u = v2.liste.size();
 	
-	/*cout << "v1:" << t << endl;
-	cout << "v2:" << u << endl;
-	cout << "v1.firstSource: " << v1.firstSource << endl;
-	cout << "v1.lastSource: " << v1.lastSource << endl;
-	cout << "v2.firstSource: " << v2.firstSource << endl;
-	cout << "v2.lastSource: " << v2.lastSource << endl;
-	*/
 	if(v1.lastSource == v2.firstSource){
 		l_edge_t& ref1 = v1.liste.back()->adjacent_vertices;
 		l_edge_t& ref2 = v2.liste.front()->adjacent_vertices;
 		ref1.splice(ref1.end(),ref2);
+		delete v2.liste.front();
 		v2.liste.pop_front();
 	}
 	if(t == 0){
@@ -224,11 +219,6 @@ void merge_AL(result_AL& v1, result_AL& v2){
 	}
 	v1.liste.splice(v1.liste.end(),v2.liste);
 		
-	/*cout << "merged:" << v1.liste.size() << endl;
-	cout << "v1.firstSource: " << v1.firstSource << endl;
-	cout << "v2.lastSource: " << v2.lastSource << endl;
-	cout << endl;
-	*/
 }
 
 #pragma omp declare reduction \
@@ -236,7 +226,8 @@ void merge_AL(result_AL& v1, result_AL& v2){
 
 l_edge_t parallel_sollin_AL::algorithm(Graph& g, unsigned int n_threads){
 	// Internal Time Measurements
-	double constant_time = 0;
+	double constant_time_1 = 0;
+	double constant_time_2 = 0;
 	double time_compact_step_1 = 0;
 	double time_compact_step_2 = 0;
 	double time_compact_step_3 = 0;
@@ -246,16 +237,28 @@ l_edge_t parallel_sollin_AL::algorithm(Graph& g, unsigned int n_threads){
 	double time_find_min = 0;
 	double time_connect = 0;
 
-	double t0 = omp_get_wtime();
+	double t1 = omp_get_wtime();
 
-	// Copy adjacency list
-	vector<vertex_adjacency_list*> edges(g.n);
+	// Copy adjacency list (NOW COPYING GRAPH)
+	/*vector<vertex_adjacency_list*> edges(g.n);
+	//#pragma omp parallel num_threads(n_threads)
 	for(unsigned int i = 0; i != g.adjacency_list.size(); i++){
 		vertex_adjacency_list* v = new vertex_adjacency_list();
 		v->index = g.adjacency_list[i]->index;
 		v->adjacent_vertices = g.adjacency_list[i]->adjacent_vertices;
 		edges[i] = v;	
-	}
+	}*/
+
+	// Internal value
+	edge* einit = new edge();
+	einit->target = -1;
+
+	auto& edges(g.adjacency_list);
+
+	double t0 = omp_get_wtime();
+	constant_time_1 = t0 - t1;
+
+
 	// Create MST
 	l_edge_t mst;
 
@@ -264,8 +267,8 @@ l_edge_t parallel_sollin_AL::algorithm(Graph& g, unsigned int n_threads){
 	compVertex cV(u);
 	compTargetVertex cTV(u);
 
-	double t1 = omp_get_wtime();
-	constant_time = t1 - t0;
+	t1 = omp_get_wtime();
+	constant_time_2 = t1 - t0;
 
 	// While not connected
 	while(u->numTrees > 1){	
@@ -329,6 +332,7 @@ l_edge_t parallel_sollin_AL::algorithm(Graph& g, unsigned int n_threads){
 			merge_AL(aux,auxs[k]);
 		}
 
+
 		t1 = omp_get_wtime();
 		time_compact_step_3 += t1 - t0;
 
@@ -338,6 +342,7 @@ l_edge_t parallel_sollin_AL::algorithm(Graph& g, unsigned int n_threads){
 		for(l_val_it it = aLRef.begin(); it != aLRef.end();it++){
 			edges.push_back(*it);
 		}
+
 
 		t0 = omp_get_wtime();
 		time_compact_step_4 += t0 - t1;
@@ -358,10 +363,8 @@ l_edge_t parallel_sollin_AL::algorithm(Graph& g, unsigned int n_threads){
 		for(int i = 0; i < nVertex; i++){
 			int target = -1;
 			int p1 = u->find(edges[i]->index);
-			int nit = 0;
 			l_edge_t& ref = edges[i]->adjacent_vertices;
 			for(l_edge_it it = ref.begin(); it != ref.end();){
-				nit++;
 				edge* e = *it;
 				int p2 = u->find(e->target);
 				if(p1 == p2){
@@ -377,21 +380,17 @@ l_edge_t parallel_sollin_AL::algorithm(Graph& g, unsigned int n_threads){
 			}
 		}
 		
-		#ifdef DEBUG
-		cout << endl << "Removed self-loops " << endl;
-		#endif
 
 		t1 = omp_get_wtime();
 		time_compact_step_6 += t1 - t0;
 
 		// For all vertice find minimum outgoing edge
 		int nComps = edges.size();
-		edge* einit = new edge();
-		einit->target = -1;
-		vector<vector<edge*>> cheapest(nComps,v_edge_t(PAD,einit));
+		vector<vector<edge*>> cheapest(nComps,v_edge_t(PAD));
 
 		#pragma omp parallel for num_threads(n_threads)
 		for(k = 0; k < nComps; k++){
+			cheapest[k][0] = einit;
 			vertex_adjacency_list* val = edges[k];
 			l_edge_t& ref = val->adjacent_vertices;
 			for(l_edge_it it = ref.begin(); it != ref.end(); it++){
@@ -400,13 +399,6 @@ l_edge_t parallel_sollin_AL::algorithm(Graph& g, unsigned int n_threads){
 				int target = u->find_debug(e->target);
 				int weight = e->weight;
 
-				#ifdef DEBUG
-				cout << "Checking conditions " << endl;
-				cout << "Source: " << e->source << endl;
-				cout << "Target: " << e->target << endl;
-				cout << "Weight: " << weight << endl;
-				
-				#endif
 				edge* cheapest_edge = cheapest[k][0];
 				
 				if(cheapest_edge->target == -1 || weight < cheapest_edge->weight){
@@ -437,21 +429,23 @@ l_edge_t parallel_sollin_AL::algorithm(Graph& g, unsigned int n_threads){
 		time_connect += t1 - t0;
 					
 	}
-	timing t_init("Init_time",constant_time);
+	//timing t_init_1("Init_time_1",constant_time_1);
+	//timing t_init_2("Init_time_2",constant_time_2);
 	timing t_compact_1("Compact_step_1",time_compact_step_1);
 	timing t_compact_2("Compact_step_2",time_compact_step_2);
-	timing t_compact_3("Compact_step_3",time_compact_step_3);
-	timing t_compact_4("Compact_step_4",time_compact_step_4);
+	//timing t_compact_3("Compact_step_3",time_compact_step_3);
+	//timing t_compact_4("Compact_step_4",time_compact_step_4);
 	timing t_compact_5("Compact_step_5",time_compact_step_5);
 	timing t_compact_6("Compact_step_6",time_compact_step_6);
 	timing t_find_min("Find_min_step",time_find_min);
 	timing t_connect("Connect_step",time_connect);
 
-	internal_timings.push_back(t_init);
+	//internal_timings.push_back(t_init_1);
+	//internal_timings.push_back(t_init_2);
 	internal_timings.push_back(t_compact_1);
 	internal_timings.push_back(t_compact_2);
-	internal_timings.push_back(t_compact_3);
-	internal_timings.push_back(t_compact_4);
+	//internal_timings.push_back(t_compact_3);
+	//internal_timings.push_back(t_compact_4);
 	internal_timings.push_back(t_compact_5);
 	internal_timings.push_back(t_compact_6);
 	internal_timings.push_back(t_find_min);

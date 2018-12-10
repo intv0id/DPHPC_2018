@@ -8,6 +8,7 @@
 
 #include "verifier.hpp"
 #include "algorithms/kruskal.hpp"
+#include "algorithms/boost_wrapper.hpp"
 
 using namespace std;
 
@@ -90,7 +91,7 @@ bool Verifier::isEveryNodeReachable(int n, l_edge_t &mst) {
 bool Verifier::verify_one(Graph &g, l_edge_t &solution) {
     bool verified = true;
 
-    kruskal s;
+    boost_wrapper s;
     l_edge_t other_solution = s.algorithm(g);
 
     // 1. Is it spanning?
