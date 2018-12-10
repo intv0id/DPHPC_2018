@@ -30,7 +30,10 @@ class union_find {
         int numTrees;
         union_find(int n);
         int find(int x);
+        int find_debug(int x);
         bool unite(int x, int y);
+	// Update all parents
+	void update_parents();
 };
 
 class comp{

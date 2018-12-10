@@ -13,8 +13,25 @@ union_find::union_find(int n) : parents(n), size(n), numTrees(n) {
 }
 
 int union_find::find(int x){
-    if(parents[x] != x){
-        parents[x] = find(parents[x]);
+    int parent = parents[x];
+    if(parent != x){
+        parent = find(parents[x]);
+	if(parent != parents[x]){
+		parents[x] = parent;
+	}
+        return parents[x];
+    }
+    return x;
+}
+
+int union_find::find_debug(int x){
+    int parent = parents[x];
+    if(parent != x){
+        parent = find(parents[x]);
+	if(parent != parents[x]){
+		cout << "Writing: " << x << endl;
+		parents[x] = parent;
+	}
         return parents[x];
     }
     return x;
@@ -29,6 +46,12 @@ bool union_find::unite(int x, int y){
         return true;
     }
     return false;
+}
+
+void union_find::update_parents(){
+	for(unsigned int i = 0; i < size; i++){
+		find(i);
+	}
 }
 
 comp::comp(union_find* u_): u(u_){}

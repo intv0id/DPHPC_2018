@@ -11,7 +11,7 @@
 #include "graph.hpp"
 #include "common.hpp"
 
-#define NUM_THREADS 4
+#define PAD 8
 
 using namespace std;
 
@@ -82,7 +82,6 @@ l_edge_t parallel_sollin_EL::algorithm(Graph& g, unsigned int n_threads){
 
 	// While not connected
 	while(u->numTrees > 1){	
-		//cout << "Number of Trees: " << u->numTrees << endl;
 		// Sort the edge list and supervertex
 		tbb::parallel_sort(vectorEdges.begin(),vectorEdges.end(),c);
 		//cout << "Sorted " << endl;
@@ -238,7 +237,12 @@ void merge_AL(result_AL& v1, result_AL& v2){
 l_edge_t parallel_sollin_AL::algorithm(Graph& g, unsigned int n_threads){
 	// Internal Time Measurements
 	double constant_time = 0;
-	double time_compact_step = 0;
+	double time_compact_step_1 = 0;
+	double time_compact_step_2 = 0;
+	double time_compact_step_3 = 0;
+	double time_compact_step_4 = 0;
+	double time_compact_step_5 = 0;
+	double time_compact_step_6 = 0;
 	double time_find_min = 0;
 	double time_connect = 0;
 
@@ -265,17 +269,19 @@ l_edge_t parallel_sollin_AL::algorithm(Graph& g, unsigned int n_threads){
 
 	// While not connected
 	while(u->numTrees > 1){	
-		#ifdef DEBUG
-		cout << "Number of Trees: " << u->numTrees << endl;
-		#endif
 
 		t0 = omp_get_wtime();
+
 		// Sort by parent vertex
 		//tbb::parallel_sort(edges.begin(),edges.end(),cV);
 		sort(edges.begin(),edges.end(),cV);
 
+		// Update all parents
+		u->update_parents();
 
-		//cout << "Sorted vertices"  << endl;
+		t1 = omp_get_wtime();
+		time_compact_step_1 += t1 - t0;
+		
 
 		// Merge same parent vertex
 		int nVertex = edges.size();
@@ -314,11 +320,17 @@ l_edge_t parallel_sollin_AL::algorithm(Graph& g, unsigned int n_threads){
 			}
 		}
 
+		t0 = omp_get_wtime();
+		time_compact_step_2 += t0 - t1;
+		
 		// Merge partial results
 		result_AL aux;
 		for(int k = 0; k != n_threads; k++){
 			merge_AL(aux,auxs[k]);
 		}
+
+		t1 = omp_get_wtime();
+		time_compact_step_3 += t1 - t0;
 
 		// Copy list in vector
 		edges.clear();
@@ -327,6 +339,9 @@ l_edge_t parallel_sollin_AL::algorithm(Graph& g, unsigned int n_threads){
 			edges.push_back(*it);
 		}
 
+		t0 = omp_get_wtime();
+		time_compact_step_4 += t0 - t1;
+
 		// Sort each list by target parent vertex
 		nVertex = edges.size();
 		#pragma omp parallel for num_threads(n_threads)
@@ -334,9 +349,11 @@ l_edge_t parallel_sollin_AL::algorithm(Graph& g, unsigned int n_threads){
 			edges[i]->adjacent_vertices.sort(cTV);
 		}
 
-		// For each list merge target vertex
-		//cout << "Copied back in vector" << nVertex << endl;
+		t1 = omp_get_wtime();
+		time_compact_step_5 += t1 - t0;
+		t0 = omp_get_wtime();
 
+		// For each list merge target vertex
 		#pragma omp parallel for num_threads(n_threads)
 		for(int i = 0; i < nVertex; i++){
 			int target = -1;
@@ -345,7 +362,6 @@ l_edge_t parallel_sollin_AL::algorithm(Graph& g, unsigned int n_threads){
 			l_edge_t& ref = edges[i]->adjacent_vertices;
 			for(l_edge_it it = ref.begin(); it != ref.end();){
 				nit++;
-				//cout << "nit: " << nit << endl;
 				edge* e = *it;
 				int p2 = u->find(e->target);
 				if(p1 == p2){
@@ -366,32 +382,23 @@ l_edge_t parallel_sollin_AL::algorithm(Graph& g, unsigned int n_threads){
 		#endif
 
 		t1 = omp_get_wtime();
-		time_compact_step += t1 - t0;
+		time_compact_step_6 += t1 - t0;
 
 		// For all vertice find minimum outgoing edge
 		int nComps = edges.size();
 		edge* einit = new edge();
 		einit->target = -1;
-		v_edge_t cheapest(nComps,einit);
-
-		// Do loop in parallel
+		vector<vector<edge*>> cheapest(nComps,v_edge_t(PAD,einit));
 
 		#pragma omp parallel for num_threads(n_threads)
 		for(k = 0; k < nComps; k++){
 			vertex_adjacency_list* val = edges[k];
 			l_edge_t& ref = val->adjacent_vertices;
 			for(l_edge_it it = ref.begin(); it != ref.end(); it++){
-				#ifdef DEBUG
-				cout << "Got edge " << endl;
-				#endif
 
-				int target;
-				#pragma omp critical
-				{
-					target = u->find((*it)->target);
-				}
-				int weight = (*it)->weight;
 				edge* e = *it;
+				int target = u->find_debug(e->target);
+				int weight = e->weight;
 
 				#ifdef DEBUG
 				cout << "Checking conditions " << endl;
@@ -400,18 +407,14 @@ l_edge_t parallel_sollin_AL::algorithm(Graph& g, unsigned int n_threads){
 				cout << "Weight: " << weight << endl;
 				
 				#endif
-
+				edge* cheapest_edge = cheapest[k][0];
 				
-				if(cheapest[k]->target == -1 || weight < cheapest[k]->weight){
-					cheapest[k] = *it;
+				if(cheapest_edge->target == -1 || weight < cheapest_edge->weight){
+					cheapest[k][0] = e;
 				}
 			}
 		}
 
-		#ifdef DEBUG
-		cout << "Found minimum edges " << endl;
-		#endif
-	
 		t0 = omp_get_wtime();
 		time_find_min += t0 - t1;
 
@@ -420,7 +423,7 @@ l_edge_t parallel_sollin_AL::algorithm(Graph& g, unsigned int n_threads){
 		// Connect the components via pointer-jump
 		#pragma omp parallel for num_threads(n_threads) reduction(addEdges:add_to_mst)
 		for(k = 0; k < nComps; k++){
-			edge* e = cheapest[k];
+			edge* e = cheapest[k][0];
 			bool b;
 			#pragma omp critical
 			{
@@ -435,12 +438,22 @@ l_edge_t parallel_sollin_AL::algorithm(Graph& g, unsigned int n_threads){
 					
 	}
 	timing t_init("Init_time",constant_time);
-	timing t_compact("Compact_step",time_compact_step);
+	timing t_compact_1("Compact_step_1",time_compact_step_1);
+	timing t_compact_2("Compact_step_2",time_compact_step_2);
+	timing t_compact_3("Compact_step_3",time_compact_step_3);
+	timing t_compact_4("Compact_step_4",time_compact_step_4);
+	timing t_compact_5("Compact_step_5",time_compact_step_5);
+	timing t_compact_6("Compact_step_6",time_compact_step_6);
 	timing t_find_min("Find_min_step",time_find_min);
 	timing t_connect("Connect_step",time_connect);
 
 	internal_timings.push_back(t_init);
-	internal_timings.push_back(t_compact);
+	internal_timings.push_back(t_compact_1);
+	internal_timings.push_back(t_compact_2);
+	internal_timings.push_back(t_compact_3);
+	internal_timings.push_back(t_compact_4);
+	internal_timings.push_back(t_compact_5);
+	internal_timings.push_back(t_compact_6);
 	internal_timings.push_back(t_find_min);
 	internal_timings.push_back(t_connect);
 	return mst;

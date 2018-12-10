@@ -55,7 +55,7 @@ void LsbTimer::clock(list<Graph*> g_list)
                     cout << "Algorithm: " << mst_algo.name.c_str();
                     cout << "\t; Nodes number:" << graph.n;
                     cout << "\t; Max threads: " << thread_nb;
-                    cout << "\t; Run " << run << endl;
+                    cout << "\t; Run " << run ;
 
                     double t1 = omp_get_wtime();
 
@@ -66,13 +66,12 @@ void LsbTimer::clock(list<Graph*> g_list)
                     l_edge_t mst = mst_algo.algorithm(graph, thread_nb);
 
 
+		    LSB_Rec(0);
                     /* Register the run-th measurement of id counter*/
 		    for(auto x : mst_algo.internal_timings){
-			    cout << "test: " << x.name.c_str() << endl;
-			    LSB_Set_Rparam_double(x.name.c_str(),x.measurement);
-			    LSB_Set_Rparam_int("test",0);
+			    cout << "\t; "+ x.name << " " << x.measurement ;
 		    }
-		    LSB_Rec(0);
+		    cout << endl;
 		    mst_algo.internal_timings.clear();
 
 
