@@ -191,7 +191,7 @@ Graph::Graph(string fname, string type){
     inFile.close(); 
 }
 
-Graph::Graph(Graph& h) : name(h.name), n(h.n), n_edges(h.n_edges), boost_rep(h.n) {
+Graph::Graph(Graph& h) : name(h.name), n(h.n), n_edges(0), boost_rep(h.n) {
 	    // Init adj list
 	    for(int i = 0; i != n; i++){
 		vertex_adjacency_list* val = new vertex_adjacency_list;

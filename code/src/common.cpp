@@ -117,7 +117,7 @@ void print_edge_vec(v_edge_t mst){
 	cout << endl;
 	for(auto ite = mst.begin(); ite != mst.end(); ite++){
         c += (*ite)->weight;
-		cout << "(" << (*ite)->source << "," << (*ite)-> target << ")" << endl;
+		cout << "(" << (*ite)->source << "," << (*ite)-> target << "," << (*ite)->weight << ")" << endl;
 	}
 	cout << endl;
     cout << "Cout total : " << c << endl;
