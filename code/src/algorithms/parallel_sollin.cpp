@@ -59,9 +59,6 @@ void findmin(v_edge_t& v1, v_edge_t& v2){
 	(listEdges:result:merge(omp_out,omp_in))
 
 
-#pragma omp declare reduction \
-	(addEdges:v_edge_t: omp_out.insert(omp_out.end(),omp_in.begin(),omp_in.end()))
-
 
 l_edge_t parallel_sollin_EL::algorithm(Graph& g, unsigned int n_threads){
 
@@ -484,6 +481,8 @@ void merge_FAL(result_FAL& v1, result_FAL& v2,const compWeight cW){
 		
 }
 
+
+
 l_edge_t parallel_sollin_FAL::algorithm(Graph& g, unsigned int n_threads){
 	// Internal Time Measurements
 	double constant_time_1 = 0;
@@ -534,10 +533,8 @@ l_edge_t parallel_sollin_FAL::algorithm(Graph& g, unsigned int n_threads){
 
 	t1 = omp_get_wtime();
 	constant_time_2 = t1 - t0;
-	int index = 0;
 	// While not connected
-	while(u->numTrees > 1 && index < 5){	
-		index++;
+	while(u->numTrees > 1){	
 
 		t0 = omp_get_wtime();
 
@@ -645,12 +642,11 @@ l_edge_t parallel_sollin_FAL::algorithm(Graph& g, unsigned int n_threads){
 				while(target == source){
 					if(ref.empty()){
 						e = einit;
+						break;
 					}
-					else{
-						e = ref.front(); 
-						target = u->find_debug(e->target);
-						ref.pop_front();
-					}
+					e = ref.front(); 
+					target = u->find_debug(e->target);
+					ref.pop_front();
 					//cout << (target == source) << endl;
 				}	
 				intra_cheapest.push_back(e);

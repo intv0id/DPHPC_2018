@@ -26,6 +26,12 @@ class vertex_adjacency_list{
 	list<edge*> adjacent_vertices;
 };
 
+class vertex_adjacency_vector{
+	public:
+	int index;
+	vector<edge*> adjacent_vertices;
+};
+
 class Graph {
     public:
     string name;
@@ -60,6 +66,7 @@ class Graph {
     list<edge*> unique_edges; // Only min -> max
     vector<edge*> unique_edges_vector; // Only min -> max
     vector<vertex_adjacency_list*> adjacency_list;
+    vector<vertex_adjacency_vector*> adjacency_vector;
     Boost_Graph boost_rep;
     int** adjacency_matrix;
 };

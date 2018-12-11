@@ -12,6 +12,7 @@
 #include "algorithms/filter_kruskal.hpp"
 #include "algorithms/prim.hpp"
 #include "algorithms/boost_wrapper.hpp"
+#include "algorithms/filter_sollin.hpp"
 
 using namespace std;
 
@@ -114,6 +115,8 @@ bool parser::parse_algonames(string algoname) {
         selected_algorithms.push_back(new parallel_sollin_AL());
     } else if (algoname == "ParallelSollinFAL") {
         selected_algorithms.push_back(new parallel_sollin_FAL());
+    } else if (algoname == "FilterSollin") {
+        selected_algorithms.push_back(new filter_sollin());
     } else if (algoname == "Kruskal") {
         selected_algorithms.push_back(new kruskal());
     } else if (algoname == "FilterKruskal") {

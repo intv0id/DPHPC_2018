@@ -26,6 +26,8 @@ void Graph::add_edge(int i, int j, int w){
 	edges.push_back(ej);
 	adjacency_list[i]->adjacent_vertices.push_back(ei);
 	adjacency_list[j]->adjacent_vertices.push_back(ej);
+	adjacency_vector[i]->adjacent_vertices.push_back(ei);
+	adjacency_vector[j]->adjacent_vertices.push_back(ej);
 
 	// Add edge to boost graph
 	boost::add_edge(i,j,w,boost_rep);
@@ -57,6 +59,9 @@ Graph::Graph(int n_) :
         vertex_adjacency_list* val = new vertex_adjacency_list;
         val->index = i;
         adjacency_list.push_back(val);
+        vertex_adjacency_vector* val0 = new vertex_adjacency_vector;
+        val0->index = i;
+        adjacency_vector.push_back(val0);
     }
 
 	
@@ -81,6 +86,9 @@ Graph::Graph(int nVertices, double edgeProba, int min, int max) :
         vertex_adjacency_list* val = new vertex_adjacency_list;
         val->index = i;
         adjacency_list.push_back(val);
+        vertex_adjacency_vector* val0 = new vertex_adjacency_vector;
+        val0->index = i;
+        adjacency_vector.push_back(val0);
     }
 
 
@@ -116,6 +124,9 @@ Graph::Graph(int nVertices, int m, int min, int max) : n(nVertices)
         vertex_adjacency_list* val = new vertex_adjacency_list;
         val->index = i;
         adjacency_list.push_back(val);
+        vertex_adjacency_vector* val0 = new vertex_adjacency_vector;
+        val0->index = i;
+        adjacency_vector.push_back(val0);
     }
 
     vector<int> vect{1,1,2,2,3,3};
@@ -168,6 +179,9 @@ Graph::Graph(string fname, string type){
         vertex_adjacency_list* val = new vertex_adjacency_list;
         val->index = i;
         adjacency_list.push_back(val);
+        vertex_adjacency_vector* val0 = new vertex_adjacency_vector;
+        val0->index = i;
+        adjacency_vector.push_back(val0);
     }
 
     while (inFile >> a >> i >> j >> w) {
@@ -177,12 +191,15 @@ Graph::Graph(string fname, string type){
     inFile.close(); 
 }
 
-Graph::Graph(Graph& h) : name(h.name), n(h.n), boost_rep(h.n) {
+Graph::Graph(Graph& h) : name(h.name), n(h.n), n_edges(h.n_edges), boost_rep(h.n) {
 	    // Init adj list
 	    for(int i = 0; i != n; i++){
 		vertex_adjacency_list* val = new vertex_adjacency_list;
 		val->index = i;
 		adjacency_list.push_back(val);
+		vertex_adjacency_vector* val0 = new vertex_adjacency_vector;
+		val0->index = i;
+		adjacency_vector.push_back(val0);
 	    }
 	    // Add all edges
 	    for(edge* e : h.unique_edges){
@@ -196,6 +213,9 @@ Graph::~Graph(){
 		delete e;
 	}
 	for(auto v : adjacency_list){
+		delete v;
+	}
+	for(auto v : adjacency_vector){
 		delete v;
 	}
 	boost_rep.clear();
