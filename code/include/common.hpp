@@ -6,6 +6,11 @@
 
 using namespace std;
 
+struct component_FAL{
+	int index;
+	list<vertex_adjacency_list*> liste;
+};
+
 class timing {
 	public:
 	string name;	
@@ -50,6 +55,17 @@ class compVertex{
 	bool operator() (const vertex_adjacency_list*,const vertex_adjacency_list*) const;
 };
 
+class compVertexFAL{
+	union_find* u;
+	public:
+	compVertexFAL(union_find*);
+	bool operator() (const component_FAL*,const component_FAL*) const;
+};
+
+class compWeight{
+	public:
+	bool operator() (edge*,edge*) const;
+};
 
 class compTargetVertex{
 	union_find* u;

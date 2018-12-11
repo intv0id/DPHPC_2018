@@ -36,9 +36,9 @@ void Verifier::check(list<Graph*> g_list)
                 cout << "\t; Nodes number:" << graph.n;
                 cout << "\t; Max threads: " << thread_nb;
 
-
+		Graph graph_copy(graph);
                 /* Perform the operation */
-                l_edge_t mst = mst_algo.algorithm(graph, thread_nb);
+                l_edge_t mst = mst_algo.algorithm(graph_copy, thread_nb);
 
                 bool passed = verify_one(*g, mst);
 

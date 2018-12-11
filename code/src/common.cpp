@@ -56,6 +56,7 @@ void union_find::update_parents(){
 
 comp::comp(union_find* u_): u(u_){}
 compVertex::compVertex(union_find* u_): u(u_){}
+compVertexFAL::compVertexFAL(union_find* u_): u(u_){}
 compTargetVertex::compTargetVertex(union_find* u_): u(u_){}
 
 bool comp::operator()(edge*e1, edge* e2) const {
@@ -78,12 +79,21 @@ bool compVertex::operator()(const vertex_adjacency_list* v1,const vertex_adjacen
 	return p1 < p2;
 }
 
+bool compVertexFAL::operator()(const component_FAL* v1,const component_FAL* v2) const {
+	int p1 = u->find(v1->index);
+	int p2 = u->find(v2->index);
+	return p1 < p2;
+}
 bool compTargetVertex::operator()(edge* v1, edge* v2) const {
 	int p1 = u->find(v1->target);
 	int p2 = u->find(v2->target);
 	if (p1 < p2) return true;
 	else if(p1>p2) return false;
 	else return v1->weight < v2->weight;
+}
+
+bool compWeight::operator()(edge* v1, edge* v2) const {
+	return v1->weight < v2->weight;
 }
 
 void print_edge_list(l_edge_t mst){

@@ -112,6 +112,8 @@ bool parser::parse_algonames(string algoname) {
         selected_algorithms.push_back(new parallel_sollin_EL());
     } else if (algoname == "ParallelSollinAL") {
         selected_algorithms.push_back(new parallel_sollin_AL());
+    } else if (algoname == "ParallelSollinFAL") {
+        selected_algorithms.push_back(new parallel_sollin_FAL());
     } else if (algoname == "Kruskal") {
         selected_algorithms.push_back(new kruskal());
     } else if (algoname == "FilterKruskal") {

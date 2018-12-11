@@ -71,6 +71,9 @@ Graph::Graph(int nVertices, double edgeProba, int min, int max) :
     mt19937 rng(rd());
     uniform_int_distribution<int> uni(min,max);
     srand(42);
+    if(edgeProba > 1){
+	    edgeProba = 1;
+    }
     std::geometric_distribution<> d(edgeProba);
 
 
