@@ -71,6 +71,7 @@ Graph::Graph(int nVertices, double edgeProba, int min, int max) :
     mt19937 rng(rd());
     uniform_int_distribution<int> uni(min,max);
     srand(42);
+    std::geometric_distribution<> d(edgeProba);
 
 
     for(int i = 0; i != nVertices; i++){
@@ -79,17 +80,18 @@ Graph::Graph(int nVertices, double edgeProba, int min, int max) :
         adjacency_list.push_back(val);
     }
 
-    for(int i = 0; i !=nVertices; i++){
-        for(int j = i+1; j!= nVertices; j++){
 
-	    double test = rand() / (double) RAND_MAX;
-            if(test <= edgeProba){
-                // Generate weight
-                int w = uni(rng);
-		add_edge(i,j,w);
-
-            }
-        }
+    for( int i = 0; i !=nVertices; i++){
+	int j = i+1;
+	while(j < nVertices){
+		int delta = d(rng);
+		j += delta;
+		if(j < nVertices){
+			int w = uni(rng);
+			add_edge(i,j,w);
+		}
+		j++;
+	}
     }
 }
 Graph::Graph(int nVertices, int m, int min, int max) : n(nVertices)

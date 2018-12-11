@@ -31,7 +31,7 @@ executable="${PMST_PATH}/bin/exec"
 #list_algorithms=("ParallelSollinEL" "ParallelSollinAL" "Sollin" 'FilterKruskal' 'Kruskal')
 list_algorithms=("ParallelSollinAL")
 erdos_graphs="--Erdos-Renyi-graph 100 --Erdos-Renyi-graph 1000 --Erdos-Renyi-graph 10000 "
-one_graph="--Erdos-Renyi-graph 400000"
+one_graph="--Erdos-Renyi-graph 1000000"
 one_graph_verif="--Erdos-Renyi-graph 1000"
 usa_graphs="--USA-Graph NY d --USA-graph BAY t"
 
