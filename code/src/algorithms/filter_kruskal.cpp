@@ -139,7 +139,7 @@ int find_pivot(vector<edge*>::iterator start, vector<edge*>::iterator end, int n
 
     int index = 5 * n_samples * n_nodes / n_edges;
     index = min(n_samples, index);
-    cout << "Pivot: " << values[index] << endl;
+    //cout << "Pivot: " << values[index] << endl;
     return values[index];
 }
 

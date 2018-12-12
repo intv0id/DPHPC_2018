@@ -28,11 +28,11 @@ echo "Running job"
 cd $PMST_PATH
 executable="${PMST_PATH}/bin/exec"
 
-#list_algorithms=("ParallelSollinEL" "ParallelSollinAL" "Sollin" 'FilterKruskal' 'Kruskal')
+list_algorithms=("ParallelSollinEL" "ParallelSollinAL" "Sollin" 'FilterKruskal' 'Kruskal')
 #list_algorithms=("FilterSollin" "ParallelSollinFAL" "Kruskal" "FilterKruskal")
-list_algorithms=("FilterSollin")
+#list_algorithms=("FilterSollin")
 erdos_graphs="--Erdos-Renyi-graph 100 --Erdos-Renyi-graph 1000 --Erdos-Renyi-graph 10000 "
-one_graph="--Erdos-Renyi-graph 100000"
+one_graph="--Erdos-Renyi-graph 1000"
 one_graph_verif="--Erdos-Renyi-graph 300"
 usa_graphs="--USA-Graph NY d --USA-graph BAY t"
 
