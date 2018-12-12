@@ -134,6 +134,7 @@ void parser::print_algos(){
     cout << "Sollin" << endl;
     cout << "ParallelSollinEL" << endl;
     cout << "ParallelSollinAL" << endl;
+    cout << "ParallelSollinFAL" << endl;
     cout << "Kruskal" << endl;
     cout << "FilterKruskal" << endl;
     cout << "BoostKruskal" << endl;
