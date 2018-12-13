@@ -9,7 +9,7 @@
 
 
 RUNS=1
-MAX_THREAD=1
+MAX_THREAD=8
 
 if [ -z ${PMST_PATH} ]; then 
 echo "PMST_PATH not detected : switch to EULER mode"
@@ -28,7 +28,7 @@ echo "Running job"
 cd $PMST_PATH
 executable="${PMST_PATH}/bin/exec"
 
-algorithms=("ParallelSollinEL ParallelSollinAL ParallelSollinFAL Sollin FilterKruskal Kruskal BoostKruskal")
+algorithms=("ParallelSollinEL ParallelSollinAL ParallelSollinFAL Sollin FilterKruskal Kruskal BoostKruskal FilterSollin")
 
 # Arguments:
 # 1: path to executable
@@ -48,7 +48,6 @@ cmd_exp_algos(){
 	cmd_exp "$1" " --USA-graph BAY t --algorithm ${algorithms} --lsb-filename algo_timing $2" 
 }
 
-#cmd_exp_algos "$executable" "$one_graph_verif" "--verify" 
 cmd_exp_algos "$executable"
 
 echo "Job ended"

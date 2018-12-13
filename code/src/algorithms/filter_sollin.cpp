@@ -16,6 +16,23 @@
 
 #define PAD 8
 
+// Debug function to print a list of iterators
+void print_iterators(Graph& g, vector<vector<edge*>::iterator>& its){
+	for(unsigned int i = 0; i != g.n; i++){
+		cout << "Iterator: " << i << " // " << its[i] - g.adjacency_vector[i]->adjacent_vertices.begin() << endl; 
+
+	}
+	cout << endl;
+}
+void print_edges(Graph& g){
+	for(unsigned int i = 0; i != g.n; i++){
+		cout << "Edges: " << i << " //";
+		print_edge_vec(g.adjacency_vector[i]->adjacent_vertices); 
+
+	}
+	cout << endl;
+}
+
 typedef vector<edge*>::iterator v_edge_it;
 
 struct result_FAL_vector{
@@ -47,12 +64,14 @@ void merge_FAL_vector(result_FAL_vector& v1, result_FAL_vector& v2,const compWei
 		
 }
 
-int pivot(Graph& g, vector<vector<edge*>::iterator>& starts, vector<vector<edge*>::iterator>& ends, vector<int>& prefix_sums){
+int pivot(Graph& g, vector<vector<edge*>::iterator>& starts, vector<vector<edge*>::iterator>& ends, vector<int>& prefix_sums,unsigned int n_threads){
 	int n_samples = 128;
 	int sum_sizes = prefix_sums[g.n-1];
 	vector<int> values(n_samples);
-		
-	for(int s = 0; s != n_samples; s++){
+	int s;
+
+	# pragma omp parallel for num_threads(n_threads)
+	for(s = 0; s < n_samples; s++){
 		// Choose random edge in starts-ends range
 		int r = rand() % sum_sizes;
 		auto it  = upper_bound(prefix_sums.begin(),prefix_sums.end(),r);
@@ -68,11 +87,12 @@ int pivot(Graph& g, vector<vector<edge*>::iterator>& starts, vector<vector<edge*
         return values[index];
 }
 
-const vector<v_edge_it> filter(Graph& g, const vector<vector<edge*>::iterator> starts, const vector<vector<edge*>::iterator> ends, union_find* u ){
-
+const vector<v_edge_it> filter(Graph& g, const vector<vector<edge*>::iterator> starts, const vector<vector<edge*>::iterator> ends, union_find* u, unsigned int n_threads ){
+	
 	vector<v_edge_it> middles(g.n);
-	for(int i = 0; i != g.n; i++){
-	    middles[i] = partition(pstl::execution::par,
+	# pragma omp parallel for num_threads(n_threads)
+	for(int i = 0; i < g.n; i++){
+	    middles[i] = partition(pstl::execution::seq,
                      starts[i], ends[i],
                      [u](edge* e) {
                      return u->find(e->source) != u->find(e->target);
@@ -81,12 +101,13 @@ const vector<v_edge_it> filter(Graph& g, const vector<vector<edge*>::iterator> s
 	return middles;
 }
 
-const vector<v_edge_it> partition(Graph& g, const vector<v_edge_it> starts, const vector<v_edge_it> ends,int pivot){
+const vector<v_edge_it> partition(Graph& g, const vector<v_edge_it> starts, const vector<v_edge_it> ends,int pivot,unsigned int n_threads){
 	
 	vector<v_edge_it> middles(g.n);
 
-	for(int i = 0; i != g.n; i++){
-	    middles[i] = partition(pstl::execution::par,
+	# pragma omp parallel for num_threads(n_threads)
+	for(int i = 0; i < g.n; i++){
+	    middles[i] = partition(pstl::execution::seq,
                      starts[i], ends[i],
                      [pivot](edge* e) {return e->weight <= pivot;});
 	}
@@ -98,7 +119,8 @@ l_edge_t filter_sollin::algorithm(Graph& g, unsigned int n_threads){
 
 	union_find* u = new union_find(g.n);
 	compVertexFALvec cV(u);
-	const compWeight cW;
+	compWeight cW;
+	double* time = new double;
 
 	vector<component_FAL_vector*> edges;
 	for(auto aux : g.adjacency_vector){
@@ -106,24 +128,26 @@ l_edge_t filter_sollin::algorithm(Graph& g, unsigned int n_threads){
 		c->index = aux->index;
 		c->liste.push_back(aux);
 		edges.push_back(c);
-		//print_edge_vec(aux->adjacent_vertices);
 	}
 
 	auto starts = vector<vector<edge*>::iterator>(g.n);
 	auto ends = vector<vector<edge*>::iterator>(g.n);
-	for(int i = 0; i != g.n; i++){
+	# pragma omp parallel for num_threads(n_threads)
+	for(int i = 0; i < g.n; i++){
 		starts[i] = g.adjacency_vector[i]->adjacent_vertices.begin();
 		ends[i] = g.adjacency_vector[i]->adjacent_vertices.end();
 	}
 
-	l_edge_t mst = main_func(g,n_threads,edges,starts,ends,u,cV,cW,0,0);
+	l_edge_t mst = main_func(g,n_threads,edges,starts,ends,u,cV,cW,0,0,time);
+
+	timing t_init_1("Init_time_1",*time);
+	internal_timings.push_back(t_init_1);
 	return mst;
 
 }
 
+l_edge_t filter_sollin::base_func(Graph& g, unsigned int n_threads,vector<component_FAL_vector*>& edges, vector<vector<edge*>::iterator>& starts, vector<vector<edge*>::iterator>& ends, union_find* u,compVertexFALvec& cV,compWeight& cW){
 
-
-l_edge_t filter_sollin::base_func(Graph& g, unsigned int n_threads,vector<component_FAL_vector*>& edges, vector<vector<edge*>::iterator>& starts, vector<vector<edge*>::iterator>& ends, union_find* u,compVertexFALvec cV,compWeight cW){
 
 	l_edge_t mst;
 
@@ -133,9 +157,11 @@ l_edge_t filter_sollin::base_func(Graph& g, unsigned int n_threads,vector<compon
 		sort(starts[i],ends[i],cW);
 	}
 
+
 	// Internal value
 	edge* einit = new edge();
-	einit->target = -1;
+	einit->source = -1;
+
 	// While not connected
 	while(u->numTrees > 1 ){	
 		// Sort by parent vertex
@@ -198,7 +224,6 @@ l_edge_t filter_sollin::base_func(Graph& g, unsigned int n_threads,vector<compon
 			edges.push_back(*it);
 		}
 
-
 		// For all vertice find minimum outgoing edge
 		int nComps = edges.size();
 		vector<vector<edge*>> cheapest(nComps,vector<edge*>(PAD));
@@ -215,8 +240,6 @@ l_edge_t filter_sollin::base_func(Graph& g, unsigned int n_threads,vector<compon
 				auto it_end = ends[source_index];
 				int source = u->find_debug(source_index);
 				int target = source;
-				//cout << "Edge: " << source << endl;
-				//print_edge_vec(v_edges->adjacent_vertices);
 				edge* e;
 				while(target == source){
 					if(it == it_end){
@@ -225,12 +248,13 @@ l_edge_t filter_sollin::base_func(Graph& g, unsigned int n_threads,vector<compon
 					}
 					e = *it; 
 					target = u->find_debug(e->target);
-					it++;
 					
-				//	cout << "Source: " << e->source << endl;
-				//	cout << "Target: " << e->target << endl;
-				//	cout << "Weight: " << e->weight << endl;
-				//	cout << endl;
+				/*	cout << "Iterator " << it - v_edges->adjacent_vertices.begin() << endl;
+					cout << "Source: " << e->source << endl;
+					cout << "Target: " << e->target << endl;
+					cout << "Weight: " << e->weight << endl;
+					*/
+					it++;
 					
 				}	
 				intra_cheapest.push_back(e);
@@ -242,6 +266,11 @@ l_edge_t filter_sollin::base_func(Graph& g, unsigned int n_threads,vector<compon
 			int min_index = 0;
 			for(unsigned int i = 0; i != intra_size; i++){
 				edge* e = intra_cheapest[i];
+				/*
+				cout << "Source: " << e->source << endl;
+				cout << "Target: " << e->target << endl;
+				cout << "Weight: " << e->weight << endl;
+				*/
 				if(e->source != -1){
 					int weight = intra_cheapest[i]->weight;
 					if(weight < min_weight){
@@ -263,6 +292,7 @@ l_edge_t filter_sollin::base_func(Graph& g, unsigned int n_threads,vector<compon
 				aux_index++;
 			}
 			cheapest[k][0] = intra_cheapest[min_index];
+			edge* e = intra_cheapest[min_index];
 		}
 
 
@@ -274,6 +304,7 @@ l_edge_t filter_sollin::base_func(Graph& g, unsigned int n_threads,vector<compon
 		for(k = 0; k < nComps; k++){
 			edge* e = cheapest[k][0];
 			bool b;
+			
 			#pragma omp critical
 			{
 				b = u->unite(e->source,e->target);
@@ -288,10 +319,9 @@ l_edge_t filter_sollin::base_func(Graph& g, unsigned int n_threads,vector<compon
 	return mst;
 }
 
-l_edge_t filter_sollin::main_func(Graph& g, unsigned int n_threads, vector<component_FAL_vector*>& edges,vector<vector<edge*>::iterator>& starts, vector<vector<edge*>::iterator>& ends,union_find* u, compVertexFALvec cV, compWeight cW,int rec_index,int old_size){
+l_edge_t filter_sollin::main_func(Graph& g, unsigned int n_threads, vector<component_FAL_vector*>& edges,vector<vector<edge*>::iterator>& starts, vector<vector<edge*>::iterator>& ends,union_find* u, compVertexFALvec& cV, compWeight& cW,int rec_index,int old_size,double*constant_time){
 	// Internal Time Measurements
-	double constant_time_1 = 0;
-	double constant_time_2 = 0;
+
 	// Compute size and check if < 5000
 	vector<int> prefix_sums(g.n);
 	int sum_sizes = 0;
@@ -299,60 +329,53 @@ l_edge_t filter_sollin::main_func(Graph& g, unsigned int n_threads, vector<compo
 		sum_sizes += ends[i] - starts[i];
 		prefix_sums[i] = sum_sizes;
 	}
-	cout << endl << "Sum sizes: " << sum_sizes << endl;
-
-	if(sum_sizes < 10000 || old_size == sum_sizes){
-		cout << "Base started" << endl;
-		return base_func(g,n_threads,edges,starts,ends,u,cV,cW);	
+	if(sum_sizes < 2000000000 || old_size == sum_sizes){
+		l_edge_t result = base_func(g,n_threads,edges,starts,ends,u,cV,cW);	
+		return result;
 	}
 	
-	int piv = pivot(g,starts,ends,prefix_sums);
-	cout << endl << "Pivot: " << piv << endl;
+	//cout << endl << "Pivot: " << piv ;
 	
-	if(rec_index == 100){
-		return l_edge_t();
-	}
-	vector<vector<edge*>::iterator> middles = partition(g,starts,ends,piv);
+	int piv = pivot(g,starts,ends,prefix_sums,n_threads);
+	double t0,t1;
+	u->update_parents();
+		t0 = omp_get_wtime();
+	vector<vector<edge*>::iterator> middles = partition(g,starts,ends,piv,n_threads);
+		t1 = omp_get_wtime();
+		*constant_time += t1-t0;
 
 	// Recursive call
-	cout << "Recursive started"  << rec_index << endl;
-	l_edge_t mst = main_func(g,n_threads,edges,starts,middles,u,cV,cW,++rec_index,sum_sizes);
-	cout << "Recursive ended" << endl;
+	l_edge_t mst = main_func(g,n_threads,edges,starts,middles,u,cV,cW,++rec_index,sum_sizes,constant_time);
 	
 	// Check if end > middle
 	bool continuation = false;
-	for(int i = 0; i != g.n; i++){
+	#pragma omp parallel for num_threads(n_threads) reduction(||:continuation)
+	for(int i = 0; i < g.n; i++){
 		if(ends[i] > middles[i]) continuation = true;
 	}
 	
 	if(continuation){
-		cout << "Not complete" << endl;
 
 		// Filter rest of list
-		vector<v_edge_it> new_end = filter(g,middles,ends,u);
+		vector<v_edge_it> new_end = filter(g,middles,ends,u,n_threads);
 
-		continuation = false;
-		for(int i = 0; i != g.n; i++){
-			if(new_end[i] > middles[i]) continuation = true;
-		}
+		/*continuation = false;
+		//for(int i = 0; i != g.n; i++){
+		//	if(new_end[i] > middles[i]) continuation = true;
+		//}
 		if(continuation){
+		*/
 			// Call Base Func again
-			l_edge_t mst_bis = main_func(g,n_threads,edges,middles,new_end,u,cV,cW,rec_index,sum_sizes);
-			//cout << mst.size() << endl;
-			//cout << mst_bis.size() << endl;
+			l_edge_t mst_bis = main_func(g,n_threads,edges,middles,new_end,u,cV,cW,rec_index,sum_sizes,constant_time);
 
 			// Merge rest of list
 			mst.splice(mst.end(),mst_bis);
-		}
+		//}
 
 	}
 
 
-	timing t_init_1("Init_time_1",constant_time_1);
-	timing t_init_2("Init_time_2",constant_time_2);
 
-	//internal_timings.push_back(t_init_2);
-	cout << "mst size" << mst.size() << endl;
 	return mst;
 }
 

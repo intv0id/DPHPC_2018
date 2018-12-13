@@ -76,6 +76,7 @@ l_edge_t filter_kruskal_main(Graph &g, vector<edge*> &edges, union_find *u, unsi
         gettimeofday(&t0, NULL);
 
         int pivot = find_pivot(start, end, n_nodes, n_edges);
+	//cout << "Pivot: " << pivot << endl;
         gettimeofday(&t1, NULL);
 
         auto middle = partition(start, end, pivot);

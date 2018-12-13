@@ -95,10 +95,12 @@ bool Verifier::verify_one(Graph &g, l_edge_t &solution) {
     l_edge_t other_solution = s.algorithm(g);
 
     // Debug
-    //cout <<solution.size() << endl;
-    //cout << other_solution.size() << endl;
-    //print_edge_list(solution);
-    //print_edge_list(other_solution);
+    /*
+    cout <<solution.size() << endl;
+    cout << other_solution.size() << endl;
+    print_edge_list(solution);
+    print_edge_list(other_solution);
+    */
 
     // 1. Is it spanning?
     verified = verified && isEveryNodeReachable(g.n, solution);
