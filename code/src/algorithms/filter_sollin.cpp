@@ -138,7 +138,7 @@ l_edge_t filter_sollin::algorithm(Graph& g, unsigned int n_threads){
 		ends[i] = g.adjacency_vector[i]->adjacent_vertices.end();
 	}
 
-	l_edge_t mst = main_func(g,n_threads,edges,starts,ends,u,cV,cW,0,0,time);
+	l_edge_t mst = main_func(g,n_threads,edges,starts,ends,u,cV,cW,0,0,time,g.n-1);
 
 	timing t_init_1("Init_time_1",*time);
 	internal_timings.push_back(t_init_1);
@@ -227,8 +227,9 @@ l_edge_t filter_sollin::base_func(Graph& g, unsigned int n_threads,vector<compon
 		// For all vertice find minimum outgoing edge
 		int nComps = edges.size();
 		vector<vector<edge*>> cheapest(nComps,vector<edge*>(PAD));
-
-		# pragma omp parallel for num_threads(n_threads)
+	
+		int empty = 0;
+		# pragma omp parallel for num_threads(n_threads) reduction(+:empty)
 		for(k = 0; k < nComps; k++){
 			component_FAL_vector* val = edges[k];
 			int intra_size = val->liste.size();
@@ -244,6 +245,7 @@ l_edge_t filter_sollin::base_func(Graph& g, unsigned int n_threads,vector<compon
 				while(target == source){
 					if(it == it_end){
 						e = einit;
+						empty++;
 						break;
 					}
 					e = *it; 
@@ -315,11 +317,15 @@ l_edge_t filter_sollin::base_func(Graph& g, unsigned int n_threads,vector<compon
 			return mst;
 		}
 		mst.insert(mst.end(),add_to_mst.begin(),add_to_mst.end());
+		if(empty >=  0.5*g.n /10.){
+			//cout << endl << "Empty proportion" << empty/(float)g.n << endl;
+			return mst;
+		}
 	}
 	return mst;
 }
 
-l_edge_t filter_sollin::main_func(Graph& g, unsigned int n_threads, vector<component_FAL_vector*>& edges,vector<vector<edge*>::iterator>& starts, vector<vector<edge*>::iterator>& ends,union_find* u, compVertexFALvec& cV, compWeight& cW,int rec_index,int old_size,double*constant_time){
+l_edge_t filter_sollin::main_func(Graph& g, unsigned int n_threads, vector<component_FAL_vector*>& edges,vector<vector<edge*>::iterator>& starts, vector<vector<edge*>::iterator>& ends,union_find* u, compVertexFALvec& cV, compWeight& cW,int rec_index,int old_size,double*constant_time,int n_to_find){
 	// Internal Time Measurements
 
 	// Compute size and check if < 5000
@@ -329,49 +335,51 @@ l_edge_t filter_sollin::main_func(Graph& g, unsigned int n_threads, vector<compo
 		sum_sizes += ends[i] - starts[i];
 		prefix_sums[i] = sum_sizes;
 	}
-	if(sum_sizes < 2000000000 || old_size == sum_sizes){
+	if(sum_sizes < 100000 || old_size == sum_sizes){
+	double t0,t1;
+		t0 = omp_get_wtime();
 		l_edge_t result = base_func(g,n_threads,edges,starts,ends,u,cV,cW);	
+		t1 = omp_get_wtime();
+		*constant_time += t1-t0;
 		return result;
 	}
 	
-	//cout << endl << "Pivot: " << piv ;
 	
 	int piv = pivot(g,starts,ends,prefix_sums,n_threads);
-	double t0,t1;
+	//cout << endl << "Pivot: " << piv ;
 	u->update_parents();
-		t0 = omp_get_wtime();
 	vector<vector<edge*>::iterator> middles = partition(g,starts,ends,piv,n_threads);
-		t1 = omp_get_wtime();
-		*constant_time += t1-t0;
 
 	// Recursive call
-	l_edge_t mst = main_func(g,n_threads,edges,starts,middles,u,cV,cW,++rec_index,sum_sizes,constant_time);
-	
-	// Check if end > middle
-	bool continuation = false;
-	#pragma omp parallel for num_threads(n_threads) reduction(||:continuation)
-	for(int i = 0; i < g.n; i++){
-		if(ends[i] > middles[i]) continuation = true;
-	}
-	
-	if(continuation){
-
-		// Filter rest of list
-		vector<v_edge_it> new_end = filter(g,middles,ends,u,n_threads);
-
-		/*continuation = false;
-		//for(int i = 0; i != g.n; i++){
-		//	if(new_end[i] > middles[i]) continuation = true;
-		//}
+	l_edge_t mst = main_func(g,n_threads,edges,starts,middles,u,cV,cW,++rec_index,sum_sizes,constant_time,n_to_find);
+	int new_n_to_find = n_to_find - mst.size();
+	if(new_n_to_find > 0){	
+		// Check if end > middle
+		bool continuation = false;
+		#pragma omp parallel for num_threads(n_threads) reduction(||:continuation)
+		for(int i = 0; i < g.n; i++){
+			if(ends[i] > starts[i]) continuation = true;
+		}
+		
 		if(continuation){
-		*/
-			// Call Base Func again
-			l_edge_t mst_bis = main_func(g,n_threads,edges,middles,new_end,u,cV,cW,rec_index,sum_sizes,constant_time);
 
-			// Merge rest of list
-			mst.splice(mst.end(),mst_bis);
-		//}
+			// Filter rest of list
+			vector<v_edge_it> new_end = filter(g,starts,ends,u,n_threads);
 
+			/*continuation = false;
+			//for(int i = 0; i != g.n; i++){
+			//	if(new_end[i] > middles[i]) continuation = true;
+			//}
+			if(continuation){
+			*/
+				// Call Base Func again
+				l_edge_t mst_bis = main_func(g,n_threads,edges,starts,new_end,u,cV,cW,rec_index,sum_sizes,constant_time,new_n_to_find);
+
+				// Merge rest of list
+				mst.splice(mst.end(),mst_bis);
+			//}
+
+		}
 	}
 
 

@@ -19,7 +19,8 @@ class filter_sollin : public mst_algorithm{
 			compWeight&,
 			int,
 			int,
-			double*);
+			double*,
+			int);
 	l_edge_t base_func(Graph&, 
 			unsigned int,
 			vector<component_FAL_vector*>&,
