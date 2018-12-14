@@ -68,7 +68,6 @@ class Graph {
     vector<vertex_adjacency_list*> adjacency_list;
     vector<vertex_adjacency_vector*> adjacency_vector;
     Boost_Graph boost_rep;
-    int** adjacency_matrix;
 };
 
 typedef list<edge*> l_edge_t;

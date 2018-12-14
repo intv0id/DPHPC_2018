@@ -58,8 +58,8 @@ void LsbTimer::clock(list<Graph*> g_list)
                     cout << "\t; Run " << run ;
 
 
-		    /* Copy Graph */
-		    Graph graph_copy(graph);
+                    /* Copy Graph */
+                    Graph graph_copy(graph);
                     /* Reset the counters */
 
                     double t1 = omp_get_wtime();
