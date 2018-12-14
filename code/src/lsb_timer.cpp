@@ -80,7 +80,7 @@ void LsbTimer::clock(list<Graph*> g_list)
                     if(!mst_algo.name.compare("BoostKruskal")){
                         cout << "TEST" << endl;
                         for(edge* e : mst){
-//                            delete e;
+                            delete e;
                         }
                     }
 
