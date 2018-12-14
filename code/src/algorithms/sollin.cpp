@@ -93,5 +93,6 @@ l_edge_t sollin::algorithm(Graph& g, unsigned int n_threads){
 		
 				
 	}
+	delete u;
 	return mst;
 }

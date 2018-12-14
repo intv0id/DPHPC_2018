@@ -45,7 +45,9 @@ l_edge_t filter_kruskal::algorithm(Graph &g, unsigned int n_threads) {
     cout << "Init time: " << getTime(t1, t0) << ", " << getTime(t2, t1) << endl;
     #endif
 
-    return filter_kruskal_main(g, edges, u_find, old_size, n_nodes, n_edges, edges.begin(), edges.end());
+    auto result_mst = filter_kruskal_main(g, edges, u_find, old_size, n_nodes, n_edges, edges.begin(), edges.end());
+    delete u_find;
+    return result_mst;
 }
 
 double getTime(struct timeval end, struct timeval start) {

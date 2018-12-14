@@ -40,5 +40,7 @@ l_edge_t kruskal::algorithm(Graph &g, unsigned int n_threads) {
         sort(edges.begin(), edges.end(), compare);
     }
 
-    return kruskal_main(edges.begin(), edges.end(), u_find);
+    auto result = kruskal_main(edges.begin(), edges.end(), u_find);
+    delete u_find;
+    return result;
 }

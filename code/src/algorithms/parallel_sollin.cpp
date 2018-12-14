@@ -447,6 +447,9 @@ l_edge_t parallel_sollin_AL::algorithm(Graph& g, unsigned int n_threads){
 	internal_timings.push_back(t_compact_6);
 	internal_timings.push_back(t_find_min);
 	internal_timings.push_back(t_connect);
+
+	delete u;
+
 	return mst;
 }
 
@@ -723,6 +726,12 @@ l_edge_t parallel_sollin_FAL::algorithm(Graph& g, unsigned int n_threads){
 	internal_timings.push_back(t_compact_6);
 	internal_timings.push_back(t_find_min);
 	internal_timings.push_back(t_connect);
+
+	delete u;
+	for(auto e : edges){
+		delete e;
+	}
+	
 	return mst;
 }
 

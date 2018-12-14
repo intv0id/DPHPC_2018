@@ -142,6 +142,13 @@ l_edge_t filter_sollin::algorithm(Graph& g, unsigned int n_threads){
 
 	timing t_init_1("Init_time_1",*time);
 	internal_timings.push_back(t_init_1);
+
+
+	delete u;
+	for(auto e : edges){
+		delete e;
+	}
+
 	return mst;
 
 }
