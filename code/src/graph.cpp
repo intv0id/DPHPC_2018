@@ -104,7 +104,7 @@ Graph::Graph(int nVertices, double edgeProba, int min, int max) :
 Graph::Graph(int nVertices, int m, int min, int max) : n(nVertices)
 {
 
-    name = "Preferential attachment";
+    name = "Preferential attachment " + to_string(m) + " edges per vertice";
 
     if (nVertices < 3 || m > nVertices) {
         cout << "Preferential Attachment graph should have at least 3 vertices" << endl;
