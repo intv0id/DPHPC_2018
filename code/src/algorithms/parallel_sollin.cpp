@@ -692,12 +692,14 @@ l_edge_t parallel_sollin_FAL::algorithm(Graph& g, unsigned int n_threads){
 		#pragma omp parallel for num_threads(n_threads) reduction(addEdges:add_to_mst)
 		for(k = 0; k < nComps; k++){
 			edge* e = cheapest[k][0];
-			bool b;
-			#pragma omp critical
-			{
-				b = u->unite(e->source,e->target);
+			if(e->source != -1){
+				bool b = false;
+				#pragma omp critical
+				{
+					b = u->unite(e->source,e->target);
+				}
+				if (b) add_to_mst.push_back(e);
 			}
-			if (b) add_to_mst.push_back(e);
 		}
 		mst.insert(mst.end(),add_to_mst.begin(),add_to_mst.end());
 

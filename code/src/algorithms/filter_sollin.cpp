@@ -166,7 +166,7 @@ l_edge_t filter_sollin::base_func(Graph& g, unsigned int n_threads,vector<compon
 
 
 	// Internal value
-	edge* einit = new edge();
+	edge* einit = new edge;
 	einit->source = -1;
 
 	// While not connected
@@ -312,13 +312,15 @@ l_edge_t filter_sollin::base_func(Graph& g, unsigned int n_threads,vector<compon
 		#pragma omp parallel for num_threads(n_threads) reduction(addEdges:add_to_mst)
 		for(k = 0; k < nComps; k++){
 			edge* e = cheapest[k][0];
-			bool b;
-			
-			#pragma omp critical
-			{
-				b = u->unite(e->source,e->target);
+			if(e->source != -1){
+				bool b = false;
+				
+				#pragma omp critical
+				{
+					b = u->unite(e->source,e->target);
+				}
+				if (b) add_to_mst.push_back(e);
 			}
-			if (b) add_to_mst.push_back(e);
 		}
 		if(add_to_mst.size() == 0){
 			return mst;
