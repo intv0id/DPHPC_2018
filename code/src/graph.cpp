@@ -44,11 +44,6 @@ void Graph::add_edge(int i, int j, int w){
 
     n_edges++;
 	
-	//adjacency_matrix[u][v] = weight;
-	/*
-	adjacency_list[u].push_back(e1);
-	adjacency_list[v].push_back(e2);
-	*/
 }
 Graph::Graph(int n_) :
 	n(n_){

@@ -1,7 +1,7 @@
 #! /bin/bash -l
 
 #BSUB -N
-#BSUB -q bigmem.4h
+#BSUB -q bigmem.24h
 #BSUB -o job_%J.out
 #BSUB -e job_%J.err
 #BSUB -n 36

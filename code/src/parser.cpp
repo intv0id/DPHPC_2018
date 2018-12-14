@@ -10,7 +10,7 @@
 #include "algorithms/sollin.hpp"
 #include "algorithms/kruskal.hpp"
 #include "algorithms/filter_kruskal.hpp"
-#include "algorithms/prim.hpp"
+// #include "algorithms/prim.hpp"
 #include "algorithms/boost_wrapper.hpp"
 #include "algorithms/filter_sollin.hpp"
 
@@ -134,6 +134,7 @@ void parser::print_algos(){
     cout << "Sollin" << endl;
     cout << "ParallelSollinEL" << endl;
     cout << "ParallelSollinAL" << endl;
+    cout << "ParallelSollinFAL" << endl;
     cout << "Kruskal" << endl;
     cout << "FilterKruskal" << endl;
     cout << "BoostKruskal" << endl;
