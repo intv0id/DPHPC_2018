@@ -207,12 +207,6 @@ Graph::~Graph(){
 	for(auto e : edges){
 		delete e;
 	}
-	for(auto e : unique_edges){
-		delete e;
-	}
-	for(auto e : unique_edges_vector){
-		delete e;
-	}
 	for(auto v : adjacency_list){
 		delete v;
 	}
