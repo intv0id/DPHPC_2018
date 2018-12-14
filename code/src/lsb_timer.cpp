@@ -67,27 +67,25 @@ void LsbTimer::clock(list<Graph*> g_list)
                     /* Perform the operation */
                     l_edge_t mst = mst_algo.algorithm(graph_copy, thread_nb);
 
-		    LSB_Rec(0);
+                    LSB_Rec(0);
                     double t2 = omp_get_wtime();
                     times.push_back(t2 - t1);
 
                     /* Register the run-th measurement of id counter*/
-		    for(auto x : mst_algo.internal_timings){
-			    cout << "\t; "+ x.name << " " << x.measurement ;
-		    }
-		    cout << endl;
-		    mst_algo.internal_timings.clear();
-		    if(!mst_algo.name.compare("BoostKruskal")){
-			    cout << "TEST" << endl;
-			    for(edge* e : mst){
-				    delete e;
-			    }
-		    }
+                    for(auto x : mst_algo.internal_timings){
+                        cout << "\t; "+ x.name << " " << x.measurement ;
+                    }
+                    cout << endl;
+                    mst_algo.internal_timings.clear();
+                    if(!mst_algo.name.compare("BoostKruskal")){
+                        cout << "TEST" << endl;
+                        for(edge* e : mst){
+                            delete e;
+                        }
+                    }
 
+                    // Increment counter
 
-
-
-		    // Increment counter
                 }
                 print_times(times);
 
