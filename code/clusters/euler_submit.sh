@@ -28,7 +28,7 @@ echo "Running job"
 cd $PMST_PATH
 executable="${PMST_PATH}/bin/exec"
 
-algorithms=("ParallelSollinEL ParallelSollinAL ParallelSollinFAL Sollin FilterKruskal Kruskal BoostKruskal FilterSollin")
+algorithms=("ParallelSollinEL ParallelSollinAL Sollin FilterKruskal Kruskal BoostKruskal FilterSollin")
 
 # Arguments:
 # 1: path to executable
