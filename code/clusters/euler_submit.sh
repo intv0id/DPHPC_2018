@@ -9,11 +9,11 @@
 
 
 RUNS=1
-MAX_THREAD=1
+MAX_THREAD=8
 
 if [ -z ${PMST_PATH} ]; then 
 echo "PMST_PATH not detected : switch to EULER mode"
-PMST_PATH ="~/PMST/code"
+PMST_PATH="`readlink -f ~`/PMST/code"
 module load new gcc/5.2.0 open_mpi/1.6.5 cmake/3.11.4 boost/1.62.0
 MAX_THREAD=32
 RUNS=50
@@ -28,13 +28,7 @@ echo "Running job"
 cd $PMST_PATH
 executable="${PMST_PATH}/bin/exec"
 
-list_algorithms=("ParallelSollinEL" "ParallelSollinAL" "Sollin" 'FilterKruskal' 'Kruskal')
-#list_algorithms=("FilterSollin" "ParallelSollinFAL" "Kruskal" "FilterKruskal")
-#list_algorithms=("FilterSollin")
-erdos_graphs="--Erdos-Renyi-graph 100 --Erdos-Renyi-graph 1000 --Erdos-Renyi-graph 10000 "
-one_graph="--Erdos-Renyi-graph 1000"
-one_graph_verif="--Erdos-Renyi-graph 300"
-usa_graphs="--USA-Graph NY d --USA-graph BAY t"
+algorithms=("ParallelSollinEL ParallelSollinAL ParallelSollinFAL Sollin FilterKruskal Kruskal BoostKruskal FilterSollin")
 
 # Arguments:
 # 1: path to executable
@@ -45,17 +39,16 @@ cmd_exp(){
 
 # Arguments:
 # 1: path to executable
-# 2: list of graphs
-# 3: additional flags
-cmd_exp_algos(){
-	for algo in ${list_algorithms[@]}; do
-		cmd_exp "$1"  "${2} --algorithm ${algo} --lsb-filename ${algo}-ERG $3" 
-	done;
+# 2: additional flags
+cmd_exp_algos(){		
+	cmd_exp "$1" " --Erdos-Renyi-graph 1000 --algorithm ${algorithms} --lsb-filename algo_timing $2" 
+	cmd_exp "$1" " --Erdos-Renyi-graph 10000 --algorithm ${algorithms} --lsb-filename algo_timing $2" 
+	cmd_exp "$1" " --Erdos-Renyi-graph 100000 --algorithm ${algorithms} --lsb-filename algo_timing $2" 
+	cmd_exp "$1" " --USA-graph NY d --algorithm ${algorithms} --lsb-filename algo_timing $2" 
+	cmd_exp "$1" " --USA-graph BAY t --algorithm ${algorithms} --lsb-filename algo_timing $2" 
 }
 
-#cmd_exp_algos "$executable" "$one_graph_verif" "--verify" 
-cmd_exp_algos "$executable" "$one_graph" 
-#cmd_exp_algos "$executable" "$usa_graphs" 
+cmd_exp_algos "$executable"
 
 echo "Job ended"
 

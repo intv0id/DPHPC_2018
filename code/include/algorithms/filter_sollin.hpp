@@ -15,9 +15,11 @@ class filter_sollin : public mst_algorithm{
 			vector<v_edge_it>&,
 			vector<v_edge_it>&,
 			union_find*,
-			compVertexFALvec,
-			compWeight,
+			compVertexFALvec&,
+			compWeight&,
 			int,
+			int,
+			double*,
 			int);
 	l_edge_t base_func(Graph&, 
 			unsigned int,
@@ -25,6 +27,6 @@ class filter_sollin : public mst_algorithm{
 			vector<vector<edge*>::iterator>&,
 			vector<vector<edge*>::iterator>&,
 			union_find*,
-			compVertexFALvec,
-			compWeight);
+			compVertexFALvec&,
+			compWeight&);
 };
