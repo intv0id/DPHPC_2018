@@ -67,14 +67,14 @@ Graph::Graph(int nVertices, double edgeProba, int min, int max) :
     name = "Erdos-Renyi_random";
 
     // For all pair of nodes, generate random edges
-    //random_device rd;
-    //mt19937 rng(rd());
-    //uniform_int_distribution<int> uni(min,max);
-    //srand(42);
+    random_device rd;
+    mt19937 rng(rd());
+    uniform_int_distribution<int> uni(min,max);
+    srand(42);
     if(edgeProba > 1){
 	    edgeProba = 1;
     }
-    //std::geometric_distribution<> d(edgeProba);
+    std::geometric_distribution<> d(edgeProba);
 
 
     for(int i = 0; i != nVertices; i++){
@@ -90,11 +90,11 @@ Graph::Graph(int nVertices, double edgeProba, int min, int max) :
     for( int i = 0; i !=nVertices; i++){
 	int j = i+1;
 	while(j < nVertices){
-		//int delta = d(rng);
-		//j += delta;
+		int delta = d(rng);
+		j += delta;
 		if(j < nVertices){
-			//int w = uni(rng);
-			int w = 50;
+			int w = uni(rng);
+			
 			add_edge(i,j,w);
 		}
 		j++;
