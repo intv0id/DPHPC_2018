@@ -8,7 +8,7 @@
 #BSUB -R "span[ptile=36]"
 
 
-RUNS=1
+RUNS=5
 MAX_THREAD=8
 if [ -z ${PMST_PATH} ]; then 
 echo "PMST_PATH not detected : switch to EULER mode"
@@ -27,7 +27,7 @@ echo "Running job"
 cd $PMST_PATH
 executable="${PMST_PATH}/bin/exec"
 
-algorithms=("ParallelSollinEL ParallelSollinAL ParallelSollinFAL Sollin FilterKruskal Kruskal BoostKruskal FilterSollin")
+algorithms=("ParallelSollinEL" "ParallelSollinAL" "ParallelSollinFAL" "Sollin" "FilterKruskal" "Kruskal" "BoostKruskal" "FilterSollin")
 #algorithms=("FilterKruskal Kruskal BoostKruskal FilterSollin")
 
 # Arguments:
@@ -41,7 +41,7 @@ cmd_exp(){
 # 1: path to executable
 # 2: additional flags
 cmd_exp_algos(){
-    for algo in $algorithms[@]; do
+    for algo in ${algorithms[@]}; do
 	for i in {1:20}; do
         cmd_exp "$1" " --Erdos-Renyi-graph 1000 --algorithm ${algo} --lsb-filename ${algo}_timing_ER1000 $2" ;
         cmd_exp "$1" " --Erdos-Renyi-graph 10000 --algorithm ${algo} --lsb-filename ${algo}_timing_ER10000 $2" ;
