@@ -127,21 +127,21 @@ Graph::Graph(int nVertices, int m, int min, int max) : n(nVertices)
         adjacency_vector.push_back(val0);
     }
 
-    vector<int> vect{1,1,2,2,3,3};
+    vector<int> vect{0,0,1,1,2,2};
 
-    for (int i = 4; i != nVertices; i++){
-	int new_neighbours[m];
-	for (int k = 0; k != m; k++) {
-	    // Generate random nodes to connect
-	    uniform_int_distribution<int> dist(0, vect.size() - 1);
-	    new_neighbours[k] = vect[dist(rng)];	
-	}
-	for (int k = 0; k != m; k++) {
-	    int w = uni(rng);
+    for (int i = 3; i != nVertices; i++){
+        int new_neighbours[m];
+        for (int k = 0; k != m; k++) {
+            // Generate random nodes to connect
+            uniform_int_distribution<int> dist(0, vect.size() - 1);
+            new_neighbours[k] = vect[dist(rng)];	
+        }
+        for (int k = 0; k != m; k++) {
+            int w = uni(rng);
             add_edge(i,new_neighbours[k],w);
-    	    vect.push_back(i);
-	    vect.push_back(new_neighbours[k]);
-	}
+            vect.push_back(i);
+            vect.push_back(new_neighbours[k]);
+        }
     }
 }
 Graph::Graph(string fname, string type){
