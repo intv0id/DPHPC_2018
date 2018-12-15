@@ -23,6 +23,8 @@
 \usepackage{hyperref}
 \usepackage{tikz}
 \usepackage{verbatim}
+\usepackage{algorithm}
+\usepackage{algorithmic}
 \usetikzlibrary{arrows,shapes}
 
 \graphicspath{{graphics/}}
@@ -97,5 +99,154 @@
 \frame{\titlepage}
 \frame{\tableofcontents}
 
-\end{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION 1
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+
+\section{Problem definition - reminder}
+\subsection{The MST Problem}
+\begin{frame}
+\frametitle{The MST problem}
+ A minimum spanning tree (MST) or minimum weight spanning tree is a subset of the edges of a connected, edge-weighted (un)directed graph that connects all the vertices together, without any cycles and with the minimum possible total edge weight. 
+ \includegraphics[width=.5\textwidth]{MST.png}
+\end{frame}
+
+
+\subsection{Use cases}
+
+\begin{frame}
+\frametitle{Input sets: $G(n,p)$}
+\centering
+$G(100, 0.02)$
+\begin{figure}
+ \includegraphics[width=.7\textwidth]{graphGNP.png}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Input sets: $PA(n)$}
+\centering
+$PA(100)$
+\begin{figure}
+ \includegraphics[width=.7\textwidth]{graphPA.png}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Input sets: 9\textsuperscript{th} DIMACS challenge dataset}
+\centering
+USA Roads
+\begin{figure}
+ \includegraphics[width=.7\textwidth]{graphUSA.png}
+\end{figure}
+\end{frame}
+
+
+\section{Algorithms and parallel implementations}
+
+\subsection{Base serial algorithms}
+
+\begin{frame}[fragile]
+\frametitle{Sollin}
+\small
+\begin{algorithm}[H]
+\begin{algorithmic}[1]
+
+\STATE F = set(one-vertex trees)
+\WHILE{$\mid F \mid > 1$}
+\STATE TODO
+\ENDWHILE
+
+\end{algorithmic}
+\end{algorithm}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Kruskal}
+\small
+\begin{algorithm}[H]
+\begin{algorithmic}[1]
+\STATE $A = \emptyset$
+\FORALL{$v \in G.V$}
+\STATE MAKE-SET$(v)$
+\ENDFOR
+\STATE Sort (asc.) $\left(weight(u, v)\right)_{(u, v) \in G.E}$
+\FORALL{$(u, v)$ in $G.E$ ordered by weight}
+\IF{FIND-SET$(u)$ $\neq$ FIND-SET$(v)$}
+\STATE $A = A \cup {(u, v)}$
+\STATE UNION$(u, v)$
+\ENDIF
+\ENDFOR
+\RETURN A
+\end{algorithmic}
+\end{algorithm}
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Boost implementations}
+
+\begin{columns}
+\begin{column}{.7\linewidth}
+\begin{itemize}
+\item Boost-Kruskal used as a reference
+\end{itemize}
+\end{column}
+
+\begin{column}{.3\linewidth}
+\includegraphics[width=\linewidth]{boost.png}
+\end{column}
+\end{columns}
+
+\end{frame}
+
+
+\subsection{Parallel improvements}
+
+\begin{frame}
+\frametitle{Parallel sorting on Kruskal}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Filter Kruskal}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Filter Sollin}
+
+\end{frame}
+
+
+\begin{frame}
+    \printbibliography
+\end{frame} 
+
+\section{Results overview}
+
+\subsection{Setup}
+
+\begin{frame}
+\frametitle{EULER Cluster}
+
+\end{frame}
+
+\subsection{Results}
+
+\begin{frame}
+\frametitle{Scalability}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Speedups}
+
+\end{frame}
+
+
+
+
+\end{document}
