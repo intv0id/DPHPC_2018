@@ -130,17 +130,17 @@ Graph::Graph(int nVertices, int m, int min, int max) : n(nVertices)
     vector<int> vect{1,1,2,2,3,3};
 
     for (int i = 4; i != nVertices; i++){
+	int[] new_neighbours = new int[m];
 	for (int k = 0; k != m; k++) {
-	    // Generate random node to connect
+	    // Generate random nodes to connect
 	    uniform_int_distribution<int> dist(0, vect.size() - 1);
-	    int j = vect[dist(rng)];	
-
-	    // Generate weight
-            int w = uni(rng);
-            add_edge(i,j,w);
+	    new_neighbours[k] = vect[dist(rng)];	
+	}
+	for (int k = 0; k != m; k++) {
+	    int w = uni(rng);
+            add_edge(i,m[k],w);
     	    vect.push_back(i);
-	    vect.push_back(j);
-
+	    vect.push_back(m[k]);
 	}
     }
 }
