@@ -8,7 +8,7 @@ using namespace std;
 class filter_sollin : public mst_algorithm{
 	public:
 	virtual l_edge_t algorithm(Graph& g, unsigned int n_threads = 1);
-	filter_sollin():mst_algorithm("filter_sollin"){}
+	filter_sollin():mst_algorithm("Filter_Sollin"){}
 	l_edge_t main_func(Graph&,
 			unsigned int,
 			vector<component_FAL_vector*>&,
