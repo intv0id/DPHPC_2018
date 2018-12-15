@@ -516,7 +516,7 @@ l_edge_t parallel_sollin_FAL::algorithm(Graph& g, unsigned int n_threads){
 
 	// Internal value
 	edge* einit = new edge();
-	einit->target = -1;
+	einit->source = -1;
 
 	// Create MST
 	l_edge_t mst;
