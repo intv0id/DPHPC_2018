@@ -34,7 +34,7 @@ cmd_exp(){
 # 1: path to executable
 # 2: additional flags
 cmd_exp_algos(){
-    for algo in $algorithms[@]; do
+    for algo in ${algorithms[@]}; do
 	    for i in {1..$TIMES}; do
             cmd_exp "$1" " --USA-graph NE d --algorithm ${algo} --lsb-filename ${algo}_timing_USA_NE $2" ;
         done
