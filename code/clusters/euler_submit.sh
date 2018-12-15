@@ -40,16 +40,18 @@ cmd_exp(){
 # Arguments:
 # 1: path to executable
 # 2: additional flags
-cmd_exp_algos(){		
-	cmd_exp "$1" " --Erdos-Renyi-graph 1000 --algorithm ${algorithms} --lsb-filename algo_timing $2" 
-	cmd_exp "$1" " --Erdos-Renyi-graph 10000 --algorithm ${algorithms} --lsb-filename algo_timing $2" 
-	cmd_exp "$1" " --Erdos-Renyi-graph 100000 --algorithm ${algorithms} --lsb-filename algo_timing $2"
-	cmd_exp "$1" " --USA-graph NY d --algorithm ${algorithms} --lsb-filename algo_timing $2" 
-	cmd_exp "$1" " --USA-graph BAY t --algorithm ${algorithms} --lsb-filename algo_timing $2"
-	cmd_exp "$1" " --PA-graph 100000 20 --algorithm ${algorithms} --lsb-filename algo_timing $2"
-	cmd_exp "$1" " --PA-graph 100000 20 --algorithm ${algorithms} --lsb-filename algo_timing $2"
-	cmd_exp "$1" " --PA-graph 100000 50 --algorithm ${algorithms} --lsb-filename algo_timing $2"
-	cmd_exp "$1" " --PA-graph 100000 50 --algorithm ${algorithms} --lsb-filename algo_timing $2"
+cmd_exp_algos(){
+    for algo in $algorithms[@]; do
+        cmd_exp "$1" " --Erdos-Renyi-graph 1000 --algorithm ${algo} --lsb-filename ${algo}_timing $2" ;
+        cmd_exp "$1" " --Erdos-Renyi-graph 10000 --algorithm ${algo} --lsb-filename ${algo}_timing $2" ;
+        cmd_exp "$1" " --Erdos-Renyi-graph 100000 --algorithm ${algo} --lsb-filename ${algo}_timing $2" ;
+        cmd_exp "$1" " --USA-graph NY d --algorithm ${algo} --lsb-filename ${algo}_timing $2" ;
+        cmd_exp "$1" " --USA-graph BAY t --algorithm ${algo} --lsb-filename ${algo}_timing $2" ;
+        cmd_exp "$1" " --PA-graph 100000 20 --algorithm ${algo} --lsb-filename ${algo}_timing $2" ;
+        cmd_exp "$1" " --PA-graph 100000 20 --algorithm ${algo} --lsb-filename ${algo}_timing $2" ;
+        cmd_exp "$1" " --PA-graph 100000 50 --algorithm ${algo} --lsb-filename ${algo}_timing $2" ;
+        cmd_exp "$1" " --PA-graph 100000 50 --algorithm ${algo} --lsb-filename ${algo}_timing $2" ;
+	done
 }
 
 cmd_exp_algos "$executable"
