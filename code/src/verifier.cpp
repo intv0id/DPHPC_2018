@@ -1,14 +1,11 @@
 #include <stdio.h>
 #include <iostream>
 #include <graph.hpp>
-
 #include <omp.h>
-
 #include "tbb/task_scheduler_init.h"
 
 #include "verifier.hpp"
-#include "algorithms/kruskal.hpp"
-#include "algorithms/boost_wrapper.hpp"
+#include "algorithms/boost_kruskal.hpp"
 
 using namespace std;
 
@@ -91,7 +88,7 @@ bool Verifier::isEveryNodeReachable(int n, l_edge_t &mst) {
 bool Verifier::verify_one(Graph &g, l_edge_t &solution) {
     bool verified = true;
 
-    boost_wrapper s;
+    boost_kruskal s;
     l_edge_t other_solution = s.algorithm(g);
 
     // Debug

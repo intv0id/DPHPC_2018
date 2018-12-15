@@ -4,16 +4,14 @@
 #include <cstdlib>
 #include <iostream>
 
-#include "algorithms/boost_wrapper.hpp"
+#include "algorithms/boost_kruskal.hpp"
 #include <boost/graph/kruskal_min_spanning_tree.hpp>
-// #include <boost/graph/prim_minimum_spanning_tree.hpp>
 
 #include <sys/time.h>
-#include "algorithms/filter_kruskal.hpp"
 
 using namespace std;
 
-l_edge_t boost_wrapper::algorithm(Graph &g, unsigned int n_threads) {
+l_edge_t boost_kruskal::algorithm(Graph &g, unsigned int n_threads) {
 
     boost::property_map<Boost_Graph,boost::edge_weight_t>::type w = get(boost::edge_weight, g.boost_rep);
     vector<Boost_Edge> v;
