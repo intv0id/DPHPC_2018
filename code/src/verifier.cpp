@@ -86,7 +86,6 @@ bool Verifier::isEveryNodeReachable(int n, l_edge_t &mst) {
 }
 
 bool Verifier::verify_one(Graph &g, l_edge_t &solution) {
-    bool verified = true;
 
     boost_kruskal s;
     l_edge_t other_solution = s.algorithm(g);
@@ -100,10 +99,17 @@ bool Verifier::verify_one(Graph &g, l_edge_t &solution) {
     */
 
     // 1. Is it spanning?
-    verified = verified && isEveryNodeReachable(g.n, solution);
-    
-    // 2. Is it minimum?
-    verified = verified && (getSum(solution) == getSum(other_solution));
 
-    return verified;
+    if (! isEveryNodeReachable(g.n, solution)) {
+        cout << "Error: non connexe" << endl; 
+        return false;
+    }
+
+    // 2. Is it minimum?
+    if (getSum(solution) != getSum(other_solution)) {
+        cout << "Error: different sum weights" << endl;
+        return false;
+    }
+
+    return true;
 }
