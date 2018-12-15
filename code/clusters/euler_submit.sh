@@ -45,7 +45,7 @@ cmd_exp_algos(){
 	for i in {1:20}; do
         cmd_exp "$1" " --Erdos-Renyi-graph 1000 --algorithm ${algo} --lsb-filename ${algo}_timing_ER1000 $2" ;
         cmd_exp "$1" " --Erdos-Renyi-graph 10000 --algorithm ${algo} --lsb-filename ${algo}_timing_ER10000 $2" ;
-        cmd_exp "$1" " --Erdos-Renyi-graph 100000 --algorithm ${algo} --lsb-filename ${algo}_timing_100000 $2" ;
+        cmd_exp "$1" " --Erdos-Renyi-graph 100000 --algorithm ${algo} --lsb-filename ${algo}_timing_ER100000 $2" ;
         cmd_exp "$1" " --USA-graph NY d --algorithm ${algo} --lsb-filename ${algo}_timing_USANYd $2" ;
         cmd_exp "$1" " --USA-graph BAY t --algorithm ${algo} --lsb-filename ${algo}_timing_USABAYt $2" ;
         cmd_exp "$1" " --PA-graph 10000 20 --algorithm ${algo} --lsb-filename ${algo}_timing_PA_10000_20 $2" ;
