@@ -1,0 +1,42 @@
+# Sysname : Linux
+# Nodename: eu-a6-002-15
+# Release : 3.10.0-862.14.4.el7.x86_64
+# Version : #1 SMP Wed Sep 26 15:12:11 UTC 2018
+# Machine : x86_64
+# Execution time and date (UTC): Sat Dec 15 19:02:45 2018
+# Execution time and date (local): Sat Dec 15 20:02:45 2018
+# MPI execution on rank 0 with 1 processes in world
+# Reported time measurements are in microseconds
+# pretty output format
+    Algorithm  Graph_nodes   Graph_name  Max_threads          run       id         time     overhead 
+ Boost_Kruskal       1524453   USA-road-d.             1             0          0 6948395.368896            0 
+ Boost_Kruskal       1524453   USA-road-d.             1             1          0 7810995.018005            1 
+ Boost_Kruskal       1524453   USA-road-d.             1             2          0 7628190.516785            3 
+ Boost_Kruskal       1524453   USA-road-d.             1             3          0 8086889.713867            0 
+ Boost_Kruskal       1524453   USA-road-d.             1             4          0 7978617.621887            1 
+ Boost_Kruskal       1524453   USA-road-d.             2             0          0 8169553.873047            0 
+ Boost_Kruskal       1524453   USA-road-d.             2             1          0 8213733.633728            0 
+ Boost_Kruskal       1524453   USA-road-d.             2             2          0 8045848.238159            0 
+ Boost_Kruskal       1524453   USA-road-d.             2             3          0 8011132.826416            1 
+ Boost_Kruskal       1524453   USA-road-d.             2             4          0 8332218.317688            0 
+ Boost_Kruskal       1524453   USA-road-d.             4             0          0 8231640.795715            0 
+ Boost_Kruskal       1524453   USA-road-d.             4             1          0 8138428.482666            0 
+ Boost_Kruskal       1524453   USA-road-d.             4             2          0 8388785.939636            0 
+ Boost_Kruskal       1524453   USA-road-d.             4             3          0 7805118.531372            0 
+ Boost_Kruskal       1524453   USA-road-d.             4             4          0 8363936.762939            0 
+ Boost_Kruskal       1524453   USA-road-d.             8             0          0 8559847.134705            0 
+ Boost_Kruskal       1524453   USA-road-d.             8             1          0 7760887.539307            2 
+ Boost_Kruskal       1524453   USA-road-d.             8             2          0 7843393.342102            0 
+ Boost_Kruskal       1524453   USA-road-d.             8             3          0 8083295.010010            0 
+ Boost_Kruskal       1524453   USA-road-d.             8             4          0 8459941.195068            0 
+ Boost_Kruskal       1524453   USA-road-d.            16             0          0 8512340.393494            0 
+ Boost_Kruskal       1524453   USA-road-d.            16             1          0 8759787.924622            0 
+ Boost_Kruskal       1524453   USA-road-d.            16             2          0 8797024.453918            0 
+ Boost_Kruskal       1524453   USA-road-d.            16             3          0 8275899.780029            0 
+ Boost_Kruskal       1524453   USA-road-d.            16             4          0 9044433.532043            0 
+ Boost_Kruskal       1524453   USA-road-d.            32             0          0 8995894.279785            0 
+ Boost_Kruskal       1524453   USA-road-d.            32             1          0 8120216.165894            0 
+ Boost_Kruskal       1524453   USA-road-d.            32             2          0 9043793.939209            0 
+ Boost_Kruskal       1524453   USA-road-d.            32             3          0 8382347.767456            0 
+ Boost_Kruskal       1524453   USA-road-d.            32             4          0 9254735.276489            0 
+# Runtime: 3039.220649 s (overhead: 0.000000 %) 30 records
