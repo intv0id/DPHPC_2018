@@ -35,7 +35,7 @@ cmd_exp(){
 # 2: additional flags
 cmd_exp_algos(){
     for algo in ${algorithms[@]}; do
-	    for i in {1..$TIMES}; do
+	    for i in $(seq 1 $TIMES); do
             cmd_exp "$1" " --Erdos-Renyi-graph 1000 --algorithm ${algo} --lsb-filename ${algo}_timing_ER1000 $2" ;
             cmd_exp "$1" " --Erdos-Renyi-graph 10000 --algorithm ${algo} --lsb-filename ${algo}_timing_ER10000 $2" ;
             cmd_exp "$1" " --Erdos-Renyi-graph 100000 --algorithm ${algo} --lsb-filename ${algo}_timing_ER100000 $2" ;
