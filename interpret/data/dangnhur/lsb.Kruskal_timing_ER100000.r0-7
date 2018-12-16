@@ -1,0 +1,30 @@
+# Sysname : Linux
+# Nodename: eu-a6-009-02
+# Release : 3.10.0-862.14.4.el7.x86_64
+# Version : #1 SMP Wed Sep 26 15:12:11 UTC 2018
+# Machine : x86_64
+# Execution time and date (UTC): Sun Dec 16 04:02:39 2018
+# Execution time and date (local): Sun Dec 16 05:02:39 2018
+# MPI execution on rank 0 with 1 processes in world
+# Reported time measurements are in microseconds
+# pretty output format
+    Algorithm  Graph_nodes   Graph_name  Max_threads          run       id         time     overhead 
+ Sequential_Kruskal        100000  Erdos-Renyi_random             1             0          0 1284383.234863            2 
+ Sequential_Kruskal        100000  Erdos-Renyi_random             1             1          0 1250128.413086            2 
+ Sequential_Kruskal        100000  Erdos-Renyi_random             1             2          0 1088010.660400            2 
+ Sequential_Kruskal        100000  Erdos-Renyi_random             2             0          0 1064448.294434            0 
+ Sequential_Kruskal        100000  Erdos-Renyi_random             2             1          0 999707.180420            3 
+ Sequential_Kruskal        100000  Erdos-Renyi_random             2             2          0 994776.796631            0 
+ Sequential_Kruskal        100000  Erdos-Renyi_random             4             0          0 991762.912109            0 
+ Sequential_Kruskal        100000  Erdos-Renyi_random             4             1          0 918417.306152            0 
+ Sequential_Kruskal        100000  Erdos-Renyi_random             4             2          0 916465.590088            2 
+ Sequential_Kruskal        100000  Erdos-Renyi_random             8             0          0 873130.202637            0 
+ Sequential_Kruskal        100000  Erdos-Renyi_random             8             1          0 874817.143311            0 
+ Sequential_Kruskal        100000  Erdos-Renyi_random             8             2          0 868944.059570            0 
+ Sequential_Kruskal        100000  Erdos-Renyi_random            16             0          0 819705.601562            0 
+ Sequential_Kruskal        100000  Erdos-Renyi_random            16             1          0 814237.321533            0 
+ Sequential_Kruskal        100000  Erdos-Renyi_random            16             2          0 854117.312012            0 
+ Sequential_Kruskal        100000  Erdos-Renyi_random            32             0          0 830519.154297            0 
+ Sequential_Kruskal        100000  Erdos-Renyi_random            32             1          0 821413.421875            2 
+ Sequential_Kruskal        100000  Erdos-Renyi_random            32             2          0 810495.632812            0 
+# Runtime: 164.709960 s (overhead: 0.000008 %) 18 records
