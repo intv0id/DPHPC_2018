@@ -240,7 +240,15 @@ USA Roads
 \subsection{Parallel improvements}
 
 \begin{frame}
-\frametitle{Parallel sorting on Kruskal}
+
+    \frametitle{Parallel sorting on Kruskal}
+
+    $m$ is the number of edges, $p$ is the number of cores, $T(m)$ is the runtime with $m$ edges.
+
+    \begin{itemize}
+        \item Sequential: $ O \left( m \ln(m) + m \right) $
+        \item Parallel sort (\textbf{Intel TBB}): $ O \left( \frac{m \ln(m)}{p} + m \right) $
+    \end{itemize}
 
 \end{frame}
 
@@ -305,6 +313,33 @@ USA Roads
         }
     \end{itemize}
 
+\end{frame}
+
+\begin{frame}
+    \frametitle{Kruskal vs Sollin}
+    \begin{itemize}
+        \item Same complexity, but Sollin computing steps are more fine-grained
+        \item Sollin is entirely paralelizable
+        \item Filter Kruskal can be adapted to Filter Sollin
+    \end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION 4
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Results overview}
+
+\begin{frame}
+\frametitle{Runtimes}
+\centering
+\includegraphics[width=10cm]{Graph_runtime.png}
+\end{frame}
+
+\begin{frame}
+\frametitle{Speedups}
+\centering
+\includegraphics[width=10cm]{Speedup.png}
 \end{frame}
 
 \begin{frame}
@@ -376,34 +411,6 @@ USA Roads
 	\end{center}
 
 \end{frame}
-
-\begin{frame}
-    \frametitle{Kruskal vs Sollin}
-    \begin{itemize}
-        \item Same complexity, but Sollin computing steps are more fine-grained
-        \item Sollin is entirely paralelizable
-        \item Filter Kruskal can be adapted to Filter Sollin
-    \end{itemize}
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% SECTION 4
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\section{Results overview}
-
-\begin{frame}
-\frametitle{Runtimes}
-\centering
-\includegraphics[width=10cm]{Graph_runtime.png}
-\end{frame}
-
-\begin{frame}
-\frametitle{Speedups}
-\centering
-\includegraphics[width=10cm]{Speedup.png}
-\end{frame}
-
 
 \begin{frame}
     \printbibliography

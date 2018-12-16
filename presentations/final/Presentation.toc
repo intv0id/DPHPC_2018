@@ -20,4 +20,4 @@
 \defcounter {refsection}{0}\relax 
 \beamer@subsectionintoc {3}{2}{Parallel improvements}{15}{0}{3}
 \defcounter {refsection}{0}\relax 
-\beamer@sectionintoc {4}{Results overview}{31}{0}{4}
+\beamer@sectionintoc {4}{Results overview}{28}{0}{4}
