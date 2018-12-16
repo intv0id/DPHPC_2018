@@ -1,0 +1,24 @@
+# Sysname : Linux
+# Nodename: eu-a6-011-07
+# Release : 3.10.0-862.14.4.el7.x86_64
+# Version : #1 SMP Wed Sep 26 15:12:11 UTC 2018
+# Machine : x86_64
+# Execution time and date (UTC): Sun Dec 16 17:11:11 2018
+# Execution time and date (local): Sun Dec 16 18:11:11 2018
+# MPI execution on rank 0 with 1 processes in world
+# Reported time measurements are in microseconds
+# pretty output format
+    Algorithm  Graph_nodes   Graph_name  Max_threads          run       id         time     overhead 
+ Filter_Kruskal        100000  Erdos-Renyi_random_p=0.000500             1             0          0 421672.453857            0 
+ Filter_Kruskal        100000  Erdos-Renyi_random_p=0.000500             1             1          0 310333.844604            1 
+ Filter_Kruskal        100000  Erdos-Renyi_random_p=0.000500             2             0          0 146573.539429            4 
+ Filter_Kruskal        100000  Erdos-Renyi_random_p=0.000500             2             1          0 177506.871216            0 
+ Filter_Kruskal        100000  Erdos-Renyi_random_p=0.000500             4             0          0 114274.207031            1 
+ Filter_Kruskal        100000  Erdos-Renyi_random_p=0.000500             4             1          0 113682.961548            0 
+ Filter_Kruskal        100000  Erdos-Renyi_random_p=0.000500             8             0          0 108213.251831            0 
+ Filter_Kruskal        100000  Erdos-Renyi_random_p=0.000500             8             1          0 124899.350220            0 
+ Filter_Kruskal        100000  Erdos-Renyi_random_p=0.000500            16             0          0 153841.799927            1 
+ Filter_Kruskal        100000  Erdos-Renyi_random_p=0.000500            16             1          0 131620.896484            0 
+ Filter_Kruskal        100000  Erdos-Renyi_random_p=0.000500            32             0          0 152319.488892            4 
+ Filter_Kruskal        100000  Erdos-Renyi_random_p=0.000500            32             1          0 127278.032349            2 
+# Runtime: 114.683264 s (overhead: 0.000011 %) 12 records
