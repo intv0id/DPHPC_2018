@@ -8,14 +8,16 @@
 \defcounter {refsection}{0}\relax 
 \beamer@subsectionintoc {1}{2}{Use cases}{5}{0}{1}
 \defcounter {refsection}{0}\relax 
-\beamer@sectionintoc {2}{Algorithms and parallel implementations}{8}{0}{2}
+\beamer@sectionintoc {2}{Setup}{8}{0}{2}
 \defcounter {refsection}{0}\relax 
-\beamer@subsectionintoc {2}{1}{Base serial algorithms}{9}{0}{2}
+\beamer@subsectionintoc {2}{1}{Software}{9}{0}{2}
 \defcounter {refsection}{0}\relax 
-\beamer@subsectionintoc {2}{2}{Parallel improvements}{12}{0}{2}
+\beamer@subsectionintoc {2}{2}{Hardware}{10}{0}{2}
 \defcounter {refsection}{0}\relax 
-\beamer@sectionintoc {3}{Results overview}{29}{0}{3}
+\beamer@sectionintoc {3}{Algorithms and parallel implementations}{11}{0}{3}
 \defcounter {refsection}{0}\relax 
-\beamer@subsectionintoc {3}{1}{Setup}{30}{0}{3}
+\beamer@subsectionintoc {3}{1}{Base serial algorithms}{12}{0}{3}
 \defcounter {refsection}{0}\relax 
-\beamer@subsectionintoc {3}{2}{Results}{31}{0}{3}
+\beamer@subsectionintoc {3}{2}{Parallel improvements}{15}{0}{3}
+\defcounter {refsection}{0}\relax 
+\beamer@sectionintoc {4}{Results overview}{31}{0}{4}

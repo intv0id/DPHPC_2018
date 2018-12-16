@@ -126,9 +126,9 @@ $G(100, 0.02)$
 \end{frame}
 
 \begin{frame}
-\frametitle{Input sets: $PA(n)$}
+\frametitle{Input sets: $PA(n, m)$}
 \centering
-$PA(100)$
+$PA(100, 1)$
 \begin{figure}
  \includegraphics[width=.7\textwidth]{graphPA.png}
 \end{figure}
@@ -143,6 +143,45 @@ USA Roads
 \end{figure}
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION 2
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Setup}
+
+\subsection{Software}
+
+\begin{frame}
+\frametitle{Software}
+\centering
+
+\begin{itemize}
+\item OMP
+\item Intel Threading Building Blocks (TBB)
+\item Parallel Streaming Transformation Loader Service (PSTL)
+\end{itemize}
+
+\end{frame}
+
+\subsection{Hardware}
+
+\begin{frame}
+\frametitle{EULER}
+\centering
+
+\begin{itemize}
+\item 1 node limitation (OMP)
+\item 2 sockets filled with 18 cores - up to 3.7Ghz
+\item Inter-sockets bus speed: 10.4 GT/s
+\end{itemize}
+
+\includegraphics[width=5cm]{dual_sockets_caches.png}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION 3
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Algorithms and parallel implementations}
 
@@ -150,17 +189,11 @@ USA Roads
 
 \begin{frame}[fragile]
 \frametitle{Sollin}
-\small
-\begin{algorithm}[H]
-\begin{algorithmic}[1]
-
-\STATE F = set(one-vertex trees)
-\WHILE{$\mid F \mid > 1$}
-\STATE TODO
-\ENDWHILE
-
-\end{algorithmic}
-\end{algorithm}
+\begin{enumerate}
+	\item For each connected component, find adjacent edge with minimum weight
+	\item Add edge to mst (each edge add at most twice)
+	\item Merge connected components
+\end{enumerate}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -345,37 +378,36 @@ USA Roads
 \end{frame}
 
 \begin{frame}
-\frametitle{Filter Sollin}
+    \frametitle{Kruskal vs Sollin}
 
+    \begin{itemize}
+        \item Same complexity, but Sollin computing steps are more fine-grained
+        \item Sollin is entirely paralelizable
+        \item Filter Kruskal can be adapted to Filter Sollin
+    \end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION 4
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Results overview}
+
+\begin{frame}
+\frametitle{Runtimes}
+\centering
+\includegraphics[width=10cm]{Graph_runtime.png}
+\end{frame}
+
+\begin{frame}
+\frametitle{Speedups}
+\centering
+\includegraphics[width=10cm]{Speedup.png}
 \end{frame}
 
 
 \begin{frame}
     \printbibliography
 \end{frame} 
-
-\section{Results overview}
-
-\subsection{Setup}
-
-\begin{frame}
-\frametitle{EULER Cluster}
-
-\end{frame}
-
-\subsection{Results}
-
-\begin{frame}
-\frametitle{Scalability}
-
-\end{frame}
-
-\begin{frame}
-\frametitle{Speedups}
-
-\end{frame}
-
-
-
 
 \end{document}
