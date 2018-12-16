@@ -64,7 +64,7 @@ Graph::Graph(int n_) :
 Graph::Graph(int nVertices, double edgeProba, int min, int max) :
     n(nVertices), boost_rep(n)
 {
-    name = "Erdos-Renyi_random";
+    name = "Erdos-Renyi_random_p=" + to_string(edgeProba);
 
     // For all pair of nodes, generate random edges
     
@@ -106,7 +106,7 @@ Graph::Graph(int nVertices, double edgeProba, int min, int max) :
 Graph::Graph(int nVertices, int m, int min, int max) : n(nVertices)
 {
 
-    name = "Preferential attachment " + to_string(m) + " edges per vertice";
+    name = "Preferential_attachment_" + to_string(m) + "_edges_per_vertice";
 
     if (nVertices < 3 || m > nVertices) {
         cout << "Preferential Attachment graph should have at least 3 vertices" << endl;
