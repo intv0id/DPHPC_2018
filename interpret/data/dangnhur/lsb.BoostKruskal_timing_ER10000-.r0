@@ -1,0 +1,30 @@
+# Sysname : Linux
+# Nodename: eu-a6-004-01
+# Release : 3.10.0-862.14.4.el7.x86_64
+# Version : #1 SMP Wed Sep 26 15:12:11 UTC 2018
+# Machine : x86_64
+# Execution time and date (UTC): Sat Dec 15 19:01:35 2018
+# Execution time and date (local): Sat Dec 15 20:01:35 2018
+# MPI execution on rank 0 with 1 processes in world
+# Reported time measurements are in microseconds
+# pretty output format
+    Algorithm  Graph_nodes   Graph_name  Max_threads          run       id         time     overhead 
+ Boost_Kruskal         10000  Erdos-Renyi_random             1             0          0 126185.401367            0 
+ Boost_Kruskal         10000  Erdos-Renyi_random             1             1          0 125929.173157            1 
+ Boost_Kruskal         10000  Erdos-Renyi_random             1             2          0 124354.674316            0 
+ Boost_Kruskal         10000  Erdos-Renyi_random             2             0          0 123512.986816            0 
+ Boost_Kruskal         10000  Erdos-Renyi_random             2             1          0 124028.264648            0 
+ Boost_Kruskal         10000  Erdos-Renyi_random             2             2          0 123636.528931            0 
+ Boost_Kruskal         10000  Erdos-Renyi_random             4             0          0 124257.116943            0 
+ Boost_Kruskal         10000  Erdos-Renyi_random             4             1          0 147311.429993            1 
+ Boost_Kruskal         10000  Erdos-Renyi_random             4             2          0 125146.039551            2 
+ Boost_Kruskal         10000  Erdos-Renyi_random             8             0          0 123766.219666            0 
+ Boost_Kruskal         10000  Erdos-Renyi_random             8             1          0 125382.973389            1 
+ Boost_Kruskal         10000  Erdos-Renyi_random             8             2          0 125431.200195            0 
+ Boost_Kruskal         10000  Erdos-Renyi_random            16             0          0 124784.518982            0 
+ Boost_Kruskal         10000  Erdos-Renyi_random            16             1          0 131457.506531            0 
+ Boost_Kruskal         10000  Erdos-Renyi_random            16             2          0 126391.080750            0 
+ Boost_Kruskal         10000  Erdos-Renyi_random            32             0          0 124865.199158            0 
+ Boost_Kruskal         10000  Erdos-Renyi_random            32             1          0 124126.114502            0 
+ Boost_Kruskal         10000  Erdos-Renyi_random            32             2          0 145217.390198            0 
+# Runtime: 14.261415 s (overhead: 0.000035 %) 18 records

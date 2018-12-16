@@ -1,0 +1,30 @@
+# Sysname : Linux
+# Nodename: eu-a6-006-07
+# Release : 3.10.0-862.14.4.el7.x86_64
+# Version : #1 SMP Wed Sep 26 15:12:11 UTC 2018
+# Machine : x86_64
+# Execution time and date (UTC): Sun Dec 16 01:03:22 2018
+# Execution time and date (local): Sun Dec 16 02:03:22 2018
+# MPI execution on rank 0 with 1 processes in world
+# Reported time measurements are in microseconds
+# pretty output format
+    Algorithm  Graph_nodes   Graph_name  Max_threads          run       id         time     overhead 
+ parallel_sollin_EL        100000  Preferential attachment 50 edges per vertice             1             0          0 23934118.845825            0 
+ parallel_sollin_EL        100000  Preferential attachment 50 edges per vertice             1             1          0 23216834.940308            0 
+ parallel_sollin_EL        100000  Preferential attachment 50 edges per vertice             1             2          0 23074407.329193            0 
+ parallel_sollin_EL        100000  Preferential attachment 50 edges per vertice             2             0          0 35149767.389862            2 
+ parallel_sollin_EL        100000  Preferential attachment 50 edges per vertice             2             1          0 340460038.545776            1 
+ parallel_sollin_EL        100000  Preferential attachment 50 edges per vertice             2             2          0 25785782.865723            3 
+ parallel_sollin_EL        100000  Preferential attachment 50 edges per vertice             4             0          0 27668136.292938            3 
+ parallel_sollin_EL        100000  Preferential attachment 50 edges per vertice             4             1          0 542152941.864502            0 
+ parallel_sollin_EL        100000  Preferential attachment 50 edges per vertice             4             2          0 24732340.669617           25 
+ parallel_sollin_EL        100000  Preferential attachment 50 edges per vertice             8             0          0 33301574.881012            3 
+ parallel_sollin_EL        100000  Preferential attachment 50 edges per vertice             8             1          0 331063970.373108            1 
+ parallel_sollin_EL        100000  Preferential attachment 50 edges per vertice             8             2          0 31700854.553009            0 
+ parallel_sollin_EL        100000  Preferential attachment 50 edges per vertice            16             0          0 45228005.077057            0 
+ parallel_sollin_EL        100000  Preferential attachment 50 edges per vertice            16             1          0 136152339.960876            0 
+ parallel_sollin_EL        100000  Preferential attachment 50 edges per vertice            16             2          0 176745613.757416            0 
+ parallel_sollin_EL        100000  Preferential attachment 50 edges per vertice            32             0          0 59501678.100922            0 
+ parallel_sollin_EL        100000  Preferential attachment 50 edges per vertice            32             1          0 56535253.732697            3 
+ parallel_sollin_EL        100000  Preferential attachment 50 edges per vertice            32             2          0 59185588.679138            4 
+# Runtime: 2334.649543 s (overhead: 0.000002 %) 18 records

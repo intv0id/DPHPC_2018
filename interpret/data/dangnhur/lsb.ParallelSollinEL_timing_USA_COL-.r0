@@ -1,0 +1,42 @@
+# Sysname : Linux
+# Nodename: eu-a6-004-01
+# Release : 3.10.0-862.14.4.el7.x86_64
+# Version : #1 SMP Wed Sep 26 15:12:11 UTC 2018
+# Machine : x86_64
+# Execution time and date (UTC): Sat Dec 15 19:59:58 2018
+# Execution time and date (local): Sat Dec 15 20:59:58 2018
+# MPI execution on rank 0 with 1 processes in world
+# Reported time measurements are in microseconds
+# pretty output format
+    Algorithm  Graph_nodes   Graph_name  Max_threads          run       id         time     overhead 
+ parallel_sollin_EL        435666   USA-road-d.             1             0          0 2117131.457764            0 
+ parallel_sollin_EL        435666   USA-road-d.             1             1          0 2113906.253052            1 
+ parallel_sollin_EL        435666   USA-road-d.             1             2          0 2070833.568054            1 
+ parallel_sollin_EL        435666   USA-road-d.             1             3          0 2297541.307800            0 
+ parallel_sollin_EL        435666   USA-road-d.             1             4          0 2229643.671082            1 
+ parallel_sollin_EL        435666   USA-road-d.             2             0          0 1963830.331543            0 
+ parallel_sollin_EL        435666   USA-road-d.             2             1          0 36644533.871765            0 
+ parallel_sollin_EL        435666   USA-road-d.             2             2          0 2243406.729980            0 
+ parallel_sollin_EL        435666   USA-road-d.             2             3          0 2527002.553284            2 
+ parallel_sollin_EL        435666   USA-road-d.             2             4          0 2552714.502197            0 
+ parallel_sollin_EL        435666   USA-road-d.             4             0          0 2796765.488464            0 
+ parallel_sollin_EL        435666   USA-road-d.             4             1          0 12840325.145996            2 
+ parallel_sollin_EL        435666   USA-road-d.             4             2          0 3433244.059692           13 
+ parallel_sollin_EL        435666   USA-road-d.             4             3          0 3104091.253784            2 
+ parallel_sollin_EL        435666   USA-road-d.             4             4          0 2908970.227661            1 
+ parallel_sollin_EL        435666   USA-road-d.             8             0          0 3845344.851807            2 
+ parallel_sollin_EL        435666   USA-road-d.             8             1          0 10543864.936707            1 
+ parallel_sollin_EL        435666   USA-road-d.             8             2          0 3831282.867554            3 
+ parallel_sollin_EL        435666   USA-road-d.             8             3          0 3753256.584900            3 
+ parallel_sollin_EL        435666   USA-road-d.             8             4          0 3346088.237549            3 
+ parallel_sollin_EL        435666   USA-road-d.            16             0          0 5450621.308411            4 
+ parallel_sollin_EL        435666   USA-road-d.            16             1          0 8123457.913513            0 
+ parallel_sollin_EL        435666   USA-road-d.            16             2          0 4141525.696533            0 
+ parallel_sollin_EL        435666   USA-road-d.            16             3          0 4264363.084045            0 
+ parallel_sollin_EL        435666   USA-road-d.            16             4          0 4348187.852783            0 
+ parallel_sollin_EL        435666   USA-road-d.            32             0          0 6882602.669495            0 
+ parallel_sollin_EL        435666   USA-road-d.            32             1          0 10066287.225586            1 
+ parallel_sollin_EL        435666   USA-road-d.            32             2          0 5593179.102539            0 
+ parallel_sollin_EL        435666   USA-road-d.            32             3          0 5565786.348267            0 
+ parallel_sollin_EL        435666   USA-road-d.            32             4          0 5707543.263550            1 
+# Runtime: 314.663418 s (overhead: 0.000013 %) 30 records

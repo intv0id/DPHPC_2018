@@ -1,0 +1,30 @@
+# Sysname : Linux
+# Nodename: eu-a6-004-02
+# Release : 3.10.0-862.14.4.el7.x86_64
+# Version : #1 SMP Wed Sep 26 15:12:11 UTC 2018
+# Machine : x86_64
+# Execution time and date (UTC): Sun Dec 16 09:28:20 2018
+# Execution time and date (local): Sun Dec 16 10:28:20 2018
+# MPI execution on rank 0 with 1 processes in world
+# Reported time measurements are in microseconds
+# pretty output format
+    Algorithm  Graph_nodes   Graph_name  Max_threads          run       id         time     overhead 
+ Filter_Sollin         10000  Preferential attachment 50 edges per vertice             1             0          0 70423.566101            0 
+ Filter_Sollin         10000  Preferential attachment 50 edges per vertice             1             1          0 129550.670898           22 
+ Filter_Sollin         10000  Preferential attachment 50 edges per vertice             1             2          0 79931.163391           19 
+ Filter_Sollin         10000  Preferential attachment 50 edges per vertice             2             0          0 79610.996033            0 
+ Filter_Sollin         10000  Preferential attachment 50 edges per vertice             2             1          0 124870.825928            2 
+ Filter_Sollin         10000  Preferential attachment 50 edges per vertice             2             2          0 355009.598999            0 
+ Filter_Sollin         10000  Preferential attachment 50 edges per vertice             4             0          0 286215.320679            0 
+ Filter_Sollin         10000  Preferential attachment 50 edges per vertice             4             1          0 373882.518860            0 
+ Filter_Sollin         10000  Preferential attachment 50 edges per vertice             4             2          0 270447.419250            1 
+ Filter_Sollin         10000  Preferential attachment 50 edges per vertice             8             0          0 238169.025635            0 
+ Filter_Sollin         10000  Preferential attachment 50 edges per vertice             8             1          0 259004.654358            0 
+ Filter_Sollin         10000  Preferential attachment 50 edges per vertice             8             2          0 298153.016785            0 
+ Filter_Sollin         10000  Preferential attachment 50 edges per vertice            16             0          0 428955.556458            0 
+ Filter_Sollin         10000  Preferential attachment 50 edges per vertice            16             1          0 365441.089294            0 
+ Filter_Sollin         10000  Preferential attachment 50 edges per vertice            16             2          0 251873.107666            0 
+ Filter_Sollin         10000  Preferential attachment 50 edges per vertice            32             0          0 366227.092773            0 
+ Filter_Sollin         10000  Preferential attachment 50 edges per vertice            32             1          0 401533.126038           23 
+ Filter_Sollin         10000  Preferential attachment 50 edges per vertice            32             2          0 424597.787415            0 
+# Runtime: 29.596780 s (overhead: 0.000226 %) 18 records

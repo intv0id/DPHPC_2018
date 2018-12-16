@@ -1,0 +1,30 @@
+# Sysname : Linux
+# Nodename: eu-a6-009-02
+# Release : 3.10.0-862.14.4.el7.x86_64
+# Version : #1 SMP Wed Sep 26 15:12:11 UTC 2018
+# Machine : x86_64
+# Execution time and date (UTC): Sun Dec 16 04:54:22 2018
+# Execution time and date (local): Sun Dec 16 05:54:22 2018
+# MPI execution on rank 0 with 1 processes in world
+# Reported time measurements are in microseconds
+# pretty output format
+    Algorithm  Graph_nodes   Graph_name  Max_threads          run       id         time     overhead 
+ Filter_Sollin        100000  Erdos-Renyi_random             1             0          0 1300819.486816            0 
+ Filter_Sollin        100000  Erdos-Renyi_random             1             1          0 1433306.418945            3 
+ Filter_Sollin        100000  Erdos-Renyi_random             1             2          0 1184400.991211         1124 
+ Filter_Sollin        100000  Erdos-Renyi_random             2             0          0 1061636.776367            0 
+ Filter_Sollin        100000  Erdos-Renyi_random             2             1          0 4836109.134033            2 
+ Filter_Sollin        100000  Erdos-Renyi_random             2             2          0 6480363.739014            0 
+ Filter_Sollin        100000  Erdos-Renyi_random             4             0          0 5494152.505371            0 
+ Filter_Sollin        100000  Erdos-Renyi_random             4             1          0 3891455.375732            0 
+ Filter_Sollin        100000  Erdos-Renyi_random             4             2          0 3807262.537109            5 
+ Filter_Sollin        100000  Erdos-Renyi_random             8             0          0 3650074.513428            0 
+ Filter_Sollin        100000  Erdos-Renyi_random             8             1          0 3969844.292725            0 
+ Filter_Sollin        100000  Erdos-Renyi_random             8             2          0 5512606.046143            0 
+ Filter_Sollin        100000  Erdos-Renyi_random            16             0          0 2431933.636719            0 
+ Filter_Sollin        100000  Erdos-Renyi_random            16             1          0 3689395.676025            0 
+ Filter_Sollin        100000  Erdos-Renyi_random            16             2          0 5424722.898682            0 
+ Filter_Sollin        100000  Erdos-Renyi_random            32             0          0 5155388.553711            0 
+ Filter_Sollin        100000  Erdos-Renyi_random            32             1          0 2206700.210938            1 
+ Filter_Sollin        100000  Erdos-Renyi_random            32             2          0 3827990.233154            0 
+# Runtime: 200.282647 s (overhead: 0.000567 %) 18 records

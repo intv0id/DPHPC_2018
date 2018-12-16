@@ -127,9 +127,9 @@ Graph::Graph(int nVertices, int m, int min, int max) : n(nVertices)
         adjacency_vector.push_back(val0);
     }
 
-    vector<int> vect{1,1,2,2,3,3};
+    vector<int> vect{0,0,1,1,2,2};
 
-    for (int i = 4; i != nVertices; i++){
+    for (int i = 3; i != nVertices; i++){
         int new_neighbours[m];
         for (int k = 0; k != m; k++) {
             // Generate random nodes to connect

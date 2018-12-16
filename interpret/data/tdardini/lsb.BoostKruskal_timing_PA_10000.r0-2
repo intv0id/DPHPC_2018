@@ -1,0 +1,30 @@
+# Sysname : Linux
+# Nodename: eu-a6-004-02
+# Release : 3.10.0-862.14.4.el7.x86_64
+# Version : #1 SMP Wed Sep 26 15:12:11 UTC 2018
+# Machine : x86_64
+# Execution time and date (UTC): Sun Dec 16 08:13:33 2018
+# Execution time and date (local): Sun Dec 16 09:13:33 2018
+# MPI execution on rank 0 with 1 processes in world
+# Reported time measurements are in microseconds
+# pretty output format
+    Algorithm  Graph_nodes   Graph_name  Max_threads          run       id         time     overhead 
+ Boost_Kruskal         10000  Preferential attachment 50 edges per vertice             1             0          0 353393.294495            0 
+ Boost_Kruskal         10000  Preferential attachment 50 edges per vertice             1             1          0 346481.766907            2 
+ Boost_Kruskal         10000  Preferential attachment 50 edges per vertice             1             2          0 320036.726379            1 
+ Boost_Kruskal         10000  Preferential attachment 50 edges per vertice             2             0          0 325490.225891            0 
+ Boost_Kruskal         10000  Preferential attachment 50 edges per vertice             2             1          0 310900.941284            1 
+ Boost_Kruskal         10000  Preferential attachment 50 edges per vertice             2             2          0 309145.383850            0 
+ Boost_Kruskal         10000  Preferential attachment 50 edges per vertice             4             0          0 310424.149414            0 
+ Boost_Kruskal         10000  Preferential attachment 50 edges per vertice             4             1          0 311194.115234            0 
+ Boost_Kruskal         10000  Preferential attachment 50 edges per vertice             4             2          0 310194.722900            0 
+ Boost_Kruskal         10000  Preferential attachment 50 edges per vertice             8             0          0 309986.015137            0 
+ Boost_Kruskal         10000  Preferential attachment 50 edges per vertice             8             1          0 312313.398926            0 
+ Boost_Kruskal         10000  Preferential attachment 50 edges per vertice             8             2          0 348716.412354            0 
+ Boost_Kruskal         10000  Preferential attachment 50 edges per vertice            16             0          0 311838.892883            0 
+ Boost_Kruskal         10000  Preferential attachment 50 edges per vertice            16             1          0 312001.904053            0 
+ Boost_Kruskal         10000  Preferential attachment 50 edges per vertice            16             2          0 313503.965088            0 
+ Boost_Kruskal         10000  Preferential attachment 50 edges per vertice            32             0          0 310529.730896            0 
+ Boost_Kruskal         10000  Preferential attachment 50 edges per vertice            32             1          0 339795.629639            2 
+ Boost_Kruskal         10000  Preferential attachment 50 edges per vertice            32             2          0 315711.551880            0 
+# Runtime: 28.334528 s (overhead: 0.000021 %) 18 records

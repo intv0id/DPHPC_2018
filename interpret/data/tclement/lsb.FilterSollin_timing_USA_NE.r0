@@ -1,0 +1,42 @@
+# Sysname : Linux
+# Nodename: eu-a6-007-22
+# Release : 3.10.0-862.14.4.el7.x86_64
+# Version : #1 SMP Wed Sep 26 15:12:11 UTC 2018
+# Machine : x86_64
+# Execution time and date (UTC): Sat Dec 15 23:40:35 2018
+# Execution time and date (local): Sun Dec 16 00:40:35 2018
+# MPI execution on rank 0 with 1 processes in world
+# Reported time measurements are in microseconds
+# pretty output format
+    Algorithm  Graph_nodes   Graph_name  Max_threads          run       id         time     overhead 
+ Filter_Sollin       1524453   USA-road-d.             1             0          0 101545759.808105            0 
+ Filter_Sollin       1524453   USA-road-d.             1             1          0 117464399.131836       150522 
+ Filter_Sollin       1524453   USA-road-d.             1             2          0 88562013.993164            3 
+ Filter_Sollin       1524453   USA-road-d.             1             3          0 73845664.456543            0 
+ Filter_Sollin       1524453   USA-road-d.             1             4          0 118890508.462402            3 
+ Filter_Sollin       1524453   USA-road-d.             2             0          0 66187668.636719            0 
+ Filter_Sollin       1524453   USA-road-d.             2             1          0 120390414.770996            0 
+ Filter_Sollin       1524453   USA-road-d.             2             2          0 76219729.922852            0 
+ Filter_Sollin       1524453   USA-road-d.             2             3          0 117576736.793945           18 
+ Filter_Sollin       1524453   USA-road-d.             2             4          0 115042095.764648            0 
+ Filter_Sollin       1524453   USA-road-d.             4             0          0 537618888.195312            0 
+ Filter_Sollin       1524453   USA-road-d.             4             1          0 427502183.447754            0 
+ Filter_Sollin       1524453   USA-road-d.             4             2          0 79859858.735352            0 
+ Filter_Sollin       1524453   USA-road-d.             4             3          0 63265107.016602            0 
+ Filter_Sollin       1524453   USA-road-d.             4             4          0 491272224.022949            0 
+ Filter_Sollin       1524453   USA-road-d.             8             0          0 432369322.128906            3 
+ Filter_Sollin       1524453   USA-road-d.             8             1          0 389283487.613770            2 
+ Filter_Sollin       1524453   USA-road-d.             8             2          0 47760244.243164            1 
+ Filter_Sollin       1524453   USA-road-d.             8             3          0 58673729.014160            0 
+ Filter_Sollin       1524453   USA-road-d.             8             4          0 57148269.396484            1 
+ Filter_Sollin       1524453   USA-road-d.            16             0          0 54754757.589844            0 
+ Filter_Sollin       1524453   USA-road-d.            16             1          0 51749020.494141            0 
+ Filter_Sollin       1524453   USA-road-d.            16             2          0 70842846.837402            3 
+ Filter_Sollin       1524453   USA-road-d.            16             3          0 47195629.897461            0 
+ Filter_Sollin       1524453   USA-road-d.            16             4          0 44892740.426758            0 
+ Filter_Sollin       1524453   USA-road-d.            32             0          0 35328607.687988            0 
+ Filter_Sollin       1524453   USA-road-d.            32             1          0 66859415.475098            0 
+ Filter_Sollin       1524453   USA-road-d.            32             2          0 263545275.019531            0 
+ Filter_Sollin       1524453   USA-road-d.            32             3          0 35693746.388184            0 
+ Filter_Sollin       1524453   USA-road-d.            32             4          0 49014249.495605            0 
+# Runtime: 4786.201668 s (overhead: 0.003146 %) 30 records
