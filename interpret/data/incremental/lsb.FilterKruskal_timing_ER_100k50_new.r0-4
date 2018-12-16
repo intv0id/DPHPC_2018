@@ -1,0 +1,24 @@
+# Sysname : Linux
+# Nodename: eu-a6-009-03
+# Release : 3.10.0-862.14.4.el7.x86_64
+# Version : #1 SMP Wed Sep 26 15:12:11 UTC 2018
+# Machine : x86_64
+# Execution time and date (UTC): Sun Dec 16 16:49:19 2018
+# Execution time and date (local): Sun Dec 16 17:49:19 2018
+# MPI execution on rank 0 with 1 processes in world
+# Reported time measurements are in microseconds
+# pretty output format
+    Algorithm  Graph_nodes   Graph_name  Max_threads          run       id         time     overhead 
+ Filter_Kruskal        100000  Erdos-Renyi_random_p=0.000500             1             0          0 421401.072510            0 
+ Filter_Kruskal        100000  Erdos-Renyi_random_p=0.000500             1             1          0 345293.530762            1 
+ Filter_Kruskal        100000  Erdos-Renyi_random_p=0.000500             2             0          0 183765.708496            2 
+ Filter_Kruskal        100000  Erdos-Renyi_random_p=0.000500             2             1          0 226842.392334            0 
+ Filter_Kruskal        100000  Erdos-Renyi_random_p=0.000500             4             0          0 136480.013916            1 
+ Filter_Kruskal        100000  Erdos-Renyi_random_p=0.000500             4             1          0 150739.196533            0 
+ Filter_Kruskal        100000  Erdos-Renyi_random_p=0.000500             8             0          0 94711.266602            2 
+ Filter_Kruskal        100000  Erdos-Renyi_random_p=0.000500             8             1          0 97567.895752            0 
+ Filter_Kruskal        100000  Erdos-Renyi_random_p=0.000500            16             0          0 111331.269775            1 
+ Filter_Kruskal        100000  Erdos-Renyi_random_p=0.000500            16             1          0 103725.835938            0 
+ Filter_Kruskal        100000  Erdos-Renyi_random_p=0.000500            32             0          0 218911.418213           20 
+ Filter_Kruskal        100000  Erdos-Renyi_random_p=0.000500            32             1          0 210880.862793            3 
+# Runtime: 115.599442 s (overhead: 0.000026 %) 12 records
