@@ -26,11 +26,12 @@
 \usepackage{algorithm}
 \usepackage{algorithmic}
 \usetikzlibrary{arrows,shapes}
+% \usepackage{bibentry}
+
 
 \graphicspath{{graphics/}}
 
 \hypersetup{pdfstartview={Fit}}
-
 
 
 \AtBeginSection[]{
@@ -70,8 +71,6 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
-%TODO : PARTIE A MODIFIER 
 
 \date{December 2018}	
 
@@ -187,6 +186,24 @@ USA Roads
 
 \subsection{Base serial algorithms}
 
+\begin{frame}
+\frametitle{Baselines}
+
+\begin{columns}
+\begin{column}{.7\linewidth}
+\begin{itemize}
+\item Boost Kruskal
+\item Boost Prim
+\end{itemize}
+\end{column}
+
+\begin{column}{.3\linewidth}
+\includegraphics[width=\linewidth]{boost.png}
+\end{column}
+\end{columns}
+
+\end{frame}
+
 \begin{frame}[fragile]
 \frametitle{Sollin}
 \begin{enumerate}
@@ -216,23 +233,6 @@ USA Roads
 \end{algorithmic}
 \end{algorithm}
 
-
-\end{frame}
-
-\begin{frame}
-\frametitle{Boost implementations}
-
-\begin{columns}
-\begin{column}{.7\linewidth}
-\begin{itemize}
-\item Boost-Kruskal used as a reference
-\end{itemize}
-\end{column}
-
-\begin{column}{.3\linewidth}
-\includegraphics[width=\linewidth]{boost.png}
-\end{column}
-\end{columns}
 
 \end{frame}
 
@@ -331,15 +331,21 @@ USA Roads
 \section{Results overview}
 
 \begin{frame}
-\frametitle{Runtimes}
+\frametitle{Speedup compared to Boost Kruskal}
 \centering
-\includegraphics[width=10cm]{Graph_runtime.png}
+\includegraphics[width=10cm]{BoostKruskalSpeedup1.png}
+\end{frame}
+
+\begin{frame}
+\frametitle{Speedup compared to Boost Prim}
+\centering
+\includegraphics[width=10cm]{BoostPrimSpeedup3.png}
 \end{frame}
 
 \begin{frame}
 \frametitle{Speedups}
 \centering
-\includegraphics[width=10cm]{Speedup.png}
+\includegraphics[width=10cm]{Speedup2.png}
 \end{frame}
 
 \begin{frame}
@@ -410,10 +416,16 @@ USA Roads
 		\end{tabular}
 	\end{center}
 
+    \nocite{Osipov:2009:FMS:2791220.2791225}
+    \nocite{bader2006fast}
+    \nocite{chung1996parallel}
+
 \end{frame}
 
 \begin{frame}
     \printbibliography
+    \frametitle{References}
+    % \bibliographystyle{amsalpha}
 \end{frame} 
 
 \end{document}
