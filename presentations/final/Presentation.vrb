@@ -1,0 +1,20 @@
+\frametitle{Kruskal}
+\small
+\begin{algorithm}[H]
+\begin{algorithmic}[1]
+\STATE $A = \emptyset$
+\FORALL{$v \in G.V$}
+\STATE MAKE-SET$(v)$
+\ENDFOR
+\STATE Sort (asc.) $\left(weight(u, v)\right)_{(u, v) \in G.E}$
+\FORALL{$(u, v)$ in $G.E$ ordered by weight}
+\IF{FIND-SET$(u)$ $\neq$ FIND-SET$(v)$}
+\STATE $A = A \cup {(u, v)}$
+\STATE UNION$(u, v)$
+\ENDIF
+\ENDFOR
+\RETURN A
+\end{algorithmic}
+\end{algorithm}
+
+
