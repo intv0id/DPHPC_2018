@@ -326,7 +326,7 @@ l_edge_t filter_sollin::base_func(Graph& g, unsigned int n_threads,vector<compon
 			return mst;
 		}
 		mst.insert(mst.end(),add_to_mst.begin(),add_to_mst.end());
-		if(empty >=  0.5*g.n /10.){
+		if(empty >=  20*g.n /10.){
 			//cout << endl << "Empty proportion" << empty/(float)g.n << endl;
 			return mst;
 		}
@@ -344,7 +344,7 @@ l_edge_t filter_sollin::main_func(Graph& g, unsigned int n_threads, vector<compo
 		sum_sizes += ends[i] - starts[i];
 		prefix_sums[i] = sum_sizes;
 	}
-	if(sum_sizes < 100000 || old_size == sum_sizes){
+	if(sum_sizes < 50000 || old_size == sum_sizes){
 	double t0,t1;
 		t0 = omp_get_wtime();
 		l_edge_t result = base_func(g,n_threads,edges,starts,ends,u,cV,cW);	
