@@ -81,9 +81,7 @@ int pivot(Graph& g, vector<vector<edge*>::iterator>& starts, vector<vector<edge*
 	}
 
 	tbb::parallel_sort(values.begin(),values.end());
-	// caution number of nodes and edges
-	// int index = 5 * n_samples * g.n / g.n_edges;
-    // index = min(n_samples-1, index);
+
     return values[n_samples / 2];
 }
 
@@ -344,7 +342,7 @@ l_edge_t filter_sollin::main_func(Graph& g, unsigned int n_threads, vector<compo
 		sum_sizes += ends[i] - starts[i];
 		prefix_sums[i] = sum_sizes;
 	}
-	if(sum_sizes < 10000 || old_size == sum_sizes){
+	if(sum_sizes < 50000 || old_size == sum_sizes){
 	double t0,t1;
 		t0 = omp_get_wtime();
 		l_edge_t result = base_func(g,n_threads,edges,starts,ends,u,cV,cW);	
@@ -390,8 +388,6 @@ l_edge_t filter_sollin::main_func(Graph& g, unsigned int n_threads, vector<compo
 
 		}
 	}
-
-
 
 	return mst;
 }
