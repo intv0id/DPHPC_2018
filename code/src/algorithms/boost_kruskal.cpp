@@ -4,7 +4,6 @@
 #include <cstdlib>
 #include <iostream>
 
-#include "algorithms/filter_kruskal.hpp"
 #include "algorithms/boost_kruskal.hpp"
 #include "algorithms/filter_kruskal.hpp"
 #include <boost/graph/kruskal_min_spanning_tree.hpp>
