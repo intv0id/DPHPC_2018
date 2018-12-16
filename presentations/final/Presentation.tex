@@ -126,9 +126,9 @@ $G(100, 0.02)$
 \end{frame}
 
 \begin{frame}
-\frametitle{Input sets: $PA(n)$}
+\frametitle{Input sets: $PA(n, m)$}
 \centering
-$PA(100)$
+$PA(100, 1)$
 \begin{figure}
  \includegraphics[width=.7\textwidth]{graphPA.png}
 \end{figure}
@@ -189,17 +189,11 @@ USA Roads
 
 \begin{frame}[fragile]
 \frametitle{Sollin}
-\small
-\begin{algorithm}[H]
-\begin{algorithmic}[1]
-
-\STATE F = set(one-vertex trees)
-\WHILE{$\mid F \mid > 1$}
-\STATE TODO
-\ENDWHILE
-
-\end{algorithmic}
-\end{algorithm}
+\begin{enumerate}
+	\item For each connected component, find adjacent edge with minimum weight
+	\item Add edge to mst (each edge add at most twice)
+	\item Merge connected components
+\end{enumerate}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -327,8 +321,10 @@ USA Roads
 \end{frame}
 
 \begin{frame}
-\frametitle{Filter Sollin}
-
+\frametitle{Kruskal vs Sollin}
+\item Same complexity, but Sollin computing steps are more fine-grained
+\item Sollin is entirely paralelizable
+\item Filter Kruskal can be adapted to Filter Sollin
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
