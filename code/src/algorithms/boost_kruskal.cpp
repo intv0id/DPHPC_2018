@@ -4,8 +4,8 @@
 #include <cstdlib>
 #include <iostream>
 
-#include "algorithms/filter_kruskal.hpp"
 #include "algorithms/boost_kruskal.hpp"
+#include "algorithms/filter_kruskal.hpp"
 #include <boost/graph/kruskal_min_spanning_tree.hpp>
 
 #include <sys/time.h>
@@ -23,7 +23,7 @@ l_edge_t boost_kruskal::algorithm(Graph &g, unsigned int n_threads) {
 	kruskal_minimum_spanning_tree(g.boost_rep, back_inserter(v));
     gettimeofday(&t1, NULL);
 
-    std::cout << "BOOST: " << getTime(t1, t0) << std::endl;
+    // std::cout << "BOOST: " << getTime(t1, t0) << std::endl;
 
 	l_edge_t result;
 

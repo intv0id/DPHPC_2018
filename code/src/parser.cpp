@@ -12,6 +12,7 @@
 #include "algorithms/filter_kruskal.hpp"
 // #include "algorithms/prim.hpp"
 #include "algorithms/boost_kruskal.hpp"
+#include "algorithms/boost_prim.hpp"
 #include "algorithms/filter_sollin.hpp"
 
 using namespace std;
@@ -123,8 +124,8 @@ bool parser::parse_algonames(string algoname) {
         selected_algorithms.push_back(new filter_kruskal());
     } else if (algoname == "BoostKruskal") {
         selected_algorithms.push_back(new boost_kruskal());
-    //} else if (algoname == "BoostPrim") {
-    //    selected_algorithms.push_back(new boost_prim());
+    } else if (algoname == "BoostPrim") {
+        selected_algorithms.push_back(new boost_prim());
     } else {
         return false;
     }
@@ -140,6 +141,7 @@ void parser::print_algos(){
     cout << "Kruskal" << endl;
     cout << "FilterKruskal" << endl;
     cout << "BoostKruskal" << endl;
+    cout << "BoostPrim" << endl;
 }
 
 void parser::compute(){

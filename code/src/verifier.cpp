@@ -6,6 +6,7 @@
 
 #include "verifier.hpp"
 #include "algorithms/boost_kruskal.hpp"
+#include "algorithms/filter_kruskal.hpp"
 
 using namespace std;
 
@@ -58,6 +59,17 @@ int Verifier::getSum(l_edge_t &mst){
 }
 
 bool Verifier::isEveryNodeReachable(int n, l_edge_t &mst) {
+
+    for (l_edge_it ite = mst.begin(); ite != mst.end(); ite++) {
+        int u = (*ite)->source;
+        int v = (*ite)->target;
+        if (u == 0 || u == 11 || v == 0 || v == 11) {
+            // cout << "Edge: " << u << " -> " << v << endl;
+        }
+        // cout << "Edge: " << u << " -> " << v  << " : " << (*ite)->weight << endl;
+    }
+
+
     bool* reached = new bool[n];
     reached[0] = true;
     int new_node = 1;
@@ -77,39 +89,39 @@ bool Verifier::isEveryNodeReachable(int n, l_edge_t &mst) {
         }
     }
 
-    bool reachable = true;
     for (int i = 0; i < n; i++) {
-        reachable = reachable && reached[i];
+        if (!reached[i]) {
+            cout << "Vertex " << i << " is not reachable" << endl;
+            return false;
+        }
     }
 
-    return reachable;
+    return true;
 }
 
 bool Verifier::verify_one(Graph &g, l_edge_t &solution) {
 
-    boost_kruskal s;
+    // boost_kruskal s;
+    filter_kruskal s;
     l_edge_t other_solution = s.algorithm(g);
 
-    // Debug
-    /*
-    cout <<solution.size() << endl;
-    cout << other_solution.size() << endl;
-    print_edge_list(solution);
-    print_edge_list(other_solution);
-    */
-
     // 1. Is it spanning?
+    
+    bool valid = true;
+
+    cout << endl;
 
     if (! isEveryNodeReachable(g.n, solution)) {
-        cout << "Error: non connexe" << endl; 
-        return false;
+        cout << "Error: not connected" << endl; 
+        valid = false;
     }
 
     // 2. Is it minimum?
     if (getSum(solution) != getSum(other_solution)) {
         cout << "Error: different sum weights" << endl;
-        return false;
+        cout << getSum(solution) << " compared to " << getSum(other_solution) << endl;
+        valid = false;
     }
 
-    return true;
+    return valid;
 }
