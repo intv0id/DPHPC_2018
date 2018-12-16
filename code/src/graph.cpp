@@ -19,23 +19,20 @@ void Graph::add_edge(int i, int j, int w){
 	// Create edges
 	edge* ei = new edge;
 	edge* ej = new edge;
-
 	ei->source = i; ej->source = j;
 	ei->target = j; ej->target = i;
 	ei->weight = w; ej->weight = w;
-
 	edges.push_back(ei);
 	edges.push_back(ej);
-
 	adjacency_list[i]->adjacent_vertices.push_back(ei);
 	adjacency_list[j]->adjacent_vertices.push_back(ej);
-
 	adjacency_vector[i]->adjacent_vertices.push_back(ei);
 	adjacency_vector[j]->adjacent_vertices.push_back(ej);
 
 	// Add edge to boost graph
 	boost::add_edge(i,j,w,boost_rep);
 
+	
 	if (i < j) {
 		unique_edges.push_back(ei);
 		unique_edges_vector.push_back(ei);
@@ -166,14 +163,14 @@ Graph::Graph(string fname, string type){
         string line;
         getline(inFile, line);
 	
-        if (count == 4){
-            string s1, s2;
-            int nEdges;
-            stringstream ss(line);
-            ss >> s1 >> s2 >> nVertices >> nEdges;
-            
-            n = nVertices;
-        }
+	if (count == 4){
+	    string s1, s2;
+	    int nEdges;
+	    stringstream ss(line);
+	    ss >> s1 >> s2 >> nVertices >> nEdges;
+	    
+	    n = nVertices;
+	}
     }
 
     for(int i = 0; i != nVertices; i++){

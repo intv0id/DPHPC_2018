@@ -16,7 +16,11 @@ class parser {
 
 	// Variables for graph generation
 	const int edgePerVertex = 1000;
+<<<<<<< HEAD
+	const int minWeight = 1;
+=======
 	const int minWeight = 0;
+>>>>>>> de1ce2ef2aba81840d4de1425740482a62a72df6
 	const int maxWeight = 100;
 
 	public:
