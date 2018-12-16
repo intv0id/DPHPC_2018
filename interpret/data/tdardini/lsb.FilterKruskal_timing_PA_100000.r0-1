@@ -1,0 +1,30 @@
+# Sysname : Linux
+# Nodename: eu-a6-004-02
+# Release : 3.10.0-862.14.4.el7.x86_64
+# Version : #1 SMP Wed Sep 26 15:12:11 UTC 2018
+# Machine : x86_64
+# Execution time and date (UTC): Sun Dec 16 05:55:08 2018
+# Execution time and date (local): Sun Dec 16 06:55:08 2018
+# MPI execution on rank 0 with 1 processes in world
+# Reported time measurements are in microseconds
+# pretty output format
+    Algorithm  Graph_nodes   Graph_name  Max_threads          run       id         time     overhead 
+ Filter_Kruskal        100000  Preferential attachment 50 edges per vertice             1             0          0 445920.216431            0 
+ Filter_Kruskal        100000  Preferential attachment 50 edges per vertice             1             1          0 324816.613586            1 
+ Filter_Kruskal        100000  Preferential attachment 50 edges per vertice             1             2          0 477142.484009            1 
+ Filter_Kruskal        100000  Preferential attachment 50 edges per vertice             2             0          0 246034.225708            0 
+ Filter_Kruskal        100000  Preferential attachment 50 edges per vertice             2             1          0 329040.321533           26 
+ Filter_Kruskal        100000  Preferential attachment 50 edges per vertice             2             2          0 267045.396301            0 
+ Filter_Kruskal        100000  Preferential attachment 50 edges per vertice             4             0          0 164761.316284            0 
+ Filter_Kruskal        100000  Preferential attachment 50 edges per vertice             4             1          0 170112.710693            0 
+ Filter_Kruskal        100000  Preferential attachment 50 edges per vertice             4             2          0 190091.967346            2 
+ Filter_Kruskal        100000  Preferential attachment 50 edges per vertice             8             0          0 161459.994690            0 
+ Filter_Kruskal        100000  Preferential attachment 50 edges per vertice             8             1          0 213429.135559            0 
+ Filter_Kruskal        100000  Preferential attachment 50 edges per vertice             8             2          0 200316.284790            0 
+ Filter_Kruskal        100000  Preferential attachment 50 edges per vertice            16             0          0 159665.831421            0 
+ Filter_Kruskal        100000  Preferential attachment 50 edges per vertice            16             1          0 123173.075439            0 
+ Filter_Kruskal        100000  Preferential attachment 50 edges per vertice            16             2          0 250002.725586            0 
+ Filter_Kruskal        100000  Preferential attachment 50 edges per vertice            32             0          0 316286.539734            0 
+ Filter_Kruskal        100000  Preferential attachment 50 edges per vertice            32             1          0 166144.499756            2 
+ Filter_Kruskal        100000  Preferential attachment 50 edges per vertice            32             2          0 213655.799072            0 
+# Runtime: 364.278867 s (overhead: 0.000009 %) 18 records
