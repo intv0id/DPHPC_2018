@@ -31,8 +31,8 @@ cmd_exp(){
 # 1: path to executable
 # 2: additional flags
 cmd_exp_algos(){
-    for algo in ${algorithms[@]}; do
-	    for i in $(seq 1 $TIMES); do
+    for i in $(seq 1 $TIMES); do
+        for algo in ${algorithms[@]}; do
             cmd_exp "$1" " --Erdos-Renyi-graph 100000 50 --algorithm ${algo} --lsb-filename ${algo}_timing_ER_100k50_new $2" ;
             cmd_exp "$1" " --Erdos-Renyi-graph 10000 1000 --algorithm ${algo} --lsb-filename ${algo}_timing_ER_10k1k_new $2" ;
             cmd_exp "$1" " --PA-graph 100000 50 --algorithm ${algo} --lsb-filename ${algo}_timing_PA_100k50_new $2" ;
