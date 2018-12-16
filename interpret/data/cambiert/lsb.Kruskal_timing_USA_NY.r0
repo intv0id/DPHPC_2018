@@ -1,0 +1,42 @@
+# Sysname : Linux
+# Nodename: eu-a6-006-12
+# Release : 3.10.0-862.14.4.el7.x86_64
+# Version : #1 SMP Wed Sep 26 15:12:11 UTC 2018
+# Machine : x86_64
+# Execution time and date (UTC): Sun Dec 16 03:34:38 2018
+# Execution time and date (local): Sun Dec 16 04:34:38 2018
+# MPI execution on rank 0 with 1 processes in world
+# Reported time measurements are in microseconds
+# pretty output format
+    Algorithm  Graph_nodes   Graph_name  Max_threads          run       id         time     overhead 
+ Sequential_Kruskal         10000  Preferential attachment 50 edges per vertice             1             0          0 161816.337982            0 
+ Sequential_Kruskal         10000  Preferential attachment 50 edges per vertice             1             1          0 163098.652222            2 
+ Sequential_Kruskal         10000  Preferential attachment 50 edges per vertice             1             2          0 162865.595917            2 
+ Sequential_Kruskal         10000  Preferential attachment 50 edges per vertice             1             3          0 190553.029846            0 
+ Sequential_Kruskal         10000  Preferential attachment 50 edges per vertice             1             4          0 162334.153748            2 
+ Sequential_Kruskal         10000  Preferential attachment 50 edges per vertice             2             0          0 156372.860779            0 
+ Sequential_Kruskal         10000  Preferential attachment 50 edges per vertice             2             1          0 153598.941711            0 
+ Sequential_Kruskal         10000  Preferential attachment 50 edges per vertice             2             2          0 155121.084381            0 
+ Sequential_Kruskal         10000  Preferential attachment 50 edges per vertice             2             3          0 154308.797302            3 
+ Sequential_Kruskal         10000  Preferential attachment 50 edges per vertice             2             4          0 153711.890533            0 
+ Sequential_Kruskal         10000  Preferential attachment 50 edges per vertice             4             0          0 147859.683716            0 
+ Sequential_Kruskal         10000  Preferential attachment 50 edges per vertice             4             1          0 149652.167267            0 
+ Sequential_Kruskal         10000  Preferential attachment 50 edges per vertice             4             2          0 149862.796265            0 
+ Sequential_Kruskal         10000  Preferential attachment 50 edges per vertice             4             3          0 148256.207123            0 
+ Sequential_Kruskal         10000  Preferential attachment 50 edges per vertice             4             4          0 151146.439392            0 
+ Sequential_Kruskal         10000  Preferential attachment 50 edges per vertice             8             0          0 143492.040985            0 
+ Sequential_Kruskal         10000  Preferential attachment 50 edges per vertice             8             1          0 145625.065704            1 
+ Sequential_Kruskal         10000  Preferential attachment 50 edges per vertice             8             2          0 143353.581787            0 
+ Sequential_Kruskal         10000  Preferential attachment 50 edges per vertice             8             3          0 145312.331879            0 
+ Sequential_Kruskal         10000  Preferential attachment 50 edges per vertice             8             4          0 143048.235382            0 
+ Sequential_Kruskal         10000  Preferential attachment 50 edges per vertice            16             0          0 142299.303833            0 
+ Sequential_Kruskal         10000  Preferential attachment 50 edges per vertice            16             1          0 143311.626862            0 
+ Sequential_Kruskal         10000  Preferential attachment 50 edges per vertice            16             2          0 138971.317810            0 
+ Sequential_Kruskal         10000  Preferential attachment 50 edges per vertice            16             3          0 139750.416748            0 
+ Sequential_Kruskal         10000  Preferential attachment 50 edges per vertice            16             4          0 138619.667633            0 
+ Sequential_Kruskal         10000  Preferential attachment 50 edges per vertice            32             0          0 147543.217926            0 
+ Sequential_Kruskal         10000  Preferential attachment 50 edges per vertice            32             1          0 144311.832733            0 
+ Sequential_Kruskal         10000  Preferential attachment 50 edges per vertice            32             2          0 140495.245117            0 
+ Sequential_Kruskal         10000  Preferential attachment 50 edges per vertice            32             3          0 141190.279053            0 
+ Sequential_Kruskal         10000  Preferential attachment 50 edges per vertice            32             4          0 142567.666351            0 
+# Runtime: 41.421408 s (overhead: 0.000024 %) 30 records
