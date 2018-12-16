@@ -142,6 +142,43 @@ USA Roads
 \end{figure}
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION 2
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Setup}
+
+\begin{frame}
+\frametitle{Software}
+\centering
+
+\begin{itemize}
+\item OMP
+\item Intel Threading Building Blocks (TBB)
+\item Parallel Streaming Transformation Loader Service (PSTL)
+\end{itemize}
+
+\end{frame}
+
+\subsection{Hardware}
+
+\begin{frame}
+\frametitle{EULER}
+\centering
+
+\begin{itemize}
+\item 1 node limitation (OMP)
+\item 2 sockets filled with 18 cores - up to 3.7Ghz
+\item Inter-sockets bus speed: 10.4 GT/s
+\end{itemize}
+
+\includegraphics[width=5cm]{dual_sockets_caches.png}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION 3
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Algorithms and parallel implementations}
 
@@ -202,6 +239,10 @@ USA Roads
 
 \end{frame}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION 4
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Parallel improvements}
 
