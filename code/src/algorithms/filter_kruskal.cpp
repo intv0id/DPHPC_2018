@@ -63,7 +63,7 @@ l_edge_t filter_kruskal_main(Graph &g, vector<edge*> &edges, union_find *u, unsi
     int size = end - start;
     int old = (*old_size);
 
-    if (size < 5000 || (*old_size) == size) {
+    if (size < 1000 || (*old_size) == size) {
         tbb::parallel_sort(start, end, compare);
         return kruskal_main(start, end, u);
     }
@@ -121,7 +121,7 @@ l_edge_t filter_kruskal_main(Graph &g, vector<edge*> &edges, union_find *u, unsi
 int find_pivot(vector<edge*>::iterator start, vector<edge*>::iterator end, int n_nodes, int n_edges) {
 
     int n = end - start;
-    int n_samples = 128;
+    int n_samples = 256;
 
     vector<int> values(n_samples);
 
@@ -140,10 +140,9 @@ int find_pivot(vector<edge*>::iterator start, vector<edge*>::iterator end, int n
 
     tbb::parallel_sort(values.begin(), values.end());
 
-    int index = 5 * n_samples * n_nodes / n_edges;
-    index = min(n_samples, index);
+    // int index = 5 * n_samples * n_nodes / n_edges;
     //cout << "Pivot: " << values[index] << endl;
-    return values[index];
+    return values[n_samples / 2];
 }
 
 vector<edge*>::iterator filter(vector<edge*>::iterator start, vector<edge*>::iterator end, union_find *u_find) {
