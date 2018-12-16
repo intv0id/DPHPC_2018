@@ -20,6 +20,7 @@ using namespace std;
 parser::parser(int * argc, char ** argv[], int MPI_rank) {
     int nb_nodes;
     int nb_neighbors;
+    int epv;
     bool verify = false;
 
     if (*argc <= 1) goto syntaxerror;
@@ -41,9 +42,9 @@ parser::parser(int * argc, char ** argv[], int MPI_rank) {
                 i+=2;
             } else goto syntaxerror;
         } else if (arg == "--Erdos-Renyi-graph") {
-            if (i + 1 < *argc && (nb_nodes = atoi((*argv)[i+1])) > 0) {
-                selected_graphs.push_back(new Graph(nb_nodes, (float) edgePerVertex / nb_nodes, minWeight, maxWeight));
-                i++;
+            if (i + 2 < *argc && (nb_nodes = atoi((*argv)[i+1])) > 0 && (epv = atoi((*argv)[i+2])) > 0) {
+                selected_graphs.push_back(new Graph(nb_nodes, (float) epv / nb_nodes, minWeight, maxWeight));
+                i+=2;
             } else goto syntaxerror;
         } else if (arg == "--PA-graph") {
             if (i + 2 < *argc && (nb_nodes = atoi((*argv)[i+1])) > 0 && (nb_neighbors = atoi((*argv)[i+2])) > 0) {
@@ -95,7 +96,7 @@ void parser::print_help(int MPI_rank, bool syntax_error) {
 
         cout << "Mandatory args" << endl;
         cout << "--algorithm [Algorithm name 1] [Algorithm name 2] ..." << endl;
-        cout << "--USA-graph [USA graph name] [USA graph type (d|t)] | --Erdos-Renyi-graph [size (nodes)] | --PA-graph [size (nodes)] [neighbors number]" << endl;
+        cout << "--USA-graph [USA graph name] [USA graph type (d|t)] | --Erdos-Renyi-graph [size (nodes)] [edges per vertex] | --PA-graph [size (nodes)] [neighbors number]" << endl;
         cout << endl;
 
         cout << "Optionnal args" << endl;
