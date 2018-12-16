@@ -1,15 +1,31 @@
 \begin{tabular}{llrrr}
 \toprule
-              &                                                        &            q5 &        median &           q95 \\
+                    &                                                        &            q5 &        median &           q95 \\
 Algorithm & Graph &               &               &               \\
 \midrule
+Boost Kruskal & (Erdos-Renyi random p=0.000500, 100000) &  2.687261e+06 &  2.699120e+06 &  2.796425e+06 \\
+                    & (Erdos-Renyi random p=0.100000, 10000) &  5.779350e+06 &  5.838609e+06 &  6.037965e+06 \\
+                    & (Preferential attachment 1000 edges per vertice, 10000) &  1.248671e+07 &  1.292595e+07 &  1.580311e+07 \\
+                    & (Preferential attachment 50 edges per vertice, 100000) &  5.821215e+06 &  5.922396e+06 &  6.316017e+06 \\
+Boost Prim & (Erdos-Renyi random p=0.000500, 100000) &  7.685266e+05 &  7.710704e+05 &  9.154308e+05 \\
+                    & (Erdos-Renyi random p=0.100000, 10000) &  1.261240e+06 &  1.288439e+06 &  1.506259e+06 \\
+                    & (Preferential attachment 1000 edges per vertice, 10000) &  1.346399e+07 &  1.409515e+07 &  1.506903e+07 \\
+                    & (Preferential attachment 50 edges per vertice, 100000) &  4.882869e+06 &  4.906214e+06 &  5.291424e+06 \\
 Filter Kruskal & (Erdos-Renyi random p=0.000500, 100000) &  9.712925e+04 &  1.466012e+05 &  4.168023e+05 \\
-              & (Erdos-Renyi random p=0.100000, 10000) &  1.018534e+05 &  2.163940e+05 &  7.083322e+05 \\
-              & (Preferential attachment 1000 edges per vertice, 10000) &  1.767470e+05 &  3.805441e+05 &  1.224329e+06 \\
-              & (Preferential attachment 50 edges per vertice, 100000) &  1.418111e+05 &  2.142758e+05 &  6.972825e+05 \\
+                    & (Erdos-Renyi random p=0.100000, 10000) &  1.018534e+05 &  2.163940e+05 &  7.083322e+05 \\
+                    & (Preferential attachment 1000 edges per vertice, 10000) &  1.767470e+05 &  3.805441e+05 &  1.224329e+06 \\
+                    & (Preferential attachment 50 edges per vertice, 100000) &  1.418111e+05 &  2.142758e+05 &  6.972825e+05 \\
 Filter Sollin & (Erdos-Renyi random p=0.000500, 100000) &  1.324279e+06 &  4.070499e+06 &  6.957365e+06 \\
-              & (Erdos-Renyi random p=0.100000, 10000) &  1.586539e+05 &  1.974012e+06 &  5.197209e+06 \\
-              & (Preferential attachment 1000 edges per vertice, 10000) &  5.769386e+05 &  3.385031e+06 &  9.231191e+06 \\
-              & (Preferential attachment 50 edges per vertice, 100000) &  1.267968e+06 &  4.500488e+06 &  8.107200e+06 \\
+                    & (Erdos-Renyi random p=0.100000, 10000) &  1.586539e+05 &  1.974012e+06 &  5.197209e+06 \\
+                    & (Preferential attachment 1000 edges per vertice, 10000) &  5.769386e+05 &  3.385031e+06 &  9.231191e+06 \\
+                    & (Preferential attachment 50 edges per vertice, 100000) &  1.267968e+06 &  4.500488e+06 &  8.107200e+06 \\
+Sequential Kruskal & (Erdos-Renyi random p=0.000500, 100000) &  8.659719e+05 &  9.422203e+05 &  1.245259e+06 \\
+                    & (Erdos-Renyi random p=0.100000, 10000) &  1.558022e+06 &  2.018175e+06 &  2.341269e+06 \\
+                    & (Preferential attachment 1000 edges per vertice, 10000) &  3.263386e+06 &  4.294991e+06 &  5.119760e+06 \\
+                    & (Preferential attachment 50 edges per vertice, 100000) &  1.828942e+06 &  2.148968e+06 &  2.637245e+06 \\
+parallel sollin FAL & (Erdos-Renyi random p=0.000500, 100000) &  1.247790e+06 &  2.777501e+06 &  5.728905e+06 \\
+                    & (Erdos-Renyi random p=0.100000, 10000) &  3.183725e+05 &  2.119023e+06 &  4.861848e+06 \\
+                    & (Preferential attachment 1000 edges per vertice, 10000) &  2.212869e+06 &  5.133172e+06 &  1.407174e+07 \\
+                    & (Preferential attachment 50 edges per vertice, 100000) &  1.293973e+06 &  3.574485e+06 &  6.479484e+06 \\
 \bottomrule
 \end{tabular}
