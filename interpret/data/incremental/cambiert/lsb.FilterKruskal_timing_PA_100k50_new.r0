@@ -1,0 +1,24 @@
+# Sysname : Linux
+# Nodename: eu-a6-011-07
+# Release : 3.10.0-862.14.4.el7.x86_64
+# Version : #1 SMP Wed Sep 26 15:12:11 UTC 2018
+# Machine : x86_64
+# Execution time and date (UTC): Sun Dec 16 16:59:35 2018
+# Execution time and date (local): Sun Dec 16 17:59:35 2018
+# MPI execution on rank 0 with 1 processes in world
+# Reported time measurements are in microseconds
+# pretty output format
+    Algorithm  Graph_nodes   Graph_name  Max_threads          run       id         time     overhead 
+ Filter_Kruskal        100000  Preferential_attachment_50_edges_per_vertice             1             0          0 753208.859619            0 
+ Filter_Kruskal        100000  Preferential_attachment_50_edges_per_vertice             1             1          0 442924.809204            2 
+ Filter_Kruskal        100000  Preferential_attachment_50_edges_per_vertice             2             0          0 317384.589600            5 
+ Filter_Kruskal        100000  Preferential_attachment_50_edges_per_vertice             2             1          0 303335.198364            0 
+ Filter_Kruskal        100000  Preferential_attachment_50_edges_per_vertice             4             0          0 259272.267456            1 
+ Filter_Kruskal        100000  Preferential_attachment_50_edges_per_vertice             4             1          0 212004.313354            0 
+ Filter_Kruskal        100000  Preferential_attachment_50_edges_per_vertice             8             0          0 187857.411743            0 
+ Filter_Kruskal        100000  Preferential_attachment_50_edges_per_vertice             8             1          0 224695.197510            0 
+ Filter_Kruskal        100000  Preferential_attachment_50_edges_per_vertice            16             0          0 134513.780884            1 
+ Filter_Kruskal        100000  Preferential_attachment_50_edges_per_vertice            16             1          0 161469.705078            0 
+ Filter_Kruskal        100000  Preferential_attachment_50_edges_per_vertice            32             0          0 273174.144653            0 
+ Filter_Kruskal        100000  Preferential_attachment_50_edges_per_vertice            32             1          0 168337.604858            0 
+# Runtime: 230.491057 s (overhead: 0.000004 %) 12 records
