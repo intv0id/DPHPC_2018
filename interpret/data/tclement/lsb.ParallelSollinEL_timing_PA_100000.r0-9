@@ -9,22 +9,22 @@
 # Reported time measurements are in microseconds
 # pretty output format
     Algorithm  Graph_nodes   Graph_name  Max_threads          run       id         time     overhead 
- parallel_sollin_EL        100000  Preferential attachment 50 edges per vertice             1             0          0 23639824.300720            1 
- parallel_sollin_EL        100000  Preferential attachment 50 edges per vertice             1             1          0 22985244.816223            0 
- parallel_sollin_EL        100000  Preferential attachment 50 edges per vertice             1             2          0 22858388.272766            1 
- parallel_sollin_EL        100000  Preferential attachment 50 edges per vertice             2             0          0 29324220.131287            1 
- parallel_sollin_EL        100000  Preferential attachment 50 edges per vertice             2             1          0 362911184.826202            2 
- parallel_sollin_EL        100000  Preferential attachment 50 edges per vertice             2             2          0 24022646.345795            2 
- parallel_sollin_EL        100000  Preferential attachment 50 edges per vertice             4             0          0 31580535.884888            3 
- parallel_sollin_EL        100000  Preferential attachment 50 edges per vertice             4             1          0 533316796.463318            0 
- parallel_sollin_EL        100000  Preferential attachment 50 edges per vertice             4             2          0 23124136.560394           18 
- parallel_sollin_EL        100000  Preferential attachment 50 edges per vertice             8             0          0 31711127.683838            0 
- parallel_sollin_EL        100000  Preferential attachment 50 edges per vertice             8             1          0 335492456.951385            0 
- parallel_sollin_EL        100000  Preferential attachment 50 edges per vertice             8             2          0 31783664.457642            3 
- parallel_sollin_EL        100000  Preferential attachment 50 edges per vertice            16             0          0 40786772.581635            0 
- parallel_sollin_EL        100000  Preferential attachment 50 edges per vertice            16             1          0 134723277.049500            0 
- parallel_sollin_EL        100000  Preferential attachment 50 edges per vertice            16             2          0 35676446.419250            0 
- parallel_sollin_EL        100000  Preferential attachment 50 edges per vertice            32             0          0 51711369.246155            0 
- parallel_sollin_EL        100000  Preferential attachment 50 edges per vertice            32             1          0 121889898.324585            2 
- parallel_sollin_EL        100000  Preferential attachment 50 edges per vertice            32             2          0 61674364.346252           24 
+ parallel_sollin_EL        100000  Preferential_attachment_50_edges_per_vertice             1             0          0 23639824.300720            1 
+ parallel_sollin_EL        100000  Preferential_attachment_50_edges_per_vertice             1             1          0 22985244.816223            0 
+ parallel_sollin_EL        100000  Preferential_attachment_50_edges_per_vertice             1             2          0 22858388.272766            1 
+ parallel_sollin_EL        100000  Preferential_attachment_50_edges_per_vertice             2             0          0 29324220.131287            1 
+ parallel_sollin_EL        100000  Preferential_attachment_50_edges_per_vertice             2             1          0 362911184.826202            2 
+ parallel_sollin_EL        100000  Preferential_attachment_50_edges_per_vertice             2             2          0 24022646.345795            2 
+ parallel_sollin_EL        100000  Preferential_attachment_50_edges_per_vertice             4             0          0 31580535.884888            3 
+ parallel_sollin_EL        100000  Preferential_attachment_50_edges_per_vertice             4             1          0 533316796.463318            0 
+ parallel_sollin_EL        100000  Preferential_attachment_50_edges_per_vertice             4             2          0 23124136.560394           18 
+ parallel_sollin_EL        100000  Preferential_attachment_50_edges_per_vertice             8             0          0 31711127.683838            0 
+ parallel_sollin_EL        100000  Preferential_attachment_50_edges_per_vertice             8             1          0 335492456.951385            0 
+ parallel_sollin_EL        100000  Preferential_attachment_50_edges_per_vertice             8             2          0 31783664.457642            3 
+ parallel_sollin_EL        100000  Preferential_attachment_50_edges_per_vertice            16             0          0 40786772.581635            0 
+ parallel_sollin_EL        100000  Preferential_attachment_50_edges_per_vertice            16             1          0 134723277.049500            0 
+ parallel_sollin_EL        100000  Preferential_attachment_50_edges_per_vertice            16             2          0 35676446.419250            0 
+ parallel_sollin_EL        100000  Preferential_attachment_50_edges_per_vertice            32             0          0 51711369.246155            0 
+ parallel_sollin_EL        100000  Preferential_attachment_50_edges_per_vertice            32             1          0 121889898.324585            2 
+ parallel_sollin_EL        100000  Preferential_attachment_50_edges_per_vertice            32             2          0 61674364.346252           24 
 # Runtime: 2271.197868 s (overhead: 0.000003 %) 18 records

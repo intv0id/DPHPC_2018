@@ -9,22 +9,22 @@
 # Reported time measurements are in microseconds
 # pretty output format
     Algorithm  Graph_nodes   Graph_name  Max_threads          run       id         time     overhead 
- Boost_Kruskal         10000  Preferential attachment 50 edges per vertice             1             0          0 340129.742676            0 
- Boost_Kruskal         10000  Preferential attachment 50 edges per vertice             1             1          0 307271.897949            2 
- Boost_Kruskal         10000  Preferential attachment 50 edges per vertice             1             2          0 310390.315430            2 
- Boost_Kruskal         10000  Preferential attachment 50 edges per vertice             2             0          0 318007.880615            0 
- Boost_Kruskal         10000  Preferential attachment 50 edges per vertice             2             1          0 308218.415527            0 
- Boost_Kruskal         10000  Preferential attachment 50 edges per vertice             2             2          0 305133.679199            0 
- Boost_Kruskal         10000  Preferential attachment 50 edges per vertice             4             0          0 306089.837891            0 
- Boost_Kruskal         10000  Preferential attachment 50 edges per vertice             4             1          0 305486.400879            0 
- Boost_Kruskal         10000  Preferential attachment 50 edges per vertice             4             2          0 304283.288818            0 
- Boost_Kruskal         10000  Preferential attachment 50 edges per vertice             8             0          0 305283.667236            0 
- Boost_Kruskal         10000  Preferential attachment 50 edges per vertice             8             1          0 305665.672852            0 
- Boost_Kruskal         10000  Preferential attachment 50 edges per vertice             8             2          0 347367.286621            0 
- Boost_Kruskal         10000  Preferential attachment 50 edges per vertice            16             0          0 307457.314453            0 
- Boost_Kruskal         10000  Preferential attachment 50 edges per vertice            16             1          0 306213.089844            0 
- Boost_Kruskal         10000  Preferential attachment 50 edges per vertice            16             2          0 308356.444092            0 
- Boost_Kruskal         10000  Preferential attachment 50 edges per vertice            32             0          0 316154.789062            0 
- Boost_Kruskal         10000  Preferential attachment 50 edges per vertice            32             1          0 343004.789551            1 
- Boost_Kruskal         10000  Preferential attachment 50 edges per vertice            32             2          0 313254.830078            0 
+ Boost_Kruskal         10000  Preferential_attachment_50_edges_per_vertice             1             0          0 340129.742676            0 
+ Boost_Kruskal         10000  Preferential_attachment_50_edges_per_vertice             1             1          0 307271.897949            2 
+ Boost_Kruskal         10000  Preferential_attachment_50_edges_per_vertice             1             2          0 310390.315430            2 
+ Boost_Kruskal         10000  Preferential_attachment_50_edges_per_vertice             2             0          0 318007.880615            0 
+ Boost_Kruskal         10000  Preferential_attachment_50_edges_per_vertice             2             1          0 308218.415527            0 
+ Boost_Kruskal         10000  Preferential_attachment_50_edges_per_vertice             2             2          0 305133.679199            0 
+ Boost_Kruskal         10000  Preferential_attachment_50_edges_per_vertice             4             0          0 306089.837891            0 
+ Boost_Kruskal         10000  Preferential_attachment_50_edges_per_vertice             4             1          0 305486.400879            0 
+ Boost_Kruskal         10000  Preferential_attachment_50_edges_per_vertice             4             2          0 304283.288818            0 
+ Boost_Kruskal         10000  Preferential_attachment_50_edges_per_vertice             8             0          0 305283.667236            0 
+ Boost_Kruskal         10000  Preferential_attachment_50_edges_per_vertice             8             1          0 305665.672852            0 
+ Boost_Kruskal         10000  Preferential_attachment_50_edges_per_vertice             8             2          0 347367.286621            0 
+ Boost_Kruskal         10000  Preferential_attachment_50_edges_per_vertice            16             0          0 307457.314453            0 
+ Boost_Kruskal         10000  Preferential_attachment_50_edges_per_vertice            16             1          0 306213.089844            0 
+ Boost_Kruskal         10000  Preferential_attachment_50_edges_per_vertice            16             2          0 308356.444092            0 
+ Boost_Kruskal         10000  Preferential_attachment_50_edges_per_vertice            32             0          0 316154.789062            0 
+ Boost_Kruskal         10000  Preferential_attachment_50_edges_per_vertice            32             1          0 343004.789551            1 
+ Boost_Kruskal         10000  Preferential_attachment_50_edges_per_vertice            32             2          0 313254.830078            0 
 # Runtime: 28.261888 s (overhead: 0.000018 %) 18 records

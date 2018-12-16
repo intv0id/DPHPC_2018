@@ -9,22 +9,22 @@
 # Reported time measurements are in microseconds
 # pretty output format
     Algorithm  Graph_nodes   Graph_name  Max_threads          run       id         time     overhead 
- Filter_Kruskal        100000  Preferential attachment 50 edges per vertice             1             0          0 489659.719360            0 
- Filter_Kruskal        100000  Preferential attachment 50 edges per vertice             1             1          0 330167.591675            0 
- Filter_Kruskal        100000  Preferential attachment 50 edges per vertice             1             2          0 495677.021667            8 
- Filter_Kruskal        100000  Preferential attachment 50 edges per vertice             2             0          0 248115.897888            0 
- Filter_Kruskal        100000  Preferential attachment 50 edges per vertice             2             1          0 365228.803406           26 
- Filter_Kruskal        100000  Preferential attachment 50 edges per vertice             2             2          0 292804.236328            0 
- Filter_Kruskal        100000  Preferential attachment 50 edges per vertice             4             0          0 179422.842529            0 
- Filter_Kruskal        100000  Preferential attachment 50 edges per vertice             4             1          0 182268.640320            0 
- Filter_Kruskal        100000  Preferential attachment 50 edges per vertice             4             2          0 213797.235352            2 
- Filter_Kruskal        100000  Preferential attachment 50 edges per vertice             8             0          0 373622.301697            0 
- Filter_Kruskal        100000  Preferential attachment 50 edges per vertice             8             1          0 294396.944885            0 
- Filter_Kruskal        100000  Preferential attachment 50 edges per vertice             8             2          0 266129.498718            0 
- Filter_Kruskal        100000  Preferential attachment 50 edges per vertice            16             0          0 108434.418823            0 
- Filter_Kruskal        100000  Preferential attachment 50 edges per vertice            16             1          0 106192.724426            0 
- Filter_Kruskal        100000  Preferential attachment 50 edges per vertice            16             2          0 158474.835815            0 
- Filter_Kruskal        100000  Preferential attachment 50 edges per vertice            32             0          0 165451.263062            0 
- Filter_Kruskal        100000  Preferential attachment 50 edges per vertice            32             1          0 162885.077271           33 
- Filter_Kruskal        100000  Preferential attachment 50 edges per vertice            32             2          0 140205.929443            0 
+ Filter_Kruskal        100000  Preferential_attachment_50_edges_per_vertice             1             0          0 489659.719360            0 
+ Filter_Kruskal        100000  Preferential_attachment_50_edges_per_vertice             1             1          0 330167.591675            0 
+ Filter_Kruskal        100000  Preferential_attachment_50_edges_per_vertice             1             2          0 495677.021667            8 
+ Filter_Kruskal        100000  Preferential_attachment_50_edges_per_vertice             2             0          0 248115.897888            0 
+ Filter_Kruskal        100000  Preferential_attachment_50_edges_per_vertice             2             1          0 365228.803406           26 
+ Filter_Kruskal        100000  Preferential_attachment_50_edges_per_vertice             2             2          0 292804.236328            0 
+ Filter_Kruskal        100000  Preferential_attachment_50_edges_per_vertice             4             0          0 179422.842529            0 
+ Filter_Kruskal        100000  Preferential_attachment_50_edges_per_vertice             4             1          0 182268.640320            0 
+ Filter_Kruskal        100000  Preferential_attachment_50_edges_per_vertice             4             2          0 213797.235352            2 
+ Filter_Kruskal        100000  Preferential_attachment_50_edges_per_vertice             8             0          0 373622.301697            0 
+ Filter_Kruskal        100000  Preferential_attachment_50_edges_per_vertice             8             1          0 294396.944885            0 
+ Filter_Kruskal        100000  Preferential_attachment_50_edges_per_vertice             8             2          0 266129.498718            0 
+ Filter_Kruskal        100000  Preferential_attachment_50_edges_per_vertice            16             0          0 108434.418823            0 
+ Filter_Kruskal        100000  Preferential_attachment_50_edges_per_vertice            16             1          0 106192.724426            0 
+ Filter_Kruskal        100000  Preferential_attachment_50_edges_per_vertice            16             2          0 158474.835815            0 
+ Filter_Kruskal        100000  Preferential_attachment_50_edges_per_vertice            32             0          0 165451.263062            0 
+ Filter_Kruskal        100000  Preferential_attachment_50_edges_per_vertice            32             1          0 162885.077271           33 
+ Filter_Kruskal        100000  Preferential_attachment_50_edges_per_vertice            32             2          0 140205.929443            0 
 # Runtime: 329.039536 s (overhead: 0.000021 %) 18 records

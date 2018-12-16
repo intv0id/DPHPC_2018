@@ -9,22 +9,22 @@
 # Reported time measurements are in microseconds
 # pretty output format
     Algorithm  Graph_nodes   Graph_name  Max_threads          run       id         time     overhead 
- Sequential_Kruskal        100000  Preferential attachment 50 edges per vertice             1             0          0 2509605.971619            0 
- Sequential_Kruskal        100000  Preferential attachment 50 edges per vertice             1             1          0 2202099.849731            2 
- Sequential_Kruskal        100000  Preferential attachment 50 edges per vertice             1             2          0 2221617.289062            8 
- Sequential_Kruskal        100000  Preferential attachment 50 edges per vertice             2             0          0 2104144.331726            0 
- Sequential_Kruskal        100000  Preferential attachment 50 edges per vertice             2             1          0 2056496.971497            3 
- Sequential_Kruskal        100000  Preferential attachment 50 edges per vertice             2             2          0 2026777.441040            1 
- Sequential_Kruskal        100000  Preferential attachment 50 edges per vertice             4             0          0 2749879.358582            0 
- Sequential_Kruskal        100000  Preferential attachment 50 edges per vertice             4             1          0 2116618.590088            0 
- Sequential_Kruskal        100000  Preferential attachment 50 edges per vertice             4             2          0 2268379.189758            4 
- Sequential_Kruskal        100000  Preferential attachment 50 edges per vertice             8             0          0 2299732.793274            3 
- Sequential_Kruskal        100000  Preferential attachment 50 edges per vertice             8             1          0 1772036.386719            0 
- Sequential_Kruskal        100000  Preferential attachment 50 edges per vertice             8             2          0 1891344.939636            0 
- Sequential_Kruskal        100000  Preferential attachment 50 edges per vertice            16             0          0 1631085.091736            0 
- Sequential_Kruskal        100000  Preferential attachment 50 edges per vertice            16             1          0 1821146.746887            0 
- Sequential_Kruskal        100000  Preferential attachment 50 edges per vertice            16             2          0 1626123.634216            0 
- Sequential_Kruskal        100000  Preferential attachment 50 edges per vertice            32             0          0 2517949.066956            0 
- Sequential_Kruskal        100000  Preferential attachment 50 edges per vertice            32             1          0 1622023.039429            3 
- Sequential_Kruskal        100000  Preferential attachment 50 edges per vertice            32             2          0 1556534.770569            0 
+ Sequential_Kruskal        100000  Preferential_attachment_50_edges_per_vertice             1             0          0 2509605.971619            0 
+ Sequential_Kruskal        100000  Preferential_attachment_50_edges_per_vertice             1             1          0 2202099.849731            2 
+ Sequential_Kruskal        100000  Preferential_attachment_50_edges_per_vertice             1             2          0 2221617.289062            8 
+ Sequential_Kruskal        100000  Preferential_attachment_50_edges_per_vertice             2             0          0 2104144.331726            0 
+ Sequential_Kruskal        100000  Preferential_attachment_50_edges_per_vertice             2             1          0 2056496.971497            3 
+ Sequential_Kruskal        100000  Preferential_attachment_50_edges_per_vertice             2             2          0 2026777.441040            1 
+ Sequential_Kruskal        100000  Preferential_attachment_50_edges_per_vertice             4             0          0 2749879.358582            0 
+ Sequential_Kruskal        100000  Preferential_attachment_50_edges_per_vertice             4             1          0 2116618.590088            0 
+ Sequential_Kruskal        100000  Preferential_attachment_50_edges_per_vertice             4             2          0 2268379.189758            4 
+ Sequential_Kruskal        100000  Preferential_attachment_50_edges_per_vertice             8             0          0 2299732.793274            3 
+ Sequential_Kruskal        100000  Preferential_attachment_50_edges_per_vertice             8             1          0 1772036.386719            0 
+ Sequential_Kruskal        100000  Preferential_attachment_50_edges_per_vertice             8             2          0 1891344.939636            0 
+ Sequential_Kruskal        100000  Preferential_attachment_50_edges_per_vertice            16             0          0 1631085.091736            0 
+ Sequential_Kruskal        100000  Preferential_attachment_50_edges_per_vertice            16             1          0 1821146.746887            0 
+ Sequential_Kruskal        100000  Preferential_attachment_50_edges_per_vertice            16             2          0 1626123.634216            0 
+ Sequential_Kruskal        100000  Preferential_attachment_50_edges_per_vertice            32             0          0 2517949.066956            0 
+ Sequential_Kruskal        100000  Preferential_attachment_50_edges_per_vertice            32             1          0 1622023.039429            3 
+ Sequential_Kruskal        100000  Preferential_attachment_50_edges_per_vertice            32             2          0 1556534.770569            0 
 # Runtime: 353.304727 s (overhead: 0.000007 %) 18 records

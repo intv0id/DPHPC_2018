@@ -9,34 +9,34 @@
 # Reported time measurements are in microseconds
 # pretty output format
     Algorithm  Graph_nodes   Graph_name  Max_threads          run       id         time     overhead 
- Filter_Sollin         10000  Preferential attachment 50 edges per vertice             1             0          0 80389.889862            0 
- Filter_Sollin         10000  Preferential attachment 50 edges per vertice             1             1          0 74859.178802           24 
- Filter_Sollin         10000  Preferential attachment 50 edges per vertice             1             2          0 92380.703674           22 
- Filter_Sollin         10000  Preferential attachment 50 edges per vertice             1             3          0 74454.502319            0 
- Filter_Sollin         10000  Preferential attachment 50 edges per vertice             1             4          0 79325.549072            0 
- Filter_Sollin         10000  Preferential attachment 50 edges per vertice             2             0          0 70431.471497            0 
- Filter_Sollin         10000  Preferential attachment 50 edges per vertice             2             1          0 86896.186890            0 
- Filter_Sollin         10000  Preferential attachment 50 edges per vertice             2             2          0 112608.369415            0 
- Filter_Sollin         10000  Preferential attachment 50 edges per vertice             2             3          0 471743.648468            2 
- Filter_Sollin         10000  Preferential attachment 50 edges per vertice             2             4          0 315692.164215            0 
- Filter_Sollin         10000  Preferential attachment 50 edges per vertice             4             0          0 302274.758484            0 
- Filter_Sollin         10000  Preferential attachment 50 edges per vertice             4             1          0 438809.061951            0 
- Filter_Sollin         10000  Preferential attachment 50 edges per vertice             4             2          0 412031.621094            0 
- Filter_Sollin         10000  Preferential attachment 50 edges per vertice             4             3          0 409995.642212            0 
- Filter_Sollin         10000  Preferential attachment 50 edges per vertice             4             4          0 283447.254242            0 
- Filter_Sollin         10000  Preferential attachment 50 edges per vertice             8             0          0 304159.428040            0 
- Filter_Sollin         10000  Preferential attachment 50 edges per vertice             8             1          0 429221.707336            4 
- Filter_Sollin         10000  Preferential attachment 50 edges per vertice             8             2          0 413084.021698            0 
- Filter_Sollin         10000  Preferential attachment 50 edges per vertice             8             3          0 60538.358917            0 
- Filter_Sollin         10000  Preferential attachment 50 edges per vertice             8             4          0 435447.535767            0 
- Filter_Sollin         10000  Preferential attachment 50 edges per vertice            16             0          0 418461.573486            0 
- Filter_Sollin         10000  Preferential attachment 50 edges per vertice            16             1          0 280018.978424            0 
- Filter_Sollin         10000  Preferential attachment 50 edges per vertice            16             2          0 374709.050476            3 
- Filter_Sollin         10000  Preferential attachment 50 edges per vertice            16             3          0 377980.677155            0 
- Filter_Sollin         10000  Preferential attachment 50 edges per vertice            16             4          0 480450.856750            0 
- Filter_Sollin         10000  Preferential attachment 50 edges per vertice            32             0          0 529332.292511            2 
- Filter_Sollin         10000  Preferential attachment 50 edges per vertice            32             1          0 387656.142151            0 
- Filter_Sollin         10000  Preferential attachment 50 edges per vertice            32             2          0 437277.787109            0 
- Filter_Sollin         10000  Preferential attachment 50 edges per vertice            32             3          0 530732.982605            0 
- Filter_Sollin         10000  Preferential attachment 50 edges per vertice            32             4          0 390721.735474            2 
+ Filter_Sollin         10000  Preferential_attachment_50_edges_per_vertice             1             0          0 80389.889862            0 
+ Filter_Sollin         10000  Preferential_attachment_50_edges_per_vertice             1             1          0 74859.178802           24 
+ Filter_Sollin         10000  Preferential_attachment_50_edges_per_vertice             1             2          0 92380.703674           22 
+ Filter_Sollin         10000  Preferential_attachment_50_edges_per_vertice             1             3          0 74454.502319            0 
+ Filter_Sollin         10000  Preferential_attachment_50_edges_per_vertice             1             4          0 79325.549072            0 
+ Filter_Sollin         10000  Preferential_attachment_50_edges_per_vertice             2             0          0 70431.471497            0 
+ Filter_Sollin         10000  Preferential_attachment_50_edges_per_vertice             2             1          0 86896.186890            0 
+ Filter_Sollin         10000  Preferential_attachment_50_edges_per_vertice             2             2          0 112608.369415            0 
+ Filter_Sollin         10000  Preferential_attachment_50_edges_per_vertice             2             3          0 471743.648468            2 
+ Filter_Sollin         10000  Preferential_attachment_50_edges_per_vertice             2             4          0 315692.164215            0 
+ Filter_Sollin         10000  Preferential_attachment_50_edges_per_vertice             4             0          0 302274.758484            0 
+ Filter_Sollin         10000  Preferential_attachment_50_edges_per_vertice             4             1          0 438809.061951            0 
+ Filter_Sollin         10000  Preferential_attachment_50_edges_per_vertice             4             2          0 412031.621094            0 
+ Filter_Sollin         10000  Preferential_attachment_50_edges_per_vertice             4             3          0 409995.642212            0 
+ Filter_Sollin         10000  Preferential_attachment_50_edges_per_vertice             4             4          0 283447.254242            0 
+ Filter_Sollin         10000  Preferential_attachment_50_edges_per_vertice             8             0          0 304159.428040            0 
+ Filter_Sollin         10000  Preferential_attachment_50_edges_per_vertice             8             1          0 429221.707336            4 
+ Filter_Sollin         10000  Preferential_attachment_50_edges_per_vertice             8             2          0 413084.021698            0 
+ Filter_Sollin         10000  Preferential_attachment_50_edges_per_vertice             8             3          0 60538.358917            0 
+ Filter_Sollin         10000  Preferential_attachment_50_edges_per_vertice             8             4          0 435447.535767            0 
+ Filter_Sollin         10000  Preferential_attachment_50_edges_per_vertice            16             0          0 418461.573486            0 
+ Filter_Sollin         10000  Preferential_attachment_50_edges_per_vertice            16             1          0 280018.978424            0 
+ Filter_Sollin         10000  Preferential_attachment_50_edges_per_vertice            16             2          0 374709.050476            3 
+ Filter_Sollin         10000  Preferential_attachment_50_edges_per_vertice            16             3          0 377980.677155            0 
+ Filter_Sollin         10000  Preferential_attachment_50_edges_per_vertice            16             4          0 480450.856750            0 
+ Filter_Sollin         10000  Preferential_attachment_50_edges_per_vertice            32             0          0 529332.292511            2 
+ Filter_Sollin         10000  Preferential_attachment_50_edges_per_vertice            32             1          0 387656.142151            0 
+ Filter_Sollin         10000  Preferential_attachment_50_edges_per_vertice            32             2          0 437277.787109            0 
+ Filter_Sollin         10000  Preferential_attachment_50_edges_per_vertice            32             3          0 530732.982605            0 
+ Filter_Sollin         10000  Preferential_attachment_50_edges_per_vertice            32             4          0 390721.735474            2 
 # Runtime: 49.140756 s (overhead: 0.000120 %) 30 records
