@@ -1,0 +1,30 @@
+# Sysname : Linux
+# Nodename: eu-a6-002-09
+# Release : 3.10.0-862.14.4.el7.x86_64
+# Version : #1 SMP Wed Sep 26 15:12:11 UTC 2018
+# Machine : x86_64
+# Execution time and date (UTC): Sat Dec 15 23:41:05 2018
+# Execution time and date (local): Sun Dec 16 00:41:05 2018
+# MPI execution on rank 0 with 1 processes in world
+# Reported time measurements are in microseconds
+# pretty output format
+    Algorithm  Graph_nodes   Graph_name  Max_threads          run       id         time     overhead 
+ parallel_sollin_EL        100000  Erdos-Renyi_random             1             0          0 16762419.767944            0 
+ parallel_sollin_EL        100000  Erdos-Renyi_random             1             1          0 16054167.931885            1 
+ parallel_sollin_EL        100000  Erdos-Renyi_random             1             2          0 16302534.176147            1 
+ parallel_sollin_EL        100000  Erdos-Renyi_random             2             0          0 16639077.160706            1 
+ parallel_sollin_EL        100000  Erdos-Renyi_random             2             1          0 130073411.334961            1 
+ parallel_sollin_EL        100000  Erdos-Renyi_random             2             2          0 19079814.517578            2 
+ parallel_sollin_EL        100000  Erdos-Renyi_random             4             0          0 26151198.334473            3 
+ parallel_sollin_EL        100000  Erdos-Renyi_random             4             1          0 39488072.608459            0 
+ parallel_sollin_EL        100000  Erdos-Renyi_random             4             2          0 16995385.475586            5 
+ parallel_sollin_EL        100000  Erdos-Renyi_random             8             0          0 25855447.087830            2 
+ parallel_sollin_EL        100000  Erdos-Renyi_random             8             1          0 32704326.200378            0 
+ parallel_sollin_EL        100000  Erdos-Renyi_random             8             2          0 22151196.491272            0 
+ parallel_sollin_EL        100000  Erdos-Renyi_random            16             0          0 29427421.310608            0 
+ parallel_sollin_EL        100000  Erdos-Renyi_random            16             1          0 35434601.894958            2 
+ parallel_sollin_EL        100000  Erdos-Renyi_random            16             2          0 25768102.136536            1 
+ parallel_sollin_EL        100000  Erdos-Renyi_random            32             0          0 37491008.493164            0 
+ parallel_sollin_EL        100000  Erdos-Renyi_random            32             1          0 54355859.363037            1 
+ parallel_sollin_EL        100000  Erdos-Renyi_random            32             2          0 34263972.708069            2 
+# Runtime: 766.918234 s (overhead: 0.000003 %) 18 records

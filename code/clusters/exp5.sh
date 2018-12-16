@@ -19,8 +19,8 @@ slow_algorithms=("ParallelSollinEL" "ParallelSollinAL" "ParallelSollinFAL" "Soll
 # Variables
 algorithms=$fast_algorithms ;
 MAX_THREAD=32 ;
-RUNS=3 ;
-TIMES=5 ;
+RUNS=1 ;
+TIMES=10 ;
 
 
 # Arguments:
