@@ -1,0 +1,42 @@
+# Sysname : Linux
+# Nodename: eu-a6-007-22
+# Release : 3.10.0-862.14.4.el7.x86_64
+# Version : #1 SMP Wed Sep 26 15:12:11 UTC 2018
+# Machine : x86_64
+# Execution time and date (UTC): Sat Dec 15 22:30:36 2018
+# Execution time and date (local): Sat Dec 15 23:30:36 2018
+# MPI execution on rank 0 with 1 processes in world
+# Reported time measurements are in microseconds
+# pretty output format
+    Algorithm  Graph_nodes   Graph_name  Max_threads          run       id         time     overhead 
+ Filter_Kruskal       1524453   USA-road-d.             1             0          0 1771658.386719            0 
+ Filter_Kruskal       1524453   USA-road-d.             1             1          0 1622315.549805            4 
+ Filter_Kruskal       1524453   USA-road-d.             1             2          0 2315347.042969            3 
+ Filter_Kruskal       1524453   USA-road-d.             1             3          0 2250683.359863            0 
+ Filter_Kruskal       1524453   USA-road-d.             1             4          0 2316639.364258            6 
+ Filter_Kruskal       1524453   USA-road-d.             2             0          0 1912569.159668            0 
+ Filter_Kruskal       1524453   USA-road-d.             2             1          0 1984623.620117            0 
+ Filter_Kruskal       1524453   USA-road-d.             2             2          0 1928625.142090            0 
+ Filter_Kruskal       1524453   USA-road-d.             2             3          0 1915026.205078           10 
+ Filter_Kruskal       1524453   USA-road-d.             2             4          0 1932265.932617            0 
+ Filter_Kruskal       1524453   USA-road-d.             4             0          0 1586565.687012            0 
+ Filter_Kruskal       1524453   USA-road-d.             4             1          0 1631246.661621            0 
+ Filter_Kruskal       1524453   USA-road-d.             4             2          0 1679705.954590            0 
+ Filter_Kruskal       1524453   USA-road-d.             4             3          0 1736427.095215            0 
+ Filter_Kruskal       1524453   USA-road-d.             4             4          0 1610241.672852            3 
+ Filter_Kruskal       1524453   USA-road-d.             8             0          0 1629721.076660            0 
+ Filter_Kruskal       1524453   USA-road-d.             8             1          0 1651823.605957            9 
+ Filter_Kruskal       1524453   USA-road-d.             8             2          0 1622271.829590            3 
+ Filter_Kruskal       1524453   USA-road-d.             8             3          0 2086656.801758            1 
+ Filter_Kruskal       1524453   USA-road-d.             8             4          0 1924617.043457            4 
+ Filter_Kruskal       1524453   USA-road-d.            16             0          0 1473366.401367            0 
+ Filter_Kruskal       1524453   USA-road-d.            16             1          0 1465416.894531            2 
+ Filter_Kruskal       1524453   USA-road-d.            16             2          0 1506186.570801            3 
+ Filter_Kruskal       1524453   USA-road-d.            16             3          0 1844690.306152            0 
+ Filter_Kruskal       1524453   USA-road-d.            16             4          0 1449155.817871            2 
+ Filter_Kruskal       1524453   USA-road-d.            32             0          0 1490882.236816            0 
+ Filter_Kruskal       1524453   USA-road-d.            32             1          0 1496376.920898            0 
+ Filter_Kruskal       1524453   USA-road-d.            32             2          0 1461521.803223            0 
+ Filter_Kruskal       1524453   USA-road-d.            32             3          0 1462774.905762            0 
+ Filter_Kruskal       1524453   USA-road-d.            32             4          0 1907557.209473            0 
+# Runtime: 598.824796 s (overhead: 0.000008 %) 30 records

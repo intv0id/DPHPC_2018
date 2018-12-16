@@ -1,0 +1,42 @@
+# Sysname : Linux
+# Nodename: eu-a6-007-22
+# Release : 3.10.0-862.14.4.el7.x86_64
+# Version : #1 SMP Wed Sep 26 15:12:11 UTC 2018
+# Machine : x86_64
+# Execution time and date (UTC): Sat Dec 15 22:40:59 2018
+# Execution time and date (local): Sat Dec 15 23:40:59 2018
+# MPI execution on rank 0 with 1 processes in world
+# Reported time measurements are in microseconds
+# pretty output format
+    Algorithm  Graph_nodes   Graph_name  Max_threads          run       id         time     overhead 
+ Sequential_Kruskal       1524453   USA-road-d.             1             0          0 2084532.417969            0 
+ Sequential_Kruskal       1524453   USA-road-d.             1             1          0 2050222.621094            1 
+ Sequential_Kruskal       1524453   USA-road-d.             1             2          0 2664347.894531            2 
+ Sequential_Kruskal       1524453   USA-road-d.             1             3          0 2845063.509277            0 
+ Sequential_Kruskal       1524453   USA-road-d.             1             4          0 2696719.152344            9 
+ Sequential_Kruskal       1524453   USA-road-d.             2             0          0 2508155.183594            0 
+ Sequential_Kruskal       1524453   USA-road-d.             2             1          0 2584796.353027            0 
+ Sequential_Kruskal       1524453   USA-road-d.             2             2          0 2514091.222168            4 
+ Sequential_Kruskal       1524453   USA-road-d.             2             3          0 2500154.041504           17 
+ Sequential_Kruskal       1524453   USA-road-d.             2             4          0 2564815.343750            0 
+ Sequential_Kruskal       1524453   USA-road-d.             4             0          0 2397333.182129            0 
+ Sequential_Kruskal       1524453   USA-road-d.             4             1          0 2388086.151367            0 
+ Sequential_Kruskal       1524453   USA-road-d.             4             2          0 2470561.077637            0 
+ Sequential_Kruskal       1524453   USA-road-d.             4             3          0 2390234.350586            5 
+ Sequential_Kruskal       1524453   USA-road-d.             4             4          0 2375698.570312            0 
+ Sequential_Kruskal       1524453   USA-road-d.             8             0          0 2354184.840332            0 
+ Sequential_Kruskal       1524453   USA-road-d.             8             1          0 2553265.255859           13 
+ Sequential_Kruskal       1524453   USA-road-d.             8             2          0 3505755.082031            0 
+ Sequential_Kruskal       1524453   USA-road-d.             8             3          0 2649877.279785            3 
+ Sequential_Kruskal       1524453   USA-road-d.             8             4          0 2656822.230469            2 
+ Sequential_Kruskal       1524453   USA-road-d.            16             0          0 2491071.053711            0 
+ Sequential_Kruskal       1524453   USA-road-d.            16             1          0 2371079.721680            0 
+ Sequential_Kruskal       1524453   USA-road-d.            16             2          0 2211004.447266            0 
+ Sequential_Kruskal       1524453   USA-road-d.            16             3          0 2308985.926270            0 
+ Sequential_Kruskal       1524453   USA-road-d.            16             4          0 2190243.318848            0 
+ Sequential_Kruskal       1524453   USA-road-d.            32             0          0 1759389.895020            0 
+ Sequential_Kruskal       1524453   USA-road-d.            32             1          0 2347808.224609            0 
+ Sequential_Kruskal       1524453   USA-road-d.            32             2          0 2564638.458984            0 
+ Sequential_Kruskal       1524453   USA-road-d.            32             3          0 3526663.349609            0 
+ Sequential_Kruskal       1524453   USA-road-d.            32             4          0 3216032.320801            4 
+# Runtime: 641.412816 s (overhead: 0.000009 %) 30 records
