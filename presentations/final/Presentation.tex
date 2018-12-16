@@ -90,6 +90,7 @@
 \usepackage[backend=biber, style=authoryear, doi=false,isbn=false,url=false, giveninits=true]{biblatex}
 \bibliography{bib.bib}
  
+\usepackage{mathrsfs}
 
 \begin{document}
 
@@ -252,7 +253,78 @@ USA Roads
 \end{frame}
 
 \begin{frame}
-\frametitle{Filter Kruskal}
+
+	\frametitle{Filter Kruskal}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Amdahl's law}
+
+	$S_p$ is the speedup with $p$ cores, $f$ is the part of the program that is sequential.
+
+	\[
+		S_p = \frac{1}{\frac{1-f}{p} + f}
+	\]
+	\[
+		f = \frac{\frac{p}{S_p} - 1}{p - 1}
+	\]
+
+\end{frame}
+
+\begin{frame}
+
+    \frametitle{Amdahl's law: Kruskal}
+
+	Graph: Erdos-Renyi (100,000 nodes, $p=0.0005$)
+
+	\begin{center}
+		\begin{tabular}{||c c c c||} 
+			\hline
+            Cores & Median speed-up & Standard deviation & f \\ [0.5ex] 
+			\hline\hline
+            1 & 1 & 0.0129805395 & - \\
+			\hline
+            2 & 1.1881513396 & 0.0400305172 & 0.6832872491 \\
+			\hline
+            4 & 1.3340592415 & 0.0130798641 & 0.6661225318 \\
+			\hline
+            8 & 1.3134515984 & 0.01048841 & 0.7272602975 \\
+			\hline
+            16 & 1.4399618642 & 0.0088220116 & 0.6740936918 \\
+			\hline
+            32 & 1.3877640643 & 0.0442081933 & 0.7115701488 \\ [1ex] 
+			\hline
+		\end{tabular}
+	\end{center}
+
+\end{frame}
+
+\begin{frame}
+
+    \frametitle{Amdahl's law: Filter Kruskal}
+
+	Graph: Preferential attachment (10,000 nodes, 1,000 edges per vertex)
+
+	\begin{center}
+		\begin{tabular}{||c c c c||} 
+			\hline
+            Cores & Median speed-up & Standard deviation & f \\ [0.5ex] 
+			\hline\hline
+			1 & 1 & 0.174182691 & - \\
+			\hline
+			2 & 1.6268639022 & 0.2472258016 & 0.2293591353 \\
+			\hline
+			4 & 2.669168898	& 0.5213238241 & 0.1661979381 \\
+			\hline
+			8 & 5.3584384444 & 0.9757941767 & 0.0704246098 \\
+			\hline
+			16 & 5.7447285937 & 1.108109986 & 0.1190108026 \\
+			\hline
+			32 & 5.6322979489 & 1.497976882 & 0.1510166972 \\ [1ex] 
+			\hline
+		\end{tabular}
+	\end{center}
 
 \end{frame}
 
