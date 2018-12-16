@@ -20,10 +20,6 @@ MAX_THREAD=32 ;
 RUNS=2 ;
 TIMES=5 ;
 
-MAX_THREAD=4 ;
-RUNS=2 ;
-TIMES=1 ;
-
 # Arguments:
 # 1: path to executable
 # 2: additional flags
