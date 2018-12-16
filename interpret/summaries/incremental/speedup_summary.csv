@@ -1,14 +1,145 @@
 Graph,Algorithm,Max threads,median,std
-"('Erdos-Renyi random p=0.000500', 100000)",Sequential Kruskal,1,1.0000842401,0.0129805395
-"('Erdos-Renyi random p=0.000500', 100000)",Sequential Kruskal,2,1.1881513396,0.0400305172
-"('Erdos-Renyi random p=0.000500', 100000)",Sequential Kruskal,4,1.3340592415,0.0130798641
-"('Erdos-Renyi random p=0.000500', 100000)",Sequential Kruskal,8,1.3134515984,0.010488414
-"('Erdos-Renyi random p=0.000500', 100000)",Sequential Kruskal,16,1.4399618642,0.0088220116
-"('Erdos-Renyi random p=0.000500', 100000)",Sequential Kruskal,32,1.3877640643,0.0442081933
-,,,,
-"('Preferential attachment 1000 edges per vertice', 10000)",Filter Kruskal,1,1.0000977812,0.174182691
-"('Preferential attachment 1000 edges per vertice', 10000)",Filter Kruskal,2,1.6268639022,0.2472258016
-"('Preferential attachment 1000 edges per vertice', 10000)",Filter Kruskal,4,2.669168898,0.5213238241
-"('Preferential attachment 1000 edges per vertice', 10000)",Filter Kruskal,8,5.3584384444,0.9757941767
-"('Preferential attachment 1000 edges per vertice', 10000)",Filter Kruskal,16,5.7447285937,1.1081099868
-"('Preferential attachment 1000 edges per vertice', 10000)",Filter Kruskal,32,5.6322979489,1.4979768827
+"('Erdos-Renyi random p=0.000500', 100000)",Boost Kruskal,1,1.0000370791762752,0.00861168405603037
+"('Erdos-Renyi random p=0.000500', 100000)",Boost Kruskal,2,0.9845358190428299,0.032996305837627096
+"('Erdos-Renyi random p=0.000500', 100000)",Boost Kruskal,4,1.0078879147531326,0.0018460198193042566
+"('Erdos-Renyi random p=0.000500', 100000)",Boost Kruskal,8,0.9899506188800181,0.020222409697536303
+"('Erdos-Renyi random p=0.000500', 100000)",Boost Kruskal,16,1.0024017954047344,0.002000277619099965
+"('Erdos-Renyi random p=0.000500', 100000)",Boost Kruskal,32,0.9909968766864976,0.018977802144977202
+"('Erdos-Renyi random p=0.000500', 100000)",Boost Prim,1,1.0020110188565374,0.0634832742283923
+"('Erdos-Renyi random p=0.000500', 100000)",Boost Prim,2,1.132853231200219,0.09027140119748014
+"('Erdos-Renyi random p=0.000500', 100000)",Boost Prim,4,1.1948989892281878,0.0020779167027752585
+"('Erdos-Renyi random p=0.000500', 100000)",Boost Prim,8,1.1498515804091425,0.06047492339537891
+"('Erdos-Renyi random p=0.000500', 100000)",Boost Prim,16,1.1941400919187437,0.00047996022506899044
+"('Erdos-Renyi random p=0.000500', 100000)",Boost Prim,32,1.1762983779702187,0.022930948688784644
+"('Erdos-Renyi random p=0.000500', 100000)",Filter Kruskal,1,1.0021838053330256,0.16901641069350182
+"('Erdos-Renyi random p=0.000500', 100000)",Filter Kruskal,2,1.8089032318537437,0.2509694081442771
+"('Erdos-Renyi random p=0.000500', 100000)",Filter Kruskal,4,2.518659593238763,0.2739448415838149
+"('Erdos-Renyi random p=0.000500', 100000)",Filter Kruskal,8,2.9836617229060938,0.5046361235975648
+"('Erdos-Renyi random p=0.000500', 100000)",Filter Kruskal,16,2.695620828511041,0.3528161562121061
+"('Erdos-Renyi random p=0.000500', 100000)",Filter Kruskal,32,2.142682392428553,0.3070786076891435
+"('Erdos-Renyi random p=0.000500', 100000)",Filter Sollin,1,1.0000860054991338,0.06832161778884645
+"('Erdos-Renyi random p=0.000500', 100000)",Filter Sollin,2,0.8028884416046156,0.525973757035806
+"('Erdos-Renyi random p=0.000500', 100000)",Filter Sollin,4,0.3968166249778592,0.08558991595446064
+"('Erdos-Renyi random p=0.000500', 100000)",Filter Sollin,8,0.30934939852935894,0.32310791207592443
+"('Erdos-Renyi random p=0.000500', 100000)",Filter Sollin,16,0.4605157533622385,0.4525520649923152
+"('Erdos-Renyi random p=0.000500', 100000)",Filter Sollin,32,0.31805567012639624,0.16533886470721867
+"('Erdos-Renyi random p=0.000500', 100000)",Sequential Kruskal,1,1.000084240106106,0.012980539472727242
+"('Erdos-Renyi random p=0.000500', 100000)",Sequential Kruskal,2,1.188151339596611,0.04003051722160075
+"('Erdos-Renyi random p=0.000500', 100000)",Sequential Kruskal,4,1.334059241460633,0.013079864103034548
+"('Erdos-Renyi random p=0.000500', 100000)",Sequential Kruskal,8,1.3134515983802837,0.010488414009255266
+"('Erdos-Renyi random p=0.000500', 100000)",Sequential Kruskal,16,1.439961864216122,0.008822011607190119
+"('Erdos-Renyi random p=0.000500', 100000)",Sequential Kruskal,32,1.3877640642862556,0.04420819332823471
+"('Erdos-Renyi random p=0.000500', 100000)",parallel sollin FAL,1,1.000000809293132,0.023249321518525854
+"('Erdos-Renyi random p=0.000500', 100000)",parallel sollin FAL,2,1.2881226697357682,0.4447557372548354
+"('Erdos-Renyi random p=0.000500', 100000)",parallel sollin FAL,4,0.43226784325931,0.5267337528285184
+"('Erdos-Renyi random p=0.000500', 100000)",parallel sollin FAL,8,0.434136142261654,0.5214585330422218
+"('Erdos-Renyi random p=0.000500', 100000)",parallel sollin FAL,16,0.3456345123690835,0.06102215636942762
+"('Erdos-Renyi random p=0.000500', 100000)",parallel sollin FAL,32,0.43021180851857793,0.6882777057306142
+"('Erdos-Renyi random p=0.100000', 10000)",Boost Kruskal,1,1.0006958411796028,0.03731823614668691
+"('Erdos-Renyi random p=0.100000', 10000)",Boost Kruskal,2,1.01194111907435,0.025083772581401605
+"('Erdos-Renyi random p=0.100000', 10000)",Boost Kruskal,4,1.0108540185603547,0.024502205351542784
+"('Erdos-Renyi random p=0.100000', 10000)",Boost Kruskal,8,1.0080050036067922,0.013189981803224145
+"('Erdos-Renyi random p=0.100000', 10000)",Boost Kruskal,16,1.0259552348779748,0.0029227922644228903
+"('Erdos-Renyi random p=0.100000', 10000)",Boost Kruskal,32,1.0069762930679387,0.01770086516934854
+"('Erdos-Renyi random p=0.100000', 10000)",Boost Prim,1,1.0008051382834988,0.040144402627375196
+"('Erdos-Renyi random p=0.100000', 10000)",Boost Prim,2,1.0982679319037287,0.11573752684663693
+"('Erdos-Renyi random p=0.100000', 10000)",Boost Prim,4,1.169649897940824,0.028650790636308987
+"('Erdos-Renyi random p=0.100000', 10000)",Boost Prim,8,1.1500058864348162,0.05412271090208448
+"('Erdos-Renyi random p=0.100000', 10000)",Boost Prim,16,1.1848016278294073,0.0065826446841858064
+"('Erdos-Renyi random p=0.100000', 10000)",Boost Prim,32,1.1530834088932722,0.04885559879708487
+"('Erdos-Renyi random p=0.100000', 10000)",Filter Kruskal,1,1.0000184459580392,0.3729563921444097
+"('Erdos-Renyi random p=0.100000', 10000)",Filter Kruskal,2,1.9370089000464712,0.266557651631499
+"('Erdos-Renyi random p=0.100000', 10000)",Filter Kruskal,4,3.1070708042755593,0.850786059245688
+"('Erdos-Renyi random p=0.100000', 10000)",Filter Kruskal,8,3.5859942249821506,1.657883196867187
+"('Erdos-Renyi random p=0.100000', 10000)",Filter Kruskal,16,5.970522661613476,1.2267033013464637
+"('Erdos-Renyi random p=0.100000', 10000)",Filter Kruskal,32,4.48906898129318,1.159712464461653
+"('Erdos-Renyi random p=0.100000', 10000)",Filter Sollin,1,1.0001881328745021,0.26360934371844286
+"('Erdos-Renyi random p=0.100000', 10000)",Filter Sollin,2,1.5325499046224345,0.8434489646999402
+"('Erdos-Renyi random p=0.100000', 10000)",Filter Sollin,4,2.3979130366502086,1.5528750741282227
+"('Erdos-Renyi random p=0.100000', 10000)",Filter Sollin,8,0.15432659993602962,0.9707140782476222
+"('Erdos-Renyi random p=0.100000', 10000)",Filter Sollin,16,0.15532919604561812,0.46644873002309106
+"('Erdos-Renyi random p=0.100000', 10000)",Filter Sollin,32,0.18091710074558592,2.421111674838194
+"('Erdos-Renyi random p=0.100000', 10000)",Sequential Kruskal,1,1.0029548499887715,0.07698806566251136
+"('Erdos-Renyi random p=0.100000', 10000)",Sequential Kruskal,2,1.0867260877305922,0.09604151960224833
+"('Erdos-Renyi random p=0.100000', 10000)",Sequential Kruskal,4,1.2225279147791115,0.018741835548117147
+"('Erdos-Renyi random p=0.100000', 10000)",Sequential Kruskal,8,0.9970119445587051,0.06077828048822975
+"('Erdos-Renyi random p=0.100000', 10000)",Sequential Kruskal,16,1.391123180213223,0.025064406375711272
+"('Erdos-Renyi random p=0.100000', 10000)",Sequential Kruskal,32,1.2372513636114633,0.31007565220982913
+"('Erdos-Renyi random p=0.100000', 10000)",parallel sollin FAL,1,1.000119607206108,0.10886851297990462
+"('Erdos-Renyi random p=0.100000', 10000)",parallel sollin FAL,2,1.3469695567312914,0.49824968966824146
+"('Erdos-Renyi random p=0.100000', 10000)",parallel sollin FAL,4,0.6612542347997531,1.0321501949221041
+"('Erdos-Renyi random p=0.100000', 10000)",parallel sollin FAL,8,0.6894364908647285,1.5305128062996114
+"('Erdos-Renyi random p=0.100000', 10000)",parallel sollin FAL,16,0.6630293289806697,1.9572742915252062
+"('Erdos-Renyi random p=0.100000', 10000)",parallel sollin FAL,32,0.7579120522852145,2.049031981173672
+"('Preferential attachment 1000 edges per vertice', 10000)",Boost Kruskal,1,1.000888417403398,0.04217123875061529
+"('Preferential attachment 1000 edges per vertice', 10000)",Boost Kruskal,2,0.9935783219299258,0.02327353009731814
+"('Preferential attachment 1000 edges per vertice', 10000)",Boost Kruskal,4,1.009304550830517,0.031241797625486224
+"('Preferential attachment 1000 edges per vertice', 10000)",Boost Kruskal,8,1.0077466876451264,0.034640338962628386
+"('Preferential attachment 1000 edges per vertice', 10000)",Boost Kruskal,16,0.9902296639046713,0.022870740134653667
+"('Preferential attachment 1000 edges per vertice', 10000)",Boost Kruskal,32,0.8525617674798971,0.24180507130175607
+"('Preferential attachment 1000 edges per vertice', 10000)",Boost Prim,1,1.0006165453282774,0.0351262140407775
+"('Preferential attachment 1000 edges per vertice', 10000)",Boost Prim,2,0.9990647663355996,0.030004882997294906
+"('Preferential attachment 1000 edges per vertice', 10000)",Boost Prim,4,0.9473531368944611,0.09662468097940506
+"('Preferential attachment 1000 edges per vertice', 10000)",Boost Prim,8,0.958209004792303,0.01990318863857766
+"('Preferential attachment 1000 edges per vertice', 10000)",Boost Prim,16,0.9765252323760818,0.02375158530590766
+"('Preferential attachment 1000 edges per vertice', 10000)",Boost Prim,32,0.9779094491036879,0.0270896067089846
+"('Preferential attachment 1000 edges per vertice', 10000)",Filter Kruskal,1,1.000097781187485,0.17418269099892203
+"('Preferential attachment 1000 edges per vertice', 10000)",Filter Kruskal,2,1.626863902204537,0.2472258016123427
+"('Preferential attachment 1000 edges per vertice', 10000)",Filter Kruskal,4,2.669168897994151,0.5213238240628324
+"('Preferential attachment 1000 edges per vertice', 10000)",Filter Kruskal,8,5.3584384443957305,0.9757941767384568
+"('Preferential attachment 1000 edges per vertice', 10000)",Filter Kruskal,16,5.744728593745171,1.1081099867563495
+"('Preferential attachment 1000 edges per vertice', 10000)",Filter Kruskal,32,5.632297948930049,1.497976882732951
+"('Preferential attachment 1000 edges per vertice', 10000)",Filter Sollin,1,1.0017228872948014,0.25662646877375594
+"('Preferential attachment 1000 edges per vertice', 10000)",Filter Sollin,2,1.4135923461181041,0.4970158744445962
+"('Preferential attachment 1000 edges per vertice', 10000)",Filter Sollin,4,0.18208897784079392,0.7413759314973128
+"('Preferential attachment 1000 edges per vertice', 10000)",Filter Sollin,8,0.20731809054485556,0.7631085681808856
+"('Preferential attachment 1000 edges per vertice', 10000)",Filter Sollin,16,0.11833241547219361,0.21728931200211846
+"('Preferential attachment 1000 edges per vertice', 10000)",Filter Sollin,32,0.252884631205322,1.1187859874220771
+"('Preferential attachment 1000 edges per vertice', 10000)",Sequential Kruskal,1,1.0014133459092336,0.05320420013293294
+"('Preferential attachment 1000 edges per vertice', 10000)",Sequential Kruskal,2,1.1001515224275997,0.09441876680955913
+"('Preferential attachment 1000 edges per vertice', 10000)",Sequential Kruskal,4,1.2814990593329707,0.08141376417167437
+"('Preferential attachment 1000 edges per vertice', 10000)",Sequential Kruskal,8,1.3685421694599542,0.10998301255419732
+"('Preferential attachment 1000 edges per vertice', 10000)",Sequential Kruskal,16,0.9257971615345224,0.07048244994967631
+"('Preferential attachment 1000 edges per vertice', 10000)",Sequential Kruskal,32,1.2117065519599652,0.33320244664686227
+"('Preferential attachment 1000 edges per vertice', 10000)",parallel sollin FAL,1,1.000000150786243,0.08543673152178033
+"('Preferential attachment 1000 edges per vertice', 10000)",parallel sollin FAL,2,0.8878977371272809,0.3797294747990884
+"('Preferential attachment 1000 edges per vertice', 10000)",parallel sollin FAL,4,0.5677368128567353,0.44225425389425876
+"('Preferential attachment 1000 edges per vertice', 10000)",parallel sollin FAL,8,0.7296201635905024,0.6087240414196535
+"('Preferential attachment 1000 edges per vertice', 10000)",parallel sollin FAL,16,1.5836009337262782,0.9480207325098763
+"('Preferential attachment 1000 edges per vertice', 10000)",parallel sollin FAL,32,0.6939128658867084,0.6540194327067996
+"('Preferential attachment 50 edges per vertice', 100000)",Boost Kruskal,1,1.0012348790390662,0.04972733584875094
+"('Preferential attachment 50 edges per vertice', 100000)",Boost Kruskal,2,1.0670865677048988,0.0307548716408762
+"('Preferential attachment 50 edges per vertice', 100000)",Boost Kruskal,4,1.0837937968983655,0.007101559928403528
+"('Preferential attachment 50 edges per vertice', 100000)",Boost Kruskal,8,1.0699824534436146,0.02250474241815189
+"('Preferential attachment 50 edges per vertice', 100000)",Boost Kruskal,16,1.0656390101350777,0.005458866887801546
+"('Preferential attachment 50 edges per vertice', 100000)",Boost Kruskal,32,1.075320478538203,0.0061877406602290404
+"('Preferential attachment 50 edges per vertice', 100000)",Boost Prim,1,1.0021766104933816,0.06605070971036642
+"('Preferential attachment 50 edges per vertice', 100000)",Boost Prim,2,1.0608616444209717,0.03315777249361466
+"('Preferential attachment 50 edges per vertice', 100000)",Boost Prim,4,1.0806732518451068,0.0003500453417536594
+"('Preferential attachment 50 edges per vertice', 100000)",Boost Prim,8,1.0575491160606487,0.026642327074580877
+"('Preferential attachment 50 edges per vertice', 100000)",Boost Prim,16,1.0607886025438913,0.026700256945958914
+"('Preferential attachment 50 edges per vertice', 100000)",Boost Prim,32,1.078383590477573,0.0002639516327295423
+"('Preferential attachment 50 edges per vertice', 100000)",Filter Kruskal,1,1.0000296216454203,0.3780639625794443
+"('Preferential attachment 50 edges per vertice', 100000)",Filter Kruskal,2,2.0179559967697225,0.26528034998057287
+"('Preferential attachment 50 edges per vertice', 100000)",Filter Kruskal,4,3.2975679692526914,0.5310909248428319
+"('Preferential attachment 50 edges per vertice', 100000)",Filter Kruskal,8,3.6050678617882643,0.7853067619399791
+"('Preferential attachment 50 edges per vertice', 100000)",Filter Kruskal,16,4.414633649588553,0.8167408930864536
+"('Preferential attachment 50 edges per vertice', 100000)",Filter Kruskal,32,3.345133998008974,0.6954437498748726
+"('Preferential attachment 50 edges per vertice', 100000)",Filter Sollin,1,1.0015432376948288,0.16138737635230666
+"('Preferential attachment 50 edges per vertice', 100000)",Filter Sollin,2,0.3950844780439196,0.5124725771162594
+"('Preferential attachment 50 edges per vertice', 100000)",Filter Sollin,4,0.2963488774128669,0.5190577277434208
+"('Preferential attachment 50 edges per vertice', 100000)",Filter Sollin,8,0.27887682473968006,0.47275268787694813
+"('Preferential attachment 50 edges per vertice', 100000)",Filter Sollin,16,0.39752874855345066,0.31714849368243225
+"('Preferential attachment 50 edges per vertice', 100000)",Filter Sollin,32,0.7133710685922293,0.4522490396177302
+"('Preferential attachment 50 edges per vertice', 100000)",Sequential Kruskal,1,1.0056320571518556,0.10643098439474515
+"('Preferential attachment 50 edges per vertice', 100000)",Sequential Kruskal,2,1.1508893071531976,0.046025946065485906
+"('Preferential attachment 50 edges per vertice', 100000)",Sequential Kruskal,4,1.117023225638398,0.30784411630937164
+"('Preferential attachment 50 edges per vertice', 100000)",Sequential Kruskal,8,1.1879423620726932,0.15694047561024638
+"('Preferential attachment 50 edges per vertice', 100000)",Sequential Kruskal,16,1.084280438380302,0.06514449433556099
+"('Preferential attachment 50 edges per vertice', 100000)",Sequential Kruskal,32,1.235651621007804,0.10524955695672941
+"('Preferential attachment 50 edges per vertice', 100000)",parallel sollin FAL,1,1.0020860420302422,0.19301330830211955
+"('Preferential attachment 50 edges per vertice', 100000)",parallel sollin FAL,2,1.1941500713336,0.43641578861268693
+"('Preferential attachment 50 edges per vertice', 100000)",parallel sollin FAL,4,0.48901806127060293,0.4900170254229952
+"('Preferential attachment 50 edges per vertice', 100000)",parallel sollin FAL,8,0.8087854591137285,0.6955942693731246
+"('Preferential attachment 50 edges per vertice', 100000)",parallel sollin FAL,16,1.156438074750025,0.8277748600119262
+"('Preferential attachment 50 edges per vertice', 100000)",parallel sollin FAL,32,0.7803716654234264,0.748109592478277
