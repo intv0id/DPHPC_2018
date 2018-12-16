@@ -240,7 +240,15 @@ USA Roads
 \subsection{Parallel improvements}
 
 \begin{frame}
-\frametitle{Parallel sorting on Kruskal}
+
+    \frametitle{Parallel sorting on Kruskal}
+
+    $m$ is the number of edges, $p$ is the number of cores, $T(m)$ is the runtime with $m$ edges.
+
+    \begin{itemize}
+        \item Sequential: $ O \left( m \ln(m) + m \right) $
+        \item Parallel sort (\textbf{Intel TBB}): $ O \left( \frac{m \ln(m)}{p} + m \right) $
+    \end{itemize}
 
 \end{frame}
 
@@ -248,6 +256,90 @@ USA Roads
 
 	\frametitle{Filter Kruskal}
 
+    $E$: set of edges, $m = |E|$, $p$ is the number of cores, $T(m)$ is the runtime with $m$ edges.
+
+	\begin{enumerate}
+        \item If $m \leq threshold$ then solve with Kruskal
+        \item Find pivot for edges (weight)\only<2->{: $O(1)$}
+            \only<2>{
+                \begin{itemize}
+                    \item Concurrently sample $256$ elements from the list (\textbf{OpenMP})
+                    \item Sort the list and return the median (\textbf{TBB})
+                \end{itemize}
+            }
+        \item Partition $E$ into $E_{\leq}, E_{>}$\only<3->{: $O\left(\frac{m}{p}\right)$}
+            \only<3>{
+                \begin{itemize}
+                    \item Partition function (\textbf{Intel Parallel STL})
+                \end{itemize}
+            }
+        \item $A_{\leq} = filterKruskal(E_{\leq})$\only<4->{: $T\left(\frac{m}{2}\right)$}
+        \item $E_{>} = filter(E_{>})$\only<5->{: $ O\left( \frac{m}{p} \right) $}
+            \only<5>{
+                \begin{itemize}
+                    \item Partition function (\textbf{Intel Parallel STL})
+                \end{itemize}
+            }
+        \item $A_{>} = filterKruskal(E_{>})$\only<6->{: $O\left( T\left( \frac{m}{2} \right) \right)$}
+            \only<6>{
+                \begin{itemize}
+                    \item In practice way less than $\frac{m}{2}$
+                \end{itemize}
+            }
+        \item Return $merge(A_{\leq}, A_{>})$\only<7->{: $O(1)$}
+    \end{enumerate}
+
+\end{frame}
+
+\begin{frame}
+
+    \frametitle{Filter Kruskal: Complexity analysis}
+
+    \begin{itemize}
+        \item Worst case:
+            $T(m) \leq O\left( \frac{m}{p} \right) + 2 T\left( \frac{m}{2} \right) $
+            \\
+            \only<2->{
+                $T(m) = O\left( \frac{m \ln(m)}{p} + m \right) $
+            }
+        \item Best case:
+            $T(m) \leq O\left( \frac{m}{p} \right) + T\left( \frac{m}{2} \right) $
+            \\
+            \only<3->{
+                $T(m) = O\left( \frac{m}{p} + m \right)  = O(m)$
+            }
+        \only<4->{
+            \item $O(m) \leq T(m) \leq O\left( \frac{m \ln(m)}{p} + m \right) $
+        }
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Kruskal vs Sollin}
+    \begin{itemize}
+        \item Same complexity, but Sollin computing steps are more fine-grained
+        \item Sollin is entirely paralelizable
+        \item Filter Kruskal can be adapted to Filter Sollin
+    \end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION 4
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Results overview}
+
+\begin{frame}
+\frametitle{Runtimes}
+\centering
+\includegraphics[width=10cm]{Graph_runtime.png}
+\end{frame}
+
+\begin{frame}
+\frametitle{Speedups}
+\centering
+\includegraphics[width=10cm]{Speedup.png}
 \end{frame}
 
 \begin{frame}
@@ -319,34 +411,6 @@ USA Roads
 	\end{center}
 
 \end{frame}
-
-\begin{frame}
-\frametitle{Kruskal vs Sollin}
-\begin{itemize}
-\item Same complexity, but Sollin computing steps are more fine-grained
-\item Sollin is entirely paralelizable
-\item Filter Kruskal can be adapted to Filter Sollin
-\end{itemize}
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% SECTION 4
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\section{Results overview}
-
-\begin{frame}
-\frametitle{Runtimes}
-\centering
-\includegraphics[width=10cm]{Graph_runtime.png}
-\end{frame}
-
-\begin{frame}
-\frametitle{Speedups}
-\centering
-\includegraphics[width=10cm]{Speedup.png}
-\end{frame}
-
 
 \begin{frame}
     \printbibliography
