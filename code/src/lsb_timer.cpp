@@ -17,9 +17,9 @@
 
 using namespace std;
 
-LsbTimer::LsbTimer(list<mst_algorithm*> l, string fname, unsigned int m_threads, unsigned int n_runs) : algorithms(l){
+LsbTimer::LsbTimer(list<mst_algorithm*> l, string fname, vector<unsigned int> threads_vec, unsigned int n_runs) : algorithms(l){
     filename = fname;
-    max_threads = m_threads;
+    threads = threads_vec;
     runs = n_runs;
 }
 
@@ -43,7 +43,7 @@ void LsbTimer::clock(list<Graph*> g_list)
             LSB_Set_Rparam_int("Graph_nodes", graph.n);
             LSB_Set_Rparam_string("Graph_name", graph.name.c_str());
 
-            for (unsigned int thread_nb=1; thread_nb <= max_threads; thread_nb *= 2){
+            for (unsigned int thread_nb: threads){
                 omp_set_num_threads(thread_nb);
                 tbb::task_scheduler_init tbb_scheduler(thread_nb);
                 LSB_Set_Rparam_int("Max_threads", thread_nb);

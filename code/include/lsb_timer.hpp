@@ -12,11 +12,11 @@ using namespace std;
 class LsbTimer{
 	string filename;
 	unsigned int runs;
-    unsigned int max_threads;
+    vector<unsigned int> threads;
 	const list<mst_algorithm*> algorithms;
 	public:
 	// Open file, create list of algorithms
-	LsbTimer(list<mst_algorithm*> algorithms, string fname, unsigned int m_threads, unsigned int n_runs);
+	LsbTimer(list<mst_algorithm*> algorithms, string fname, vector<unsigned int> threads_vec, unsigned int n_runs);
 	// Time a list of graphs
 	void clock(list<Graph*> g_list);
     void print_times(vector<double> times);

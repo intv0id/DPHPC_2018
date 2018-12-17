@@ -21,7 +21,10 @@ parser::parser(int * argc, char ** argv[], int MPI_rank) {
     int nb_nodes;
     int nb_neighbors;
     int epv;
+    int step = -1;
+    bool linear = false;
     bool verify = false;
+    int max_threads = 1;
 
     if (*argc <= 1) goto syntaxerror;
     for (int i = 1; i < *argc; i++) {
@@ -55,6 +58,11 @@ parser::parser(int * argc, char ** argv[], int MPI_rank) {
             if (i + 1 < *argc && (max_threads = atoi((*argv)[i+1])) > 0) {
                 i++;
             } else goto syntaxerror;
+        } else if (arg == "--linear") {
+            if (i + 1 < *argc && (step = atoi((*argv)[i+1])) > 0) {
+                linear =true;
+                i++;
+            } else goto syntaxerror;
         } else if (arg == "--runs") {
             if (i + 1 < *argc && (runs = atoi((*argv)[i+1])) > 0) {
                 i++;
@@ -69,6 +77,12 @@ parser::parser(int * argc, char ** argv[], int MPI_rank) {
         }
     }
     if ( selected_graphs.size() == 0 || selected_algorithms.size() == 0 ) goto syntaxerror;
+
+    if (linear){
+        threads = thread_list(1, max_threads, step);
+    } else {
+        threads = thread_list(1, max_threads);
+    }
 
     // Parsing success : start measuring
     if (verify)
@@ -100,6 +114,7 @@ void parser::print_help(int MPI_rank, bool syntax_error) {
         cout << endl;
 
         cout << "Optionnal args" << endl;
+        cout << "--linear [step] (linear increase in thread size instead of logscale)" << endl;
         cout << "--verify (check for correctness instead of timing)" << endl;
         cout << "--max-threads [Maximum number of thread (preferably a power of 2)]" << endl <<"DEFAULT=1" << endl;
         cout << "--runs [Number of measurement for each parameters set]" << endl <<"DEFAULT=5" << endl;
@@ -147,13 +162,39 @@ void parser::print_algos(){
 
 void parser::compute(){
     // Create timer
-    LsbTimer t(selected_algorithms, lsb_name, max_threads, runs);
+    LsbTimer t(selected_algorithms, lsb_name, threads, runs);
 
     // Time
     t.clock(selected_graphs);
 }
 
+// Linear
+vector<unsigned int> parser::thread_list(unsigned int min, unsigned int max, unsigned int step){
+    vector<unsigned int> threads;
+    if (step == 0) return threads;
+
+    unsigned int i = 1;
+    while (i <= max){
+        threads.push_back(i);
+        if ((i==1) && (step >1))
+            i = 0;
+        i+=step;
+    }
+    return threads;
+}
+
+// Log scale
+vector<unsigned int> parser::thread_list(unsigned int min, unsigned int max){
+    vector<unsigned int> threads;
+    for (unsigned int i=1; i <= max; i*=2){
+        threads.push_back(i);
+    }
+    return threads;
+}
+
+
+
 void parser::check_correctness(){
-    Verifier v(selected_algorithms, max_threads);
+    Verifier v(selected_algorithms, threads);
     v.check(selected_graphs);
 }

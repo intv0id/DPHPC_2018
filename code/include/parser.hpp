@@ -10,7 +10,7 @@ class parser {
 	list<mst_algorithm*> selected_algorithms;
 	list<Graph*> selected_graphs;
 
-	int max_threads = 1;
+	vector<unsigned int> threads;
 	int runs = 5;
 	string lsb_name = "measures";
 
@@ -24,6 +24,8 @@ class parser {
 	void print_help(int MPI_rank, bool syntax_error=false);
 	bool parse_algonames(string algoname);
 	void print_algos();
+    vector<unsigned int> thread_list(unsigned int min, unsigned int max, unsigned int step);
+    vector<unsigned int> thread_list(unsigned int min, unsigned int max);
     void compute();
 	void check_correctness();
 };

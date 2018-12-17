@@ -10,8 +10,8 @@
 
 using namespace std;
 
-Verifier::Verifier(list<mst_algorithm*> l, unsigned int m_threads) : algorithms(l){
-    max_threads = m_threads;
+Verifier::Verifier(list<mst_algorithm*> l, vector<unsigned int> threads_vec) : algorithms(l){
+    threads = threads_vec;
 }
 
 void Verifier::check(list<Graph*> g_list)
@@ -26,7 +26,7 @@ void Verifier::check(list<Graph*> g_list)
         for (Graph* g : g_list) {
             Graph &graph = *g;
 
-            for (unsigned int thread_nb=1; thread_nb <= max_threads; thread_nb *= 2){
+            for (unsigned int thread_nb: threads){
                 omp_set_num_threads(thread_nb);
                 tbb::task_scheduler_init tbb_scheduler(thread_nb);
 
