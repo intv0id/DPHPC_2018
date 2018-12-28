@@ -13,13 +13,11 @@ module load new gcc/5.2.0 open_mpi/1.6.5 cmake/3.11.4 boost/1.62.0 ;
 
 PMST_PATH="`readlink -f ~`/PMST/code" ; 
 executable="${PMST_PATH}/bin/exec" ;
-fast_algorithms=("FilterKruskal Kruskal BoostKruskal FilterSollin") ;
-slow_algorithms=("ParallelSollinEL" "ParallelSollinAL" "ParallelSollinFAL" "Sollin") ;
 
 # Variables
-algorithms=$fast_algorithms ;
+algorithms==("FilterKruskal" "Kruskal" "BoostKruskal" "BoostPrim") ;
 MAX_THREAD=32 ;
-RUNS=1 ;
+RUNS=30 ;
 TIMES=10 ;
 
 
@@ -36,7 +34,7 @@ cmd_exp(){
 cmd_exp_algos(){
     for algo in ${algorithms[@]}; do
 	    for i in $(seq 1 $TIMES); do
-            cmd_exp "$1" " --Erdos-Renyi-graph 1000000 --algorithm ${algo} --lsb-filename ${algo}_ER1000000 $2" ;
+            cmd_exp "$1" " --USA-graph NY d --algorithm ${algo} --lsb-filename ${algo}_timing_USA_NY $2" ;
         done
     done
 }
