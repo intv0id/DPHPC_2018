@@ -1,0 +1,24 @@
+# Sysname : Linux
+# Nodename: eu-a6-006-11
+# Release : 3.10.0-862.14.4.el7.x86_64
+# Version : #1 SMP Wed Sep 26 15:12:11 UTC 2018
+# Machine : x86_64
+# Execution time and date (UTC): Sun Dec 16 21:44:57 2018
+# Execution time and date (local): Sun Dec 16 22:44:57 2018
+# MPI execution on rank 0 with 1 processes in world
+# Reported time measurements are in microseconds
+# pretty output format
+    Algorithm  Graph_nodes   Graph_name  Max_threads          run       id         time     overhead 
+ Sequential_Kruskal         10000  Erdos-Renyi_random_p=0.100000             1             0          0 2343607.696320            4 
+ Sequential_Kruskal         10000  Erdos-Renyi_random_p=0.100000             1             1          0 2138528.739929            3 
+ Sequential_Kruskal         10000  Erdos-Renyi_random_p=0.100000             2             0          0 3034790.952667            5 
+ Sequential_Kruskal         10000  Erdos-Renyi_random_p=0.100000             2             1          0 2014847.352417            0 
+ Sequential_Kruskal         10000  Erdos-Renyi_random_p=0.100000             4             0          0 2000509.705444            4 
+ Sequential_Kruskal         10000  Erdos-Renyi_random_p=0.100000             4             1          0 2005107.859375            3 
+ Sequential_Kruskal         10000  Erdos-Renyi_random_p=0.100000             8             0          0 4286285.564453            2 
+ Sequential_Kruskal         10000  Erdos-Renyi_random_p=0.100000             8             1          0 2227824.499908            2 
+ Sequential_Kruskal         10000  Erdos-Renyi_random_p=0.100000            16             0          0 1851494.994934            3 
+ Sequential_Kruskal         10000  Erdos-Renyi_random_p=0.100000            16             1          0 1900891.962921            0 
+ Sequential_Kruskal         10000  Erdos-Renyi_random_p=0.100000            32             0          0 2136970.995422            0 
+ Sequential_Kruskal         10000  Erdos-Renyi_random_p=0.100000            32             1          0 2099991.258118            8 
+# Runtime: 230.788480 s (overhead: 0.000015 %) 12 records

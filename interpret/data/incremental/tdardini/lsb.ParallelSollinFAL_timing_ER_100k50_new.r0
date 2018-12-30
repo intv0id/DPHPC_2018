@@ -1,0 +1,24 @@
+# Sysname : Linux
+# Nodename: eu-a6-006-11
+# Release : 3.10.0-862.14.4.el7.x86_64
+# Version : #1 SMP Wed Sep 26 15:12:11 UTC 2018
+# Machine : x86_64
+# Execution time and date (UTC): Sun Dec 16 20:37:55 2018
+# Execution time and date (local): Sun Dec 16 21:37:55 2018
+# MPI execution on rank 0 with 1 processes in world
+# Reported time measurements are in microseconds
+# pretty output format
+    Algorithm  Graph_nodes   Graph_name  Max_threads          run       id         time     overhead 
+ parallel_sollin_FAL        100000  Erdos-Renyi_random_p=0.000500             1             0          0 1782449.566376            0 
+ parallel_sollin_FAL        100000  Erdos-Renyi_random_p=0.000500             1             1          0 1723404.707397            1 
+ parallel_sollin_FAL        100000  Erdos-Renyi_random_p=0.000500             2             0          0 1247719.189178            1 
+ parallel_sollin_FAL        100000  Erdos-Renyi_random_p=0.000500             2             1          0 4783601.203674            0 
+ parallel_sollin_FAL        100000  Erdos-Renyi_random_p=0.000500             4             0          0 5227781.870148            1 
+ parallel_sollin_FAL        100000  Erdos-Renyi_random_p=0.000500             4             1          0 6095265.276337            0 
+ parallel_sollin_FAL        100000  Erdos-Renyi_random_p=0.000500             8             0          0 5618810.166107            0 
+ parallel_sollin_FAL        100000  Erdos-Renyi_random_p=0.000500             8             1          0 5802406.384796            0 
+ parallel_sollin_FAL        100000  Erdos-Renyi_random_p=0.000500            16             0          0 1261314.101715            2 
+ parallel_sollin_FAL        100000  Erdos-Renyi_random_p=0.000500            16             1          0 5779974.768372            0 
+ parallel_sollin_FAL        100000  Erdos-Renyi_random_p=0.000500            32             0          0 5299898.866608            0 
+ parallel_sollin_FAL        100000  Erdos-Renyi_random_p=0.000500            32             1          0 3799649.184662            0 
+# Runtime: 138.635788 s (overhead: 0.000004 %) 12 records
