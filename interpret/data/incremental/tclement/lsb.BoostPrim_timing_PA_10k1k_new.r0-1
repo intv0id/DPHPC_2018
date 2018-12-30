@@ -1,0 +1,24 @@
+# Sysname : Linux
+# Nodename: eu-a6-011-07
+# Release : 3.10.0-862.14.4.el7.x86_64
+# Version : #1 SMP Wed Sep 26 15:12:11 UTC 2018
+# Machine : x86_64
+# Execution time and date (UTC): Sun Dec 16 20:06:20 2018
+# Execution time and date (local): Sun Dec 16 21:06:20 2018
+# MPI execution on rank 0 with 1 processes in world
+# Reported time measurements are in microseconds
+# pretty output format
+    Algorithm  Graph_nodes   Graph_name  Max_threads          run       id         time     overhead 
+   Boost_Prim         10000  Preferential_attachment_1000_edges_per_vertice             1             0          0 18482955.406494            1 
+   Boost_Prim         10000  Preferential_attachment_1000_edges_per_vertice             1             1          0 18499872.849121            1 
+   Boost_Prim         10000  Preferential_attachment_1000_edges_per_vertice             2             0          0 18015136.994507            0 
+   Boost_Prim         10000  Preferential_attachment_1000_edges_per_vertice             2             1          0 17294746.482910            0 
+   Boost_Prim         10000  Preferential_attachment_1000_edges_per_vertice             4             0          0 17662362.225952            1 
+   Boost_Prim         10000  Preferential_attachment_1000_edges_per_vertice             4             1          0 18275228.209473            0 
+   Boost_Prim         10000  Preferential_attachment_1000_edges_per_vertice             8             0          0 17691993.958252            0 
+   Boost_Prim         10000  Preferential_attachment_1000_edges_per_vertice             8             1          0 17412985.623413            0 
+   Boost_Prim         10000  Preferential_attachment_1000_edges_per_vertice            16             0          0 18045676.985962            1 
+   Boost_Prim         10000  Preferential_attachment_1000_edges_per_vertice            16             1          0 18105959.390991            0 
+   Boost_Prim         10000  Preferential_attachment_1000_edges_per_vertice            32             0          0 17357488.494019            0 
+   Boost_Prim         10000  Preferential_attachment_1000_edges_per_vertice            32             1          0 17529737.605225            0 
+# Runtime: 536.893776 s (overhead: 0.000001 %) 12 records

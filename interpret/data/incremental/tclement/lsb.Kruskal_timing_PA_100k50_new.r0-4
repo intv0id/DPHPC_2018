@@ -1,0 +1,24 @@
+# Sysname : Linux
+# Nodename: eu-a6-011-07
+# Release : 3.10.0-862.14.4.el7.x86_64
+# Version : #1 SMP Wed Sep 26 15:12:11 UTC 2018
+# Machine : x86_64
+# Execution time and date (UTC): Sun Dec 16 23:26:50 2018
+# Execution time and date (local): Mon Dec 17 00:26:50 2018
+# MPI execution on rank 0 with 1 processes in world
+# Reported time measurements are in microseconds
+# pretty output format
+    Algorithm  Graph_nodes   Graph_name  Max_threads          run       id         time     overhead 
+ Sequential_Kruskal        100000  Preferential_attachment_50_edges_per_vertice             1             0          0 2612423.058228            0 
+ Sequential_Kruskal        100000  Preferential_attachment_50_edges_per_vertice             1             1          0 2213887.239136            3 
+ Sequential_Kruskal        100000  Preferential_attachment_50_edges_per_vertice             2             0          0 2044875.532593            5 
+ Sequential_Kruskal        100000  Preferential_attachment_50_edges_per_vertice             2             1          0 2199754.612061            0 
+ Sequential_Kruskal        100000  Preferential_attachment_50_edges_per_vertice             4             0          0 1783368.477539            3 
+ Sequential_Kruskal        100000  Preferential_attachment_50_edges_per_vertice             4             1          0 1776671.549438            0 
+ Sequential_Kruskal        100000  Preferential_attachment_50_edges_per_vertice             8             0          0 1861713.192749            0 
+ Sequential_Kruskal        100000  Preferential_attachment_50_edges_per_vertice             8             1          0 1789343.393677            0 
+ Sequential_Kruskal        100000  Preferential_attachment_50_edges_per_vertice            16             0          0 2443466.487549            5 
+ Sequential_Kruskal        100000  Preferential_attachment_50_edges_per_vertice            16             1          0 2575602.571899            0 
+ Sequential_Kruskal        100000  Preferential_attachment_50_edges_per_vertice            32             0          0 2483215.079224            0 
+ Sequential_Kruskal        100000  Preferential_attachment_50_edges_per_vertice            32             1          0 1660271.760986            0 
+# Runtime: 234.237244 s (overhead: 0.000007 %) 12 records

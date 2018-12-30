@@ -1,0 +1,24 @@
+# Sysname : Linux
+# Nodename: eu-a6-011-07
+# Release : 3.10.0-862.14.4.el7.x86_64
+# Version : #1 SMP Wed Sep 26 15:12:11 UTC 2018
+# Machine : x86_64
+# Execution time and date (UTC): Sun Dec 16 23:40:50 2018
+# Execution time and date (local): Mon Dec 17 00:40:50 2018
+# MPI execution on rank 0 with 1 processes in world
+# Reported time measurements are in microseconds
+# pretty output format
+    Algorithm  Graph_nodes   Graph_name  Max_threads          run       id         time     overhead 
+ parallel_sollin_FAL         10000  Preferential_attachment_1000_edges_per_vertice             1             0          0 5429593.099854            0 
+ parallel_sollin_FAL         10000  Preferential_attachment_1000_edges_per_vertice             1             1          0 4933225.759033            1 
+ parallel_sollin_FAL         10000  Preferential_attachment_1000_edges_per_vertice             2             0          0 4454661.511353            1 
+ parallel_sollin_FAL         10000  Preferential_attachment_1000_edges_per_vertice             2             1          0 8386962.538086            0 
+ parallel_sollin_FAL         10000  Preferential_attachment_1000_edges_per_vertice             4             0          0 12476112.526001            2 
+ parallel_sollin_FAL         10000  Preferential_attachment_1000_edges_per_vertice             4             1          0 8075575.763916            0 
+ parallel_sollin_FAL         10000  Preferential_attachment_1000_edges_per_vertice             8             0          0 2753734.581543            0 
+ parallel_sollin_FAL         10000  Preferential_attachment_1000_edges_per_vertice             8             1          0 11541039.508057            0 
+ parallel_sollin_FAL         10000  Preferential_attachment_1000_edges_per_vertice            16             0          0 3249134.841064            1 
+ parallel_sollin_FAL         10000  Preferential_attachment_1000_edges_per_vertice            16             1          0 1943552.171509            0 
+ parallel_sollin_FAL         10000  Preferential_attachment_1000_edges_per_vertice            32             0          0 9627349.453247            0 
+ parallel_sollin_FAL         10000  Preferential_attachment_1000_edges_per_vertice            32             1          0 8313509.699097            0 
+# Runtime: 438.206308 s (overhead: 0.000001 %) 12 records

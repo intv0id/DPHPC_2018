@@ -1,0 +1,24 @@
+# Sysname : Linux
+# Nodename: eu-a6-011-07
+# Release : 3.10.0-862.14.4.el7.x86_64
+# Version : #1 SMP Wed Sep 26 15:12:11 UTC 2018
+# Machine : x86_64
+# Execution time and date (UTC): Sun Dec 16 18:28:47 2018
+# Execution time and date (local): Sun Dec 16 19:28:47 2018
+# MPI execution on rank 0 with 1 processes in world
+# Reported time measurements are in microseconds
+# pretty output format
+    Algorithm  Graph_nodes   Graph_name  Max_threads          run       id         time     overhead 
+ Boost_Kruskal        100000  Preferential_attachment_50_edges_per_vertice             1             0          0 6585820.322754            0 
+ Boost_Kruskal        100000  Preferential_attachment_50_edges_per_vertice             1             1          0 6222207.210815            1 
+ Boost_Kruskal        100000  Preferential_attachment_50_edges_per_vertice             2             0          0 5827334.859985            1 
+ Boost_Kruskal        100000  Preferential_attachment_50_edges_per_vertice             2             1          0 6190913.572144            0 
+ Boost_Kruskal        100000  Preferential_attachment_50_edges_per_vertice             4             0          0 5832936.746460            3 
+ Boost_Kruskal        100000  Preferential_attachment_50_edges_per_vertice             4             1          0 6015964.190796            0 
+ Boost_Kruskal        100000  Preferential_attachment_50_edges_per_vertice             8             0          0 5978347.124023            0 
+ Boost_Kruskal        100000  Preferential_attachment_50_edges_per_vertice             8             1          0 5845369.488525            0 
+ Boost_Kruskal        100000  Preferential_attachment_50_edges_per_vertice            16             0          0 6076240.340698            0 
+ Boost_Kruskal        100000  Preferential_attachment_50_edges_per_vertice            16             1          0 6021422.355103            1 
+ Boost_Kruskal        100000  Preferential_attachment_50_edges_per_vertice            32             0          0 5848145.197388            0 
+ Boost_Kruskal        100000  Preferential_attachment_50_edges_per_vertice            32             1          0 6080390.302979            0 
+# Runtime: 258.797280 s (overhead: 0.000002 %) 12 records
