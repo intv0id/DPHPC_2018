@@ -1,0 +1,24 @@
+# Sysname : Linux
+# Nodename: eu-a6-009-12
+# Release : 3.10.0-862.14.4.el7.x86_64
+# Version : #1 SMP Wed Sep 26 15:12:11 UTC 2018
+# Machine : x86_64
+# Execution time and date (UTC): Sun Dec 16 23:20:30 2018
+# Execution time and date (local): Mon Dec 17 00:20:30 2018
+# MPI execution on rank 0 with 1 processes in world
+# Reported time measurements are in microseconds
+# pretty output format
+    Algorithm  Graph_nodes   Graph_name  Max_threads          run       id         time     overhead 
+ Sequential_Kruskal        100000  Erdos-Renyi_random_p=0.000500             1             0          0 1343443.565918            0 
+ Sequential_Kruskal        100000  Erdos-Renyi_random_p=0.000500             1             1          0 1185649.183105            4 
+ Sequential_Kruskal        100000  Erdos-Renyi_random_p=0.000500             2             0          0 991482.224365            1 
+ Sequential_Kruskal        100000  Erdos-Renyi_random_p=0.000500             2             1          0 1050576.055176            0 
+ Sequential_Kruskal        100000  Erdos-Renyi_random_p=0.000500             4             0          0 966160.062012            2 
+ Sequential_Kruskal        100000  Erdos-Renyi_random_p=0.000500             4             1          0 986356.780762            0 
+ Sequential_Kruskal        100000  Erdos-Renyi_random_p=0.000500             8             0          0 941947.855469            0 
+ Sequential_Kruskal        100000  Erdos-Renyi_random_p=0.000500             8             1          0 955912.770752            0 
+ Sequential_Kruskal        100000  Erdos-Renyi_random_p=0.000500            16             0          0 929609.078369            3 
+ Sequential_Kruskal        100000  Erdos-Renyi_random_p=0.000500            16             1          0 865261.693359            0 
+ Sequential_Kruskal        100000  Erdos-Renyi_random_p=0.000500            32             0          0 878068.844971            0 
+ Sequential_Kruskal        100000  Erdos-Renyi_random_p=0.000500            32             1          0 851347.925781            0 
+# Runtime: 111.508559 s (overhead: 0.000009 %) 12 records
