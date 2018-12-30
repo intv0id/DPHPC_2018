@@ -1,0 +1,21 @@
+# Sysname : Linux
+# Nodename: eu-login-18-ng
+# Release : 3.10.0-862.14.4.el7.x86_64
+# Version : #1 SMP Wed Sep 26 15:12:11 UTC 2018
+# Machine : x86_64
+# Execution time and date (UTC): Sun Dec 16 20:28:55 2018
+# Execution time and date (local): Sun Dec 16 21:28:55 2018
+# MPI execution on rank 0 with 1 processes in world
+# Reported time measurements are in microseconds
+# pretty output format
+    Algorithm  Graph_nodes   Graph_name  Max_threads          run       id         time     overhead 
+ Sequential_Kruskal         10000  Erdos-Renyi_random_p=0.100000             1             0          0 1471609.111328            0 
+ Sequential_Kruskal         10000  Erdos-Renyi_random_p=0.100000             1             1          0 1479916.972656            2 
+ Sequential_Kruskal         10000  Erdos-Renyi_random_p=0.100000             1             2          0 1475482.430664            2 
+ Sequential_Kruskal         10000  Erdos-Renyi_random_p=0.100000             2             0          0 1249581.188477            0 
+ Sequential_Kruskal         10000  Erdos-Renyi_random_p=0.100000             2             1          0 1238583.565430            2 
+ Sequential_Kruskal         10000  Erdos-Renyi_random_p=0.100000             2             2          0 1215017.140625            0 
+ Sequential_Kruskal         10000  Erdos-Renyi_random_p=0.100000             4             0          0 1071898.036133            0 
+ Sequential_Kruskal         10000  Erdos-Renyi_random_p=0.100000             4             1          0 1086674.142578            0 
+ Sequential_Kruskal         10000  Erdos-Renyi_random_p=0.100000             4             2          0 1081846.065430            2 
+# Runtime: 50.951618 s (overhead: 0.000016 %) 9 records
