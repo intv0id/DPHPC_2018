@@ -34,7 +34,7 @@ cmd_exp(){
 cmd_exp_algos(){
     for algo in ${algorithms[@]}; do
 	    for i in $(seq 1 $TIMES); do
-            cmd_exp "$1" " --PA-graph 10000 1000--algorithm ${algo} --lsb-filename ${algo}_timing_PA_10k $2" ;
+            cmd_exp "$1" " --PA-graph 10000 1000 --algorithm ${algo} --lsb-filename ${algo}_timing_PA_10k $2" ;
         done
     done
 }
