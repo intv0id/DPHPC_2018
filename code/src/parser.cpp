@@ -25,6 +25,7 @@ parser::parser(int * argc, char ** argv[], int MPI_rank) {
     bool linear = false;
     bool verify = false;
     int max_threads = 1;
+    int min_threads = 1;
 
     if (*argc <= 1) goto syntaxerror;
     for (int i = 1; i < *argc; i++) {
@@ -58,6 +59,10 @@ parser::parser(int * argc, char ** argv[], int MPI_rank) {
             if (i + 1 < *argc && (max_threads = atoi((*argv)[i+1])) > 0) {
                 i++;
             } else goto syntaxerror;
+        } else if (arg == "--min-threads") {
+            if (i + 1 < *argc && (min_threads = atoi((*argv)[i+1])) > 0) {
+                i++;
+            } else goto syntaxerror;
         } else if (arg == "--linear") {
             if (i + 1 < *argc && (step = atoi((*argv)[i+1])) > 0) {
                 linear =true;
@@ -79,9 +84,9 @@ parser::parser(int * argc, char ** argv[], int MPI_rank) {
     if ( selected_graphs.size() == 0 || selected_algorithms.size() == 0 ) goto syntaxerror;
 
     if (linear){
-        threads = thread_list(1, max_threads, step);
+        threads = thread_list(min_threads, max_threads, step);
     } else {
-        threads = thread_list(1, max_threads);
+        threads = thread_list(min_threads, max_threads);
     }
 
     // Parsing success : start measuring
@@ -117,6 +122,7 @@ void parser::print_help(int MPI_rank, bool syntax_error) {
         cout << "--linear [step] (linear increase in thread size instead of logscale)" << endl;
         cout << "--verify (check for correctness instead of timing)" << endl;
         cout << "--max-threads [Maximum number of thread (preferably a power of 2)]" << endl <<"DEFAULT=1" << endl;
+        cout << "--min-threads [Minimum number of thread (preferably a power of 2)]" << endl <<"DEFAULT=1" << endl;
         cout << "--runs [Number of measurement for each parameters set]" << endl <<"DEFAULT=5" << endl;
         cout << "--lsb-filename [LSB filename]" << endl << "DEFAULT=\"measure\"" << endl;
         cout << endl ;
@@ -171,9 +177,10 @@ void parser::compute(){
 // Linear
 vector<unsigned int> parser::thread_list(unsigned int min, unsigned int max, unsigned int step){
     vector<unsigned int> threads;
+    if (max < min) max = min;
     if (step == 0) return threads;
 
-    unsigned int i = 1;
+    unsigned int i = min;
     while (i <= max){
         threads.push_back(i);
         if ((i==1) && (step >1))
@@ -186,7 +193,8 @@ vector<unsigned int> parser::thread_list(unsigned int min, unsigned int max, uns
 // Log scale
 vector<unsigned int> parser::thread_list(unsigned int min, unsigned int max){
     vector<unsigned int> threads;
-    for (unsigned int i=1; i <= max; i*=2){
+    if (max < min) max = min;
+    for (unsigned int i=min; i <= max; i*=2){
         threads.push_back(i);
     }
     return threads;
