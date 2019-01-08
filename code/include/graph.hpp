@@ -24,6 +24,7 @@ class vertex_adjacency_list{
 	public:
 	int index;
 	list<edge*> adjacent_vertices;
+	list<edge> adjacent_vertices_copy;
 };
 
 class vertex_adjacency_vector{

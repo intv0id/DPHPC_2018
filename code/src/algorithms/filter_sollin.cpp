@@ -167,8 +167,14 @@ l_edge_t filter_sollin::base_func(Graph& g, unsigned int n_threads,vector<compon
 	edge* einit = new edge;
 	einit->source = -1;
 
+    vector<vector<edge*>> intra_cheapest_vector(n_threads);
+    for (int j = 0; j < n_threads; j++) {
+        intra_cheapest_vector[j].reserve(g.n);
+    }
+    vector<edge*> cheapest(g.n);
+
 	// While not connected
-	while(u->numTrees > 1 ){	
+	while(u->numTrees > 1 ){
 		// Sort by parent vertex
 		tbb::parallel_sort(edges.begin(),edges.end(),cV);
 		//sort(edges.begin(),edges.end(),cV);
@@ -231,16 +237,17 @@ l_edge_t filter_sollin::base_func(Graph& g, unsigned int n_threads,vector<compon
 
 		// For all vertice find minimum outgoing edge
 		int nComps = edges.size();
-		vector<vector<edge*>> cheapest(nComps,vector<edge*>(PAD));
+		//vector<vector<edge*>> cheapest(nComps,vector<edge*>(PAD));
 	
 		int empty = 0;
 		# pragma omp parallel for num_threads(n_threads) reduction(+:empty)
 		for(k = 0; k < nComps; k++){
-			component_FAL_vector* val = edges[k];
-			int intra_size = val->liste.size();
+			int intra_size = edges[k]->liste.size();
 			// Take min in parallel
-			vector<edge*> intra_cheapest;
-			for(auto v_edges : val->liste){
+			vector<edge*>& intra_cheapest = intra_cheapest_vector[omp_get_thread_num()];
+            intra_cheapest.clear();
+
+			for(auto v_edges : edges[k]->liste){
 				int source_index = v_edges->index;
 				auto it = starts[source_index];
 				auto it_end = ends[source_index];
@@ -288,9 +295,8 @@ l_edge_t filter_sollin::base_func(Graph& g, unsigned int n_threads,vector<compon
 			}
 			// Push back all others
 			int aux_index = 0;
-			for(auto v_edges : val->liste){
-				edge* e = intra_cheapest[aux_index];
-				if(e->source != -1){
+			for(auto v_edges : edges[k]->liste){
+				if(intra_cheapest[aux_index]->source != -1){
 					if(aux_index != min_index){
 						int source_index = v_edges->index;
 						starts[source_index]--;
@@ -298,32 +304,37 @@ l_edge_t filter_sollin::base_func(Graph& g, unsigned int n_threads,vector<compon
 				}
 				aux_index++;
 			}
-			cheapest[k][0] = intra_cheapest[min_index];
-			edge* e = intra_cheapest[min_index];
+			cheapest[k] = intra_cheapest[min_index];
 		}
 
 
 
 		// For all vertices, connect components
 		vector<edge*> add_to_mst;
+        int c = 0;
 		// Connect the components via pointer-jump
-		#pragma omp parallel for num_threads(n_threads) reduction(addEdges:add_to_mst)
+		//#pragma omp parallel for num_threads(n_threads) reduction(addEdges:add_to_mst)
 		for(k = 0; k < nComps; k++){
-			edge* e = cheapest[k][0];
+			edge* e = cheapest[k];
 			if(e->source != -1){
+                if (u->unite(e->source,e->target)) {
+                    mst.push_back(e);
+                    c++;
+                }
+			    /*	
 				bool b = false;
-				
 				#pragma omp critical
 				{
 					b = u->unite(e->source,e->target);
 				}
 				if (b) add_to_mst.push_back(e);
+                */
 			}
 		}
-		if(add_to_mst.size() == 0){
+		if(c == 0){
 			return mst;
 		}
-		mst.insert(mst.end(),add_to_mst.begin(),add_to_mst.end());
+		//mst.insert(mst.end(),add_to_mst.begin(),add_to_mst.end());
 		if(empty >=  20*g.n /10.){
 			//cout << endl << "Empty proportion" << empty/(float)g.n << endl;
 			return mst;
