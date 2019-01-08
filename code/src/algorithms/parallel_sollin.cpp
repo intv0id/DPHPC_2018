@@ -686,22 +686,8 @@ l_edge_t parallel_sollin_FAL::algorithm(Graph& g, unsigned int n_threads){
 		t0 = omp_get_wtime();
 		time_compact_step_4 += t0 - t1;
 
-        double temps1 = 0;
-        double temps2 = 0;
-        double temps3 = 0;
-        double temps4 = 0;
-        double temps5 = 0;
-
-        double newTime = 0;
-        double lastTime = omp_get_wtime();
-
 		// For all vertice find minimum outgoing edge
 		int nComps = edges.size();
-		//vector<edge*> cheapest(nComps);
-
-        newTime = omp_get_wtime();
-        temps1 += newTime - lastTime;
-        lastTime = newTime;
 
 		# pragma omp parallel for num_threads(n_threads)
 		for(k = 0; k < nComps; k++){
@@ -751,10 +737,6 @@ l_edge_t parallel_sollin_FAL::algorithm(Graph& g, unsigned int n_threads){
 				}
 			}
 
-            //newTime = omp_get_wtime();
-            //temps4 += newTime - lastTime;
-            //lastTime = newTime;
-
             // Push back all others
 			int aux_index = 0;
 			for(auto list_edges : edges[k]->liste){
@@ -798,8 +780,6 @@ l_edge_t parallel_sollin_FAL::algorithm(Graph& g, unsigned int n_threads){
 
 	}
 
-    cout << "COOL" << endl;
-
 	timing t_init_1("Init_time_1",constant_time_1);
 	timing t_init_2("Init_time_2",constant_time_2);
 	timing t_compact_1("Compact_step_1",time_compact_step_1);
@@ -821,8 +801,6 @@ l_edge_t parallel_sollin_FAL::algorithm(Graph& g, unsigned int n_threads){
 	internal_timings.push_back(t_compact_6);
 	internal_timings.push_back(t_find_min);
 	internal_timings.push_back(t_connect);
-
-    cout << "KOIS" << endl;
 
 	delete u;
     for(auto e : edges){
