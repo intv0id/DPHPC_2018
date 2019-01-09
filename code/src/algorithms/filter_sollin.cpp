@@ -153,12 +153,11 @@ l_edge_t filter_sollin::algorithm(Graph& g, unsigned int n_threads){
 
 l_edge_t filter_sollin::base_func(Graph& g, unsigned int n_threads,vector<component_FAL_vector*>& edges, vector<vector<edge*>::iterator>& starts, vector<vector<edge*>::iterator>& ends, union_find* u,compVertexFALvec& cV,compWeight& cW){
 
-
 	l_edge_t mst;
 
 	// Sort each list by weight
 	#pragma omp parallel for num_threads(n_threads)
-	for(int i = 0; i < g.n; i++){
+	for (int i = 0; i < g.n; i++){
 		sort(starts[i],ends[i],cW);
 	}
 
@@ -181,14 +180,6 @@ l_edge_t filter_sollin::base_func(Graph& g, unsigned int n_threads,vector<compon
 
 		// Update all parents
 		u->update_parents();
-		/*
-		cout << endl;
-		for(auto parent : u->parents){
-			cout << parent << " ";
-		}
-		cout << endl;
-		*/
-
 
 		// Merge same parent vertex
 		int nVertex = edges.size();
@@ -227,7 +218,6 @@ l_edge_t filter_sollin::base_func(Graph& g, unsigned int n_threads,vector<compon
 			merge_FAL_vector(aux,auxs[k],cW);
 		}
 
-
 		// Copy list in vector
 		edges.clear();
 		list<component_FAL_vector*> & aLRef = aux.liste;
@@ -262,29 +252,16 @@ l_edge_t filter_sollin::base_func(Graph& g, unsigned int n_threads,vector<compon
 					}
 					e = *it; 
 					target = u->find_debug(e->target);
-					
-				/*	cout << "Iterator " << it - v_edges->adjacent_vertices.begin() << endl;
-					cout << "Source: " << e->source << endl;
-					cout << "Target: " << e->target << endl;
-					cout << "Weight: " << e->weight << endl;
-					*/
 					it++;
-					
 				}	
 				intra_cheapest.push_back(e);
 				starts[source_index] = it;
-
 			}
 			// Find minimum in intra_cheapest
 			int min_weight = std::numeric_limits<int>::max();
 			int min_index = 0;
 			for(unsigned int i = 0; i != intra_size; i++){
 				edge* e = intra_cheapest[i];
-				/*
-				cout << "Source: " << e->source << endl;
-				cout << "Target: " << e->target << endl;
-				cout << "Weight: " << e->weight << endl;
-				*/
 				if(e->source != -1){
 					int weight = intra_cheapest[i]->weight;
 					if(weight < min_weight){
@@ -307,13 +284,11 @@ l_edge_t filter_sollin::base_func(Graph& g, unsigned int n_threads,vector<compon
 			cheapest[k] = intra_cheapest[min_index];
 		}
 
-
-
 		// For all vertices, connect components
 		vector<edge*> add_to_mst;
         int c = 0;
+
 		// Connect the components via pointer-jump
-		//#pragma omp parallel for num_threads(n_threads) reduction(addEdges:add_to_mst)
 		for(k = 0; k < nComps; k++){
 			edge* e = cheapest[k];
 			if(e->source != -1){
@@ -321,22 +296,12 @@ l_edge_t filter_sollin::base_func(Graph& g, unsigned int n_threads,vector<compon
                     mst.push_back(e);
                     c++;
                 }
-			    /*	
-				bool b = false;
-				#pragma omp critical
-				{
-					b = u->unite(e->source,e->target);
-				}
-				if (b) add_to_mst.push_back(e);
-                */
 			}
 		}
 		if(c == 0){
 			return mst;
 		}
-		//mst.insert(mst.end(),add_to_mst.begin(),add_to_mst.end());
 		if(empty >=  20*g.n /10.){
-			//cout << endl << "Empty proportion" << empty/(float)g.n << endl;
 			return mst;
 		}
 	}
