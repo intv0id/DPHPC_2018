@@ -543,13 +543,14 @@ l_edge_t parallel_sollin_FAL::algorithm(Graph& g, unsigned int n_threads){
 	double time_find_min = 0;
 	double time_connect = 0;
 
-	double t1 = omp_get_wtime();
 
 	// Create union-find structure
 	union_find* u = new union_find(g.n);
 	compVertexFAL cV(u);
 	const compWeight cW;
 	const compWeight_copy cW_copy;
+
+	double t1 = omp_get_wtime();
 
 	// Sort each list by weight
 	#pragma omp parallel for num_threads(n_threads)
@@ -559,6 +560,8 @@ l_edge_t parallel_sollin_FAL::algorithm(Graph& g, unsigned int n_threads){
 		g.adjacency_list[i]->adjacent_vertices_copy.sort(cW_copy);
 	}
 
+	double t0 = omp_get_wtime();
+
 	// Internal value
 	edge* einit = new edge();
 	einit->source = -1;
@@ -567,7 +570,6 @@ l_edge_t parallel_sollin_FAL::algorithm(Graph& g, unsigned int n_threads){
 	l_edge_t mst;
 
 
-	double t0 = omp_get_wtime();
 	constant_time_1 = t0 - t1;
 
 	//auto& edges = g.adjacency_list;
