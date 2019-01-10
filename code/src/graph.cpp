@@ -10,7 +10,7 @@ using namespace std;
 
 
 void edge::print(){
-    cout << "source: " << source << endl;
+    cout << "Source: " << source << endl;
     cout << "Weight: " << weight << endl;
 }
 
@@ -29,8 +29,9 @@ void Graph::add_edge(int i, int j, int w){
 	adjacency_vector[i]->adjacent_vertices.push_back(ei);
 	adjacency_vector[j]->adjacent_vertices.push_back(ej);
 
-	// Add edge to boost graph
+	// Add edge to boost graphs
 	boost::add_edge(i,j,w,boost_rep);
+	boost::add_edge(i,j,w,boost_distrib_rep);
 
 	
 	if (i < j) {
@@ -62,7 +63,7 @@ Graph::Graph(int n_) :
 	
 }
 Graph::Graph(int nVertices, double edgeProba, int min, int max) :
-    n(nVertices), boost_rep(n)
+    n(nVertices), boost_rep(n), boost_distrib_rep(n)
 {
     name = "Erdos-Renyi_random_p=" + to_string(edgeProba);
 
@@ -189,7 +190,7 @@ Graph::Graph(string fname, string type){
     inFile.close(); 
 }
 
-Graph::Graph(Graph& h) : name(h.name), n(h.n), n_edges(0), boost_rep(h.n) {
+Graph::Graph(Graph& h) : name(h.name), n(h.n), n_edges(0), boost_rep(h.n), boost_distrib_rep(h.n) {
 	    // Init adj list
 	    for(int i = 0; i != n; i++){
 		vertex_adjacency_list* val = new vertex_adjacency_list;
@@ -217,4 +218,5 @@ Graph::~Graph(){
 		delete v;
 	}
 	boost_rep.clear();
+	boost_distrib_rep.clear();
 }
