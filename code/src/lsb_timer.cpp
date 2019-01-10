@@ -100,9 +100,15 @@ void LsbTimer::print_times(vector<double> times){
 
     cout << endl;
     cout << "Time (approximation over " << runs << " runs) |";
-    cout << "\tmean= "<< ( tm = mean(times, runs) ) <<"s |";
+    cout << "\tmean="<< ( tm = mean(times, runs) ) <<"s |";
     cout << "\tmed=" << median(times) << "s |";
-    cout << "\tstd=" << std(times, tm) <<"s"<< endl;
+    cout << "\tstd=" << std(times, tm) <<"s |";
+    double mini = times[0];
+    for (int i = 1; i < times.size(); i++) {
+        if (times[i] < mini)
+            mini = times[i];
+    }
+    cout << "\tmin=" << mini <<"s"<< endl;
     cout << endl;
 }
 

@@ -79,7 +79,12 @@ class compVertexFALvec{
 
 class compWeight{
 	public:
-	bool operator() (edge*,edge*) const;
+	bool operator() (edge*, edge*) const;
+};
+
+class compWeight_copy{
+	public:
+	bool operator() (edge&, edge&) const;
 };
 
 class compTargetVertex{

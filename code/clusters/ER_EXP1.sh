@@ -15,7 +15,8 @@ PMST_PATH="`readlink -f ~`/PMST/code" ;
 executable="${PMST_PATH}/bin/exec" ;
 
 # Variables
-algorithms=("FilterKruskal" "Kruskal" "BoostKruskal" "BoostPrim") ;
+#algorithms=("FilterKruskal" "Kruskal" "BoostKruskal" "BoostPrim") ;
+algorithms=("ParallelSollinFAL" "FilterSollin");
 MAX_THREAD=32 ;
 RUNS=30 ;
 TIMES=5 ;

@@ -424,7 +424,7 @@ l_edge_t parallel_sollin_AL::algorithm(Graph& g, unsigned int n_threads){
 
 		t1 = omp_get_wtime();
 		time_connect += t1 - t0;
-					
+        
 	}
 	//timing t_init_1("Init_time_1",constant_time_1);
 	//timing t_init_2("Init_time_2",constant_time_2);
@@ -484,7 +484,51 @@ void merge_FAL(result_FAL& v1, result_FAL& v2,const compWeight cW){
 		
 }
 
+bool check_sanity(list<edge*> pointers, list<edge> copy, string msg) {
+    int n = pointers.size();
+    if (n == copy.size()) {
+        auto it_pointers = pointers.begin();
+        auto it_copy = copy.begin();
+        while (it_pointers != pointers.end()) {
+            edge x = *(*it_pointers);
+            edge y = *it_copy;
+            if (x.source != y.source) {
+                cout << msg << endl;
+            }
+            it_pointers++;
+            it_copy++;
+        }
+    }
+    else {
+        cout << msg << endl;
+        return false;
+    }
+    return true;
+}
 
+bool check_edges(edge* e1, edge* e2, string s) {
+    if (e1->source != e2->source) {
+        cout << endl << s << endl;
+        return false;
+    }
+    else if (e1->target != e2->target) {
+        cout << endl << s << endl;
+        return false;
+    }
+    else if (e1->weight != e2->weight) {
+        cout << endl << s << endl;
+        return false;
+    }
+    return true;
+}
+
+edge* copy_edge(edge* e) {
+    edge* new_e = new edge;
+    new_e->source = e->source;
+    new_e->target = e->target;
+    new_e->weight = e->weight;
+    return new_e;
+}
 
 l_edge_t parallel_sollin_FAL::algorithm(Graph& g, unsigned int n_threads){
 	// Internal Time Measurements
@@ -499,20 +543,24 @@ l_edge_t parallel_sollin_FAL::algorithm(Graph& g, unsigned int n_threads){
 	double time_find_min = 0;
 	double time_connect = 0;
 
-	double t1 = omp_get_wtime();
 
 	// Create union-find structure
 	union_find* u = new union_find(g.n);
 	compVertexFAL cV(u);
 	const compWeight cW;
+	const compWeight_copy cW_copy;
+
+	double t1 = omp_get_wtime();
 
 	// Sort each list by weight
 	#pragma omp parallel for num_threads(n_threads)
 	for(int i = 0; i < g.n; i++){
 		//cout << "Edge: " << i << endl;
 		//print_edge_list(edges[i]->adjacent_vertices);
-		g.adjacency_list[i]->adjacent_vertices.sort(cW);
+		g.adjacency_list[i]->adjacent_vertices_copy.sort(cW_copy);
 	}
+
+	double t0 = omp_get_wtime();
 
 	// Internal value
 	edge* einit = new edge();
@@ -522,7 +570,6 @@ l_edge_t parallel_sollin_FAL::algorithm(Graph& g, unsigned int n_threads){
 	l_edge_t mst;
 
 
-	double t0 = omp_get_wtime();
 	constant_time_1 = t0 - t1;
 
 	//auto& edges = g.adjacency_list;
@@ -536,6 +583,32 @@ l_edge_t parallel_sollin_FAL::algorithm(Graph& g, unsigned int n_threads){
 
 	t1 = omp_get_wtime();
 	constant_time_2 = t1 - t0;
+
+    // OUTSIDE LOOP
+    // Find maximum size for an adjacency list
+    int max_val;
+
+    int j;
+    /*
+    #pragma omp parallel for reduction(max : max_val)
+    for(j = 0; j < edges.size(); j++) {
+        int x = edges[j]->liste.size();
+        if (x > max_val)
+            max_val = x;
+    }
+    */
+
+    max_val = g.n;
+
+    vector<vector<edge*>> intra_cheapest_vector_copy(n_threads);
+    for (j = 0; j < n_threads; j++) {
+        intra_cheapest_vector_copy[j].reserve(max_val);
+    }
+
+    vector<edge*> cheapest(g.n);
+
+    // cout << endl << "INIT TIME: " << omp_get_wtime() - t1 << endl;
+
 	// While not connected
 	while(u->numTrees > 1){	
 
@@ -615,98 +688,100 @@ l_edge_t parallel_sollin_FAL::algorithm(Graph& g, unsigned int n_threads){
 		t0 = omp_get_wtime();
 		time_compact_step_4 += t0 - t1;
 
-
-		t1 = omp_get_wtime();
-		time_compact_step_5 += t1 - t0;
-		t0 = omp_get_wtime();
-
-		
-
-		t1 = omp_get_wtime();
-		time_compact_step_6 += t1 - t0;
-
 		// For all vertice find minimum outgoing edge
 		int nComps = edges.size();
-		vector<vector<edge*>> cheapest(nComps,v_edge_t(PAD));
 
 		# pragma omp parallel for num_threads(n_threads)
 		for(k = 0; k < nComps; k++){
-			component_FAL* val = edges[k];
-			int intra_size = val->liste.size();
+
+			int intra_size = edges[k]->liste.size();
+
 			// Take min in parallel
-			vector<edge*> intra_cheapest;
-			for(auto list_edges : val->liste){
-				l_edge_t& ref = list_edges->adjacent_vertices;
+			vector<edge*>& intra_cheapest_copy = intra_cheapest_vector_copy[omp_get_thread_num()];
+            intra_cheapest_copy.clear();
+
+			for(auto list_edges : edges[k]->liste){
+                
+				list<edge>& ref_copy = list_edges->adjacent_vertices_copy;
+
 				int source = u->find_debug(list_edges->index);
 				int target = source;
+
 				//cout << "Edge: " << source;
 				//print_edge_list(ref);
-				edge* e;
+				edge* e_copy;
+
 				while(target == source){
-					if(ref.empty()){
-						e = einit;
+					if(ref_copy.empty()){
+						e_copy = einit;
 						break;
 					}
-					e = ref.front(); 
-					target = u->find_debug(e->target);
-					ref.pop_front();
-					//cout << (target == source) << endl;
-				}	
-				intra_cheapest.push_back(e);
+                    e_copy = &(ref_copy.front());
+					target = u->find_debug(e_copy->target);
+					ref_copy.pop_front();
+				}
 
+				intra_cheapest_copy.push_back(copy_edge(e_copy));
 			}
-			// Find minimum in intra_cheapest
+
 			int min_weight = std::numeric_limits<int>::max();
 			int min_index = 0;
 			for(unsigned int i = 0; i != intra_size; i++){
-				edge* e = intra_cheapest[i];
+				//edge* e = intra_cheapest[i];
+				edge* e = intra_cheapest_copy[i];
+
 				if(e->source != -1){
-					int weight = intra_cheapest[i]->weight;
+					int weight = intra_cheapest_copy[i]->weight;
 					if(weight < min_weight){
 						min_index = i;
 						min_weight = weight;
 					}
 				}
 			}
-			// Push back all others
+
+            // Push back all others
 			int aux_index = 0;
-			for(auto list_edges : val->liste){
-				edge* e = intra_cheapest[aux_index];
+			for(auto list_edges : edges[k]->liste){
+
+				edge* e = intra_cheapest_copy[aux_index];
 				if(e->source != -1){
 					if(aux_index != min_index){
-						list_edges->adjacent_vertices.push_front(intra_cheapest[aux_index]);
+						list_edges->adjacent_vertices_copy.push_front(*intra_cheapest_copy[aux_index]);
 					}
 				}
 				aux_index++;
 			}
-			cheapest[k][0] = intra_cheapest[min_index];
+			cheapest[k] = intra_cheapest_copy[min_index];
 		}
-
 
 		t0 = omp_get_wtime();
 		time_find_min += t0 - t1;
 
 		// For all vertices, connect components
-		vector<edge*> add_to_mst;
 		// Connect the components via pointer-jump
-		#pragma omp parallel for num_threads(n_threads) reduction(addEdges:add_to_mst)
+
+        edge* e;
+        edge* e_copy;
 		for(k = 0; k < nComps; k++){
-			edge* e = cheapest[k][0];
+
+			e = cheapest[k];
+
 			if(e->source != -1){
-				bool b = false;
-				#pragma omp critical
-				{
-					b = u->unite(e->source,e->target);
-				}
-				if (b) add_to_mst.push_back(e);
+                if (u->unite(e->source,e->target)) {
+                    e_copy = new edge;
+                    e_copy->source =e->source;
+                    e_copy->target = e->target;
+                    e_copy->weight = e->weight;
+                    mst.push_back(e_copy);
+                }
 			}
 		}
-		mst.insert(mst.end(),add_to_mst.begin(),add_to_mst.end());
 
 		t1 = omp_get_wtime();
 		time_connect += t1 - t0;
-					
+
 	}
+
 	timing t_init_1("Init_time_1",constant_time_1);
 	timing t_init_2("Init_time_2",constant_time_2);
 	timing t_compact_1("Compact_step_1",time_compact_step_1);
@@ -730,7 +805,7 @@ l_edge_t parallel_sollin_FAL::algorithm(Graph& g, unsigned int n_threads){
 	internal_timings.push_back(t_connect);
 
 	delete u;
-	for(auto e : edges){
+    for(auto e : edges){
 		delete e;
 	}
 	

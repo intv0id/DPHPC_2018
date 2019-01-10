@@ -102,6 +102,10 @@ bool compWeight::operator()(edge* v1, edge* v2) const {
 	return v1->weight < v2->weight;
 }
 
+bool compWeight_copy::operator()(edge &v1, edge &v2) const {
+	return v1.weight < v2.weight;
+}
+
 void print_edge_list(l_edge_t mst){
     int c = 0;
 	cout << endl;

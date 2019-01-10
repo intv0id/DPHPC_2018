@@ -25,7 +25,9 @@ void Graph::add_edge(int i, int j, int w){
 	edges.push_back(ei);
 	edges.push_back(ej);
 	adjacency_list[i]->adjacent_vertices.push_back(ei);
+	adjacency_list[i]->adjacent_vertices_copy.push_back(*ei);
 	adjacency_list[j]->adjacent_vertices.push_back(ej);
+	adjacency_list[j]->adjacent_vertices_copy.push_back(*ej);
 	adjacency_vector[i]->adjacent_vertices.push_back(ei);
 	adjacency_vector[j]->adjacent_vertices.push_back(ej);
 
