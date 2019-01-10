@@ -5,7 +5,7 @@
 
 ## Description
 
-This project aims to experiment optimizations using parallel programming for the Minimum Spawning Tree problem.
+This project aims to experiment optimizations using parallel programming for the Minimum Spanning Tree problem.
 
 
 ## Authors
@@ -24,7 +24,7 @@ Clément Trassoudaine
 
 [**ETHZ documentation**](https://scicomp.ethz.ch/wiki/Getting\_started\_with\_clusters)
 
-[**Install dependancies**](https://github.com/intv0id/PMST/wiki/Installing-libraries-locally)
+[**Install dependencies**](https://github.com/intv0id/PMST/wiki/Installing-libraries-locally)
 
 [**Run jobs**](https://github.com/intv0id/PMST/wiki/Execute-a-job-on-EULER-&-DCO)
 
