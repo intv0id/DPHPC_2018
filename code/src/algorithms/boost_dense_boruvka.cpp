@@ -22,9 +22,10 @@ l_edge_t boost_dense_boruvka::algorithm(Graph &g, unsigned int n_threads) {
     vector<int> predMap(g.n);
 
 
-    typedef boost::graph::parallel::process_group_type<DistribGraph>::type process_group_type;
+    //typedef boost::graph::parallel::process_group_type<Boost_Graph>::type process_group_type;
+    //typedef boost::adjacency_list::process_group_type<Boost_Graph>::type process_group_type;
 
-    process_group_type pg = boost::graph::parallel::process_group(g.boost_rep);
+    adjacency_list::process_group_type pg = boost::graph::parallel::process_group(g.boost_rep);
 
     process_group_type::process_id_type id = boost::graph::parallel::process_id(pg);
     process_group_type::process_size_type p = boost::graph::parallel::num_processes(pg);    
