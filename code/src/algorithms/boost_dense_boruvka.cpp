@@ -7,6 +7,7 @@
 #include "algorithms/boost_dense_boruvka.hpp"
 #include <boost/graph/distributed/dehne_gotz_min_spanning_tree.hpp>
 
+
 #include <sys/time.h>
 
 using namespace std;
@@ -15,13 +16,13 @@ l_edge_t boost_dense_boruvka::algorithm(Graph &g, unsigned int n_threads) {
 
     boost::property_map<Boost_Graph,boost::edge_weight_t>::type w = get(boost::edge_weight, g.boost_rep);
     
-    boost::graph::parallel::process_group_type<Boost_DistribGraph>::type pg = process_group(g);
+    //boost::graph::parallel::process_group_type<Boost_DistribGraph>::type pg = boost::graph::parallel::process_group(g);
 
 
     vector<int> predMap(g.n);
 
    
-    boost::parallel::distributed_property_map<boost::graph::parallel::mpi_process_group, w, boost::edge_weight_t>::type dist_map = boost::parallel::make_distributed_property_map(boost::graph::parallel::mpi_process_group, w);
+    boost::parallel::distributed_property_map<boost::graph::distributed::mpi_process_group, boost::property_map<Boost_Graph,boost::edge_weight_t>::type, boost::edge_weight_t>::type dist_map = boost::parallel::make_distributed_property_map(boost::graph::distributed::mpi_process_group, w);
    
     vector<Boost_Edge> v;
 
