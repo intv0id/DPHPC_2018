@@ -6,7 +6,7 @@
 
 #include "algorithms/boost_dense_boruvka.hpp"
 #include <boost/graph/distributed/dehne_gotz_min_spanning_tree.hpp>
-
+#include <boost/graph/distributed/vertex_list_adaptor.hpp>
 
 #include <sys/time.h>
 
@@ -21,19 +21,22 @@ l_edge_t boost_dense_boruvka::algorithm(Graph &g, unsigned int n_threads) {
     struct timeval t0, t1;
     gettimeofday(&t0, NULL);
     
-	dense_boruvka_minimum_spanning_tree(g.boost_distrib_rep, w, back_inserter(v));
+	dense_boruvka_minimum_spanning_tree(make_vertex_list_adaptor(g.boost_distrib_rep), w, back_inserter(v));
     gettimeofday(&t1, NULL);
 
 	
     l_edge_t result;
 
 	for (vector<Boost_Edge>::iterator it = v.begin(); it != v.end(); it++) {
-		edge* e = new edge();
-		e->source = boost::source(*it,g.boost_distrib_rep);
-		e->target = boost::target(*it,g.boost_distrib_rep);
-		e->weight=w[*it];
-		result.push_back(e);
-    }
+		
+       if (process_id(g.boost_distrib_rep.process_group()) == 0) {
+          edge* e = new edge();
+	      Boost_Vertex u = boost::source(*it,g.boost_distrib_rep);
+		  Boost_Vertex v = boost::target(*it,g.boost_distrib_rep);
+		  e->weight=w[*it];
+		  result.push_back(e);
+       }
+   }
 
     return result;
 }

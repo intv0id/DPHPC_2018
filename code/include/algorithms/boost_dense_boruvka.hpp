@@ -6,6 +6,7 @@
 #include <boost/graph/distributed/dehne_gotz_min_spanning_tree.hpp>
 
 typedef boost::graph_traits<Boost_DistribGraph>::edge_descriptor Boost_Edge;
+typedef boost::graph_traits<Boost_DistribGraph>::vertex_descriptor Boost_Vertex;
 using namespace std;
 
 class boost_dense_boruvka : public mst_algorithm {
