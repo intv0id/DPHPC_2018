@@ -1,0 +1,13 @@
+# Sysname : Linux
+# Nodename: eu-a6-009-05
+# Release : 3.10.0-862.14.4.el7.x86_64
+# Version : #1 SMP Wed Sep 26 15:12:11 UTC 2018
+# Machine : x86_64
+# Execution time and date (UTC): Fri Jan 11 07:48:14 2019
+# Execution time and date (local): Fri Jan 11 08:48:14 2019
+# MPI execution on rank 0 with 1 processes in world
+# Reported time measurements are in microseconds
+# pretty output format
+    Algorithm  Graph_nodes   Graph_name  Max_threads          run       id         time     overhead 
+ Filter_Sollin        321270   USA-road-d.             6             0          0 12055161.861816            0 
+# Runtime: 14.618365 s (overhead: 0.000000 %) 1 records
