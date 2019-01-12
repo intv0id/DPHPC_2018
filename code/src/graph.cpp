@@ -33,10 +33,15 @@ void Graph::add_edge(int i, int j, int w){
 
 	// Add edge to boost graph
     boost::add_edge(i,j,w,boost_rep);
+    //cout << "BEFORE" << endl;
+    /*
     if (process_id(boost_distrib_rep.process_group()) == 0) {
         boost::add_edge(boost::vertex(i,boost_distrib_rep),boost::vertex(j,boost_distrib_rep),w,boost_distrib_rep);
     }
+    cout << "AFTER" << endl;
     synchronize(boost_distrib_rep.process_group());
+    */
+    //cout << "AFTER AFTER" << endl;
 	
 	if (i < j) {
 		unique_edges.push_back(ei);
