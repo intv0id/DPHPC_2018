@@ -40,18 +40,21 @@ for f1 in os.listdir("lsb"):
             unique_speedup = [base / y for y in unique_y]
             avg_speedup = [base / y for y in avg_y]
 
+            # Plot speedup
             plt.figure(figsize=(10, 8))
             plt.scatter(the_x, speedup)
             plt.plot(unique_x, unique_speedup, label="Median")
             plt.plot(unique_x, avg_speedup, label="Average")
             plt.title("Speedup " + algo + " " + graph)
             plt.legend()
-            plt.savefig("images/speedup_" + algo + "_" + graph + ".png")
+            plt.ylim(0, 4)
+            plt.savefig("images/speedup/speedup_" + algo + "_" + graph + ".png")
 
+            # Plot speedup
             plt.figure(figsize=(10, 8))
             plt.scatter(the_x, the_y)
             plt.plot(unique_x, unique_y, label="Median")
             plt.plot(unique_x, avg_y, label="Average")
             plt.title("Time " + algo + " " + graph)
             plt.legend()
-            plt.savefig("images/time_" + algo + "_" + graph + ".png")
+            plt.savefig("images/time/time_" + algo + "_" + graph + ".png")
