@@ -33,7 +33,7 @@ endif()
 ## Set compile flags
 # set(CMAKE_CXX_FLAGS "-std=c++17 -O3 -Wall -Wextra ${OpenMP_CXX_FLAGS}")
 set(CMAKE_CXX_FLAGS "-std=c++17 -O3 ${OpenMP_CXX_FLAGS}")
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS}  ${OpenMP_EXE_LINKER_FLAGS}")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS}  ${OpenMP_EXE_LINKER_FLAGS} -lboost_system")
 if(BUILD_TDEBUG)
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -DDEBUG")
 endif(BUILD_TDEBUG)
@@ -94,3 +94,13 @@ if(EXISTS $ENV{TBB_PATH})
 	target_link_libraries(exec "$ENV{TBB_PATH}/lib/intel64/gcc4.7/libtbb.so")
 endif()
 
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DOMPI_SKIP_MPICXX")
+
+FIND_PACKAGE(Boost COMPONENTS mpi serialization graph_parallel REQUIRED)
+
+if(Boost_FOUND)
+    include_directories(${Boost_INCLUDE_DIRS})
+    message("Boost include: ${Boost_INCLUDE_DIRS}")
+    target_link_libraries(exec ${Boost_LIBRARIES})
+    message("Boost librairies: ${Boost_LIBRARIES}")
+endif()
