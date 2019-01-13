@@ -26,14 +26,18 @@ l_edge_t boost_dense_boruvka::algorithm(Graph &g, unsigned int n_threads) {
 
     
     l_edge_t result;
-
+    cout << "dense boruv end, v size: " << v.size() << endl;
     for (vector<DistriBoost_Edge>::iterator it = v.begin(); it != v.end(); it++) {
-        
+       cout << "iter edge" << endl; 
        if (process_id(g.boost_distrib_rep.process_group()) == 0) {
           edge* e = new edge();
           DistriBoost_Vertex u = boost::source(*it,g.boost_distrib_rep);
           DistriBoost_Vertex v = boost::target(*it,g.boost_distrib_rep);
-          e->weight=w[*it];
+	  //VertexIndexMap indexMap = get(vertex_index, g.boost_distrib_rep);
+      	  cout << "test" << endl;
+	  cout << "(" << g.boost_distrib_rep.distribution().global(owner(u), local(u))
+                << ", " << g.boost_distrib_rep.distribution().global(owner(v), local(v))<< ")\n";
+	  e->weight=w[*it];
           result.push_back(e);
        }
    }
