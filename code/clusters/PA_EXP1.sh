@@ -1,7 +1,7 @@
 #! /bin/bash -l
 
 #BSUB -N
-#BSUB -q bigmem.24h
+#BSUB -q bigmem.120h
 #BSUB -o job_%J.out
 #BSUB -e job_%J.err
 #BSUB -n 36
@@ -34,7 +34,7 @@ cmd_exp(){
 cmd_exp_algos(){
     for algo in ${algorithms[@]}; do
 	    for i in $(seq 1 $TIMES); do
-            cmd_exp "$1" " --PA-graph 10000 1000 --algorithm ${algo} --lsb-filename ${algo}_timing_PA_10k $2" ;
+            cmd_exp "$1" " --PA-graph 50000 50 --algorithm ${algo} --lsb-filename ${algo}_timing_PA_50k $2" ;
         done
     done
 }

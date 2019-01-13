@@ -15,11 +15,11 @@ PMST_PATH="`readlink -f ~`/PMST/code" ;
 executable="${PMST_PATH}/bin/exec" ;
 
 # Variables
-#algorithms=("FilterKruskal" "Kruskal" "BoostKruskal" "BoostPrim") ;
-algorithms=("ParallelSollinFAL" "FilterSollin");
+algorithms=("FilterKruskal" "Kruskal" "BoostKruskal" "BoostPrim") ;
+#algorithms=("ParallelSollinFAL" "FilterSollin");
 MAX_THREAD=32 ;
 RUNS=30 ;
-TIMES=5 ;
+TIMES=10 ;
 
 
 # Arguments:
@@ -35,7 +35,7 @@ cmd_exp(){
 cmd_exp_algos(){
     for algo in ${algorithms[@]}; do
 	    for i in $(seq 1 $TIMES); do
-            cmd_exp "$1" " --Erdos-Renyi-graph 100000 50 --linear 2 --algorithm ${algo} --lsb-filename ${algo}_timing_ER_100k $2" ;
+            cmd_exp "$1" " --Erdos-Renyi-graph 10000 2000 --linear 2 --algorithm ${algo} --lsb-filename ${algo}_timing_ER_100k $2" ;
         done
     done
 }
