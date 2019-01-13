@@ -1,0 +1,13 @@
+# Sysname : Linux
+# Nodename: eu-a6-009-05
+# Release : 3.10.0-862.14.4.el7.x86_64
+# Version : #1 SMP Wed Sep 26 15:12:11 UTC 2018
+# Machine : x86_64
+# Execution time and date (UTC): Sat Jan 12 17:33:44 2019
+# Execution time and date (local): Sat Jan 12 18:33:44 2019
+# MPI execution on rank 0 with 1 processes in world
+# Reported time measurements are in microseconds
+# pretty output format
+    Algorithm  Graph_nodes   Graph_name  Max_threads          run       id         time     overhead 
+ parallel_sollin_AL         50000  Erdos-Renyi_random_p=0.002000            28             0          0 2988916.887207            0 
+# Runtime: 10.264668 s (overhead: 0.000000 %) 1 records
