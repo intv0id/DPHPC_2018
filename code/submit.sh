@@ -19,7 +19,7 @@ executable="${PMST_PATH}/bin/exec" ;
 #MAX_THREAD=32 ;
 TIMES=50;
 THREAD=(1 2 4 6 8 10 12 14 16 18 20 22 24 26 28 30 32)
-algorithms=("ParallelSollinFAL" "FilterSollin")
+algorithms=("ParallelSollinAL" "ParallelSollinFAL" "FilterSollin")
 
 # Arguments:
 # 1: path to executable
@@ -35,8 +35,8 @@ cmd_exp_algos(){
     for i in $(seq 1 $TIMES); do
         for thr in ${THREAD[@]}; do
             for algo in ${algorithms[@]}; do
-                cmd_exp "$1" "$thr" "--USA-graph NW t --algorithm ${algo} --lsb-filename ${algo}_timing_USA_NW $2" ;
-                cmd_exp "$1" "$thr" "--USA-graph CAL d --algorithm ${algo} --lsb-filename ${algo}_timing_USA_CAL $2" ;
+                cmd_exp "$1" "$thr" "--Erdos-Renyi-graph 10000 2000 --algorithm ${algo} --lsb-filename ${algo}_timing_ER_10k $2" ;
+                cmd_exp "$1" "$thr" "--PA-graph 50000 50 --algorithm ${algo} --lsb-filename ${algo}_timing_PA_50k $2" ;
             done
         done
     done
