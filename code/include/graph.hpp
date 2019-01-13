@@ -7,10 +7,7 @@
 #include <list>
 #include <map>
 
-#include <boost/graph/use_mpi.hpp> 
 #include <boost/graph/adjacency_list.hpp>
-#include <boost/graph/distributed/adjacency_list.hpp>
-#include <boost/graph/distributed/mpi_process_group.hpp>
 
 using namespace std;
 
@@ -18,9 +15,10 @@ typedef boost::adjacency_list<boost::vecS,boost::vecS,boost::undirectedS,
 	boost::no_property,
 	boost::property<boost::edge_weight_t,int> > Boost_Graph;
 
-typedef boost::adjacency_list<boost::vecS,boost::distributedS<boost::graph::distributed::mpi_process_group, boost::vecS>,boost::undirectedS,
+/*typedef boost::adjacency_list<boost::vecS,boost::distributedS<boost::graph::distributed::mpi_process_group, boost::vecS>,boost::undirectedS,
     boost::no_property,
     boost::property<boost::edge_weight_t,int> > Boost_DistribGraph;
+*/
 
 struct edge {
     void print();
@@ -78,7 +76,7 @@ class Graph {
     vector<vertex_adjacency_list*> adjacency_list;
     vector<vertex_adjacency_vector*> adjacency_vector;
     Boost_Graph boost_rep;
-    Boost_DistribGraph boost_distrib_rep;
+    // Boost_DistribGraph boost_distrib_rep;
 };
 
 typedef list<edge*> l_edge_t;

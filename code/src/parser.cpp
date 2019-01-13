@@ -14,7 +14,7 @@
 #include "algorithms/boost_kruskal.hpp"
 #include "algorithms/boost_prim.hpp"
 #include "algorithms/filter_sollin.hpp"
-#include "algorithms/boost_dense_boruvka.hpp"
+//#include "algorithms/boost_dense_boruvka.hpp"
 
 using namespace std;
 
@@ -149,8 +149,8 @@ bool parser::parse_algonames(string algoname) {
         selected_algorithms.push_back(new boost_kruskal());
     } else if (algoname == "BoostPrim") {
         selected_algorithms.push_back(new boost_prim());
-    } else if (algoname == "BoostBoruvka") {
-        selected_algorithms.push_back(new boost_dense_boruvka());
+    //} else if (algoname == "BoostBoruvka") {
+        //selected_algorithms.push_back(new boost_dense_boruvka());
     } else {
         return false;
     }

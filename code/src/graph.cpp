@@ -55,6 +55,7 @@ void Graph::add_edge(int i, int j, int w){
     n_edges++;
 	
 }
+
 Graph::Graph(int n_) :
 	n(n_){
 
@@ -71,7 +72,7 @@ Graph::Graph(int n_) :
 }
 
 Graph::Graph(int nVertices, double edgeProba, int min, int max) :
-    n(nVertices), boost_rep(n), boost_distrib_rep(n)
+    n(nVertices), boost_rep(n)
 {
     name = "Erdos-Renyi_random_p=" + to_string(edgeProba);
 
@@ -111,6 +112,7 @@ Graph::Graph(int nVertices, double edgeProba, int min, int max) :
 		j++;
 	}
     }
+    cout << "ER SIZE: " << n << ", " << n_edges << endl;
 }
 Graph::Graph(int nVertices, int m, int min, int max) : n(nVertices)
 {
@@ -152,6 +154,7 @@ Graph::Graph(int nVertices, int m, int min, int max) : n(nVertices)
             vect.push_back(new_neighbours[k]);
         }
     }
+    cout << "PA SIZE: " << n << ", " << n_edges << endl;
 }
 Graph::Graph(string fname, string type){
 
@@ -198,7 +201,7 @@ Graph::Graph(string fname, string type){
     inFile.close(); 
 }
 
-Graph::Graph(Graph& h) : name(h.name), n(h.n), n_edges(0), boost_rep(h.n), boost_distrib_rep(h.n) {
+Graph::Graph(Graph& h) : name(h.name), n(h.n), n_edges(0), boost_rep(h.n) {
 	    // Init adj list
 	    for(int i = 0; i != n; i++){
 		vertex_adjacency_list* val = new vertex_adjacency_list;
@@ -226,5 +229,4 @@ Graph::~Graph(){
 		delete v;
 	}
 	boost_rep.clear();
-    boost_distrib_rep.clear();
 }
