@@ -15,6 +15,10 @@
 #include "algorithms/boost_prim.hpp"
 #include "algorithms/filter_sollin.hpp"
 #include "algorithms/boost_dense_boruvka.hpp"
+#include "algorithms/boost_merge_local.hpp"
+#include "algorithms/boost_boruvka_then_merge.hpp"
+#include "algorithms/boost_boruvka_mixed_merge.hpp"
+
 
 using namespace std;
 
@@ -151,6 +155,12 @@ bool parser::parse_algonames(string algoname) {
         selected_algorithms.push_back(new boost_prim());
     } else if (algoname == "BoostBoruvka") {
         selected_algorithms.push_back(new boost_dense_boruvka());
+    } else if (algoname == "BoostMergeLocal") {
+        selected_algorithms.push_back(new boost_merge_local());
+    } else if (algoname == "BoostBoruvkaThenMerge") {
+        selected_algorithms.push_back(new boost_boruvka_then_merge());
+    } else if (algoname == "BoostBoruvkaMixedMerge") {
+        selected_algorithms.push_back(new boost_boruvka_mixed_merge());
     } else {
         return false;
     }
@@ -168,6 +178,9 @@ void parser::print_algos(){
     cout << "BoostKruskal" << endl;
     cout << "BoostPrim" << endl;
     cout << "BoostBoruvka" << endl;
+    cout << "BoostMergeLocal" << endl;
+    cout << "BoostBoruvkaThenMerge" << endl;
+    cout << "BoostBoruvkaMixedMerge" << endl;
 }
 
 void parser::compute(){
