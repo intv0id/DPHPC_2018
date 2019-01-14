@@ -20,23 +20,22 @@ l_edge_t boost_dense_boruvka::algorithm(Graph &g, unsigned int n_threads) {
    
     struct timeval t0, t1;
     gettimeofday(&t0, NULL);
-    
-    dense_boruvka_minimum_spanning_tree(make_vertex_list_adaptor(g.boost_distrib_rep), w, back_inserter(v));
+ 
+    dense_boruvka_minimum_spanning_tree(make_vertex_list_adaptor(g.boost_distrib_rep), w, back_inserter(v),  get(boost::vertex_index, g.boost_distrib_rep));
     gettimeofday(&t1, NULL);
 
     
     l_edge_t result;
-    cout << "dense boruv end, v size: " << v.size() << endl;
+    
+
     for (vector<DistriBoost_Edge>::iterator it = v.begin(); it != v.end(); it++) {
-       cout << "iter edge" << endl; 
        if (process_id(g.boost_distrib_rep.process_group()) == 0) {
           edge* e = new edge();
-          DistriBoost_Vertex u = boost::source(*it,g.boost_distrib_rep);
-          DistriBoost_Vertex v = boost::target(*it,g.boost_distrib_rep);
-	  //VertexIndexMap indexMap = get(vertex_index, g.boost_distrib_rep);
-      	  cout << "test" << endl;
-	  cout << "(" << g.boost_distrib_rep.distribution().global(owner(u), local(u))
-                << ", " << g.boost_distrib_rep.distribution().global(owner(v), local(v))<< ")\n";
+          DistriBoost_Vertex u1 = boost::source(*it, g.boost_distrib_rep);
+          DistriBoost_Vertex u2 = boost::target(*it, g.boost_distrib_rep);
+	  
+	  e->source=g.boost_distrib_rep.distribution().global(owner(u1), local(u1));
+    	  e->target=g.boost_distrib_rep.distribution().global(owner(u2), local(u2));
 	  e->weight=w[*it];
           result.push_back(e);
        }
