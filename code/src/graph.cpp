@@ -34,11 +34,12 @@ void Graph::add_edge(int i, int j, int w){
 	// Add edge to boost graph
     boost::add_edge(i,j,w,boost_rep);
     
+    /*
     if (process_id(boost_distrib_rep.process_group()) == 0) {
         boost::add_edge(boost::vertex(i,boost_distrib_rep),boost::vertex(j,boost_distrib_rep),w,boost_distrib_rep);
     }
     synchronize(boost_distrib_rep.process_group());
-    
+    */
 	
 	if (i < j) {
 		unique_edges.push_back(ei);
