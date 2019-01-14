@@ -15,7 +15,8 @@ PMST_PATH="`readlink -f ~`/PMST/code" ;
 executable="${PMST_PATH}/bin/exec" ;
 
 # Variables
-algorithms=("FilterKruskal" "Kruskal" "BoostKruskal" "BoostPrim" "BoostBoruvka" "BoostMergeLocal" "BoostBoruvkaThenMerge" "BoostBoruvkaMixedMerge") ;
+algorithms=("FilterKruskal" "Kruskal" "BoostKruskal" "BoostPrim") ;
+#algorithms=("BoostBoruvka" "BoostMergeLocal" "BoostBoruvkaThenMerge" "BoostBoruvkaMixedMerge") ;
 MAX_THREAD=32 ;
 RUNS=3 ;
 TIMES=1000 ;
