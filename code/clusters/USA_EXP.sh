@@ -1,7 +1,7 @@
 #! /bin/bash -l
 
 #BSUB -N
-#BSUB -q bigmem.24h
+#BSUB -q bigmem.120h
 #BSUB -o job_%J.out
 #BSUB -e job_%J.err
 #BSUB -n 36
@@ -15,10 +15,10 @@ PMST_PATH="`readlink -f ~`/PMST/code" ;
 executable="${PMST_PATH}/bin/exec" ;
 
 # Variables
-algorithms=("FilterKruskal" "Kruskal" "BoostKruskal" "BoostPrim") ;
+algorithms=("FilterKruskal" "Kruskal" "BoostKruskal" "BoostPrim" "BoostBoruvka" "BoostMergeLocal" "BoostBoruvkaThenMerge" "BoostBoruvkaMixedMerge") ;
 MAX_THREAD=32 ;
-RUNS=30 ;
-TIMES=10 ;
+RUNS=3 ;
+TIMES=1000 ;
 
 
 # Arguments:
@@ -32,9 +32,10 @@ cmd_exp(){
 # 1: path to executable
 # 2: additional flags
 cmd_exp_algos(){
-    for algo in ${algorithms[@]}; do
-	    for i in $(seq 1 $TIMES); do
-            cmd_exp "$1" " --USA-graph BAY d --algorithm ${algo} --lsb-filename ${algo}_timing_USA_BAY $2" ;
+    for i in $(seq 1 $TIMES); do
+        for algo in ${algorithms[@]}; do
+            cmd_exp "$1" " --USA-graph BAY d --linear 2 --algorithm ${algo} --lsb-filename ${algo}_timing_USA_BAY $2" ;
+            cmd_exp "$1" " --USA-graph NY d --linear 2 --algorithm ${algo} --lsb-filename ${algo}_timing_USA_NY $2" ;
         done
     done
 }
