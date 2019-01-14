@@ -1,7 +1,7 @@
 #! /bin/bash -l
 
 types=("ER" "PA");
-declare -A algos=( [FAL]=FAL [AL]=AL [FS]=FilterSollin );
+declare -A algos=( [FAL]=ParallelSollinFAL [AL]=ParallelSollinAL [FS]=FilterSollin );
 numbers=(50 10);
 
 for short_algo in "${!algos[@]}"
