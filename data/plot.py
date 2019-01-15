@@ -47,7 +47,7 @@ for f1 in os.listdir("lsb"):
             plt.plot(unique_x, avg_speedup, label="Average")
             plt.title("Speedup " + algo + " " + graph)
             plt.legend()
-            plt.ylim(0, 6)
+            plt.ylim(0, 10)
             plt.savefig("images/speedup/speedup_" + algo + "_" + graph + ".png")
 
             # Plot speedup
