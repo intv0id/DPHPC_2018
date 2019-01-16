@@ -1,3 +1,5 @@
+#include <boost/mpi.hpp>
+
 #include <iostream>
 #include <mpi.h>
 
@@ -216,8 +218,6 @@ vector<unsigned int> parser::thread_list(unsigned int min, unsigned int max){
     }
     return threads;
 }
-
-
 
 void parser::check_correctness(){
     Verifier v(selected_algorithms, threads);
