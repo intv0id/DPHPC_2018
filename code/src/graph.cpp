@@ -1,3 +1,5 @@
+#include <boost/mpi.hpp>
+
 #include <graph.hpp>
 
 #include <iomanip>
@@ -14,7 +16,7 @@ void edge::print(){
     cout << "Weight: " << weight << endl;
 }
 
-void Graph::add_edge(int i, int j, int w){
+void Graph::add_edge(int i, int j, int w) {
 
 	// Create edges
 	edge* ei = new edge;
@@ -32,14 +34,12 @@ void Graph::add_edge(int i, int j, int w){
 	adjacency_vector[j]->adjacent_vertices.push_back(ej);
 
 	// Add edge to boost graph
+
     boost::add_edge(i,j,w,boost_rep);
-    
-    /*
     if (process_id(boost_distrib_rep.process_group()) == 0) {
         boost::add_edge(boost::vertex(i,boost_distrib_rep),boost::vertex(j,boost_distrib_rep),w,boost_distrib_rep);
     }
     synchronize(boost_distrib_rep.process_group());
-    */
 	
 	if (i < j) {
 		unique_edges.push_back(ei);
@@ -51,8 +51,8 @@ void Graph::add_edge(int i, int j, int w){
 	}
 
     n_edges++;
-	
 }
+
 Graph::Graph(int n_) :
 	n(n_){
 
@@ -71,6 +71,8 @@ Graph::Graph(int n_) :
 Graph::Graph(int nVertices, double edgeProba, int min, int max) :
     n(nVertices), boost_rep(n), boost_distrib_rep(n)
 {
+
+
     name = "Erdos-Renyi_random_p=" + to_string(edgeProba);
 
     // For all pair of nodes, generate random edges

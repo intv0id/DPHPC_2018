@@ -1,5 +1,6 @@
-#include <mpi.h>
+#include <boost/mpi.hpp>
 
+#include <mpi.h>
 #include "parser.hpp"
 
 /*
@@ -8,12 +9,18 @@
 
 int main(int argc, char *argv[]){
     // Initialize MPI
-    int rank;
+    
+    boost::mpi::environment env{argc, argv};
+    boost::mpi::communicator world;
+    std::cout << world.rank() << ", " << world.size() << '\n';
+
+    /* int rank;
     MPI_Init(&argc, &argv);
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+    */
+    
+    parser P(&argc, &argv, world.rank());
 
-    parser P(&argc, &argv, rank);
-
-    MPI_Finalize();
+    // MPI_Finalize();
     return 0;
 }
