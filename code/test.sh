@@ -1,7 +1,7 @@
 #! /bin/bash -l
 
 #BSUB -N
-#BSUB -q bigmem.24h
+#BSUB -q bigmem.4h
 #BSUB -o job_%J.out
 #BSUB -e job_%J.err
 #BSUB -n 36
@@ -13,25 +13,23 @@ PMST_PATH="`readlink -f ~`/PMST/code" ;
 executable="${PMST_PATH}/bin/exec" ;
 
 # Variables
-#algorithms=("FilterKruskal" "Kruskal" "BoostKruskal" "BoostPrim") ;
 #MAX_THREAD=32 ;
 TIMES=100;
-THREAD=8;
+#THREADS=(1 2 4 6 8 10 12 14 16 18)
+THREADS=(1 2 4)
 # THREAD=(1 32 16)
 #algorithms=("FilterSollin" "ParallelSollinFAL" "ParallelSollinAL")
-#algorithms=("BoostBoruvka" "BoostMergeLocal" "BoostBoruvkaMixedMerge" "BoostBoruvkaThenMerge")
-algorithms="BoostMergeLocal BoostBoruvkaThenMerge BoostBoruvkaMixedMerge BoostBoruvka"
-#algorithms=("ParallelSollinFAL" "FilterSollin")
+algorithms=("BoostBoruvka" "FilterSollin" "ParallelSollinFAL" "ParallelSollinAL"  "BoostMergeLocal" "BoostBoruvkaMixedMerge" "BoostBoruvkaThenMerge")
+#algorithms="BoostMergeLocal BoostBoruvkaThenMerge BoostBoruvkaMixedMerge BoostBoruvka"
+#algorithms="BoostBoruvka"
+# algorithms="BoostBoruvka"
 
-
-# Arguments:
-# 1: path to executable
-# 2: additional flags
-cmd_exp(){
-	# $1 --runs 10 --min-threads $2 $3 ;
-	# $1 --runs 5 --min-threads $2 $3 ;
-    echo $3
-	mpiexec -n $2 $1 --runs 3 --min-threads $2 $3 ;
-}
-
-mpiexec -n ${THREAD} ${executable} --runs 2 --min-threads ${THREAD} --PA-graph 1000 100 --algorithm ${algorithms} --lsb-filename ${algo}_timing_PA_1k ;
+for i in $(seq 1 $TIMES); do
+    for algo in ${algorithms[@]}; do
+        for THREAD in ${THREADS[@]}; do
+            echo "i: $i, algo: $algo, # threads: $THREAD"
+            mpirun -n ${THREAD} ${executable} --runs 2 --min-threads ${THREAD} --PA-graph 2000 20 --algorithm ${algo} --lsb-filename ${algo}_timing_PA_2k_20 >> out.out ;
+            mpirun -n ${THREAD} ${executable} --runs 2 --min-threads ${THREAD} --PA-graph 1000 100 --algorithm ${algo} --lsb-filename ${algo}_timing_PA_1k_100 >> out.out ;
+        done
+    done
+done
