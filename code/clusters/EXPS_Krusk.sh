@@ -15,8 +15,7 @@ PMST_PATH="`readlink -f ~`/PMST/code" ;
 executable="${PMST_PATH}/bin/exec" ;
 
 # Variables
-algorithms=("FilterKruskal" "Kruskal" "BoostKruskal" "BoostPrim") ;
-#algorithms=("BoostBoruvka" "BoostMergeLocal" "BoostBoruvkaThenMerge" "BoostBoruvkaMixedMerge") ;
+algorithms=("FilterKruskal" "Kruskal") ;
 MAX_THREAD=32 ;
 RUNS=3 ;
 TIMES=1000 ;
@@ -26,7 +25,7 @@ TIMES=1000 ;
 # 1: path to executable
 # 2: additional flags
 cmd_exp(){
-	$1 --runs ${RUNS} --max-threads ${MAX_THREAD} $2 ;
+    $1 --runs ${RUNS} --max-threads ${MAX_THREAD} $2 ;
 }
 
 # Arguments:
@@ -37,6 +36,12 @@ cmd_exp_algos(){
         for algo in ${algorithms[@]}; do
             cmd_exp "$1" " --USA-graph BAY d --linear 2 --algorithm ${algo} --lsb-filename ${algo}_timing_USA_BAY $2" ;
             cmd_exp "$1" " --USA-graph NY d --linear 2 --algorithm ${algo} --lsb-filename ${algo}_timing_USA_NY $2" ;
+            cmd_exp "$1" " --PA-graph 50000 50 --linear 2 --algorithm ${algo} --lsb-filename ${algo}_timing_PA_50k_50 $2" ;
+            cmd_exp "$1" " --PA-graph 10000 1000 --linear 2 --algorithm ${algo} --lsb-filename ${algo}_timing_PA_10k_1k $2" ;
+            cmd_exp "$1" " --PA-graph 2000 20 --linear 2 --algorithm ${algo} --lsb-filename ${algo}_timing_PA_2k_20 $2" ;
+            cmd_exp "$1" " --PA-graph 1000 100 --linear 2 --algorithm ${algo} --lsb-filename ${algo}_timing_PA_1k_100 $2" ;
+            cmd_exp "$1" " --Erdos-Renyi-graph 50000 100 --linear 2 --algorithm ${algo} --lsb-filename ${algo}_timing_ER_50k_100 $2" ;
+            cmd_exp "$1" " --Erdos-Renyi-graph 10000 2000 --linear 2 --algorithm ${algo} --lsb-filename ${algo}_timing_ER_10k_2k $2" ;
         done
     done
 }
