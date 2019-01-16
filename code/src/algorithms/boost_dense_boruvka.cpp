@@ -24,7 +24,6 @@ l_edge_t boost_dense_boruvka::algorithm(Graph &g, unsigned int n_threads) {
     dense_boruvka_minimum_spanning_tree(make_vertex_list_adaptor(g.boost_distrib_rep), w, back_inserter(v),  get(boost::vertex_index, g.boost_distrib_rep));
     gettimeofday(&t1, NULL);
 
-    
     l_edge_t result;
     
 
