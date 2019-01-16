@@ -1,3 +1,5 @@
+#include <boost/mpi.hpp>
+
 #include <stdio.h>
 #include <iostream>
 #include <graph.hpp>
@@ -17,6 +19,8 @@ Verifier::Verifier(list<mst_algorithm*> l, vector<unsigned int> threads_vec) : a
 void Verifier::check(list<Graph*> g_list)
 {
 
+    boost::mpi::communicator world;
+
     omp_set_dynamic(0);
     srand(42);
 
@@ -30,20 +34,25 @@ void Verifier::check(list<Graph*> g_list)
                 omp_set_num_threads(thread_nb);
                 tbb::task_scheduler_init tbb_scheduler(thread_nb);
 
-                cout << "Algorithm: " << mst_algo.name.c_str();
-                cout << "\t; Nodes number:" << graph.n;
-                cout << "\t; Max threads: " << thread_nb;
+                if (world.rank() == 0) {
+                    cout << "Algorithm: " << mst_algo.name.c_str();
+                    cout << "\t; Nodes number:" << graph.n;
+                    cout << "\t; Max threads: " << thread_nb;
+                }
 
-		Graph graph_copy(graph);
+                Graph graph_copy(graph);
                 /* Perform the operation */
                 l_edge_t mst = mst_algo.algorithm(graph_copy, thread_nb);
 
-                bool passed = verify_one(*g, mst);
 
-                if (passed)
-                    cout << "\t; Correct result" << endl;
-                else
-                    cout << "\t; Failed" << endl;
+                if (world.rank() == 0) {
+                    bool passed = verify_one(*g, mst);
+
+                    if (passed)
+                        cout << "\t; Correct result" << endl;
+                    else
+                        cout << "\t; Failed" << endl;
+                }
 
             }
         }

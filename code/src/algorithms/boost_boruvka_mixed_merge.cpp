@@ -14,18 +14,13 @@ using namespace std;
 
 l_edge_t boost_boruvka_mixed_merge::algorithm(Graph &g, unsigned int n_threads) {
 
+    l_edge_t result;
+
     boost::property_map<Boost_DistribGraph, boost::edge_weight_t>::type w = get(boost::edge_weight, g.boost_distrib_rep);
-    
+
     vector<DistriBoost_Edge> v;
    
-    struct timeval t0, t1;
-    gettimeofday(&t0, NULL);
- 
-    boruvka_mixed_merge(make_vertex_list_adaptor(g.boost_distrib_rep), w, back_inserter(v),  get(boost::vertex_index, g.boost_distrib_rep));
-    gettimeofday(&t1, NULL);
-
-    
-    l_edge_t result;
+    boruvka_mixed_merge(make_vertex_list_adaptor(g.boost_distrib_rep), w, back_inserter(v));
     
 
     for (vector<DistriBoost_Edge>::iterator it = v.begin(); it != v.end(); it++) {

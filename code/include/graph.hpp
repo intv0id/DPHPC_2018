@@ -18,7 +18,7 @@ typedef boost::adjacency_list<boost::vecS,boost::vecS,boost::undirectedS,
 	boost::no_property,
 	boost::property<boost::edge_weight_t,int> > Boost_Graph;
 
-typedef boost::adjacency_list<boost::vecS,boost::distributedS<boost::graph::distributed::mpi_process_group, boost::vecS>,boost::undirectedS,
+typedef boost::adjacency_list<boost::listS,boost::distributedS<boost::graph::distributed::mpi_process_group, boost::vecS>,boost::undirectedS,
     boost::no_property,
     boost::property<boost::edge_weight_t,int> > Boost_DistribGraph;
 
