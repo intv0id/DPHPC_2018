@@ -34,14 +34,14 @@ cmd_exp(){
 cmd_exp_algos(){
     for i in $(seq 1 $TIMES); do
         for algo in ${algorithms[@]}; do
-            cmd_exp "$1" " --USA-graph BAY d --linear 2 --algorithm ${algo} --lsb-filename ${algo}_timing_USA_BAY $2" ;
-            cmd_exp "$1" " --USA-graph NY d --linear 2 --algorithm ${algo} --lsb-filename ${algo}_timing_USA_NY $2" ;
-            cmd_exp "$1" " --PA-graph 50000 50 --linear 2 --algorithm ${algo} --lsb-filename ${algo}_timing_PA_50k_50 $2" ;
-            cmd_exp "$1" " --PA-graph 10000 1000 --linear 2 --algorithm ${algo} --lsb-filename ${algo}_timing_PA_10k_1k $2" ;
-            cmd_exp "$1" " --PA-graph 2000 20 --linear 2 --algorithm ${algo} --lsb-filename ${algo}_timing_PA_2k_20 $2" ;
-            cmd_exp "$1" " --PA-graph 1000 100 --linear 2 --algorithm ${algo} --lsb-filename ${algo}_timing_PA_1k_100 $2" ;
-            cmd_exp "$1" " --Erdos-Renyi-graph 50000 100 --linear 2 --algorithm ${algo} --lsb-filename ${algo}_timing_ER_50k_100 $2" ;
-            cmd_exp "$1" " --Erdos-Renyi-graph 10000 2000 --linear 2 --algorithm ${algo} --lsb-filename ${algo}_timing_ER_10k_2k $2" ;
+            cmd_exp "$1" " --USA-graph BAY d --linear 2 --algorithm ${algo} --lsb-filename ${algo}_timing_USA_BAY $2" || true ;
+            cmd_exp "$1" " --USA-graph NY d --linear 2 --algorithm ${algo} --lsb-filename ${algo}_timing_USA_NY $2" || true ;
+            cmd_exp "$1" " --PA-graph 50000 50 --linear 2 --algorithm ${algo} --lsb-filename ${algo}_timing_PA_50k_50 $2" || true ;
+            cmd_exp "$1" " --PA-graph 10000 1000 --linear 2 --algorithm ${algo} --lsb-filename ${algo}_timing_PA_10k_1k $2" || true ;
+            cmd_exp "$1" " --PA-graph 2000 20 --linear 2 --algorithm ${algo} --lsb-filename ${algo}_timing_PA_2k_20 $2" || true ;
+            cmd_exp "$1" " --PA-graph 1000 100 --linear 2 --algorithm ${algo} --lsb-filename ${algo}_timing_PA_1k_100 $2" || true ;
+            cmd_exp "$1" " --Erdos-Renyi-graph 50000 100 --linear 2 --algorithm ${algo} --lsb-filename ${algo}_timing_ER_50k_100 $2" || true ;
+            cmd_exp "$1" " --Erdos-Renyi-graph 10000 2000 --linear 2 --algorithm ${algo} --lsb-filename ${algo}_timing_ER_10k_2k $2" || true ;
         done
     done
 }
