@@ -4,7 +4,10 @@
 % --------------------------------------------------------------------------
 
 \documentclass[letterpaper]{article}
+\usepackage{algpseudocode}
+\usepackage{algorithm}
 \usepackage{spconf,amsmath,amssymb,graphicx}
+
 
 % Example definitions.
 % --------------------
@@ -34,7 +37,7 @@
 	Ecole Polytechnique\\
   	{\small Route de Saclay, 91128 Palaiseau Cedex, FRANCE}\\
   	ETH Z\"urich, D-INFK\\
-	{\small Rämistrasse 101, 8092 Z\"rich, SWITZERLAND}
+	{\small R\"amistrasse 101, 8092 Z\"urich, SWITZERLAND}
   }
   {C. Trassoudaine\sthanks{The fourth author performed the work while at ETH Z\"rich}}
   {
@@ -54,7 +57,7 @@
 
 \begin{abstract}
 
-ABSTRACT
+
 
 \end{abstract}
 
@@ -63,35 +66,127 @@ ABSTRACT
 A wide range of problems have input sets that can be represented as graphs which is why it is crucial to develop efficient graph algorithms to reduce the computation costs. As graphs are getting larger and larger, classic sequential algorithms are becoming not fast enough to cope with the exploding number of nodes and edges. To further reduce costs, distributed algorithms are ideal to take advantage of the parallel architecture of computers but it is a challenge to correctly handle memory, concurrency or security and one needs to understand parallel software and hardware to design algorithms that scale well.
 In this paper, we focus on the minimum spanning tree problem which is a classical one in graph theory with applications in network design, cluster analysis or the approximation of NP-hard problems such as the travelling salesman problem.
 
-\mypar{Motivation} 
-
-What are we doing and why / What is done in the paper
 
 \mypar{Related work} 
 
-Some references / what do they do /difference with us / make clear what our contribution is
+The implementation of our algorithms is based upon the work in several previously published papers.
+In \cite{kruskal} is described an implementation of the Filter Kruskal algorithm that we present in Section \ref{sec:parKruskal}.
+In \cite{sollin} are described several parallel implementations of Sollin's algorithm and, notably, Bor-AL and Bor-FL that we present in Section \ref{sec:parSollin}. Both \cite{kruskal} and \cite{sollin} were an inspiration for the design of the Filter Sollin algorithm presented in Section \ref{sec:parSollin}.
 
-\section{Background}\label{sec:background}
 
-In this section, we define the Minimum Spanning Tree (MST) problem and introduce the algorithms we will use for experiments including a cost analysis.
+\section{Minimum Spanning Tree and sequential algorithms}\label{sec:background}
+
+In this section, we define the Minimum Spanning Tree (MST) problem and introduce the sequential algorithms upon which are based the parallel implementations of Section \ref{sec:algo}.
 
 \mypar{Minimum Spanning Tree problem}
-A minimum spanning tree is a subset of the edges of a connected, edge-weighted undirected graph that connects all the vertices together, without any cycles and with the minimum possible total edge weight. That is, it is a spanning tree whose sum of edge weights is as small as possible. Here we consider only undirected and connected graphs and we present different algorithms to compute the minimum spanning tree over them. In the following, n is the number of vertices, m the number of edges in the graph and p the number of cores on which the parallel algorithms are run.
+A minimum spanning tree is a subset of the edges of a connected, edge-weighted undirected graph that connects all the vertices together, without any cycles and with the minimum possible total edge weight.
+That is, it is a spanning tree whose sum of edge weights is as small as possible. 
+Here we consider only undirected and connected graphs and we present different algorithms to compute the minimum spanning tree over them. 
 
-\mypar{MST sequential algorithms} The three main sequential algorithms to compute minimum spanning trees are Prim's, Kruskal's and Sollin's (also known as Borůvka's)  algorithms. All are greedy approaches :
+In the following, we will use V to denote the set of vertices of the graph, E for the set of edges, n for the number of vertices and m for the number of edges.
+
+\mypar{MST sequential algorithms} The three main sequential algorithms to compute minimum spanning trees are Prim's, Kruskal's and Sollin's (also known as Bor\r{u}vka's)  algorithms. All are greedy approaches :
 \begin{itemize}
     \item Prim : we initialise a tree with a single random vertex and, at each step, we choose the vertex connected to the tree with the smallest-weighted edge and add it to the tree until all vertices are added.
     \item Kruskal : we sort the edges of the graph by increasing weight and, at each step, we add to the tree the smallest edge that does not create a cycle.
     \item Sollin : we initialise each vertex of the graph as a set and, at each step, we add the smallest-weighted edge from every set to another until the tree is formed.
 \end{itemize}
 
-We chose to implement Prim's algorithm with graphs represented as adjacency lists and to use a binary heap to keep the order of the vertices by the smallest edge-weight that connects them to any vertex in the partially constructed tree. With such a structure, Prim's algorithm computes a minimum spanning tree in $\mathcal{O}(mlogn)$.
+Prim's algorithm computes a minimum spanning tree in $\mathcal{O}(mlogn)$ when implemented with adjacency list representation and a binary heap to keep the order of the vertices by the smallest edge-weight that connects them to any vertex in the partially constructed tree.
 
-Kruskal's algorithm relies on an union-find data structure which maintains a set for each connected component. If we want to add an edge with its extremities in different components, we need to merge the components because they are now connected. The sorting of the edges is done in $\mathcal{O}(mlog(m))$ sequentially and the adding of edges is done in $\mathcal{O}(m)$.
+Kruskal's algorithm (Algorithm \ref{algo:kruskal}) relies on an union-find data structure which maintains a set for each connected component. If we want to add an edge with its extremities in different components, we need to merge the components because they are now connected. The sorting of the edges is done in $\mathcal{O}(mlog(m))$ sequentially and the adding of edges is done in $\mathcal{O}(m)$. It is the only sequential algorithm that we implemented.
 
 Sollin's algorithm takes $\mathcal{O}(log(n))$ iterations until it terminates because they are V components at the beginning and each iteration reduces the number of components by at least two. Therefore it runs in time $\mathcal{O}(mlog(n))$.
 
-\mypar{MST parallel algorithms}  The first parallel MST algorithm we consider is a variant of Kruskal's algorithm named Filter Kruskal. The idea of this algorithm is to "filter out" some edges that are assumed not part of the MST to reduce sorting time. Firstly, the number of edges m is compared to a threshold under which we choose to compute the sequential Kruskal. Then, an edge is chosen as a pivot regarding weight to separate the edges in two weight categories (heavier and lighter edges). A first recursive call is made on the lighter edges. Before making the second recursive calls on the heavier ones, all heavy edges that are within a component of the current forest are removed (filtering step). To finish the algorithm, the results from both calls are merged to form the MST. For the cost analysis of the algorithm, we use $T(m)$ for the runtime of the algorithm with m edges. The choosing of the pivot can be done in $\mathcal{O}(1)$ by sampling 256 edges from the graph using OpenMP and taking the median thanks to Intel TBB (see experimental setup in Sec. \ref{sec:exp}). The partition of the edges as well as the filtering can both be done in $\mathcal{O}(\frac{m}{p})$ using the partition function from Intel Parallel STL. The first recursive call costs $T(\frac{m}{2})$ and the second one $\mathcal{O}(T(\frac{m}{2}))$ (and far less in practice) because edges have been removed. In the best case, the first recursive call is sufficient to compute the MST and we have $T(m) \leq  \mathcal{O}(\frac{m}{p}) + T(\frac{m}{2})) $ which gives $T(m) = \mathcal{O}(\frac{m}{p} + m) = \mathcal{O}(m)$. In the worst case, we have $T(m) \leq  \mathcal{O}(\frac{m}{p}) + 2T(\frac{m}{2})) $ which gives $T(m) = \mathcal{O}(\frac{mln(m)}{p} + m)$
+\begin{algorithm}
+\caption{kruskal}
+\label{algo:kruskal}
+\begin{algorithmic}
+\State U is the Union-Find structure
+\State sort E by increasing weight
+\For {${u,v} \in E$}
+    \If {u and v are in different components in U}
+        \State add ${u,v}$ to the tree
+        \State join u and v representations in U
+    \EndIf
+\EndFor
+
+\end{algorithmic}
+\end{algorithm}
+
+
+\section{Parallel Algorithms}\label{sec:algo}
+
+In this section are presented the parallel algorithms that we implemented for computing the minimum spanning tree in a connected graph.
+In the following p is the number of cores on which the parallel algorithms are run.
+
+\subsection{Parallel Kruskal} \label{sec:parKruskal}
+
+\mypar{Filter Kruskal} The first parallel MST algorithm we consider is a variant of Kruskal's algorithm named Filter Kruskal (Algorithm \ref{algo:filterKruskal}).
+
+The idea of this algorithm is to "filter out" some edges that are assumed not part of the MST to reduce sorting time.
+Firstly, the number of edges is compared to a threshold under which we choose to compute the sequential Kruskal.
+Then, an edge is chosen as a pivot regarding weight to separate the edges in two weight categories (heavier and lighter edges).
+A first recursive call is made on the lighter edges. Before making the second recursive calls on the heavier ones, all heavy edges that are within a component of the current forest are removed (filtering step).
+To finish the algorithm, the results from both calls are merged to form the MST.
+
+In our implementation, the edges are kept in a vector and elements are permuted in-place, as in a quick-sort, without requiring additional amounts of memory which leads to maximal operational intensity. Moreover, the filter and partition functions are both implemented with the partition function from the C++ standard library parallelised with Parallel STL (Section \ref{sec:exp}).
+
+\begin{algorithm}
+\caption{filterKruskal}
+\label{algo:filterKruskal}
+\begin{algorithmic}
+\If {$m\leq threshold$}
+    kruskal
+\Else
+    \State find pivot $p \in E$
+    \State partition E in $E_{\leq}, E_{>}$
+    \State $A_{\leq} = filterKruskal(E_{\leq})$
+    \State $E_{>} = filter(E_{>})$
+    \State $A_{>} = filterKruskal(E_{>})$
+    \State \Return $merge(A_{\leq},  A_{>})$
+\EndIf  
+    
+\end{algorithmic}
+\end{algorithm}
+
+
+For the cost analysis of the algorithm, we use $T(m)$ for the runtime of the algorithm with m edges. The choosing of the pivot can be done in $\mathcal{O}(1)$ by sampling 256 edges from the graph using OpenMP and taking the median thanks to Intel TBB (see experimental setup in Section \ref{sec:exp}).
+The partition of the edges as well as the filtering can both be done in $\mathcal{O}(\frac{m}{p})$ using the partition function from Intel Parallel STL. The first recursive call costs $T(\frac{m}{2})$ and the second one $\mathcal{O}(T(\frac{m}{2}))$ (and far less in practice) because edges have been removed.
+In the best case, the first recursive call is sufficient to compute the MST and we have $T(m) \leq  \mathcal{O}(\frac{m}{p}) + T(\frac{m}{2})) $ which gives $T(m) = \mathcal{O}(\frac{m}{p} + m) = \mathcal{O}(m)$.
+In the worst case, we have $T(m) \leq  \mathcal{O}(\frac{m}{p}) + 2T(\frac{m}{2})) $ which gives $T(m) = \mathcal{O}(\frac{mln(m)}{p} + m)$
+
+
+\subsection{Parallel Sollin} \label{sec:parSollin}
+
+From the three greedy approaches presented in Section \ref{sec:background}, Sollin's algorithm is the one that is the most suitable to a parallel adaptation. Here are presented three distributed variants of Sollin's algorithm : Sollin AL, Sollin FAL and Filter Sollin. All of them are constituted of the same four main steps, iterated until the tree is fully grown :
+\begin{itemize}
+    \item Sort the adjacency lists.
+    \item Merge connected components in a single super-vertex.
+    \item Find the edge with minimum weight for each vertex.
+    \item Identify connected components.
+\end{itemize}
+
+Super-vertices are represented thanks to the Union-Find structure already used for Kruskal's algorithm (Section \ref{sec:background}). The finding of the edge of minimum weight is done concurrently with OpenMP and the connected component identification is done via pointer-jumping according to \cite{pointerJump}.
+
+\mypar{Sollin AL} The name Sollin AL comes from the fact that the graph is represented with adjacency lists : a vector keeps for each vertex the list of its incident edges. The vertex array is sorted according to the super-vertex label which leads the vertices with the same super-vertex to be nearby in the array allowing this vertices to be merged efficiently. Then, the adjacency lists are copied in vectors which are more cache-friendly as they allow to avoid false sharing \cite{cache} and these vectors are sorted concurrently based on the target super-vertex (the super-vertex at the other end of the edge).  Thus, self-loops and multiple edges are moved to consecutive locations to be merged.
+
+\mypar{Sollin FAL} This time, the adjacency lists are replaced by flexible adjacency lists to reduce the cost from sorting before merging the connected components. The flexible adjacency lists are linked lists of adjacency lists composed of the adjacency lists of all the vertices with the same super-vertex : each time we perform the merging step for the connected components, we append the adjacency list of each vertex to their super-vertex adjacency list. Thus, this time, super-vertices keep multiple edges and self-loops in their adjacency lists which simplifies the sorting steps. These edges are now removed during the finding of the edge of minimum weight.
+
+\mypar{Filter Sollin} Filter Sollin uses the approach already seen in the algorithm Filter Kruskal (Section \ref{sec:parKruskal}) but uses Sollin's algorithm (with the data structure seen in Sollin FAL) instead of Kruskal's when the input size is under a given threshold.
+
+
+
+\section{Experimental Results}\label{sec:exp}
+
+In this section, we present the results of our algorithms on various input sets and discuss their performance against the baselines over different benchmarks.
+
+\mypar{Experimental setup} All experiments are run through the EULER cluster on an Hewlett-Packard XL230k Gen10 equipped with two 18-core Intel Xeon Gold (6150 processors, 2.7-3.7 GHz) and 192 GB of DDR4 memory clocked at 2666 MHz. We are using C++11 with GCC v4.9.2, CMake v3.3 and OpenMPI v1.6.5. We also use the following dependencies :
+\begin{itemize}
+    \item OpenMP which is an API that supports shared memory multiprocessing programming in C++.
+    \item Threading Building Blocks (TBB) for the sorting function that takes full advantage of multi-core performance.
+    \item Parallel STL to have a threaded and vectorized execution of the standard C++ partition function, optimised and validated for Intel(R) 64 processors.
+\end{itemize}
 
 \mypar{Input Sets}
 The experiments have been performed on the three following input sets :
@@ -102,35 +197,26 @@ The experiments have been performed on the three following input sets :
     \item USA road networks from 9th Implementation DIMACS Challenge dataset which are real input sets from the road networks in various part of the USA. These graphs are connected and undirected.
 \end{itemize}
 
-\section{Method}\label{sec:method}
-
-
-\section{Experimental Results}\label{sec:exp}
-
-
-\mypar{Experimental setup} All experiments are run through the EULER cluster on an Hewlett-Packard XL230k Gen10 equipped with two 18-core Intel Xeon Gold (6150 processors, 2.7-3.7 GHz) and 192 GB of DDR4 memory clocked at 2666 MHz. We are using C++11 with GCC v4.9.2, CMake v3.3 and OpenMPI v1.6.5. We also use the following dependencies :
-\begin{itemize}
-    \item OpenMP which is an API that supports shared memory multiprocessing programming in C++.
-    \item Threading Building Blocks (TBB) to write parallel C++ programs that take full advantage of multi-core performance.
-    \item Parallel STL which offers a portable implementation of threaded and vectorized execution of standard C++ algorithms, optimised and validated for Intel(R) 64 processors.
-\end{itemize}
-
 \mypar{Benchmarks} 
 benchmarks (input sizes)
 
 \mypar{Baselines} We compare the results of our algorithms to those of the Parallel Boost Graph Library (PBGL) which is an extension of the BGL for distributed computing.
 
+\mypar{Difficulties}
+
 \mypar{Results}
-classes of experiments answering to questions
-compare code to external benchmarks.
+
+
+%\begin{figure}\noindent\centering
+%  \includegraphics[scale=0.3]{BoostKruskalSpeedup4.png}
+%  \caption{Boost Kruskal Speedup.\label{boostKruskal}}
+%\end{figure}
+
+
 
 \section{Conclusions}
 
-What we did / why important
 
-important results
-
-next steps
 
 
 
