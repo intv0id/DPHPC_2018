@@ -1,0 +1,14 @@
+# Sysname : Linux
+# Nodename: eu-a6-003-10
+# Release : 3.10.0-862.14.4.el7.x86_64
+# Version : #1 SMP Wed Sep 26 15:12:11 UTC 2018
+# Machine : x86_64
+# Execution time and date (UTC): Wed Jan 16 21:18:20 2019
+# Execution time and date (local): Wed Jan 16 22:18:20 2019
+# MPI execution on rank 0 with 1 processes in world
+# Reported time measurements are in microseconds
+# pretty output format
+    Algorithm  Graph_nodes   Graph_name  Max_threads          run       id         time     overhead 
+ parallel_sollin_FAL          2000  Preferential_attachment_20_edges_per_vertice             1             0          0 14422.412537            0 
+ parallel_sollin_FAL          2000  Preferential_attachment_20_edges_per_vertice             1             1          0 14151.187378            0 
+# Runtime: 1.460146 s (overhead: 0.000000 %) 2 records
