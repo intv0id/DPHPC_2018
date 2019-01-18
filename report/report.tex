@@ -2,14 +2,13 @@
 %   spconf.sty  - LaTeX style file, and
 %   IEEEbib.bst - IEEE bibliography style file.
 % --------------------------------------------------------------------------
-
 \documentclass[letterpaper]{article}
 \usepackage{algpseudocode}
 \usepackage{algorithm}
 \usepackage{spconf,amsmath,amssymb,graphicx}
 \usepackage[space]{grffile}
-\usepackage{graphics}
-\graphicspath{../interpret/figures/final2/}
+\usepackage{epstopdf}
+\usepackage{graphicx}
 
 % Example definitions.
 % --------------------
@@ -239,19 +238,19 @@ We compare the results of our algorithms to those of the Parallel Boost Graph Li
 On Figures \ref{baseline1} and \ref{baseline2} are represented the runtimes of our algorithms in comparison to the ones from the baseline algorithms (Section \ref{sec:baseline}). From these figures, we see that 
 
 \begin{figure}\centering
-  \includegraphics[width=\linewidth]{../interpret/figures/final2/Graph_runtime_Preferential attachment 100 edges per vertice_1000.eps}
+  \includegraphics[width=\linewidth]{graphics/Speedup_Preferential_attachment_1000_edges_per_vertice_10000.eps}
   \caption{Runtime graph on PA(1 000, 100)\label{baseline1}}
 \end{figure}
 
 \begin{figure}\noindent\centering
-  \includegraphics[width=\linewidth]{Graph_runtime_Preferential attachment 20 edges per vertice_2000.eps}
+%  \includegraphics[width=\linewidth]{Graph_runtime_Preferential attachment 20 edges per vertice_2000.eps}
   \caption{Runtime graph on PA(2 000, 20)\label{baseline2}}
 \end{figure}
 
 \mypar{Dense graphs}
 
 \begin{figure}\noindent\centering
-  \includegraphics[width=\linewidth]{Box_Speedup_Erdos-Renyi random p=0.200000_10000.eps}
+ % \includegraphics[width=\linewidth]{Box_Speedup_Erdos-Renyi random p=0.200000_10000.eps}
   \caption{Runtime graph on ER(10 000, 2 000)\label{denseERruntime}}
 \end{figure}
 
