@@ -99,7 +99,7 @@ In the following, we will use V to denote the set of vertices of the graph, E fo
     \item Sollin : we initialise each vertex of the graph as a set and, at each step, we add the smallest-weighted edge from every set to another until the tree is formed.
 \end{itemize}
 
-Prim's algorithm computes a minimum spanning tree in $\mathcal{O}(mlogn)$ when implemented with adjacency list representation and a binary heap to keep the order of the vertices by the smallest edge-weight that connects them to any vertex in the partially constructed tree.
+Prim's algorithm computes a minimum spanning tree in $\mathcal{O}(mlog(n))$ when implemented with adjacency list representation and a binary heap to keep the vertices sorted by the smallest weight from an edge that connects them to any vertex in the partially constructed tree.
 
 Kruskal's algorithm (Algorithm \ref{algo:kruskal}) relies on an union-find data structure which maintains a set for each connected component. If we want to add an edge with its extremities in different components, we need to merge the components because they are now connected. The sorting of the edges is done in $\mathcal{O}(mlog(m))$ sequentially and the adding of edges is done in $\mathcal{O}(m)$.
 
@@ -124,7 +124,7 @@ Sollin's algorithm takes $\mathcal{O}(log(n))$ iterations until it terminates be
 
 \section{Parallel Algorithms}\label{sec:algo}
 
-In this section are presented the parallel algorithms that we implemented for computing the minimum spanning tree in a connected graph.
+In this section, we present the parallel algorithms that we implemented for computing the minimum spanning tree in a connected graph.
 In the following p is the number of cores on which the parallel algorithms are run.
 
 \subsection{Parallel Kruskal} \label{sec:parKruskal}
@@ -138,7 +138,7 @@ We implemented two parallel versions of Kruskal's algorithm presented in Section
 The idea of this algorithm is to "filter out" some edges that are assumed not part of the MST to reduce sorting time.
 Firstly, the number of edges is compared to a threshold under which we choose to compute the sequential Kruskal.
 Then, an edge is chosen as a pivot regarding weight to separate the edges in two weight categories (heavier and lighter edges).
-A first recursive call is made on the lighter edges. Before making the second recursive calls on the heavier ones, all heavy edges that are within a component of the current forest are removed (filtering step).
+A first recursive call is made on the lighter edges and, before making the second recursive call on the heavier ones, all heavy edges that are within a component of the current forest are removed (filtering step).
 To finish the algorithm, the results from both calls are merged to form the MST.
 
 In our implementation, the edges are kept in a vector and elements are permuted in-place, as in a quick-sort, without requiring additional amounts of memory which leads to maximal operational intensity. Moreover, the filter and partition functions are both implemented with the partition function from the C++ standard library parallelised with Parallel STL (Section \ref{sec:setup}).
