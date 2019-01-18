@@ -20,6 +20,7 @@
 % bold paragraph titles
 \newcommand{\mypar}[1]{{\bf #1.}}
 
+
 % Title.
 % ------
 \title{Minimum Spanning Tree: a parallel approach}
@@ -59,10 +60,10 @@
 
 \begin{abstract}
 
-Many efficient algorithms have been designed to find the minimum spanning tree in connected graphs as this problem is at the heart of a broad scope of applications and other graph theory problems. 
-In this paper we present our implementations of algorithms already present in the literature as well as a new algorithm, Filter Sollin, which combines ideas from Filter Kruskal and parallel implementations of Sollin's algorithm. All the algorithms are tested through the EULER cluster on various benchmarks and compared to the baseline from the Parallel Boost Graph Library.
+Many efficient algorithms have been designed to find the minimum spanning tree in connected graphs as this problem is at the heart of a broad scope of real-life applications and other graph theory problems. 
+In this paper we present our implementations of algorithms already present in the literature as well as a new algorithm, Filter Sollin, which combines ideas from Filter Kruskal and parallel implementations of Sollin's algorithm. All the algorithms are tested through the EULER cluster on various benchmarks (dense graphs, sparse graphs and real-life graphs) and compared to the baseline from the Parallel Boost Graph Library.
 
-\noindent\textbf{Keywords:} Minimum spanning tree, distributed algorithms, high performance computing cluster 
+\textbf{Keywords:} Minimum spanning tree, distributed algorithms, high performance computing cluster 
 
 
 \end{abstract}
@@ -72,18 +73,18 @@ In this paper we present our implementations of algorithms already present in th
 A wide range of problems have input sets that can be represented as graphs which is why it is crucial to develop efficient graph algorithms to reduce the computation costs. As graphs are getting larger and larger, classic sequential algorithms are becoming not fast enough to cope with the exploding number of nodes and edges. To further reduce costs, distributed algorithms are ideal to take advantage of the parallel architecture of computers but it is a challenge to correctly handle memory, concurrency or security and one needs to understand parallel software and hardware to design algorithms that scale well.
 In this paper, we focus on the minimum spanning tree problem which is a classical one in graph theory with applications in network design, cluster analysis or the approximation of NP-hard problems such as the travelling salesman problem. 
 
-We implemented five algorithms, two based on Kruskal's sequential implementation and three based on Sollin's and we present here the runtimes and speedups we obtained when running them over various benchmarks on the High Performance Computing cluster EULER. 
+We implemented five algorithms. Two of them are based on Kruskal's sequential implementation and the other three on Sollin's and we present here the runtimes and speedups we obtained when running them over various benchmarks on the High Performance Computing cluster EULER (Section \ref{sec:setup}). 
 
 All our code can be found on our project repository on GitHub at \cite{code}.
 
-\mypar{Related work} The implementation of our algorithms is based upon the work in several previously published papers.
+\mypar{Related work} The implementations of our algorithms are based upon the works presented in several previously published papers.
 In \cite{kruskal} is described an implementation of the Filter Kruskal algorithm that we present in Section \ref{sec:parKruskal}.
-In \cite{sollin} are described several parallel implementations of Sollin's algorithm and, notably, Bor-AL and Bor-FAL that we present in Section \ref{sec:parSollin}. Our implementation of these algorithms is also based upon techniques presented in \cite{pointerJump}. Both \cite{kruskal} and \cite{sollin} were an inspiration when we designed a new algorithm, Filter Sollin that combines the filtering steps from Filter Kruskal and Sollin's parallel implementation (Section \ref{sec:parSollin}).
+In \cite{sollin} are described several parallel implementations of Sollin's algorithm and, notably, Bor-AL and Bor-FAL that we present in Section \ref{sec:parSollin} under the names Sollin AL and Sollin AL. Our implementations of these algorithms iare also based upon techniques presented in \cite{pointerJump}. Both \cite{kruskal} and \cite{sollin} were an inspiration when we designed a new algorithm, Filter Sollin that combines the filtering steps from Filter Kruskal and Sollin's parallel implementation (Section \ref{sec:parSollin}).
 
 
 \section{Minimum Spanning Tree and sequential algorithms}\label{sec:background}
 
-In this section, we define the Minimum Spanning Tree (MST) problem and introduce the sequential algorithms upon which are based the parallel implementations of Section \ref{sec:algo}.
+In this section, we formally define the Minimum Spanning Tree (MST) problem and introduce the main sequential algorithms upon which are based the parallel implementations of Section \ref{sec:algo}.
 
 \mypar{Minimum Spanning Tree}
 A minimum spanning tree is a subset of the edges of a connected, edge-weighted undirected graph that connects all the vertices together, without any cycles and with the minimum possible total edge weight.
@@ -92,14 +93,14 @@ Here we consider only undirected and connected graphs and we present different a
 
 In the following, we will use V to denote the set of vertices of the graph, E for the set of edges, n for the number of vertices and m for the number of edges.
 
-\mypar{MST sequential algorithms} The three main sequential algorithms to compute minimum spanning trees are Prim's, Kruskal's and Sollin's (also known as Bor\r{u}vka's)  algorithms. All are greedy approaches :
+\mypar{MST sequential algorithms} The three main sequential algorithms to compute minimum spanning trees are Prim's, Kruskal's and Sollin's (also known as Bor\r{u}vka)  algorithms. All are greedy approaches :
 \begin{itemize}
     \item Prim : we initialise a tree with a single random vertex and, at each step, we choose the vertex connected to the tree with the smallest-weighted edge and add it to the tree until all vertices are added.
     \item Kruskal : we sort the edges of the graph by increasing weight and, at each step, we add to the tree the smallest edge that does not create a cycle.
     \item Sollin : we initialise each vertex of the graph as a set and, at each step, we add the smallest-weighted edge from every set to another until the tree is formed.
 \end{itemize}
 
-Prim's algorithm computes a minimum spanning tree in $\mathcal{O}(mlogn)$ when implemented with adjacency list representation and a binary heap to keep the order of the vertices by the smallest edge-weight that connects them to any vertex in the partially constructed tree.
+Prim's algorithm computes a minimum spanning tree in $\mathcal{O}(mlog(n))$ when implemented with adjacency list representation and a binary heap to keep the vertices sorted by the smallest weight from an edge that connects them to any vertex in the partially constructed tree.
 
 Kruskal's algorithm (Algorithm \ref{algo:kruskal}) relies on an union-find data structure which maintains a set for each connected component. If we want to add an edge with its extremities in different components, we need to merge the components because they are now connected. The sorting of the edges is done in $\mathcal{O}(mlog(m))$ sequentially and the adding of edges is done in $\mathcal{O}(m)$.
 
@@ -124,7 +125,7 @@ Sollin's algorithm takes $\mathcal{O}(log(n))$ iterations until it terminates be
 
 \section{Parallel Algorithms}\label{sec:algo}
 
-In this section are presented the parallel algorithms that we implemented for computing the minimum spanning tree in a connected graph.
+In this section, we present the parallel algorithms that we implemented for computing the minimum spanning tree in a connected graph.
 In the following p is the number of cores on which the parallel algorithms are run.
 
 \subsection{Parallel Kruskal} \label{sec:parKruskal}
@@ -138,7 +139,7 @@ We implemented two parallel versions of Kruskal's algorithm presented in Section
 The idea of this algorithm is to "filter out" some edges that are assumed not part of the MST to reduce sorting time.
 Firstly, the number of edges is compared to a threshold under which we choose to compute the sequential Kruskal.
 Then, an edge is chosen as a pivot regarding weight to separate the edges in two weight categories (heavier and lighter edges).
-A first recursive call is made on the lighter edges. Before making the second recursive calls on the heavier ones, all heavy edges that are within a component of the current forest are removed (filtering step).
+A first recursive call is made on the lighter edges and, before making the second recursive call on the heavier ones, all heavy edges that are within a component of the current forest are removed (filtering step).
 To finish the algorithm, the results from both calls are merged to form the MST.
 
 In our implementation, the edges are kept in a vector and elements are permuted in-place, as in a quick-sort, without requiring additional amounts of memory which leads to maximal operational intensity. Moreover, the filter and partition functions are both implemented with the partition function from the C++ standard library parallelised with Parallel STL (Section \ref{sec:setup}).
@@ -173,14 +174,14 @@ In the worst case, we have $T(m) \leq  \mathcal{O}(\frac{m}{p}) + 2T(\frac{m}{2}
 From the three greedy approaches presented in Section \ref{sec:background}, Sollin's algorithm is the one that is the most suitable to a parallel adaptation. Here are presented three distributed variants of Sollin's algorithm : Sollin AL, Sollin FAL and Filter Sollin. All of them are constituted of the same four main steps, iterated until the tree is fully grown :
 \begin{itemize}
     \item Sort the adjacency lists.
-    \item Merge connected components in a single super-vertex.
+    \item Merge connected components in a super-vertex.
     \item Find the edge with minimum weight for each vertex.
     \item Identify connected components.
 \end{itemize}
 
-Super-vertices are represented thanks to the Union-Find structure already used for Kruskal's algorithm (Section \ref{sec:background}). The finding of the edge of minimum weight is done concurrently with OpenMP and the connected component identification is done via pointer-jumping according to \cite{pointerJump}.
+Super-vertices are represented thanks to the Union-Find structure already used for Kruskal's algorithm (Section \ref{sec:background}). The finding of the edge of minimum weight is done concurrently with OpenMP and the connected components) identification is done via pointer-jumping according to \cite{pointerJump}.
 
-\mypar{Sollin AL} The name Sollin AL comes from the fact that the graph is represented with adjacency lists : a vector keeps for each vertex the list of its incident edges. The vertex array is sorted according to the super-vertex label which leads the vertices with the same super-vertex to be nearby in the array allowing this vertices to be merged efficiently. Then, the adjacency lists are copied in vectors which are more cache-friendly as they allow to avoid false sharing \cite{cache} and these vectors are sorted concurrently based on the target super-vertex (the super-vertex at the other end of the edge).  Thus, self-loops and multiple edges are moved to consecutive locations to be merged.
+\mypar{Sollin AL} The name Sollin AL comes from the fact that the graph is represented with adjacency lists : a vector keeps for each vertex the list of its incident edges. The vertex array is sorted according to the super-vertex label which leads the vertices with the same super-vertex to be nearby in the array allowing these vertices to be merged efficiently. Then, the adjacency lists are copied in vectors which are more cache-friendly as they allow to avoid false sharing \cite{cache} and these vectors are sorted concurrently based on the target super-vertex (the super-vertex at the other end of the edge).  Thus, self-loops and multiple edges are moved to consecutive locations to be merged.
 
 \mypar{Sollin FAL} This time, the adjacency lists are replaced by flexible adjacency lists to reduce the cost from sorting before merging the connected components. The flexible adjacency lists are linked lists of adjacency lists composed of the adjacency lists of all the vertices with the same super-vertex : each time we perform the merging step for the connected components, we append the adjacency list of each vertex to their super-vertex adjacency list. Thus, this time, super-vertices keep multiple edges and self-loops in their adjacency lists which simplifies the sorting steps. These edges are now removed during the finding of the edge of minimum weight.
 
@@ -201,7 +202,7 @@ All experiments are run through the EULER cluster on an Hewlett-Packard XL230k G
 
 \mypar{PSTL} Parallel STL (PSTL) to have a threaded and vectorized execution of the standard C++ partition function, optimised and validated for Intel(R) 64 processors.
 
-\mypar{LSB} LibSciBench (LSB) which is a framework containing a performance measurement library for parallel applications and is coupled with an R script for the post-processing of the gathered data \cite{benchmarking} \cite{measuring}. 
+\mypar{LSB} LibSciBench (LSB) which is a framework containing a performance measurement library for parallel applications using MPI and OpenMP and is coupled with an R script for the post-processing of the gathered data \cite{benchmarking} \cite{measuring}. 
 
 
 \subsection{Input Sets}
@@ -269,7 +270,7 @@ We compare the results of our algorithms to those of the Parallel Boost Graph Li
 
 
 
-\mypar{Sparse graphs} On sparser graphs (Figures \ref{sparseERruntime}, \ref{sparseERspeedup}, \ref{sparsePAruntime} and \ref{sparsePAspeedup}), Sollin AL has a very good parallelism, reaching a speedup of 5 for 30 threads on ER graphs and Filter Kruskal and Sollin FAL also scales pretty well. However, when looking at Figure \ref{sparseERruntime}, we see that Filter Kruskal is 10 times faster than Sollin FAL and 30 times faster than Sollin AL. As with the dense graphs, the speedups on PA graphs are inferior than the ones on ER graphs but the difference is slighter because the disparity between high-degree and low-degree nodes is smaller. We also note that Filter Sollin does not scale well on either type on inputs but is still the second fastest algorithm after Filter Kruskal. On sparse graphs, the different parallel implementations of Sollin's algorithm are dominated by the step of finding the edge of minimun weight for each vertex.
+\mypar{Sparse graphs} On sparser graphs (Figures \ref{sparseERruntime}, \ref{sparseERspeedup}, \ref{sparsePAruntime} and \ref{sparsePAspeedup}), we observe that Sollin AL has a very good parallelism, reaching a speedup of 5 for 30 threads on ER graphs and Filter Kruskal and Sollin FAL also scales pretty well. However, when looking at Figure \ref{sparseERruntime}, we see that Filter Kruskal is 10 times faster than Sollin FAL and 30 times faster than Sollin AL. As with the dense graphs, the speedups on PA graphs are inferior than the ones on ER graphs but the difference is slighter because the disparity between high-degree and low-degree nodes is smaller. We also note that Filter Sollin does not scale well on either type on inputs but is still the second fastest algorithm after Filter Kruskal. On sparse graphs, the different parallel implementations of Sollin's algorithm are dominated by the step of finding the edge of minimun weight for each vertex.
 
 \begin{figure}\centering
   \includegraphics[width=\linewidth]{graphics/Graph_runtime_Erdos-Renyi_random_p=0.002000_50000.eps}
@@ -320,9 +321,9 @@ We compare the results of our algorithms to those of the Parallel Boost Graph Li
 
 \section{Conclusions}
 
-We implemented five parallel algorithms for computing a minimum spanning tree in a connected graph based on Kruskal's and Sollin's greedy approaches.
+In this paper, we presented the implementations of five parallel algorithms for computing a minimum spanning tree in a connected graph based on Kruskal's and Sollin's greedy approaches.
 
-From testing them on various benchmarks (dense graphs, sparse graphs and real-life graphs), we observed that the Minimum Spanning Tree problem is particularly hard to parallelise as it is inherently sequential. 
+From testing them on several benchmarks (dense, sparse and real-life graphs), we observed that the Minimum Spanning Tree problem is particularly hard to parallelise as it is inherently sequential. 
 
 Moreover, the performance of the algorithms largely depends upon the topology of the input graphs : PA graphs have structures much more unequally distributed than ER graphs and, therefore, lead to inferior speedups. On the graphs from the USA road networks dataset that have a even less regular topology, the algorithms do not scale at all.
 
