@@ -59,10 +59,10 @@
 
 \begin{abstract}
 
-Many efficient algorithms have been designed to find the minimum spanning tree in connected graphs as this problem is at the heart of a broad scope of applications and other graph theory problems. 
-In this paper we present our implementations of algorithms already present in the literature as well as a new algorithm, Filter Sollin, which combines ideas from Filter Kruskal and parallel implementations of Sollin's algorithm. All the algorithms are tested through the EULER cluster on various benchmarks and compared to the baseline from the Parallel Boost Graph Library.
+Many efficient algorithms have been designed to find the minimum spanning tree in connected graphs as this problem is at the heart of a broad scope of real-life applications and other graph theory problems. 
+In this paper we present our implementations of algorithms already present in the literature as well as a new algorithm, Filter Sollin, which combines ideas from Filter Kruskal and parallel implementations of Sollin's algorithm. All the algorithms are tested through the EULER cluster on various benchmarks (dense graphs, sparse graphs and real-life graphs) and compared to the baseline from the Parallel Boost Graph Library.
 
-\noindent\textbf{Keywords:} Minimum spanning tree, distributed algorithms, high performance computing cluster 
+\textbf{Keywords:} Minimum spanning tree, distributed algorithms, high performance computing cluster 
 
 
 \end{abstract}
@@ -72,7 +72,7 @@ In this paper we present our implementations of algorithms already present in th
 A wide range of problems have input sets that can be represented as graphs which is why it is crucial to develop efficient graph algorithms to reduce the computation costs. As graphs are getting larger and larger, classic sequential algorithms are becoming not fast enough to cope with the exploding number of nodes and edges. To further reduce costs, distributed algorithms are ideal to take advantage of the parallel architecture of computers but it is a challenge to correctly handle memory, concurrency or security and one needs to understand parallel software and hardware to design algorithms that scale well.
 In this paper, we focus on the minimum spanning tree problem which is a classical one in graph theory with applications in network design, cluster analysis or the approximation of NP-hard problems such as the travelling salesman problem. 
 
-We implemented five algorithms, two based on Kruskal's sequential implementation and three based on Sollin's and we present here the runtimes and speedups we obtained when running them over various benchmarks on the High Performance Computing cluster EULER. 
+We implemented five algorithms, two of them are based on Kruskal's sequential implementation and the other three on Sollin's and we present here the runtimes and speedups we obtained when running them over various benchmarks on the High Performance Computing cluster EULER. 
 
 All our code can be found on our project repository on GitHub at \cite{code}.
 
