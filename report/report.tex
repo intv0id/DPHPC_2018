@@ -71,14 +71,14 @@ In this paper, we focus on the minimum spanning tree problem which is a classica
 
 The implementation of our algorithms is based upon the work in several previously published papers.
 In \cite{kruskal} is described an implementation of the Filter Kruskal algorithm that we present in Section \ref{sec:parKruskal}.
-In \cite{sollin} are described several parallel implementations of Sollin's algorithm and, notably, Bor-AL and Bor-FL that we present in Section \ref{sec:parSollin}. Both \cite{kruskal} and \cite{sollin} were an inspiration for the design of the Filter Sollin algorithm presented in Section \ref{sec:parSollin}.
+In \cite{sollin} are described several parallel implementations of Sollin's algorithm and, notably, Bor-AL and Bor-FAL that we present in Section \ref{sec:parSollin}. Our implementation of these algorithms is also based upon techniques presented in \cite{pointerJump}. Both \cite{kruskal} and \cite{sollin} were an inspiration when we designed a new algorithm, Filter Sollin that combines the filtering steps from Filter Kruskal and Sollin's parallel implementation (Section \ref{sec:parSollin}).
 
 
 \section{Minimum Spanning Tree and sequential algorithms}\label{sec:background}
 
 In this section, we define the Minimum Spanning Tree (MST) problem and introduce the sequential algorithms upon which are based the parallel implementations of Section \ref{sec:algo}.
 
-\mypar{Minimum Spanning Tree problem}
+\mypar{Minimum Spanning Tree}
 A minimum spanning tree is a subset of the edges of a connected, edge-weighted undirected graph that connects all the vertices together, without any cycles and with the minimum possible total edge weight.
 That is, it is a spanning tree whose sum of edge weights is as small as possible. 
 Here we consider only undirected and connected graphs and we present different algorithms to compute the minimum spanning tree over them. 
@@ -94,7 +94,7 @@ In the following, we will use V to denote the set of vertices of the graph, E fo
 
 Prim's algorithm computes a minimum spanning tree in $\mathcal{O}(mlogn)$ when implemented with adjacency list representation and a binary heap to keep the order of the vertices by the smallest edge-weight that connects them to any vertex in the partially constructed tree.
 
-Kruskal's algorithm (Algorithm \ref{algo:kruskal}) relies on an union-find data structure which maintains a set for each connected component. If we want to add an edge with its extremities in different components, we need to merge the components because they are now connected. The sorting of the edges is done in $\mathcal{O}(mlog(m))$ sequentially and the adding of edges is done in $\mathcal{O}(m)$. It is the only sequential algorithm that we implemented.
+Kruskal's algorithm (Algorithm \ref{algo:kruskal}) relies on an union-find data structure which maintains a set for each connected component. If we want to add an edge with its extremities in different components, we need to merge the components because they are now connected. The sorting of the edges is done in $\mathcal{O}(mlog(m))$ sequentially and the adding of edges is done in $\mathcal{O}(m)$.
 
 Sollin's algorithm takes $\mathcal{O}(log(n))$ iterations until it terminates because they are V components at the beginning and each iteration reduces the number of components by at least two. Therefore it runs in time $\mathcal{O}(mlog(n))$.
 
@@ -122,7 +122,11 @@ In the following p is the number of cores on which the parallel algorithms are r
 
 \subsection{Parallel Kruskal} \label{sec:parKruskal}
 
-\mypar{Filter Kruskal} The first parallel MST algorithm we consider is a variant of Kruskal's algorithm named Filter Kruskal (Algorithm \ref{algo:filterKruskal}).
+We implemented two parallel versions of Kruskal's algorithm presented in Section \ref{sec:background}.
+
+\mypar{Kruskal with parallel sorting} Kruskal's algorithm is inherently sequential as it linearly goes through the edges once these ones have been sorted. Thus, our first implementation of Kruskal's algorithm is the sequential algorithm described in Algorithm \ref{algo:kruskal} preceded by a parallel sorting using TBB (Section \ref{sec:exp}).
+
+\mypar{Filter Kruskal} The second parallel MST algorithm we consider is a variant of Kruskal's algorithm that is named Filter Kruskal (Algorithm \ref{algo:filterKruskal}).
 
 The idea of this algorithm is to "filter out" some edges that are assumed not part of the MST to reduce sorting time.
 Firstly, the number of edges is compared to a threshold under which we choose to compute the sequential Kruskal.
@@ -181,11 +185,12 @@ Super-vertices are represented thanks to the Union-Find structure already used f
 
 In this section, we present the results of our algorithms on various input sets and discuss their performance against the baselines over different benchmarks.
 
-\mypar{Experimental setup} All experiments are run through the EULER cluster on an Hewlett-Packard XL230k Gen10 equipped with two 18-core Intel Xeon Gold (6150 processors, 2.7-3.7 GHz) and 192 GB of DDR4 memory clocked at 2666 MHz. We are using C++11 with GCC v4.9.2, CMake v3.3 and OpenMPI v1.6.5. We also use the following dependencies :
+\mypar{Experimental setup} All experiments are run through the EULER cluster on an Hewlett-Packard XL230k Gen10 equipped with two 18-core Intel Xeon Gold (6150 processors, 2.7-3.7 GHz) and 192 GB of DDR4 memory clocked at 2666 MHz. We are using C++17 with GCC v5.2.0, CMake v3.11.4 and OpenMPI v1.6.5. Our algorithms are compiled with the optimisation flag O3. We also use the following dependencies :
 \begin{itemize}
     \item OpenMP which is an API that supports shared memory multiprocessing programming in C++.
     \item Threading Building Blocks (TBB) for the sorting function that takes full advantage of multi-core performance.
-    \item Parallel STL to have a threaded and vectorized execution of the standard C++ partition function, optimised and validated for Intel(R) 64 processors.
+    \item Parallel STL (PSTL) to have a threaded and vectorized execution of the standard C++ partition function, optimised and validated for Intel(R) 64 processors.
+    \item LibSciBench (LSB) which is a framework containing a performance measurement library for parallel applications and is coupled with an R script for the post-processing of the gathered data \cite{benchmarking} \cite{measuring}. 
 \end{itemize}
 
 \mypar{Input Sets}
@@ -197,20 +202,68 @@ The experiments have been performed on the three following input sets :
     \item USA road networks from 9th Implementation DIMACS Challenge dataset which are real input sets from the road networks in various part of the USA. These graphs are connected and undirected.
 \end{itemize}
 
-\mypar{Benchmarks} 
-benchmarks (input sizes)
+\mypar{Benchmarks} We tested our algorithms on three benchmarks :
+\begin{itemize}
+    \item Dense graphs : around 10K nodes and 10M edges with the topology of PA or ER.
+    \item Sparse graphs : around 50K nodes and 2.5M edges with the topology of PA or ER.
+    \item USA graphs : around 300K nodes and 800K edges with the topology of the USA road networks dataset.
+\end{itemize}
 
-\mypar{Baselines} We compare the results of our algorithms to those of the Parallel Boost Graph Library (PBGL) which is an extension of the BGL for distributed computing.
+We also used a benchmark of smaller graphs with the topology of PA with either 1000 nodes and 100K edges or 2000 nodes and 40K edges to compare our algorithms to the baseline.
+
+\mypar{Baselines} We compare the results of our algorithms to those of the Parallel Boost Graph Library (PBGL) v1.62.0 which is an extension of the BGL for distributed computing.
 
 \mypar{Difficulties}
 
-\mypar{Results}
+\mypar{Results} We present here the results of our experiments on the benchmarks that we studied For every experiment, we generated a large number of random graphs on which three runs were made for each in order to have an appropriate standard deviation.
+
+\section{Experimental Results 2}\label{sec:exp2}
+
+In this section, we present the results of our algorithms on various input sets and discuss their performance against the baselines over different benchmarks.
+
+\subsection{Experimental setup} All experiments are run through the EULER cluster on an Hewlett-Packard XL230k Gen10 equipped with two 18-core Intel Xeon Gold (6150 processors, 2.7-3.7 GHz) and 192 GB of DDR4 memory clocked at 2666 MHz. We are using C++17 with GCC v5.2.0, CMake v3.11.4 and OpenMPI v1.6.5. Our algorithms are compiled with the optimisation flag O3. We also use the following dependencies :
+
+\mypar{OpenMP} OpenMP which is an API that supports shared memory multiprocessing programming in C++.
+
+\mypar{TBB} Threading Building Blocks (TBB) for the sorting function that takes full advantage of multi-core performance.
+
+\mypar{PSTL} Parallel STL (PSTL) to have a threaded and vectorized execution of the standard C++ partition function, optimised and validated for Intel(R) 64 processors.
+
+\mypar{LSB} LibSciBench (LSB) which is a framework containing a performance measurement library for parallel applications and is coupled with an R script for the post-processing of the gathered data \cite{benchmarking} \cite{measuring}. 
 
 
-%\begin{figure}\noindent\centering
-%  \includegraphics[scale=0.3]{BoostKruskalSpeedup4.png}
-%  \caption{Boost Kruskal Speedup.\label{boostKruskal}}
-%\end{figure}
+\subsection{Input Sets}
+The experiments have been performed on the three following input sets :
+
+\mypar{ER} Erd\H{o}s-R\'{e}nyi (ER) random graphs where we specify the number of nodes of the graph and the probability of existence of a vertex between every pair of nodes. The probability is chosen greater than $\frac{ln(n)}{n}$ which is the threshold to have almost surely a connected graph.
+
+\mypar{PA} Preferential Attachment (PA) graphs where we specify the number of nodes of the graphs and the number of neighbours that a node attaches itself to when added in the graph. In order to have a connected graph, the graph is initialised with three connected vertices and new vertices are added one by one and connected to existing vertices with higher probability for the ones with higher degrees. This type of graph models better existing inputs from the real world such as representations of social network connections.  
+
+\mypar{USA} USA road networks from 9th Implementation DIMACS Challenge dataset which are real input sets from the road networks in various part of the USA. These graphs are connected and undirected.
+
+\subsection{Benchmarks}
+
+We tested our algorithms on three benchmarks :
+
+\mypar{Dense graphs} around 10K nodes and 10M edges with the topology of PA or ER.
+
+\mypar{Sparse graphs} around 50K nodes and 2.5M edges with the topology of PA or ER.
+
+\mypar{USA graphs} around 300K nodes and 800K edges with the topology of the USA road networks dataset.
+
+
+We also used a benchmark of smaller graphs with the topology of PA with either 1000 nodes and 100K edges or 2000 nodes and 40K edges to compare our algorithms to the baseline.
+
+\subsection{Baselines} We compare the results of our algorithms to those of the Parallel Boost Graph Library (PBGL) v1.62.0 which is an extension of the BGL for distributed computing.
+
+\subsection{Difficulties}
+
+\subsection{Results} We present here the results of our experiments on the benchmarks that we studied For every experiment, we generated a large number of random graphs on which three runs were made for each in order to have an appropriate standard deviation.
+
+\begin{figure}\noindent\centering
+  \includegraphics[scale=0.28]{BoostKruskalSpeedup4.png}
+  \caption{Boost Kruskal Speedup.\label{boostKruskal}}
+\end{figure}
 
 
 
