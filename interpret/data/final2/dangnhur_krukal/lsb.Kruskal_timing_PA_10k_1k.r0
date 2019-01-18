@@ -1,0 +1,63 @@
+# Sysname : Linux
+# Nodename: eu-a6-009-03
+# Release : 3.10.0-862.14.4.el7.x86_64
+# Version : #1 SMP Wed Sep 26 15:12:11 UTC 2018
+# Machine : x86_64
+# Execution time and date (UTC): Thu Jan 17 00:18:03 2019
+# Execution time and date (local): Thu Jan 17 01:18:03 2019
+# MPI execution on rank 0 with 1 processes in world
+# Reported time measurements are in microseconds
+# pretty output format
+    Algorithm  Graph_nodes   Graph_name  Max_threads          run       id         time     overhead 
+ Sequential_Kruskal         10000  Preferential_attachment_1000_edges_per_vertice             1             0          0 7745105.339355            0 
+ Sequential_Kruskal         10000  Preferential_attachment_1000_edges_per_vertice             1             1          0 4630800.997559           23 
+ Sequential_Kruskal         10000  Preferential_attachment_1000_edges_per_vertice             1             2          0 6215313.801758            5 
+ Sequential_Kruskal         10000  Preferential_attachment_1000_edges_per_vertice             2             0          0 5891225.477539            0 
+ Sequential_Kruskal         10000  Preferential_attachment_1000_edges_per_vertice             2             1          0 5907769.003418            5 
+ Sequential_Kruskal         10000  Preferential_attachment_1000_edges_per_vertice             2             2          0 6081754.455078            0 
+ Sequential_Kruskal         10000  Preferential_attachment_1000_edges_per_vertice             4             0          0 3698423.730469            0 
+ Sequential_Kruskal         10000  Preferential_attachment_1000_edges_per_vertice             4             1          0 4206459.910156            0 
+ Sequential_Kruskal         10000  Preferential_attachment_1000_edges_per_vertice             4             2          0 8812664.506348           15 
+ Sequential_Kruskal         10000  Preferential_attachment_1000_edges_per_vertice             6             0          0 4341931.559082            0 
+ Sequential_Kruskal         10000  Preferential_attachment_1000_edges_per_vertice             6             1          0 4538222.795898            0 
+ Sequential_Kruskal         10000  Preferential_attachment_1000_edges_per_vertice             6             2          0 3902330.537109            0 
+ Sequential_Kruskal         10000  Preferential_attachment_1000_edges_per_vertice             8             0          0 7583076.086426            0 
+ Sequential_Kruskal         10000  Preferential_attachment_1000_edges_per_vertice             8             1          0 3541693.913574            0 
+ Sequential_Kruskal         10000  Preferential_attachment_1000_edges_per_vertice             8             2          0 3445148.314453            0 
+ Sequential_Kruskal         10000  Preferential_attachment_1000_edges_per_vertice            10             0          0 4110588.817383            0 
+ Sequential_Kruskal         10000  Preferential_attachment_1000_edges_per_vertice            10             1          0 4110476.482910            4 
+ Sequential_Kruskal         10000  Preferential_attachment_1000_edges_per_vertice            10             2          0 7628444.174805            0 
+ Sequential_Kruskal         10000  Preferential_attachment_1000_edges_per_vertice            12             0          0 3705919.575684            0 
+ Sequential_Kruskal         10000  Preferential_attachment_1000_edges_per_vertice            12             1          0 5333667.442383            0 
+ Sequential_Kruskal         10000  Preferential_attachment_1000_edges_per_vertice            12             2          0 5247443.157227            0 
+ Sequential_Kruskal         10000  Preferential_attachment_1000_edges_per_vertice            14             0          0 4269159.396973            0 
+ Sequential_Kruskal         10000  Preferential_attachment_1000_edges_per_vertice            14             1          0 3988350.102051            0 
+ Sequential_Kruskal         10000  Preferential_attachment_1000_edges_per_vertice            14             2          0 3875763.141602            0 
+ Sequential_Kruskal         10000  Preferential_attachment_1000_edges_per_vertice            16             0          0 4114753.490723            0 
+ Sequential_Kruskal         10000  Preferential_attachment_1000_edges_per_vertice            16             1          0 6745825.466309            2 
+ Sequential_Kruskal         10000  Preferential_attachment_1000_edges_per_vertice            16             2          0 4469868.102051            0 
+ Sequential_Kruskal         10000  Preferential_attachment_1000_edges_per_vertice            18             0          0 3938226.365723            0 
+ Sequential_Kruskal         10000  Preferential_attachment_1000_edges_per_vertice            18             1          0 5251605.252930            0 
+ Sequential_Kruskal         10000  Preferential_attachment_1000_edges_per_vertice            18             2          0 3511556.843750            0 
+ Sequential_Kruskal         10000  Preferential_attachment_1000_edges_per_vertice            20             0          0 6354852.182617            2 
+ Sequential_Kruskal         10000  Preferential_attachment_1000_edges_per_vertice            20             1          0 3273025.422852            0 
+ Sequential_Kruskal         10000  Preferential_attachment_1000_edges_per_vertice            20             2          0 2651899.687012          223 
+ Sequential_Kruskal         10000  Preferential_attachment_1000_edges_per_vertice            22             0          0 2912349.723145            0 
+ Sequential_Kruskal         10000  Preferential_attachment_1000_edges_per_vertice            22             1          0 2906480.625977            0 
+ Sequential_Kruskal         10000  Preferential_attachment_1000_edges_per_vertice            22             2          0 2879212.885742            0 
+ Sequential_Kruskal         10000  Preferential_attachment_1000_edges_per_vertice            24             0          0 4271585.263184            0 
+ Sequential_Kruskal         10000  Preferential_attachment_1000_edges_per_vertice            24             1          0 3311307.372559            0 
+ Sequential_Kruskal         10000  Preferential_attachment_1000_edges_per_vertice            24             2          0 3441727.718750            0 
+ Sequential_Kruskal         10000  Preferential_attachment_1000_edges_per_vertice            26             0          0 3477070.251953            0 
+ Sequential_Kruskal         10000  Preferential_attachment_1000_edges_per_vertice            26             1          0 3516278.354980            0 
+ Sequential_Kruskal         10000  Preferential_attachment_1000_edges_per_vertice            26             2          0 2890742.147949            0 
+ Sequential_Kruskal         10000  Preferential_attachment_1000_edges_per_vertice            28             0          0 3479741.953125            0 
+ Sequential_Kruskal         10000  Preferential_attachment_1000_edges_per_vertice            28             1          0 2868954.507812            0 
+ Sequential_Kruskal         10000  Preferential_attachment_1000_edges_per_vertice            28             2          0 3445454.879395            0 
+ Sequential_Kruskal         10000  Preferential_attachment_1000_edges_per_vertice            30             0          0 3575991.578125            0 
+ Sequential_Kruskal         10000  Preferential_attachment_1000_edges_per_vertice            30             1          0 2835757.723145            0 
+ Sequential_Kruskal         10000  Preferential_attachment_1000_edges_per_vertice            30             2          0 4941620.264648            0 
+ Sequential_Kruskal         10000  Preferential_attachment_1000_edges_per_vertice            32             0          0 3359296.382324            0 
+ Sequential_Kruskal         10000  Preferential_attachment_1000_edges_per_vertice            32             1          0 3810649.431641            0 
+ Sequential_Kruskal         10000  Preferential_attachment_1000_edges_per_vertice            32             2          0 3312435.675293            0 
+# Runtime: 3973.112715 s (overhead: 0.000007 %) 51 records
