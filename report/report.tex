@@ -179,7 +179,7 @@ From the three greedy approaches presented in Section \ref{sec:background}, Soll
     \item Identify connected components.
 \end{itemize}
 
-Super-vertices are represented thanks to the Union-Find structure already used for Kruskal's algorithm (Section \ref{sec:background}). The finding of the edge of minimum weight is done concurrently with OpenMP and the connected components) identification is done via pointer-jumping according to \cite{pointerJump}.
+Super-vertices are represented thanks to the Union-Find structure already used for Kruskal's algorithm (Section \ref{sec:background}). The finding of the edge of minimum weight is done concurrently with OpenMP and the connected components identification is done via pointer-jumping according to \cite{pointerJump}.
 
 \mypar{Sollin AL} The name Sollin AL comes from the fact that the graph is represented with adjacency lists : a vector keeps for each vertex the list of its incident edges. The vertex array is sorted according to the super-vertex label which leads the vertices with the same super-vertex to be nearby in the array allowing these vertices to be merged efficiently. Then, the adjacency lists are copied in vectors which are more cache-friendly as they allow to avoid false sharing \cite{cache} and these vectors are sorted concurrently based on the target super-vertex (the super-vertex at the other end of the edge).  Thus, self-loops and multiple edges are moved to consecutive locations to be merged.
 
