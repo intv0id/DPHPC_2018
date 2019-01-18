@@ -9,6 +9,7 @@
 \usepackage[space]{grffile}
 \usepackage{epstopdf}
 \usepackage{graphicx}
+\usepackage[section]{placeins}
 
 % Example definitions.
 % --------------------
@@ -229,13 +230,10 @@ We also used a benchmark of smaller graphs with the topology of PA with either 1
 
 We compare the results of our algorithms to those of the Parallel Boost Graph Library (PBGL) v1.62.0 which is an extension of the BGL for distributed computing.
 
-\subsection{Difficulties}
 
 \subsection{Results} We present here the results of our experiments on the benchmarks that we studied For every experiment, we generated a large number of random graphs on which three runs were made for each in order to have an appropriate standard deviation.
 
-\mypar{Baselines}
-
-On Figures \ref{baseline1} and \ref{baseline2} are represented the runtimes of our algorithms in comparison to the ones from the baseline algorithms (Section \ref{sec:baseline}). From these figures, we see that 
+\mypar{Baselines} On Figures \ref{baseline1} and \ref{baseline2} are represented the runtimes of our algorithms in comparison to the ones from the baseline algorithms (Section \ref{sec:baseline}). We see that Filter Kruskal is 5 to 10 times faster than the fastest algorithm from PBGL, Sollin FAL and Filter Sollin have similar runtime and Sollin AL is slower (especially on the dense PA graph).
 
 \begin{figure}\centering
   \includegraphics[width=\linewidth]{graphics/Graph_runtime_Preferential_attachment_100_edges_per_vertice_1000.eps}
@@ -247,7 +245,7 @@ On Figures \ref{baseline1} and \ref{baseline2} are represented the runtimes of o
   \caption{Runtime graph on PA(2 000, 20)\label{baseline2}}
 \end{figure}
 
-\mypar{Dense graphs}
+\mypar{Dense graphs} On dense graphs (Figures \ref{denseERruntime}, \ref{denseERspeedup}, \ref{densePAruntime} and \ref{densePAspeedup}), we see that Filter Kruskal has globally the better speedup, even reaching a speedup of 6 for 20 threads on ER graphs (Figure \ref{denseERspeedup}). On the same random graphs, we observe that Sollin FAL also shows a good scaling with a speedup greater than 6 for 28 threads or more. However, when we look at Figure \ref{denseERruntime}, we see that Filter Kruskal is more than three times faster than Sollin FAL. This is because in the implementation of Sollin FAL we have large adjacency lists which are equally distributed. Thus, the scaling works well but the initial sorting of the lists is very time consuming. On these inputs, Sollin AL behaves rather poorly : it does not scale well and it is more than 10 times slower than Filter Kruskal. We notice that on Figure \ref{denseERspeedup}, the speedup for Sollin AL decreases after reaching 18 threads due to the larger overhead of using the network (the processors have 18 cores). From Figures \ref{densePAruntime} and \ref{densePAspeedup}, we see that the trends on PA graphs are the same for the algorithms : Filter Kruskal followed by Filter Sollin are the fastest algorithms and Sollin AL the slowest. However, the speedup values are lesser than for the ER graphs because PA graphs are far less equally distributed : some nodes have a huge amount of neighbours whereas others only have one. As each thread treats nodes that are loaded differently, it is logical to see a drop in the speedup.
 
 \begin{figure}\centering
   \includegraphics[width=\linewidth]{graphics/Graph_runtime_Erdos-Renyi_random_p=0.200000_10000.eps}
@@ -271,7 +269,7 @@ On Figures \ref{baseline1} and \ref{baseline2} are represented the runtimes of o
 
 
 
-\mypar{Sparse graphs}
+\mypar{Sparse graphs} On sparser graphs (Figures \ref{sparseERruntime}, \ref{sparseERspeedup}, \ref{sparsePAruntime} and \ref{sparsePAspeedup}), Sollin AL has a very good parallelism, reaching a speedup of 5 for 30 threads on ER graphs and Filter Kruskal and Sollin FAL also scales pretty well. However, when looking at Figure \ref{sparseERruntime}, we see that Filter Kruskal is 10 times faster than Sollin FAL and 30 times faster than Sollin AL. As with the dense graphs, the speedups on PA graphs are inferior than the ones on ER graphs but the difference is slighter because the disparity between high-degree and low-degree nodes is smaller. We also note that Filter Sollin does not scale well on either type on inputs but is still the second fastest algorithm after Filter Kruskal. On sparse graphs, the different parallel implementations of Sollin's algorithm are dominated by the step of finding the edge of minimun weight for each vertex.
 
 \begin{figure}\centering
   \includegraphics[width=\linewidth]{graphics/Graph_runtime_Erdos-Renyi_random_p=0.002000_50000.eps}
@@ -293,7 +291,7 @@ On Figures \ref{baseline1} and \ref{baseline2} are represented the runtimes of o
   \caption{Speedup graph on PA(50 000, 50)\label{sparsePAspeedup}}
 \end{figure}
 
-\mypar{USA graphs}
+\mypar{USA graphs} USA graphs give far worse results. On both Figures \ref{usaBAYspeedup} and \ref{usaNYspeedup}, we see that the algorithms do not scale at all. Only Filter Sollin shows the beginning of a scaling but it is fast outgrowed by the overhead in the parallelisation process. The topology of USA graphs does not fit well with our algorithms. From Figures \ref{usaBAYruntime} and \ref{usaNYruntime}, we observe that the Kruskal's algorithm with a parallel sorting is the fastest and is nearly 50 times faster than Filter Sollin.
 
 \begin{figure}\centering
   \includegraphics[width=\linewidth]{graphics/Graph_runtime_USA-road-d._264346.eps}
@@ -316,28 +314,21 @@ On Figures \ref{baseline1} and \ref{baseline2} are represented the runtimes of o
 \end{figure}
 
 
-% AL ER 10 => Speedup augmente puis vers 18 diminue
-% => Passage de 18 à 20 = passage par le réseau = + gros overhead
-% FAL ER-10 = grosses listes d'adjacence, équitablement réparties
-% -> L'étape qui prend le + de temps est le tri initial des listes
-% FAL PA-10 = dense mais moins bien réparti : Moins de speedup
-% FS sur les US : Ça monte un peu puis ça descend
-% Le parallélisme est très vite compensé par l'overhead à paralléliser
-% US = topologie pas ouf pour nos algos : moins idéal que pa / er
-% PA = Beaucoup moins régulier que ER :nodes with much more edges
-% Donc des résultats moins propres quand on sépare "équitablement" par noeud (each processor treats the same amount of nodes : not fair / less parallelism)
-% Exemple : AL ER-50 est bon, ça veut dire qu'AL est meilleur quand le nombre de noeuds est + élevé et le nombre d'arêtes + faible
-% Et là c'est l'étape de find_minimum qui prend le + de temps
-
-
+\subsection{Study of Amdahl's Law}
 
 
 
 \section{Conclusions}
 
-%  MST = plein d'algos + hard to parallelize (inherently sequential) => specialized algos + performance depends on type de graphe (dense, pas dense, topologie...)
+We implemented five parallel algorithms for computing a minimum spanning tree in a connected graph based on Kruskal's and Sollin's greedy approaches.
 
-% next step : Dis qu'à partir de cette étude on pourrait étudier au préalable le meilleur algo et donc avoir un algo + général, mais que on utilise plusieurs représentations de graphe donc pas évident
+From testing them on various benchmarks (dense graphs, sparse graphs and real-life graphs), we observed that the Minimum Spanning Tree problem is particularly hard to parallelise as it is inherently sequential. 
+
+Moreover, the performance of the algorithms largely depends upon the topology of the input graphs : PA graphs have structures much more unequally distributed than ER graphs and, therefore, lead to inferior speedups. On the graphs from the USA road networks dataset that have a even less regular topology, the algorithms do not scale at all.
+
+Globally, on the different benchmarks, the best results are obtained with Filter Kruskal which benefits from the fact that all operations are done in-place.
+
+We believe that starting from our results, it would be possible to design an algorithm that works better for a given benchmark.
 
 
 \clearpage
