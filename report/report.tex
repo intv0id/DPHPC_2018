@@ -7,7 +7,9 @@
 \usepackage{algpseudocode}
 \usepackage{algorithm}
 \usepackage{spconf,amsmath,amssymb,graphicx}
-
+\usepackage[space]{grffile}
+\usepackage{graphics}
+\graphicspath{../interpret/figures/final2/}
 
 % Example definitions.
 % --------------------
@@ -70,7 +72,7 @@ In this paper we present our implementations of algorithms already present in th
 A wide range of problems have input sets that can be represented as graphs which is why it is crucial to develop efficient graph algorithms to reduce the computation costs. As graphs are getting larger and larger, classic sequential algorithms are becoming not fast enough to cope with the exploding number of nodes and edges. To further reduce costs, distributed algorithms are ideal to take advantage of the parallel architecture of computers but it is a challenge to correctly handle memory, concurrency or security and one needs to understand parallel software and hardware to design algorithms that scale well.
 In this paper, we focus on the minimum spanning tree problem which is a classical one in graph theory with applications in network design, cluster analysis or the approximation of NP-hard problems such as the travelling salesman problem. 
 
-We implemented five algorithms, two based on Kruskal's sequential implementation and three based on Sollin's and we present here the runtimes and speedups we obtained when running them over various benchmarks on a High Performance Computing cluster. 
+We implemented five algorithms, two based on Kruskal's sequential implementation and three based on Sollin's and we present here the runtimes and speedups we obtained when running them over various benchmarks on the High Performance Computing cluster EULER. 
 
 All our code can be found on our project repository on GitHub at \cite{code}.
 
@@ -224,7 +226,9 @@ We tested our algorithms on three benchmarks :
 
 We also used a benchmark of smaller graphs with the topology of PA with either 1000 nodes and 100K edges or 2000 nodes and 40K edges to compare our algorithms to the baseline.
 
-\subsection{Baselines} We compare the results of our algorithms to those of the Parallel Boost Graph Library (PBGL) v1.62.0 which is an extension of the BGL for distributed computing.
+\subsection{Baselines} \label{sec:baseline}
+
+We compare the results of our algorithms to those of the Parallel Boost Graph Library (PBGL) v1.62.0 which is an extension of the BGL for distributed computing.
 
 \subsection{Difficulties}
 
@@ -232,35 +236,37 @@ We also used a benchmark of smaller graphs with the topology of PA with either 1
 
 \mypar{Baselines}
 
-\begin{figure}\noindent\centering
-  \includegraphics[scale=0.28]{BoostKruskalSpeedup4.png} % CHANGE NAME
+On Figures \ref{baseline1} and \ref{baseline2} are represented the runtimes of our algorithms in comparison to the ones from the baseline algorithms (Section \ref{sec:baseline}). From these figures, we see that 
+
+\begin{figure}\centering
+  \includegraphics[width=\linewidth]{../interpret/figures/final2/Graph_runtime_Preferential attachment 100 edges per vertice_1000.eps}
   \caption{Runtime graph on PA(1 000, 100)\label{baseline1}}
 \end{figure}
 
 \begin{figure}\noindent\centering
-  \includegraphics[scale=0.28]{BoostKruskalSpeedup4.png} % CHANGE NAME
+  \includegraphics[width=\linewidth]{Graph_runtime_Preferential attachment 20 edges per vertice_2000.eps}
   \caption{Runtime graph on PA(2 000, 20)\label{baseline2}}
 \end{figure}
 
 \mypar{Dense graphs}
 
 \begin{figure}\noindent\centering
-  \includegraphics[scale=0.28]{BoostKruskalSpeedup4.png} % CHANGE NAME
+  \includegraphics[width=\linewidth]{Box_Speedup_Erdos-Renyi random p=0.200000_10000.eps}
   \caption{Runtime graph on ER(10 000, 2 000)\label{denseERruntime}}
 \end{figure}
 
 \begin{figure}\noindent\centering
-  \includegraphics[scale=0.28]{BoostKruskalSpeedup4.png} % CHANGE NAME
+  \includegraphics[width=\linewidth]{BoostKruskalSpeedup4.png} % CHANGE NAME
   \caption{Speedup graph on ER(10 000, 2 000)\label{denseERspeedup}}
 \end{figure}
 
 \begin{figure}\noindent\centering
-  \includegraphics[scale=0.28]{BoostKruskalSpeedup4.png} % CHANGE NAME
+  \includegraphics[width=\linewidth]{BoostKruskalSpeedup4.png} % CHANGE NAME
   \caption{Runtime graph on PA(10 000, 1 000)\label{densePAruntime}}
 \end{figure}
 
 \begin{figure}\noindent\centering
-  \includegraphics[scale=0.28]{BoostKruskalSpeedup4.png} % CHANGE NAME
+  \includegraphics[width=\linewidth]{BoostKruskalSpeedup4.png} % CHANGE NAME
   \caption{Speedup graph on PA(10 000, 1 000)\label{densePAspeedup}}
 \end{figure}
 
@@ -269,44 +275,44 @@ We also used a benchmark of smaller graphs with the topology of PA with either 1
 \mypar{Sparse graphs}
 
 \begin{figure}\noindent\centering
-  \includegraphics[scale=0.28]{BoostKruskalSpeedup4.png} % CHANGE NAME
+  \includegraphics[width=\linewidth]{BoostKruskalSpeedup4.png} % CHANGE NAME
   \caption{Runtime graph on ER(50 000, 100)\label{sparseERruntime}}
 \end{figure}
 
 \begin{figure}\noindent\centering
-  \includegraphics[scale=0.28]{BoostKruskalSpeedup4.png} % CHANGE NAME
+  \includegraphics[width=\linewidth]{BoostKruskalSpeedup4.png} % CHANGE NAME
   \caption{Speedup graph on ER(50 000, 100)\label{sparseERspeedup}}
 \end{figure}
 
 \begin{figure}\noindent\centering
-  \includegraphics[scale=0.28]{BoostKruskalSpeedup4.png} % CHANGE NAME
+  \includegraphics[width=\linewidth]{BoostKruskalSpeedup4.png} % CHANGE NAME
   \caption{Runtime graph on PA(50 000, 50)\label{sparsePAruntime}}
 \end{figure}
 
 \begin{figure}\noindent\centering
-  \includegraphics[scale=0.28]{BoostKruskalSpeedup4.png} % CHANGE NAME
+  \includegraphics[width=\linewidth]{BoostKruskalSpeedup4.png} % CHANGE NAME
   \caption{Speedup graph on PA(50 000, 50)\label{sparsePAspeedup}}
 \end{figure}
 
 \mypar{USA graphs}
 
 \begin{figure}\noindent\centering
-  \includegraphics[scale=0.28]{BoostKruskalSpeedup4.png} % CHANGE NAME
+  \includegraphics[width=\linewidth]{BoostKruskalSpeedup4.png} % CHANGE NAME
   \caption{Runtime graph on USA NY (260K nodes, 730K edges)\label{usaNYruntime}}
 \end{figure}
 
 \begin{figure}\noindent\centering
-  \includegraphics[scale=0.28]{BoostKruskalSpeedup4.png} % CHANGE NAME
+  \includegraphics[width=\linewidth]{BoostKruskalSpeedup4.png} % CHANGE NAME
   \caption{Speedup graph on USA NY (260K nodes, 730K edges)\label{usaNYspeedup}}
 \end{figure}
 
 \begin{figure}\noindent\centering
-  \includegraphics[scale=0.28]{BoostKruskalSpeedup4.png} % CHANGE NAME
+  \includegraphics[width=\linewidth]{BoostKruskalSpeedup4.png} % CHANGE NAME
   \caption{Runtime graph on USA BAY (320K nodes, 800K edges)\label{usaBAYruntime}}
 \end{figure}
 
 \begin{figure}\noindent\centering
-  \includegraphics[scale=0.28]{BoostKruskalSpeedup4.png} % CHANGE NAME
+  \includegraphics[width=\linewidth]{BoostKruskalSpeedup4.png} % CHANGE NAME
   \caption{Speedup graph on USA BAY (320K nodes, 800K edges)\label{usaBAYspeedup}}
 \end{figure}
 
@@ -319,8 +325,8 @@ We also used a benchmark of smaller graphs with the topology of PA with either 1
 % FS sur les US : Ça monte un peu puis ça descend
 % Le parallélisme est très vite compensé par l'overhead à paralléliser
 % US = topologie pas ouf pour nos algos : moins idéal que pa / er
-% PA = Beaucoup moins régulier que ER
-% Donc des résultats moins propres quand on sépare "équitablement" par noeud
+% PA = Beaucoup moins régulier que ER :nodes with much more edges
+% Donc des résultats moins propres quand on sépare "équitablement" par noeud (each processor treats the same amount of nodes : not fair / less parallelism)
 % Exemple : AL ER-50 est bon, ça veut dire qu'AL est meilleur quand le nombre de noeuds est + élevé et le nombre d'arêtes + faible
 % Et là c'est l'étape de find_minimum qui prend le + de temps
 
@@ -345,5 +351,4 @@ We also used a benchmark of smaller graphs with the topology of PA with either 1
 \bibliography{bibl_conf}
 
 \end{document}
-
 
