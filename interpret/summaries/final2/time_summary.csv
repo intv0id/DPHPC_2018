@@ -189,6 +189,16 @@ Graph,Algorithm,Max threads,median,std
 "('Preferential attachment 100 edges per vertice', 1000)",BGL: Boruvka then merge,14,978592.7148435,23572.54773180398
 "('Preferential attachment 100 edges per vertice', 1000)",BGL: Boruvka then merge,16,1062519.850952,20595.408623824947
 "('Preferential attachment 100 edges per vertice', 1000)",BGL: Boruvka then merge,18,1095552.7770079998,26592.017948175242
+"('Preferential attachment 100 edges per vertice', 1000)",BGL: Dense Boruvka,1,75053.138611,526.5808916216281
+"('Preferential attachment 100 edges per vertice', 1000)",BGL: Dense Boruvka,2,73774.7950135,1239.292201783044
+"('Preferential attachment 100 edges per vertice', 1000)",BGL: Dense Boruvka,4,61841.696532999995,1031.1039209654962
+"('Preferential attachment 100 edges per vertice', 1000)",BGL: Dense Boruvka,6,51855.7094115,735.7130543719154
+"('Preferential attachment 100 edges per vertice', 1000)",BGL: Dense Boruvka,8,46623.4451905,715.0961089683824
+"('Preferential attachment 100 edges per vertice', 1000)",BGL: Dense Boruvka,10,42270.5525205,1713.340787482004
+"('Preferential attachment 100 edges per vertice', 1000)",BGL: Dense Boruvka,12,39657.756897,565.5901660979555
+"('Preferential attachment 100 edges per vertice', 1000)",BGL: Dense Boruvka,14,37578.8876955,694.6344948575223
+"('Preferential attachment 100 edges per vertice', 1000)",BGL: Dense Boruvka,16,37855.519836,830.471126041843
+"('Preferential attachment 100 edges per vertice', 1000)",BGL: Dense Boruvka,18,37219.421753,630.8983998437812
 "('Preferential attachment 100 edges per vertice', 1000)",BGL: Local merge,1,74571.545044,761.8567335616589
 "('Preferential attachment 100 edges per vertice', 1000)",BGL: Local merge,2,343844.66201800003,5191.244666495411
 "('Preferential attachment 100 edges per vertice', 1000)",BGL: Local merge,4,633207.584564,6445.679478486384
@@ -199,16 +209,6 @@ Graph,Algorithm,Max threads,median,std
 "('Preferential attachment 100 edges per vertice', 1000)",BGL: Local merge,14,985051.724609,24315.88351253194
 "('Preferential attachment 100 edges per vertice', 1000)",BGL: Local merge,16,1064724.51709,20283.882246733716
 "('Preferential attachment 100 edges per vertice', 1000)",BGL: Local merge,18,1085476.2449345002,28471.559834356936
-"('Preferential attachment 100 edges per vertice', 1000)",Boost DenseBoruvka,1,75053.138611,526.5808916216281
-"('Preferential attachment 100 edges per vertice', 1000)",Boost DenseBoruvka,2,73774.7950135,1239.292201783044
-"('Preferential attachment 100 edges per vertice', 1000)",Boost DenseBoruvka,4,61841.696532999995,1031.1039209654962
-"('Preferential attachment 100 edges per vertice', 1000)",Boost DenseBoruvka,6,51855.7094115,735.7130543719154
-"('Preferential attachment 100 edges per vertice', 1000)",Boost DenseBoruvka,8,46623.4451905,715.0961089683824
-"('Preferential attachment 100 edges per vertice', 1000)",Boost DenseBoruvka,10,42270.5525205,1713.340787482004
-"('Preferential attachment 100 edges per vertice', 1000)",Boost DenseBoruvka,12,39657.756897,565.5901660979555
-"('Preferential attachment 100 edges per vertice', 1000)",Boost DenseBoruvka,14,37578.8876955,694.6344948575223
-"('Preferential attachment 100 edges per vertice', 1000)",Boost DenseBoruvka,16,37855.519836,830.471126041843
-"('Preferential attachment 100 edges per vertice', 1000)",Boost DenseBoruvka,18,37219.421753,630.8983998437812
 "('Preferential attachment 100 edges per vertice', 1000)",Filter Kruskal,1,7983.972900499999,4461.613536161729
 "('Preferential attachment 100 edges per vertice', 1000)",Filter Kruskal,2,7347.096191500001,630.5014833954662
 "('Preferential attachment 100 edges per vertice', 1000)",Filter Kruskal,4,8133.2932125,1252.4673064060926
@@ -395,6 +395,16 @@ Graph,Algorithm,Max threads,median,std
 "('Preferential attachment 20 edges per vertice', 2000)",BGL: Boruvka then merge,14,961220.6981810001,19582.111180126027
 "('Preferential attachment 20 edges per vertice', 2000)",BGL: Boruvka then merge,16,1045511.4227905,19375.91835870006
 "('Preferential attachment 20 edges per vertice', 2000)",BGL: Boruvka then merge,18,1078253.3674929999,27682.887807648673
+"('Preferential attachment 20 edges per vertice', 2000)",BGL: Dense Boruvka,1,25606.401977499998,430.1196609759622
+"('Preferential attachment 20 edges per vertice', 2000)",BGL: Dense Boruvka,2,28114.767638999998,672.6006902298187
+"('Preferential attachment 20 edges per vertice', 2000)",BGL: Dense Boruvka,4,25200.755585,611.1184110444344
+"('Preferential attachment 20 edges per vertice', 2000)",BGL: Dense Boruvka,6,22327.9391175,314.0949351339182
+"('Preferential attachment 20 edges per vertice', 2000)",BGL: Dense Boruvka,8,20860.1156005,386.8897463697988
+"('Preferential attachment 20 edges per vertice', 2000)",BGL: Dense Boruvka,10,19740.442047,373.2040114912681
+"('Preferential attachment 20 edges per vertice', 2000)",BGL: Dense Boruvka,12,19041.010528500003,349.75583497552174
+"('Preferential attachment 20 edges per vertice', 2000)",BGL: Dense Boruvka,14,18553.591217,364.34478239337943
+"('Preferential attachment 20 edges per vertice', 2000)",BGL: Dense Boruvka,16,18747.8241575,515.3096097963721
+"('Preferential attachment 20 edges per vertice', 2000)",BGL: Dense Boruvka,18,19028.484192,575.4694396307282
 "('Preferential attachment 20 edges per vertice', 2000)",BGL: Local merge,1,24633.7147215,350.180288414456
 "('Preferential attachment 20 edges per vertice', 2000)",BGL: Local merge,2,299237.21322599996,5286.550601651066
 "('Preferential attachment 20 edges per vertice', 2000)",BGL: Local merge,4,597548.6211855,3371.447806653076
@@ -405,16 +415,6 @@ Graph,Algorithm,Max threads,median,std
 "('Preferential attachment 20 edges per vertice', 2000)",BGL: Local merge,14,967624.9232484999,20134.901186776966
 "('Preferential attachment 20 edges per vertice', 2000)",BGL: Local merge,16,1048228.6467894999,17949.05466329614
 "('Preferential attachment 20 edges per vertice', 2000)",BGL: Local merge,18,1086825.461365,27864.553219055844
-"('Preferential attachment 20 edges per vertice', 2000)",Boost DenseBoruvka,1,25606.401977499998,430.1196609759622
-"('Preferential attachment 20 edges per vertice', 2000)",Boost DenseBoruvka,2,28114.767638999998,672.6006902298187
-"('Preferential attachment 20 edges per vertice', 2000)",Boost DenseBoruvka,4,25200.755585,611.1184110444344
-"('Preferential attachment 20 edges per vertice', 2000)",Boost DenseBoruvka,6,22327.9391175,314.0949351339182
-"('Preferential attachment 20 edges per vertice', 2000)",Boost DenseBoruvka,8,20860.1156005,386.8897463697988
-"('Preferential attachment 20 edges per vertice', 2000)",Boost DenseBoruvka,10,19740.442047,373.2040114912681
-"('Preferential attachment 20 edges per vertice', 2000)",Boost DenseBoruvka,12,19041.010528500003,349.75583497552174
-"('Preferential attachment 20 edges per vertice', 2000)",Boost DenseBoruvka,14,18553.591217,364.34478239337943
-"('Preferential attachment 20 edges per vertice', 2000)",Boost DenseBoruvka,16,18747.8241575,515.3096097963721
-"('Preferential attachment 20 edges per vertice', 2000)",Boost DenseBoruvka,18,19028.484192,575.4694396307282
 "('Preferential attachment 20 edges per vertice', 2000)",Filter Kruskal,1,3632.8784175,2526.2683179044384
 "('Preferential attachment 20 edges per vertice', 2000)",Filter Kruskal,2,4345.377197,1386.26226047078
 "('Preferential attachment 20 edges per vertice', 2000)",Filter Kruskal,4,4691.429199499999,584.5190541767586
