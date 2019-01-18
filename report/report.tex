@@ -20,6 +20,7 @@
 % bold paragraph titles
 \newcommand{\mypar}[1]{{\bf #1.}}
 
+
 % Title.
 % ------
 \title{Minimum Spanning Tree: a parallel approach}
@@ -178,25 +179,22 @@ From the three greedy approaches presented in Section \ref{sec:background}, Soll
     \item Identify connected components.
 \end{itemize}
 
-Super-vertices are represented thanks to the Union-Find structure already used for Kruskal's algorithm (Section \ref{sec:background}). The finding of the edge of minimum weight is done concurrently with OpenMP and the connected components) identification is done via pointer-jumping according to \cite{pointerJump}.
+Super-vertices are represented thanks to the Union-Find structure already used for Kruskal's algorithm (Section \ref{sec:background}). The finding of the edge of minimum weight is done concurrently with OpenMP and the connected components identification is done via pointer-jumping according to \cite{pointerJump}.
 
 \mypar{Sollin AL} The name Sollin AL comes from the fact that the graph is represented with adjacency lists : a vector keeps for each vertex the list of its incident edges. The vertex array is sorted according to the super-vertex label which leads the vertices with the same super-vertex to be nearby in the array allowing these vertices to be merged efficiently. Then, the adjacency lists are copied in vectors which are more cache-friendly as they allow to avoid false sharing \cite{cache} and these vectors are sorted concurrently based on the target super-vertex (the super-vertex at the other end of the edge).  Thus, self-loops and multiple edges are moved to consecutive locations to be merged.
 
 \mypar{Sollin FAL} This time, the adjacency lists are replaced by flexible adjacency lists to reduce the cost from sorting before merging the connected components. The flexible adjacency lists are linked lists of adjacency lists composed of the adjacency lists of all the vertices with the same super-vertex : each time we perform the merging step for the connected components, we append the adjacency list of each vertex to their super-vertex adjacency list. Thus, this time, super-vertices keep multiple edges and self-loops in their adjacency lists which simplifies the sorting steps. These edges are now removed during the finding of the edge of minimum weight.
 
-\mypar{Filter Sollin} Filter Sollin uses the approach already seen in the algorithm Filter Kruskal (Section \ref{sec:parKrfuskal}) but uses Sollin's algorithm (with the data structure seen in Sollin FAL) instead of Kruskal's when the input size is under a given threshold.
+\mypar{Filter Sollin} Filter Sollin uses the approach already seen in the algorithm Filter Kruskal (Section \ref{sec:parKruskal}) but uses Sollin's algorithm (with the data structure seen in Sollin FAL) instead of Kruskal's when the input size is under a given threshold.
 
 
 \section{Experimental Results}\label{sec:exp}
 
-In this section, we present the results of our algorithms on various input sets and discuss their performance against the four baselines over different benchmarks.
-However, because MPI doesn't use shared memory, every node of the cluster needs to have its own representation of the graph.
-Therefore, we were limited to smaller graphs (1,000 and 2,000 nodes and several hundreds of edges), and we had trouble going over 18 nodes.
-The baselines are just used to compare the runtimes, but we couldn't unfortunately use them to compare the speedup with the bigger graphs.
+In this section, we present the results of our algorithms on various input sets and discuss their performance against the baselines and over different benchmarks.
 
 \subsection{Experimental setup} \label{sec:setup}
 
-All experiments are run through the EULER cluster on an Hewlett-Packard XL230k Gen10 equipped with two 18-core Intel Xeon Gold (6150 processors, 2.7-3.7 GHz) and 192 GB of DDR4 memory clocked at 2666 MHz. We are using C++17 with GCC v5.2.0, CMake v3.11.4 and OpenMPI v1.6.5. Our algorithms are compiled with the optimisation flag O3. We also use the following dependencies :
+All experiments are run through the EULER cluster on a Hewlett-Packard XL230k Gen10 equipped with two 18-core Intel Xeon Gold 6150 processors (2.7-3.7 GHz) and 192 GB of DDR4 memory clocked at 2666 MHz. We are using C++17 with GCC v5.2.0, CMake v3.11.4 and OpenMPI v1.6.5. Our algorithms are compiled with the optimisation flag O3. We also use the following dependencies :
 
 \mypar{OpenMP} OpenMP which is an API that supports shared memory multiprocessing programming in C++.
 
@@ -204,7 +202,7 @@ All experiments are run through the EULER cluster on an Hewlett-Packard XL230k G
 
 \mypar{PSTL} Parallel STL (PSTL) to have a threaded and vectorized execution of the standard C++ partition function, optimised and validated for Intel(R) 64 processors.
 
-\mypar{LSB} LibSciBench (LSB) which is a framework containing a performance measurement library for parallel applications and is coupled with an R script for the post-processing of the gathered data \cite{benchmarking} \cite{measuring}. 
+\mypar{LSB} LibSciBench (LSB) which is a framework containing a performance measurement library for parallel applications using MPI and OpenMP and is coupled with an R script for the post-processing of the gathered data \cite{benchmarking} \cite{measuring}. 
 
 
 \subsection{Input Sets}
@@ -214,7 +212,7 @@ The experiments have been performed on the three following input sets :
 
 \mypar{PA} Preferential Attachment (PA) graphs where we specify the number of nodes of the graphs and the number of neighbours that a node attaches itself to when added in the graph. In order to have a connected graph, the graph is initialised with three connected vertices and new vertices are added one by one and connected to existing vertices with higher probability for the ones with higher degrees. This type of graph models better existing inputs from the real world such as representations of social network connections.  
 
-\mypar{USA} USA road networks from 9th Implementation DIMACS Challenge dataset which are real input sets from the road networks in various part of the USA. These graphs are connected and undirected.
+\mypar{USA} USA road networks from 9th Implementation DIMACS Challenge dataset which are real input sets from the road networks in various parts of the USA. These graphs are connected and undirected.
 
 \subsection{Benchmarks}
 
@@ -232,9 +230,11 @@ We also used a benchmark of smaller graphs with the topology of PA with either 1
 \subsection{Baselines} \label{sec:baseline}
 
 We compare the results of our algorithms to those of the Parallel Boost Graph Library (PBGL) v1.62.0 which is an extension of the BGL for distributed computing.
+Because MPI doesn't use shared memory, it used too much memory because of several representations of the same graph.
+We therefore had to reduce the sizes of the graphs to use with BGL, and couldn't go above 18 nodes, which only gives us a small insight for the runtime compared to the baselines, but not much more.
 
 
-\subsection{Results} We present here the results of our experiments on the benchmarks that we studied For every experiment, we generated a large number of random graphs on which three runs were made for each in order to have an appropriate standard deviation.
+\subsection{Results} We present here the results of our experiments on the benchmarks that we studied. For every experiment, we generated a large number of random graphs on which three runs were made for each in order to have an appropriate standard deviation.
 
 \mypar{Baselines} On Figures \ref{baseline1} and \ref{baseline2} are represented the runtimes of our algorithms in comparison to the ones from the baseline algorithms (Section \ref{sec:baseline}). We see that Filter Kruskal is 5 to 10 times faster than the fastest algorithm from PBGL, Sollin FAL and Filter Sollin have similar runtime and Sollin AL is slower (especially on the dense PA graph).
 
@@ -272,7 +272,7 @@ We compare the results of our algorithms to those of the Parallel Boost Graph Li
 
 
 
-\mypar{Sparse graphs} On sparser graphs (Figures \ref{sparseERruntime}, \ref{sparseERspeedup}, \ref{sparsePAruntime} and \ref{sparsePAspeedup}), Sollin AL has a very good parallelism, reaching a speedup of 5 for 30 threads on ER graphs and Filter Kruskal and Sollin FAL also scales pretty well. However, when looking at Figure \ref{sparseERruntime}, we see that Filter Kruskal is 10 times faster than Sollin FAL and 30 times faster than Sollin AL. As with the dense graphs, the speedups on PA graphs are inferior than the ones on ER graphs but the difference is slighter because the disparity between high-degree and low-degree nodes is smaller. We also note that Filter Sollin does not scale well on either type on inputs but is still the second fastest algorithm after Filter Kruskal. On sparse graphs, the different parallel implementations of Sollin's algorithm are dominated by the step of finding the edge of minimun weight for each vertex.
+\mypar{Sparse graphs} On sparser graphs (Figures \ref{sparseERruntime}, \ref{sparseERspeedup}, \ref{sparsePAruntime} and \ref{sparsePAspeedup}), we observe that Sollin AL has a very good parallelism, reaching a speedup of 5 for 30 threads on ER graphs and Filter Kruskal and Sollin FAL also scales pretty well. However, when looking at Figure \ref{sparseERruntime}, we see that Filter Kruskal is 10 times faster than Sollin FAL and 30 times faster than Sollin AL. As with the dense graphs, the speedups on PA graphs are inferior than the ones on ER graphs but the difference is slighter because the disparity between high-degree and low-degree nodes is smaller. We also note that Filter Sollin does not scale well on either type on inputs but is still the second fastest algorithm after Filter Kruskal. On sparse graphs, the different parallel implementations of Sollin's algorithm are dominated by the step of finding the edge of minimun weight for each vertex.
 
 \begin{figure}\centering
   \includegraphics[width=\linewidth]{graphics/Graph_runtime_Erdos-Renyi_random_p=0.002000_50000.eps}
@@ -340,18 +340,18 @@ If the speedup is less than $1$, then we put $0$.
 \hline
 ER(50k, 100) &          77 (71) &         42 (33) &   22 (21) &     82 (76) &      64 (62) \\
 ER(10k, 2k) &          96 (88) &         78 (73) &   33 (29) &     72 (66) &      87 (84) \\
-PA(10k, 1k) &          83 (80) &         58 (40) &   42 (36) &           - &      66 (56) \\
+PA(10k, 1k) &          83 (80) &         58 (40) &   42 (36) &     50 (45) &      66 (56) \\
 PA(50k, 50) &          78 (70) &         21 (17) &   27 (26) &     65 (59) &      54 (47) \\
-USA NY &           19 (0) &          43 (0) &     1 (0) &           - &       12 (0) \\
-USA Bay &            0 (0) &          49 (0) &     0 (0) &           - &       16 (0) \\
+USA NY &           19 (0) &          43 (0) &     1 (0) &           17 (0) &       12 (0) \\
+USA Bay &            0 (0) &          49 (0) &     0 (0) &           11 (0) &       16 (0) \\
 \hline
 \end{tabular}
 
 \section{Conclusions}
 
-We implemented five parallel algorithms for computing a minimum spanning tree in a connected graph based on Kruskal's and Sollin's greedy approaches.
+In this paper, we presented the implementations of five parallel algorithms for computing a minimum spanning tree in a connected graph based on Kruskal's and Sollin's greedy approaches.
 
-From testing them on various benchmarks (dense graphs, sparse graphs and real-life graphs), we observed that the Minimum Spanning Tree problem is particularly hard to parallelise as it is inherently sequential. 
+From testing them on several benchmarks (dense, sparse and real-life graphs), we observed that the Minimum Spanning Tree problem is particularly hard to parallelise as it is inherently sequential. 
 
 Moreover, the performance of the algorithms largely depends upon the topology of the input graphs : PA graphs have structures much more unequally distributed than ER graphs and, therefore, lead to inferior speedups. On the graphs from the USA road networks dataset that have a even less regular topology, the algorithms do not scale at all.
 
