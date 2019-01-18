@@ -19,17 +19,21 @@ for line in f.readlines():
 
 algos = list(data[list(data.keys())[0]].keys())
 
+def convert(x):
+    s = str(int(x * 100))
+    return s
+
 values = []
 for graph in data:
     print(" / ".join(algos))
     print("Graph", graph)
-    line = []
+    line = [graph]
     for algo in algos:
         if algo in data[graph]:
             l = data[graph][algo]
-            line.append(str(max(l)) + " (" + str(np.median(l)) + ")")
+            line.append(convert(max(l)) + " (" + convert(np.median(l)) + ")")
         else:
             line.append("-")
     values.append(line)
 
-print(tabulate(values, headers=algos, tablefmt="latex", stralign='right'))
+print(tabulate(values, headers=["Graph"] + algos, tablefmt="latex", stralign='right'))

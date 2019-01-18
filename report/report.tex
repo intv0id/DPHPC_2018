@@ -316,6 +316,29 @@ We compare the results of our algorithms to those of the Parallel Boost Graph Li
 
 \subsection{Study of Amdahl's Law}
 
+$S_p$ is the speedup with $p$ cores, $f$ is the part of the program that is sequential.
+
+\[
+        S_p = \frac{1}{\frac{1-f}{p} + f}
+\]
+\[
+        f = \frac{\frac{p}{S_p} - 1}{p - 1}
+\]
+
+\begin{tabular}{rrrrrr}
+\hline
+                                                   Graph &   Filter Kruskal &   Filter Sollin &     Kruskal &   Sollin AL &   Sollin FAL \\
+\hline
+ER(50,000 ; 1,000) &      0.78 (0.71) &     0.42 (0.33) & 0.23 (0.21) & 0.82 (0.77) &  0.64 (0.62) \\
+                  Erdos-Renyi random p=0.200000 -\ensuremath{>} 10000 &      0.96 (0.89) &     0.79 (0.73) & 0.33 (0.29) & 0.73 (0.67) &  0.88 (0.84) \\
+   Preferential attachment 100 edges per vertice -\ensuremath{>} 1000 &      0.16 (0.00) &     0.00 (0.00) & 0.00 (0.00) & 0.36 (0.04) &  0.30 (0.00) \\
+ Preferential attachment 1000 edges per vertice -\ensuremath{>} 10000 &      0.83 (0.81) &     0.58 (0.41) & 0.42 (0.37) &           - &  0.67 (0.56) \\
+    Preferential attachment 20 edges per vertice -\ensuremath{>} 2000 &      0.00 (0.00) &     0.00 (0.00) & 0.00 (0.00) & 0.34 (0.18) &  0.00 (0.00) \\
+   Preferential attachment 50 edges per vertice -\ensuremath{>} 50000 &      0.78 (0.71) &     0.21 (0.17) & 0.28 (0.26) & 0.65 (0.60) &  0.55 (0.47) \\
+                                   USA-road-d. -\ensuremath{>} 264346 &      0.19 (0.00) &     0.43 (0.00) & 0.01 (0.00) &           - &  0.12 (0.00) \\
+                                   USA-road-d. -\ensuremath{>} 321270 &      0.00 (0.00) &     0.50 (0.00) & 0.00 (0.00) &           - &  0.17 (0.00) \\
+\hline
+\end{tabular}
 
 
 \section{Conclusions}
