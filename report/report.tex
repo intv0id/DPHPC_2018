@@ -20,6 +20,7 @@
 % bold paragraph titles
 \newcommand{\mypar}[1]{{\bf #1.}}
 
+
 % Title.
 % ------
 \title{Minimum Spanning Tree: a parallel approach}
@@ -201,7 +202,7 @@ All experiments are run through the EULER cluster on an Hewlett-Packard XL230k G
 
 \mypar{PSTL} Parallel STL (PSTL) to have a threaded and vectorized execution of the standard C++ partition function, optimised and validated for Intel(R) 64 processors.
 
-\mypar{LSB} LibSciBench (LSB) which is a framework containing a performance measurement library for parallel applications and is coupled with an R script for the post-processing of the gathered data \cite{benchmarking} \cite{measuring}. 
+\mypar{LSB} LibSciBench (LSB) which is a framework containing a performance measurement library for parallel applications using MPI and OpenMP and is coupled with an R script for the post-processing of the gathered data \cite{benchmarking} \cite{measuring}. 
 
 
 \subsection{Input Sets}
@@ -269,7 +270,7 @@ We compare the results of our algorithms to those of the Parallel Boost Graph Li
 
 
 
-\mypar{Sparse graphs} On sparser graphs (Figures \ref{sparseERruntime}, \ref{sparseERspeedup}, \ref{sparsePAruntime} and \ref{sparsePAspeedup}), Sollin AL has a very good parallelism, reaching a speedup of 5 for 30 threads on ER graphs and Filter Kruskal and Sollin FAL also scales pretty well. However, when looking at Figure \ref{sparseERruntime}, we see that Filter Kruskal is 10 times faster than Sollin FAL and 30 times faster than Sollin AL. As with the dense graphs, the speedups on PA graphs are inferior than the ones on ER graphs but the difference is slighter because the disparity between high-degree and low-degree nodes is smaller. We also note that Filter Sollin does not scale well on either type on inputs but is still the second fastest algorithm after Filter Kruskal. On sparse graphs, the different parallel implementations of Sollin's algorithm are dominated by the step of finding the edge of minimun weight for each vertex.
+\mypar{Sparse graphs} On sparser graphs (Figures \ref{sparseERruntime}, \ref{sparseERspeedup}, \ref{sparsePAruntime} and \ref{sparsePAspeedup}), we observe that Sollin AL has a very good parallelism, reaching a speedup of 5 for 30 threads on ER graphs and Filter Kruskal and Sollin FAL also scales pretty well. However, when looking at Figure \ref{sparseERruntime}, we see that Filter Kruskal is 10 times faster than Sollin FAL and 30 times faster than Sollin AL. As with the dense graphs, the speedups on PA graphs are inferior than the ones on ER graphs but the difference is slighter because the disparity between high-degree and low-degree nodes is smaller. We also note that Filter Sollin does not scale well on either type on inputs but is still the second fastest algorithm after Filter Kruskal. On sparse graphs, the different parallel implementations of Sollin's algorithm are dominated by the step of finding the edge of minimun weight for each vertex.
 
 \begin{figure}\centering
   \includegraphics[width=\linewidth]{graphics/Graph_runtime_Erdos-Renyi_random_p=0.002000_50000.eps}
@@ -343,9 +344,9 @@ ER(50,000 ; 1,000) &      0.78 (0.71) &     0.42 (0.33) & 0.23 (0.21) & 0.82 (0.
 
 \section{Conclusions}
 
-We implemented five parallel algorithms for computing a minimum spanning tree in a connected graph based on Kruskal's and Sollin's greedy approaches.
+In this paper, we presented the implementations of five parallel algorithms for computing a minimum spanning tree in a connected graph based on Kruskal's and Sollin's greedy approaches.
 
-From testing them on various benchmarks (dense graphs, sparse graphs and real-life graphs), we observed that the Minimum Spanning Tree problem is particularly hard to parallelise as it is inherently sequential. 
+From testing them on several benchmarks (dense, sparse and real-life graphs), we observed that the Minimum Spanning Tree problem is particularly hard to parallelise as it is inherently sequential. 
 
 Moreover, the performance of the algorithms largely depends upon the topology of the input graphs : PA graphs have structures much more unequally distributed than ER graphs and, therefore, lead to inferior speedups. On the graphs from the USA road networks dataset that have a even less regular topology, the algorithms do not scale at all.
 
