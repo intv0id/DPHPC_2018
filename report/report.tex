@@ -20,7 +20,6 @@
 % bold paragraph titles
 \newcommand{\mypar}[1]{{\bf #1.}}
 
-
 % Title.
 % ------
 \title{Minimum Spanning Tree: a parallel approach}
@@ -190,7 +189,10 @@ Super-vertices are represented thanks to the Union-Find structure already used f
 
 \section{Experimental Results}\label{sec:exp}
 
-In this section, we present the results of our algorithms on various input sets and discuss their performance against the baselines over different benchmarks.
+In this section, we present the results of our algorithms on various input sets and discuss their performance against the four baselines over different benchmarks.
+However, because MPI doesn't use shared memory, every node of the cluster needs to have its own representation of the graph.
+Therefore, we were limited to smaller graphs (1,000 and 2,000 nodes and several hundreds of edges), and we had trouble going over 18 nodes.
+The baselines are just used to compare the runtimes, but we couldn't unfortunately use them to compare the speedup with the bigger graphs.
 
 \subsection{Experimental setup} \label{sec:setup}
 
@@ -202,7 +204,7 @@ All experiments are run through the EULER cluster on an Hewlett-Packard XL230k G
 
 \mypar{PSTL} Parallel STL (PSTL) to have a threaded and vectorized execution of the standard C++ partition function, optimised and validated for Intel(R) 64 processors.
 
-\mypar{LSB} LibSciBench (LSB) which is a framework containing a performance measurement library for parallel applications using MPI and OpenMP and is coupled with an R script for the post-processing of the gathered data \cite{benchmarking} \cite{measuring}. 
+\mypar{LSB} LibSciBench (LSB) which is a framework containing a performance measurement library for parallel applications and is coupled with an R script for the post-processing of the gathered data \cite{benchmarking} \cite{measuring}. 
 
 
 \subsection{Input Sets}
@@ -270,7 +272,7 @@ We compare the results of our algorithms to those of the Parallel Boost Graph Li
 
 
 
-\mypar{Sparse graphs} On sparser graphs (Figures \ref{sparseERruntime}, \ref{sparseERspeedup}, \ref{sparsePAruntime} and \ref{sparsePAspeedup}), we observe that Sollin AL has a very good parallelism, reaching a speedup of 5 for 30 threads on ER graphs and Filter Kruskal and Sollin FAL also scales pretty well. However, when looking at Figure \ref{sparseERruntime}, we see that Filter Kruskal is 10 times faster than Sollin FAL and 30 times faster than Sollin AL. As with the dense graphs, the speedups on PA graphs are inferior than the ones on ER graphs but the difference is slighter because the disparity between high-degree and low-degree nodes is smaller. We also note that Filter Sollin does not scale well on either type on inputs but is still the second fastest algorithm after Filter Kruskal. On sparse graphs, the different parallel implementations of Sollin's algorithm are dominated by the step of finding the edge of minimun weight for each vertex.
+\mypar{Sparse graphs} On sparser graphs (Figures \ref{sparseERruntime}, \ref{sparseERspeedup}, \ref{sparsePAruntime} and \ref{sparsePAspeedup}), Sollin AL has a very good parallelism, reaching a speedup of 5 for 30 threads on ER graphs and Filter Kruskal and Sollin FAL also scales pretty well. However, when looking at Figure \ref{sparseERruntime}, we see that Filter Kruskal is 10 times faster than Sollin FAL and 30 times faster than Sollin AL. As with the dense graphs, the speedups on PA graphs are inferior than the ones on ER graphs but the difference is slighter because the disparity between high-degree and low-degree nodes is smaller. We also note that Filter Sollin does not scale well on either type on inputs but is still the second fastest algorithm after Filter Kruskal. On sparse graphs, the different parallel implementations of Sollin's algorithm are dominated by the step of finding the edge of minimun weight for each vertex.
 
 \begin{figure}\centering
   \includegraphics[width=\linewidth]{graphics/Graph_runtime_Erdos-Renyi_random_p=0.002000_50000.eps}
@@ -317,7 +319,7 @@ We compare the results of our algorithms to those of the Parallel Boost Graph Li
 
 \subsection{Study of Amdahl's Law}
 
-$S_p$ is the speedup with $p$ cores, $f$ is the part of the program that is sequential.
+If $S_p$ is the speedup with $p$ cores, and $f$ is the part of the program that is sequential, then Amdahl's Law states that
 
 \[
         S_p = \frac{1}{\frac{1-f}{p} + f}
@@ -326,27 +328,30 @@ $S_p$ is the speedup with $p$ cores, $f$ is the part of the program that is sequ
         f = \frac{\frac{p}{S_p} - 1}{p - 1}
 \]
 
+Given that, we can find $f$ for each algorithm, each graph and each number of processors $p$ (except 1), using the median speedup.
+Then, for each algorithm and each graph, we compute the median and the maximum of the series of $1-f$, which are the percentages of the programs that are "parallelized" in a sense.
+The results are shown below in percentages.
+FK means Filter Kruskal, FS Filter Sollin, K Kruskal, AL Sollin AL and FAL Sollin FAL.
+If the speedup is less than $1$, then we put $0$.
+
 \begin{tabular}{rrrrrr}
 \hline
-                                                   Graph &   Filter Kruskal &   Filter Sollin &     Kruskal &   Sollin AL &   Sollin FAL \\
+                                                   Graph &   FK &   FS &   K &   AL &   FAL \\
 \hline
-ER(50,000 ; 1,000) &      0.78 (0.71) &     0.42 (0.33) & 0.23 (0.21) & 0.82 (0.77) &  0.64 (0.62) \\
-                  Erdos-Renyi random p=0.200000 -\ensuremath{>} 10000 &      0.96 (0.89) &     0.79 (0.73) & 0.33 (0.29) & 0.73 (0.67) &  0.88 (0.84) \\
-   Preferential attachment 100 edges per vertice -\ensuremath{>} 1000 &      0.16 (0.00) &     0.00 (0.00) & 0.00 (0.00) & 0.36 (0.04) &  0.30 (0.00) \\
- Preferential attachment 1000 edges per vertice -\ensuremath{>} 10000 &      0.83 (0.81) &     0.58 (0.41) & 0.42 (0.37) &           - &  0.67 (0.56) \\
-    Preferential attachment 20 edges per vertice -\ensuremath{>} 2000 &      0.00 (0.00) &     0.00 (0.00) & 0.00 (0.00) & 0.34 (0.18) &  0.00 (0.00) \\
-   Preferential attachment 50 edges per vertice -\ensuremath{>} 50000 &      0.78 (0.71) &     0.21 (0.17) & 0.28 (0.26) & 0.65 (0.60) &  0.55 (0.47) \\
-                                   USA-road-d. -\ensuremath{>} 264346 &      0.19 (0.00) &     0.43 (0.00) & 0.01 (0.00) &           - &  0.12 (0.00) \\
-                                   USA-road-d. -\ensuremath{>} 321270 &      0.00 (0.00) &     0.50 (0.00) & 0.00 (0.00) &           - &  0.17 (0.00) \\
+ER(50k, 100) &          77 (71) &         42 (33) &   22 (21) &     82 (76) &      64 (62) \\
+ER(10k, 2k) &          96 (88) &         78 (73) &   33 (29) &     72 (66) &      87 (84) \\
+PA(10k, 1k) &          83 (80) &         58 (40) &   42 (36) &           - &      66 (56) \\
+PA(50k, 50) &          78 (70) &         21 (17) &   27 (26) &     65 (59) &      54 (47) \\
+USA NY &           19 (0) &          43 (0) &     1 (0) &           - &       12 (0) \\
+USA Bay &            0 (0) &          49 (0) &     0 (0) &           - &       16 (0) \\
 \hline
 \end{tabular}
 
-
 \section{Conclusions}
 
-In this paper, we presented the implementations of five parallel algorithms for computing a minimum spanning tree in a connected graph based on Kruskal's and Sollin's greedy approaches.
+We implemented five parallel algorithms for computing a minimum spanning tree in a connected graph based on Kruskal's and Sollin's greedy approaches.
 
-From testing them on several benchmarks (dense, sparse and real-life graphs), we observed that the Minimum Spanning Tree problem is particularly hard to parallelise as it is inherently sequential. 
+From testing them on various benchmarks (dense graphs, sparse graphs and real-life graphs), we observed that the Minimum Spanning Tree problem is particularly hard to parallelise as it is inherently sequential. 
 
 Moreover, the performance of the algorithms largely depends upon the topology of the input graphs : PA graphs have structures much more unequally distributed than ER graphs and, therefore, lead to inferior speedups. On the graphs from the USA road networks dataset that have a even less regular topology, the algorithms do not scale at all.
 

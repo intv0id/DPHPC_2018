@@ -1,0 +1,46 @@
+\begin{thebibliography}{1}
+
+\bibitem{code}
+Th. Dardinier C.~Trassoudaine Th.~Cambier, R. Dang-Nhu,
+\newblock ``Dphpc project repository,'' https://github.com/intv0id/PMST/.
+
+\bibitem{kruskal}
+J.~Singler V.~Osipov, P.~Sanders,
+\newblock ``The filter-kruskal minimum spanning tree algorithm,''
+\newblock in {\em Proceedings of the Meeting on Algorithm Engineering \&
+  Experiments}, New York, January 2009, pp. 52--61.
+
+\bibitem{sollin}
+G.~Cong D.~A.~Bader,
+\newblock ``Fast shared-memory algorithms for computing the minimum spanning
+  forest of sparse graphs,''
+\newblock {\em Journal of Parallel and Distributed Computing}, vol. 66, no. 11,
+  pp. 1366--1378, November 2006.
+
+\bibitem{pointerJump}
+A.~Condon S.~Chung,
+\newblock ``Parallel implementation of bor\r{u}vka’s minimum spanning tree
+  algorithm,'' Proceedings of the 10th International Parallel Processing
+  Symposium, April 1996.
+
+\bibitem{cache}
+V.K.~Prasanna J.~Park, M.~Penner,
+\newblock ``Optimizing graph algorithms for improved cache performance,''
+  Proceedings of the International Parallel and Distributed Processing
+  Symposium, April 2002.
+
+\bibitem{benchmarking}
+R.~Belli T.~Hoefler,
+\newblock ``Scientific benchmarking of parallel computing systems,''
+\newblock in {\em Proceedings of the International Conference for High
+  Performance Computing, Networking, Storage and Analysis}, Austin, November
+  2015, pp. 73:1--73:12.
+
+\bibitem{measuring}
+T.~Schneider T.~Hoefler and A.~Lumsdaine,
+\newblock ``Accurately measuring overhead, communication time and progression
+  of blocking and nonblocking collective operations at massive scale,''
+\newblock {\em International Journal of Parallel, Emergent and Distributed
+  Systems}, vol. 25, no. 4, pp. 241--258, July 2010.
+
+\end{thebibliography}

@@ -1,0 +1,49 @@
+This is BibTeX, Version 0.99d (TeX Live 2017/Debian)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: report.aux
+The style file: IEEEbib.bst
+Database file #1: bibl_conf.bib
+Too many commas in name 1 of "Th. Cambier, R. Dang-Nhu, Th. Dardinier, C. Trassoudaine" for entry code
+while executing---line 2023 of file IEEEbib.bst
+You've used 7 entries,
+            1838 wiz_defined-function locations,
+            503 strings with 4845 characters,
+and the built_in function-call counts, 1583 in all, are:
+= -- 157
+> -- 32
+< -- 2
++ -- 15
+- -- 8
+* -- 108
+:= -- 224
+add.period$ -- 7
+call.type$ -- 7
+change.case$ -- 7
+chr.to.int$ -- 0
+cite$ -- 7
+duplicate$ -- 73
+empty$ -- 176
+format.name$ -- 8
+if$ -- 370
+int.to.chr$ -- 0
+int.to.str$ -- 7
+missing$ -- 4
+newline$ -- 35
+num.names$ -- 7
+pop$ -- 31
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 45
+stack$ -- 0
+substring$ -- 123
+swap$ -- 25
+text.length$ -- 2
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 0
+while$ -- 17
+width$ -- 8
+write$ -- 77
+(There was 1 error message)
