@@ -1,0 +1,556 @@
+Filter Kruskal,1,Erdos-Renyi random p=0.002000,50000,0.0
+Filter Kruskal,1,Erdos-Renyi random p=0.200000,10000,0.0
+Filter Kruskal,1,Preferential attachment 100 edges per vertice,1000,0.0
+Filter Kruskal,1,Preferential attachment 1000 edges per vertice,10000,0.0
+Filter Kruskal,1,Preferential attachment 20 edges per vertice,2000,0.0
+Filter Kruskal,1,Preferential attachment 50 edges per vertice,50000,0.0
+Filter Kruskal,1,USA-road-d.,264346,0.0
+Filter Kruskal,1,USA-road-d.,321270,0.0
+Filter Kruskal,2,Erdos-Renyi random p=0.002000,50000,0.49512707038089054
+Filter Kruskal,2,Erdos-Renyi random p=0.200000,10000,0.9639892971197224
+Filter Kruskal,2,Preferential attachment 100 edges per vertice,1000,0.15954189773118688
+Filter Kruskal,2,Preferential attachment 1000 edges per vertice,10000,0.634523282218856
+Filter Kruskal,2,Preferential attachment 20 edges per vertice,2000,-0.39224221183031727
+Filter Kruskal,2,Preferential attachment 50 edges per vertice,50000,0.564007393549538
+Filter Kruskal,2,USA-road-d.,264346,-0.03112277419949061
+Filter Kruskal,2,USA-road-d.,321270,-0.17569472660299867
+Filter Kruskal,4,Erdos-Renyi random p=0.002000,50000,0.6986259920304789
+Filter Kruskal,4,Erdos-Renyi random p=0.200000,10000,0.9273891284250926
+Filter Kruskal,4,Preferential attachment 100 edges per vertice,1000,-0.024839901999216707
+Filter Kruskal,4,Preferential attachment 1000 edges per vertice,10000,0.8015169377296206
+Filter Kruskal,4,Preferential attachment 20 edges per vertice,2000,-0.3884761652351043
+Filter Kruskal,4,Preferential attachment 50 edges per vertice,50000,0.726643678191391
+Filter Kruskal,4,USA-road-d.,264346,-0.052339964628765445
+Filter Kruskal,4,USA-road-d.,321270,-0.05537646097350901
+Filter Kruskal,6,Erdos-Renyi random p=0.002000,50000,0.746083343221444
+Filter Kruskal,6,Erdos-Renyi random p=0.200000,10000,0.9128574967048274
+Filter Kruskal,6,Preferential attachment 100 edges per vertice,1000,0.021362361815289943
+Filter Kruskal,6,Preferential attachment 1000 edges per vertice,10000,0.813659251835715
+Filter Kruskal,6,Preferential attachment 20 edges per vertice,2000,-0.30806912543047793
+Filter Kruskal,6,Preferential attachment 50 edges per vertice,50000,0.7803162944629374
+Filter Kruskal,6,USA-road-d.,264346,0.020301213983975885
+Filter Kruskal,6,USA-road-d.,321270,-0.03588323448930142
+Filter Kruskal,8,Erdos-Renyi random p=0.002000,50000,0.7414834017514407
+Filter Kruskal,8,Erdos-Renyi random p=0.200000,10000,0.9198804020642879
+Filter Kruskal,8,Preferential attachment 100 edges per vertice,1000,-0.20063632702524425
+Filter Kruskal,8,Preferential attachment 1000 edges per vertice,10000,0.834296676652712
+Filter Kruskal,8,Preferential attachment 20 edges per vertice,2000,-0.8323412584629526
+Filter Kruskal,8,Preferential attachment 50 edges per vertice,50000,0.7424295292928142
+Filter Kruskal,8,USA-road-d.,264346,0.1930382228430565
+Filter Kruskal,8,USA-road-d.,321270,-0.17166289602553952
+Filter Kruskal,10,Erdos-Renyi random p=0.002000,50000,0.7776712746078172
+Filter Kruskal,10,Erdos-Renyi random p=0.200000,10000,0.9295981500741513
+Filter Kruskal,10,Preferential attachment 100 edges per vertice,1000,-0.20278566878569637
+Filter Kruskal,10,Preferential attachment 1000 edges per vertice,10000,0.8279026173305164
+Filter Kruskal,10,Preferential attachment 20 edges per vertice,2000,-0.8086027554699307
+Filter Kruskal,10,Preferential attachment 50 edges per vertice,50000,0.7473405592595631
+Filter Kruskal,10,USA-road-d.,264346,-0.110337644192815
+Filter Kruskal,10,USA-road-d.,321270,-0.17999243843747248
+Filter Kruskal,12,Erdos-Renyi random p=0.002000,50000,0.768328425085014
+Filter Kruskal,12,Erdos-Renyi random p=0.200000,10000,0.9081265055753447
+Filter Kruskal,12,Preferential attachment 100 edges per vertice,1000,-0.3220110828797862
+Filter Kruskal,12,Preferential attachment 1000 edges per vertice,10000,0.8148612538975983
+Filter Kruskal,12,Preferential attachment 20 edges per vertice,2000,-0.9740466209848193
+Filter Kruskal,12,Preferential attachment 50 edges per vertice,50000,0.7556889193157651
+Filter Kruskal,12,USA-road-d.,264346,-0.18207933689056177
+Filter Kruskal,12,USA-road-d.,321270,-0.23159168827070342
+Filter Kruskal,14,Erdos-Renyi random p=0.002000,50000,0.751820864999607
+Filter Kruskal,14,Erdos-Renyi random p=0.200000,10000,0.9110970044267684
+Filter Kruskal,14,Preferential attachment 100 edges per vertice,1000,-0.33462667864225315
+Filter Kruskal,14,Preferential attachment 1000 edges per vertice,10000,0.8086246205646233
+Filter Kruskal,14,Preferential attachment 20 edges per vertice,2000,-0.9627720370257182
+Filter Kruskal,14,Preferential attachment 50 edges per vertice,50000,0.76485023090724
+Filter Kruskal,14,USA-road-d.,264346,-0.29263322302983585
+Filter Kruskal,14,USA-road-d.,321270,-0.23513999667089536
+Filter Kruskal,16,Erdos-Renyi random p=0.002000,50000,0.7234837921670166
+Filter Kruskal,16,Erdos-Renyi random p=0.200000,10000,0.8837703662482829
+Filter Kruskal,16,Preferential attachment 100 edges per vertice,1000,-0.5362906086344981
+Filter Kruskal,16,Preferential attachment 1000 edges per vertice,10000,0.8166620124871461
+Filter Kruskal,16,Preferential attachment 20 edges per vertice,2000,-1.3919324326037512
+Filter Kruskal,16,Preferential attachment 50 edges per vertice,50000,0.7175298836342285
+Filter Kruskal,16,USA-road-d.,264346,-0.7685886370810708
+Filter Kruskal,16,USA-road-d.,321270,-0.5733893830569932
+Filter Kruskal,18,Erdos-Renyi random p=0.002000,50000,0.7147654954963085
+Filter Kruskal,18,Erdos-Renyi random p=0.200000,10000,0.8893040776136367
+Filter Kruskal,18,Preferential attachment 100 edges per vertice,1000,-0.696983752805165
+Filter Kruskal,18,Preferential attachment 1000 edges per vertice,10000,0.8038472780577033
+Filter Kruskal,18,Preferential attachment 20 edges per vertice,2000,-1.519494322730084
+Filter Kruskal,18,Preferential attachment 50 edges per vertice,50000,0.7175816067731702
+Filter Kruskal,18,USA-road-d.,264346,-0.8572601111505307
+Filter Kruskal,18,USA-road-d.,321270,-0.9545018261789726
+Filter Kruskal,20,Erdos-Renyi random p=0.002000,50000,0.7222920182943109
+Filter Kruskal,20,Erdos-Renyi random p=0.200000,10000,0.8828589715168447
+Filter Kruskal,20,Preferential attachment 1000 edges per vertice,10000,0.8011030464571065
+Filter Kruskal,20,Preferential attachment 50 edges per vertice,50000,0.701411560089566
+Filter Kruskal,20,USA-road-d.,264346,-1.0640136872936647
+Filter Kruskal,20,USA-road-d.,321270,-1.0790057001374276
+Filter Kruskal,22,Erdos-Renyi random p=0.002000,50000,0.7094592238124227
+Filter Kruskal,22,Erdos-Renyi random p=0.200000,10000,0.8727063599636046
+Filter Kruskal,22,Preferential attachment 1000 edges per vertice,10000,0.8167747170860207
+Filter Kruskal,22,Preferential attachment 50 edges per vertice,50000,0.6893058590174663
+Filter Kruskal,22,USA-road-d.,264346,-1.1057722730360187
+Filter Kruskal,22,USA-road-d.,321270,-1.2446975832273819
+Filter Kruskal,24,Erdos-Renyi random p=0.002000,50000,0.6888957959434104
+Filter Kruskal,24,Erdos-Renyi random p=0.200000,10000,0.8700236416873539
+Filter Kruskal,24,Preferential attachment 1000 edges per vertice,10000,0.8104601251694388
+Filter Kruskal,24,Preferential attachment 50 edges per vertice,50000,0.6775047265513161
+Filter Kruskal,24,USA-road-d.,264346,-1.311357071967485
+Filter Kruskal,24,USA-road-d.,321270,-1.335191933740783
+Filter Kruskal,26,Erdos-Renyi random p=0.002000,50000,0.6784354610151284
+Filter Kruskal,26,Erdos-Renyi random p=0.200000,10000,0.8480861779321927
+Filter Kruskal,26,Preferential attachment 1000 edges per vertice,10000,0.7875497262110548
+Filter Kruskal,26,Preferential attachment 50 edges per vertice,50000,0.6603675596545813
+Filter Kruskal,26,USA-road-d.,264346,-1.3270638988820993
+Filter Kruskal,26,USA-road-d.,321270,-1.4958231329358895
+Filter Kruskal,28,Erdos-Renyi random p=0.002000,50000,0.6611824266676465
+Filter Kruskal,28,Erdos-Renyi random p=0.200000,10000,0.8490761413225232
+Filter Kruskal,28,Preferential attachment 1000 edges per vertice,10000,0.7786572409018087
+Filter Kruskal,28,Preferential attachment 50 edges per vertice,50000,0.6400295374136806
+Filter Kruskal,28,USA-road-d.,264346,-1.6935130737518045
+Filter Kruskal,28,USA-road-d.,321270,-1.654242695940518
+Filter Kruskal,30,Erdos-Renyi random p=0.002000,50000,0.6358634148840826
+Filter Kruskal,30,Erdos-Renyi random p=0.200000,10000,0.8459629394027433
+Filter Kruskal,30,Preferential attachment 1000 edges per vertice,10000,0.7401555127032531
+Filter Kruskal,30,Preferential attachment 50 edges per vertice,50000,0.6257641697245507
+Filter Kruskal,30,USA-road-d.,264346,-1.957019280750535
+Filter Kruskal,30,USA-road-d.,321270,-1.8871259198311905
+Filter Kruskal,32,Erdos-Renyi random p=0.002000,50000,0.5687680388247649
+Filter Kruskal,32,Erdos-Renyi random p=0.200000,10000,0.8513459779623853
+Filter Kruskal,32,Preferential attachment 1000 edges per vertice,10000,0.7819577949505939
+Filter Kruskal,32,Preferential attachment 50 edges per vertice,50000,0.5542275469063467
+Filter Kruskal,32,USA-road-d.,264346,-2.979004226555213
+Filter Kruskal,32,USA-road-d.,321270,-2.8159832863440073
+Filter Sollin,1,Erdos-Renyi random p=0.002000,50000,0.0
+Filter Sollin,1,Erdos-Renyi random p=0.200000,10000,0.0
+Filter Sollin,1,Preferential attachment 100 edges per vertice,1000,0.0
+Filter Sollin,1,Preferential attachment 1000 edges per vertice,10000,0.0
+Filter Sollin,1,Preferential attachment 20 edges per vertice,2000,0.0
+Filter Sollin,1,Preferential attachment 50 edges per vertice,50000,0.0
+Filter Sollin,1,USA-road-d.,264346,0.0
+Filter Sollin,1,USA-road-d.,321270,0.0
+Filter Sollin,2,Erdos-Renyi random p=0.002000,50000,-0.4747467894651831
+Filter Sollin,2,Erdos-Renyi random p=0.200000,10000,-0.014738630191339475
+Filter Sollin,2,Preferential attachment 100 edges per vertice,1000,-0.15760901113969883
+Filter Sollin,2,Preferential attachment 1000 edges per vertice,10000,0.03789973839370431
+Filter Sollin,2,Preferential attachment 20 edges per vertice,2000,-3.036441170091596
+Filter Sollin,2,Preferential attachment 50 edges per vertice,50000,0.017609028763877488
+Filter Sollin,2,USA-road-d.,264346,0.4323138988963944
+Filter Sollin,2,USA-road-d.,321270,0.49698259687072643
+Filter Sollin,4,Erdos-Renyi random p=0.002000,50000,-0.1912795139398762
+Filter Sollin,4,Erdos-Renyi random p=0.200000,10000,0.19489400789389666
+Filter Sollin,4,Preferential attachment 100 edges per vertice,1000,-0.518249506476729
+Filter Sollin,4,Preferential attachment 1000 edges per vertice,10000,-0.06604760225767925
+Filter Sollin,4,Preferential attachment 20 edges per vertice,2000,-1.6991148564403047
+Filter Sollin,4,Preferential attachment 50 edges per vertice,50000,0.2037203742015503
+Filter Sollin,4,USA-road-d.,264346,0.32204791770179286
+Filter Sollin,4,USA-road-d.,321270,0.3903995137317452
+Filter Sollin,6,Erdos-Renyi random p=0.002000,50000,0.0893240436275915
+Filter Sollin,6,Erdos-Renyi random p=0.200000,10000,0.32743888754226
+Filter Sollin,6,Preferential attachment 100 edges per vertice,1000,-0.06791304559771771
+Filter Sollin,6,Preferential attachment 1000 edges per vertice,10000,0.15287192978425335
+Filter Sollin,6,Preferential attachment 20 edges per vertice,2000,-0.7301192570568191
+Filter Sollin,6,Preferential attachment 50 edges per vertice,50000,0.14882358109508798
+Filter Sollin,6,USA-road-d.,264346,0.18185316927067086
+Filter Sollin,6,USA-road-d.,321270,0.24945864392887196
+Filter Sollin,8,Erdos-Renyi random p=0.002000,50000,0.24006134644866806
+Filter Sollin,8,Erdos-Renyi random p=0.200000,10000,0.5230476913482754
+Filter Sollin,8,Preferential attachment 100 edges per vertice,1000,-0.37268369137754753
+Filter Sollin,8,Preferential attachment 1000 edges per vertice,10000,0.15268135530144655
+Filter Sollin,8,Preferential attachment 20 edges per vertice,2000,-0.9556790851689942
+Filter Sollin,8,Preferential attachment 50 edges per vertice,50000,0.21399434142249962
+Filter Sollin,8,USA-road-d.,264346,0.1272361419119793
+Filter Sollin,8,USA-road-d.,321270,0.13281543774112736
+Filter Sollin,10,Erdos-Renyi random p=0.002000,50000,0.3632369043481225
+Filter Sollin,10,Erdos-Renyi random p=0.200000,10000,0.5476411600580717
+Filter Sollin,10,Preferential attachment 100 edges per vertice,1000,-0.1752794806714979
+Filter Sollin,10,Preferential attachment 1000 edges per vertice,10000,0.2626109821263307
+Filter Sollin,10,Preferential attachment 20 edges per vertice,2000,-1.032947904689121
+Filter Sollin,10,Preferential attachment 50 edges per vertice,50000,0.18841052342557463
+Filter Sollin,10,USA-road-d.,264346,0.03587952010559148
+Filter Sollin,10,USA-road-d.,321270,0.15829129510494644
+Filter Sollin,12,Erdos-Renyi random p=0.002000,50000,0.28859202009344154
+Filter Sollin,12,Erdos-Renyi random p=0.200000,10000,0.6826105664157582
+Filter Sollin,12,Preferential attachment 100 edges per vertice,1000,-0.07610942489984285
+Filter Sollin,12,Preferential attachment 1000 edges per vertice,10000,0.2993075392772845
+Filter Sollin,12,Preferential attachment 20 edges per vertice,2000,-0.9945992051266535
+Filter Sollin,12,Preferential attachment 50 edges per vertice,50000,0.1838579292505539
+Filter Sollin,12,USA-road-d.,264346,0.01988050961609178
+Filter Sollin,12,USA-road-d.,321270,0.0726017811636982
+Filter Sollin,14,Erdos-Renyi random p=0.002000,50000,0.3727893198627936
+Filter Sollin,14,Erdos-Renyi random p=0.200000,10000,0.7118460209686533
+Filter Sollin,14,Preferential attachment 100 edges per vertice,1000,-0.4895206680077733
+Filter Sollin,14,Preferential attachment 1000 edges per vertice,10000,0.3281009729983855
+Filter Sollin,14,Preferential attachment 20 edges per vertice,2000,-1.0104101841152433
+Filter Sollin,14,Preferential attachment 50 edges per vertice,50000,0.14452587046750043
+Filter Sollin,14,USA-road-d.,264346,-0.04160865520931312
+Filter Sollin,14,USA-road-d.,321270,0.06383282276360325
+Filter Sollin,16,Erdos-Renyi random p=0.002000,50000,0.42296548301454195
+Filter Sollin,16,Erdos-Renyi random p=0.200000,10000,0.7402874115726668
+Filter Sollin,16,Preferential attachment 100 edges per vertice,1000,-0.2755865656080245
+Filter Sollin,16,Preferential attachment 1000 edges per vertice,10000,0.3901153793491736
+Filter Sollin,16,Preferential attachment 20 edges per vertice,2000,-1.035671138244108
+Filter Sollin,16,Preferential attachment 50 edges per vertice,50000,0.17097317006732637
+Filter Sollin,16,USA-road-d.,264346,-0.07624188278217847
+Filter Sollin,16,USA-road-d.,321270,-0.00315684553933826
+Filter Sollin,18,Erdos-Renyi random p=0.002000,50000,0.34844937154948175
+Filter Sollin,18,Erdos-Renyi random p=0.200000,10000,0.7426796451765314
+Filter Sollin,18,Preferential attachment 100 edges per vertice,1000,-0.2407418733645228
+Filter Sollin,18,Preferential attachment 1000 edges per vertice,10000,0.42304226016419255
+Filter Sollin,18,Preferential attachment 20 edges per vertice,2000,-1.0388098042900036
+Filter Sollin,18,Preferential attachment 50 edges per vertice,50000,0.15588338118942802
+Filter Sollin,18,USA-road-d.,264346,-0.15678189264874165
+Filter Sollin,18,USA-road-d.,321270,-0.03996323364744492
+Filter Sollin,20,Erdos-Renyi random p=0.002000,50000,0.37772523037290995
+Filter Sollin,20,Erdos-Renyi random p=0.200000,10000,0.7464074539656056
+Filter Sollin,20,Preferential attachment 1000 edges per vertice,10000,0.4861155637783585
+Filter Sollin,20,Preferential attachment 50 edges per vertice,50000,0.17032220906814832
+Filter Sollin,20,USA-road-d.,264346,-0.19666728059721894
+Filter Sollin,20,USA-road-d.,321270,-0.11297740269229295
+Filter Sollin,22,Erdos-Renyi random p=0.002000,50000,0.36168829510129796
+Filter Sollin,22,Erdos-Renyi random p=0.200000,10000,0.7560370063564834
+Filter Sollin,22,Preferential attachment 1000 edges per vertice,10000,0.49412860517402646
+Filter Sollin,22,Preferential attachment 50 edges per vertice,50000,0.18623882593690022
+Filter Sollin,22,USA-road-d.,264346,-0.2350635028028638
+Filter Sollin,22,USA-road-d.,321270,-0.1635566812823075
+Filter Sollin,24,Erdos-Renyi random p=0.002000,50000,0.3670670515026139
+Filter Sollin,24,Erdos-Renyi random p=0.200000,10000,0.7531964636691482
+Filter Sollin,24,Preferential attachment 1000 edges per vertice,10000,0.539436518532694
+Filter Sollin,24,Preferential attachment 50 edges per vertice,50000,0.15112652664351456
+Filter Sollin,24,USA-road-d.,264346,-0.2819740597509408
+Filter Sollin,24,USA-road-d.,321270,-0.19240323070049858
+Filter Sollin,26,Erdos-Renyi random p=0.002000,50000,0.3581676552132774
+Filter Sollin,26,Erdos-Renyi random p=0.200000,10000,0.7521026724166903
+Filter Sollin,26,Preferential attachment 1000 edges per vertice,10000,0.5379374938517669
+Filter Sollin,26,Preferential attachment 50 edges per vertice,50000,0.1942652320822995
+Filter Sollin,26,USA-road-d.,264346,-0.3491683754246808
+Filter Sollin,26,USA-road-d.,321270,-0.2557208505032533
+Filter Sollin,28,Erdos-Renyi random p=0.002000,50000,0.31529571819122226
+Filter Sollin,28,Erdos-Renyi random p=0.200000,10000,0.7851106124946655
+Filter Sollin,28,Preferential attachment 1000 edges per vertice,10000,0.5663957732015515
+Filter Sollin,28,Preferential attachment 50 edges per vertice,50000,0.17578321228597737
+Filter Sollin,28,USA-road-d.,264346,-0.41140693959700614
+Filter Sollin,28,USA-road-d.,321270,-0.30023437231808114
+Filter Sollin,30,Erdos-Renyi random p=0.002000,50000,0.27001383868130313
+Filter Sollin,30,Erdos-Renyi random p=0.200000,10000,0.726813008911757
+Filter Sollin,30,Preferential attachment 1000 edges per vertice,10000,0.5817336848996602
+Filter Sollin,30,Preferential attachment 50 edges per vertice,50000,0.1432678215378782
+Filter Sollin,30,USA-road-d.,264346,-0.48302422308848736
+Filter Sollin,30,USA-road-d.,321270,-0.34610946682453525
+Filter Sollin,32,Erdos-Renyi random p=0.002000,50000,0.2484752232071138
+Filter Sollin,32,Erdos-Renyi random p=0.200000,10000,0.7661350692094284
+Filter Sollin,32,Preferential attachment 1000 edges per vertice,10000,0.5787297494198681
+Filter Sollin,32,Preferential attachment 50 edges per vertice,50000,0.1553062183394509
+Filter Sollin,32,USA-road-d.,264346,-0.5302213436292023
+Filter Sollin,32,USA-road-d.,321270,-0.40312108622357234
+Kruskal,1,Erdos-Renyi random p=0.002000,50000,0.0
+Kruskal,1,Erdos-Renyi random p=0.200000,10000,0.0
+Kruskal,1,Preferential attachment 100 edges per vertice,1000,0.0
+Kruskal,1,Preferential attachment 1000 edges per vertice,10000,0.0
+Kruskal,1,Preferential attachment 20 edges per vertice,2000,0.0
+Kruskal,1,Preferential attachment 50 edges per vertice,50000,0.0
+Kruskal,1,USA-road-d.,264346,0.0
+Kruskal,1,USA-road-d.,321270,0.0
+Kruskal,2,Erdos-Renyi random p=0.002000,50000,0.15950547160574557
+Kruskal,2,Erdos-Renyi random p=0.200000,10000,0.3031425397662495
+Kruskal,2,Preferential attachment 100 edges per vertice,1000,-0.28367066089075355
+Kruskal,2,Preferential attachment 1000 edges per vertice,10000,0.29200070841759995
+Kruskal,2,Preferential attachment 20 edges per vertice,2000,-0.46674377550578505
+Kruskal,2,Preferential attachment 50 edges per vertice,50000,0.20299416744288679
+Kruskal,2,USA-road-d.,264346,-0.19586902429421515
+Kruskal,2,USA-road-d.,321270,-0.39002498230384397
+Kruskal,4,Erdos-Renyi random p=0.002000,50000,0.20470463290593433
+Kruskal,4,Erdos-Renyi random p=0.200000,10000,0.24164610908302686
+Kruskal,4,Preferential attachment 100 edges per vertice,1000,-0.11651753174881452
+Kruskal,4,Preferential attachment 1000 edges per vertice,10000,0.42497273573425265
+Kruskal,4,Preferential attachment 20 edges per vertice,2000,-0.33522776396650644
+Kruskal,4,Preferential attachment 50 edges per vertice,50000,0.24212304015563613
+Kruskal,4,USA-road-d.,264346,-0.10104604246303528
+Kruskal,4,USA-road-d.,321270,-0.20523959017197124
+Kruskal,6,Erdos-Renyi random p=0.002000,50000,0.19928864028345306
+Kruskal,6,Erdos-Renyi random p=0.200000,10000,0.23222313075448342
+Kruskal,6,Preferential attachment 100 edges per vertice,1000,-0.10072707714643281
+Kruskal,6,Preferential attachment 1000 edges per vertice,10000,0.4093029289277489
+Kruskal,6,Preferential attachment 20 edges per vertice,2000,-0.34828348058927405
+Kruskal,6,Preferential attachment 50 edges per vertice,50000,0.26367970135462215
+Kruskal,6,USA-road-d.,264346,-0.032976370919387765
+Kruskal,6,USA-road-d.,321270,-0.17384802217451623
+Kruskal,8,Erdos-Renyi random p=0.002000,50000,0.2163192654383288
+Kruskal,8,Erdos-Renyi random p=0.200000,10000,0.28171867627117
+Kruskal,8,Preferential attachment 100 edges per vertice,1000,-0.09113402583531927
+Kruskal,8,Preferential attachment 1000 edges per vertice,10000,0.36482986721763877
+Kruskal,8,Preferential attachment 20 edges per vertice,2000,-0.3441954704055985
+Kruskal,8,Preferential attachment 50 edges per vertice,50000,0.2654964368233522
+Kruskal,8,USA-road-d.,264346,-0.026372519115696935
+Kruskal,8,USA-road-d.,321270,-0.15218597978847215
+Kruskal,10,Erdos-Renyi random p=0.002000,50000,0.20097041758238865
+Kruskal,10,Erdos-Renyi random p=0.200000,10000,0.2646795272523168
+Kruskal,10,Preferential attachment 100 edges per vertice,1000,-0.07657745144010653
+Kruskal,10,Preferential attachment 1000 edges per vertice,10000,0.39515400157737357
+Kruskal,10,Preferential attachment 20 edges per vertice,2000,-0.36239630869862993
+Kruskal,10,Preferential attachment 50 edges per vertice,50000,0.24492794228695014
+Kruskal,10,USA-road-d.,264346,-0.013252796022184654
+Kruskal,10,USA-road-d.,321270,-0.14085056917736538
+Kruskal,12,Erdos-Renyi random p=0.002000,50000,0.22865098942902662
+Kruskal,12,Erdos-Renyi random p=0.200000,10000,0.3220075319817657
+Kruskal,12,Preferential attachment 100 edges per vertice,1000,-0.07454114893374708
+Kruskal,12,Preferential attachment 1000 edges per vertice,10000,0.36738651353098895
+Kruskal,12,Preferential attachment 20 edges per vertice,2000,-0.39647859645385575
+Kruskal,12,Preferential attachment 50 edges per vertice,50000,0.2602711524050597
+Kruskal,12,USA-road-d.,264346,-0.008556446423276798
+Kruskal,12,USA-road-d.,321270,-0.13587609521519872
+Kruskal,14,Erdos-Renyi random p=0.002000,50000,0.19976392160128387
+Kruskal,14,Erdos-Renyi random p=0.200000,10000,0.28168948433339913
+Kruskal,14,Preferential attachment 100 edges per vertice,1000,-0.06568962042207205
+Kruskal,14,Preferential attachment 1000 edges per vertice,10000,0.3758514242474541
+Kruskal,14,Preferential attachment 20 edges per vertice,2000,-0.3663812481937967
+Kruskal,14,Preferential attachment 50 edges per vertice,50000,0.2359334854651589
+Kruskal,14,USA-road-d.,264346,-0.010795413090039618
+Kruskal,14,USA-road-d.,321270,-0.1365948712726781
+Kruskal,16,Erdos-Renyi random p=0.002000,50000,0.21101646535186036
+Kruskal,16,Erdos-Renyi random p=0.200000,10000,0.2969035547669724
+Kruskal,16,Preferential attachment 100 edges per vertice,1000,-0.08079523534523658
+Kruskal,16,Preferential attachment 1000 edges per vertice,10000,0.30007873597433354
+Kruskal,16,Preferential attachment 20 edges per vertice,2000,-0.3909618278377318
+Kruskal,16,Preferential attachment 50 edges per vertice,50000,0.26159424942770115
+Kruskal,16,USA-road-d.,264346,0.006791309791417843
+Kruskal,16,USA-road-d.,321270,-0.13175260383135257
+Kruskal,18,Erdos-Renyi random p=0.002000,50000,0.20415818335854363
+Kruskal,18,Erdos-Renyi random p=0.200000,10000,0.3316606490927977
+Kruskal,18,Preferential attachment 100 edges per vertice,1000,-0.08248649402565156
+Kruskal,18,Preferential attachment 1000 edges per vertice,10000,0.3026609179678169
+Kruskal,18,Preferential attachment 20 edges per vertice,2000,-0.39278641585681506
+Kruskal,18,Preferential attachment 50 edges per vertice,50000,0.23947154126478087
+Kruskal,18,USA-road-d.,264346,-0.006380627486709978
+Kruskal,18,USA-road-d.,321270,-0.14948997693483723
+Kruskal,20,Erdos-Renyi random p=0.002000,50000,0.22390812678728655
+Kruskal,20,Erdos-Renyi random p=0.200000,10000,0.31137980572042234
+Kruskal,20,Preferential attachment 1000 edges per vertice,10000,0.34149525376369905
+Kruskal,20,Preferential attachment 50 edges per vertice,50000,0.2764307678235124
+Kruskal,20,USA-road-d.,264346,-0.004802524820681997
+Kruskal,20,USA-road-d.,321270,-0.14719373611864417
+Kruskal,22,Erdos-Renyi random p=0.002000,50000,0.223212925087394
+Kruskal,22,Erdos-Renyi random p=0.200000,10000,0.25456836255671567
+Kruskal,22,Preferential attachment 1000 edges per vertice,10000,0.37556025443690777
+Kruskal,22,Preferential attachment 50 edges per vertice,50000,0.2630409022308503
+Kruskal,22,USA-road-d.,264346,0.00010000396957399182
+Kruskal,22,USA-road-d.,321270,-0.13348077220562837
+Kruskal,24,Erdos-Renyi random p=0.002000,50000,0.21340570806089443
+Kruskal,24,Erdos-Renyi random p=0.200000,10000,0.2940231121546715
+Kruskal,24,Preferential attachment 1000 edges per vertice,10000,0.32883538345039487
+Kruskal,24,Preferential attachment 50 edges per vertice,50000,0.25839036458181586
+Kruskal,24,USA-road-d.,264346,0.0008449385774293994
+Kruskal,24,USA-road-d.,321270,-0.1274587336912254
+Kruskal,26,Erdos-Renyi random p=0.002000,50000,0.22970920714919574
+Kruskal,26,Erdos-Renyi random p=0.200000,10000,0.30508550886242536
+Kruskal,26,Preferential attachment 1000 edges per vertice,10000,0.39937023233778657
+Kruskal,26,Preferential attachment 50 edges per vertice,50000,0.264198017667441
+Kruskal,26,USA-road-d.,264346,0.0022789425474514236
+Kruskal,26,USA-road-d.,321270,-0.13318015359567448
+Kruskal,28,Erdos-Renyi random p=0.002000,50000,0.2156144112946068
+Kruskal,28,Erdos-Renyi random p=0.200000,10000,0.3127646844925972
+Kruskal,28,Preferential attachment 1000 edges per vertice,10000,0.3670995285166222
+Kruskal,28,Preferential attachment 50 edges per vertice,50000,0.272421089610291
+Kruskal,28,USA-road-d.,264346,-0.00818993553688574
+Kruskal,28,USA-road-d.,321270,-0.12991857220436476
+Kruskal,30,Erdos-Renyi random p=0.002000,50000,0.22262752753488602
+Kruskal,30,Erdos-Renyi random p=0.200000,10000,0.29150104655472675
+Kruskal,30,Preferential attachment 1000 edges per vertice,10000,0.33507926690547485
+Kruskal,30,Preferential attachment 50 edges per vertice,50000,0.26090949866977287
+Kruskal,30,USA-road-d.,264346,0.0044578241287484
+Kruskal,30,USA-road-d.,321270,-0.1346616572909325
+Kruskal,32,Erdos-Renyi random p=0.002000,50000,0.2147614994246244
+Kruskal,32,Erdos-Renyi random p=0.200000,10000,0.24838842499056757
+Kruskal,32,Preferential attachment 1000 edges per vertice,10000,0.36581635715274774
+Kruskal,32,Preferential attachment 50 edges per vertice,50000,0.2628199789561061
+Kruskal,32,USA-road-d.,264346,0.011228243248325609
+Kruskal,32,USA-road-d.,321270,-0.12960081537659818
+Sollin AL,1,Erdos-Renyi random p=0.002000,50000,0.0
+Sollin AL,1,Erdos-Renyi random p=0.200000,10000,0.0
+Sollin AL,1,Preferential attachment 100 edges per vertice,1000,0.0
+Sollin AL,1,Preferential attachment 1000 edges per vertice,10000,0.0
+Sollin AL,1,Preferential attachment 20 edges per vertice,2000,0.0
+Sollin AL,1,Preferential attachment 50 edges per vertice,50000,0.0
+Sollin AL,1,USA-road-d.,264346,0.0
+Sollin AL,1,USA-road-d.,321270,0.0
+Sollin AL,2,Erdos-Renyi random p=0.002000,50000,-0.023208572324663113
+Sollin AL,2,Erdos-Renyi random p=0.200000,10000,0.013206125818499448
+Sollin AL,2,Preferential attachment 100 edges per vertice,1000,-0.01836835563529604
+Sollin AL,2,Preferential attachment 20 edges per vertice,2000,-0.06671062443679876
+Sollin AL,2,Preferential attachment 50 edges per vertice,50000,-0.3253443067512536
+Sollin AL,4,Erdos-Renyi random p=0.002000,50000,0.5289202817340712
+Sollin AL,4,Erdos-Renyi random p=0.200000,10000,0.45912881142455575
+Sollin AL,4,Preferential attachment 100 edges per vertice,1000,0.2167977191878876
+Sollin AL,4,Preferential attachment 20 edges per vertice,2000,0.25723746811156134
+Sollin AL,4,Preferential attachment 50 edges per vertice,50000,0.16867909476313825
+Sollin AL,6,Erdos-Renyi random p=0.002000,50000,0.6159174606448669
+Sollin AL,6,Erdos-Renyi random p=0.200000,10000,0.6643911605815972
+Sollin AL,6,Preferential attachment 100 edges per vertice,1000,-0.22914227054652736
+Sollin AL,6,Preferential attachment 20 edges per vertice,2000,0.26506174785779313
+Sollin AL,6,Preferential attachment 50 edges per vertice,50000,0.38202848884483076
+Sollin AL,8,Erdos-Renyi random p=0.002000,50000,0.6598727029965488
+Sollin AL,8,Erdos-Renyi random p=0.200000,10000,0.6659399608019907
+Sollin AL,8,Preferential attachment 100 edges per vertice,1000,-0.19326939313800007
+Sollin AL,8,Preferential attachment 20 edges per vertice,2000,0.34310232886346237
+Sollin AL,8,Preferential attachment 50 edges per vertice,50000,0.4903257444344993
+Sollin AL,10,Erdos-Renyi random p=0.002000,50000,0.7098088424669575
+Sollin AL,10,Erdos-Renyi random p=0.200000,10000,0.699470563842423
+Sollin AL,10,Preferential attachment 100 edges per vertice,1000,0.35651123061943535
+Sollin AL,10,Preferential attachment 20 edges per vertice,2000,0.3374681284449772
+Sollin AL,10,Preferential attachment 50 edges per vertice,50000,0.5693357249336166
+Sollin AL,12,Erdos-Renyi random p=0.002000,50000,0.7368695433909613
+Sollin AL,12,Erdos-Renyi random p=0.200000,10000,0.6968978972909956
+Sollin AL,12,Preferential attachment 100 edges per vertice,1000,-0.0022876207777629
+Sollin AL,12,Preferential attachment 20 edges per vertice,2000,0.09726862575437989
+Sollin AL,12,Preferential attachment 50 edges per vertice,50000,0.5112625635386612
+Sollin AL,14,Erdos-Renyi random p=0.002000,50000,0.7473704399559233
+Sollin AL,14,Erdos-Renyi random p=0.200000,10000,0.6993435690433103
+Sollin AL,14,Preferential attachment 100 edges per vertice,1000,0.04265463319576246
+Sollin AL,14,Preferential attachment 20 edges per vertice,2000,0.12083755933771856
+Sollin AL,14,Preferential attachment 50 edges per vertice,50000,0.5936238044860888
+Sollin AL,16,Erdos-Renyi random p=0.002000,50000,0.75737191715176
+Sollin AL,16,Erdos-Renyi random p=0.200000,10000,0.725792523922787
+Sollin AL,16,Preferential attachment 100 edges per vertice,1000,0.1304700076798705
+Sollin AL,16,Preferential attachment 20 edges per vertice,2000,0.18046764772131496
+Sollin AL,16,Preferential attachment 50 edges per vertice,50000,0.5301981799525326
+Sollin AL,18,Erdos-Renyi random p=0.002000,50000,0.7770471050322414
+Sollin AL,18,Erdos-Renyi random p=0.200000,10000,0.6881413421682947
+Sollin AL,18,Preferential attachment 100 edges per vertice,1000,0.21644362815456508
+Sollin AL,18,Preferential attachment 20 edges per vertice,2000,0.1310159243588338
+Sollin AL,18,Preferential attachment 50 edges per vertice,50000,0.6187498282890668
+Sollin AL,20,Erdos-Renyi random p=0.002000,50000,0.7809612385748195
+Sollin AL,20,Erdos-Renyi random p=0.200000,10000,0.6907664283145175
+Sollin AL,20,Preferential attachment 50 edges per vertice,50000,0.6018385661714261
+Sollin AL,22,Erdos-Renyi random p=0.002000,50000,0.8002899690616097
+Sollin AL,22,Erdos-Renyi random p=0.200000,10000,0.6705249650229057
+Sollin AL,22,Preferential attachment 50 edges per vertice,50000,0.632745365970133
+Sollin AL,24,Erdos-Renyi random p=0.002000,50000,0.7844420833718581
+Sollin AL,24,Erdos-Renyi random p=0.200000,10000,0.6482889923061006
+Sollin AL,24,Preferential attachment 50 edges per vertice,50000,0.6386548817823925
+Sollin AL,26,Erdos-Renyi random p=0.002000,50000,0.8069916757483603
+Sollin AL,26,Erdos-Renyi random p=0.200000,10000,0.6156630166144804
+Sollin AL,26,Preferential attachment 50 edges per vertice,50000,0.6348026915752254
+Sollin AL,28,Erdos-Renyi random p=0.002000,50000,0.8115118484190901
+Sollin AL,28,Erdos-Renyi random p=0.200000,10000,0.5556449345077966
+Sollin AL,28,Preferential attachment 50 edges per vertice,50000,0.6120052339625868
+Sollin AL,30,Erdos-Renyi random p=0.002000,50000,0.8212387644152355
+Sollin AL,30,Erdos-Renyi random p=0.200000,10000,0.4918683490234065
+Sollin AL,30,Preferential attachment 50 edges per vertice,50000,0.6516879741634014
+Sollin AL,32,Erdos-Renyi random p=0.002000,50000,0.8128414684856355
+Sollin AL,32,Erdos-Renyi random p=0.200000,10000,0.5571247561930193
+Sollin AL,32,Preferential attachment 50 edges per vertice,50000,0.6448625331752308
+Sollin FAL,1,Erdos-Renyi random p=0.002000,50000,0.0
+Sollin FAL,1,Erdos-Renyi random p=0.200000,10000,0.0
+Sollin FAL,1,Preferential attachment 100 edges per vertice,1000,0.0
+Sollin FAL,1,Preferential attachment 1000 edges per vertice,10000,0.0
+Sollin FAL,1,Preferential attachment 20 edges per vertice,2000,0.0
+Sollin FAL,1,Preferential attachment 50 edges per vertice,50000,0.0
+Sollin FAL,1,USA-road-d.,264346,0.0
+Sollin FAL,1,USA-road-d.,321270,0.0
+Sollin FAL,2,Erdos-Renyi random p=0.002000,50000,-0.38894421404571045
+Sollin FAL,2,Erdos-Renyi random p=0.200000,10000,-0.08762634070338349
+Sollin FAL,2,Preferential attachment 100 edges per vertice,1000,0.0841200766515382
+Sollin FAL,2,Preferential attachment 1000 edges per vertice,10000,0.34379547537703536
+Sollin FAL,2,Preferential attachment 20 edges per vertice,2000,-1.0873932263850157
+Sollin FAL,2,Preferential attachment 50 edges per vertice,50000,0.2764619102679171
+Sollin FAL,4,Erdos-Renyi random p=0.002000,50000,0.1621457057026271
+Sollin FAL,4,Erdos-Renyi random p=0.200000,10000,0.4188067367723809
+Sollin FAL,4,Preferential attachment 100 edges per vertice,1000,0.3018534627426428
+Sollin FAL,4,Preferential attachment 1000 edges per vertice,10000,0.2817676029974102
+Sollin FAL,4,Preferential attachment 20 edges per vertice,2000,-1.3593340623438888
+Sollin FAL,4,Preferential attachment 50 edges per vertice,50000,0.347872073068357
+Sollin FAL,6,Erdos-Renyi random p=0.002000,50000,0.34515006094080325
+Sollin FAL,6,Erdos-Renyi random p=0.200000,10000,0.6025897336818156
+Sollin FAL,6,Preferential attachment 100 edges per vertice,1000,-0.13573550069794882
+Sollin FAL,6,Preferential attachment 1000 edges per vertice,10000,0.36329407610259246
+Sollin FAL,6,Preferential attachment 20 edges per vertice,2000,-1.0442086482029955
+Sollin FAL,6,Preferential attachment 50 edges per vertice,50000,0.3776620739786264
+Sollin FAL,8,Erdos-Renyi random p=0.002000,50000,0.46713285860935516
+Sollin FAL,8,Erdos-Renyi random p=0.200000,10000,0.5920981281616231
+Sollin FAL,8,Preferential attachment 100 edges per vertice,1000,-0.06289730068585819
+Sollin FAL,8,Preferential attachment 1000 edges per vertice,10000,0.4245026338435144
+Sollin FAL,8,Preferential attachment 20 edges per vertice,2000,-0.5591266448264667
+Sollin FAL,8,Preferential attachment 50 edges per vertice,50000,0.29576290397755123
+Sollin FAL,8,USA-road-d.,264346,0.04519476644081466
+Sollin FAL,8,USA-road-d.,321270,0.15898254990457517
+Sollin FAL,10,Erdos-Renyi random p=0.002000,50000,0.5851210454396196
+Sollin FAL,10,Erdos-Renyi random p=0.200000,10000,0.7594071866818626
+Sollin FAL,10,Preferential attachment 100 edges per vertice,1000,-0.19937838794144147
+Sollin FAL,10,Preferential attachment 1000 edges per vertice,10000,0.4770471076585411
+Sollin FAL,10,Preferential attachment 20 edges per vertice,2000,-0.9911861799341146
+Sollin FAL,10,Preferential attachment 50 edges per vertice,50000,0.3893970273665006
+Sollin FAL,10,USA-road-d.,264346,0.09394315883436244
+Sollin FAL,10,USA-road-d.,321270,0.16772486335631398
+Sollin FAL,12,Erdos-Renyi random p=0.002000,50000,0.6066132433208877
+Sollin FAL,12,Erdos-Renyi random p=0.200000,10000,0.7230775310421345
+Sollin FAL,12,Preferential attachment 100 edges per vertice,1000,-1.056340201669094
+Sollin FAL,12,Preferential attachment 1000 edges per vertice,10000,0.5057154533395509
+Sollin FAL,12,Preferential attachment 20 edges per vertice,2000,-0.7111764298559711
+Sollin FAL,12,Preferential attachment 50 edges per vertice,50000,0.3915914435463541
+Sollin FAL,12,USA-road-d.,264346,0.12038944978888155
+Sollin FAL,12,USA-road-d.,321270,0.036188457230900584
+Sollin FAL,14,Erdos-Renyi random p=0.002000,50000,0.6330185786438656
+Sollin FAL,14,Erdos-Renyi random p=0.200000,10000,0.7889210877750188
+Sollin FAL,14,Preferential attachment 100 edges per vertice,1000,-0.4824520099186813
+Sollin FAL,14,Preferential attachment 1000 edges per vertice,10000,0.5425136415701494
+Sollin FAL,14,Preferential attachment 20 edges per vertice,2000,-1.0815920941751496
+Sollin FAL,14,Preferential attachment 50 edges per vertice,50000,0.48453465456780076
+Sollin FAL,14,USA-road-d.,264346,-0.020158290293633696
+Sollin FAL,14,USA-road-d.,321270,-0.049754771505508
+Sollin FAL,16,Erdos-Renyi random p=0.002000,50000,0.6388120012570093
+Sollin FAL,16,Erdos-Renyi random p=0.200000,10000,0.8319439985535874
+Sollin FAL,16,Preferential attachment 100 edges per vertice,1000,-0.3840474385056223
+Sollin FAL,16,Preferential attachment 1000 edges per vertice,10000,0.5513778158389719
+Sollin FAL,16,Preferential attachment 20 edges per vertice,2000,-0.8463830554888658
+Sollin FAL,16,Preferential attachment 50 edges per vertice,50000,0.45990686644214795
+Sollin FAL,16,USA-road-d.,264346,0.019687340851369695
+Sollin FAL,16,USA-road-d.,321270,-0.03129082440681419
+Sollin FAL,18,Erdos-Renyi random p=0.002000,50000,0.6396608335724898
+Sollin FAL,18,Erdos-Renyi random p=0.200000,10000,0.8530103110967213
+Sollin FAL,18,Preferential attachment 100 edges per vertice,1000,-0.45410440795567975
+Sollin FAL,18,Preferential attachment 1000 edges per vertice,10000,0.5739861149376688
+Sollin FAL,18,Preferential attachment 20 edges per vertice,2000,-0.9707225028776032
+Sollin FAL,18,Preferential attachment 50 edges per vertice,50000,0.49138497574669293
+Sollin FAL,18,USA-road-d.,264346,-0.0029808866667293543
+Sollin FAL,18,USA-road-d.,321270,0.002150429449159219
+Sollin FAL,20,Erdos-Renyi random p=0.002000,50000,0.6377685848723861
+Sollin FAL,20,Erdos-Renyi random p=0.200000,10000,0.8594982304940252
+Sollin FAL,20,Preferential attachment 1000 edges per vertice,10000,0.5909282714755145
+Sollin FAL,20,Preferential attachment 50 edges per vertice,50000,0.4824078832225007
+Sollin FAL,20,USA-road-d.,264346,-0.06105404600564768
+Sollin FAL,20,USA-road-d.,321270,-0.09969195125574615
+Sollin FAL,22,Erdos-Renyi random p=0.002000,50000,0.6444734063913863
+Sollin FAL,22,Erdos-Renyi random p=0.200000,10000,0.8628773033326095
+Sollin FAL,22,Preferential attachment 1000 edges per vertice,10000,0.6046753897632297
+Sollin FAL,22,Preferential attachment 50 edges per vertice,50000,0.5115563843856814
+Sollin FAL,22,USA-road-d.,264346,-0.07477521685493715
+Sollin FAL,22,USA-road-d.,321270,-0.10092776829610806
+Sollin FAL,24,Erdos-Renyi random p=0.002000,50000,0.5914412430965665
+Sollin FAL,24,Erdos-Renyi random p=0.200000,10000,0.8689596439814726
+Sollin FAL,24,Preferential attachment 1000 edges per vertice,10000,0.622195235188527
+Sollin FAL,24,Preferential attachment 50 edges per vertice,50000,0.4221377579936142
+Sollin FAL,24,USA-road-d.,264346,-0.07473467170049441
+Sollin FAL,24,USA-road-d.,321270,-0.143870812253577
+Sollin FAL,26,Erdos-Renyi random p=0.002000,50000,0.635233748975815
+Sollin FAL,26,Erdos-Renyi random p=0.200000,10000,0.8666337500314429
+Sollin FAL,26,Preferential attachment 1000 edges per vertice,10000,0.6275194546491725
+Sollin FAL,26,Preferential attachment 50 edges per vertice,50000,0.5366298453450387
+Sollin FAL,26,USA-road-d.,264346,-0.13203102012933954
+Sollin FAL,26,USA-road-d.,321270,-0.12956822112717048
+Sollin FAL,28,Erdos-Renyi random p=0.002000,50000,0.6130855621722453
+Sollin FAL,28,Erdos-Renyi random p=0.200000,10000,0.8747667313328301
+Sollin FAL,28,Preferential attachment 1000 edges per vertice,10000,0.6462546921520438
+Sollin FAL,28,Preferential attachment 50 edges per vertice,50000,0.5290171135383468
+Sollin FAL,28,USA-road-d.,264346,-0.11107122845739514
+Sollin FAL,28,USA-road-d.,321270,-0.17432003552826525
+Sollin FAL,30,Erdos-Renyi random p=0.002000,50000,0.6427518976807375
+Sollin FAL,30,Erdos-Renyi random p=0.200000,10000,0.8582300917526334
+Sollin FAL,30,Preferential attachment 1000 edges per vertice,10000,0.652702549967434
+Sollin FAL,30,Preferential attachment 50 edges per vertice,50000,0.5414843010303609
+Sollin FAL,30,USA-road-d.,264346,-0.08715072773101218
+Sollin FAL,30,USA-road-d.,321270,-0.15514594992047637
+Sollin FAL,32,Erdos-Renyi random p=0.002000,50000,0.6333919886602606
+Sollin FAL,32,Erdos-Renyi random p=0.200000,10000,0.8782471177005742
+Sollin FAL,32,Preferential attachment 1000 edges per vertice,10000,0.6683269727592587
+Sollin FAL,32,Preferential attachment 50 edges per vertice,50000,0.5483550038846055
+Sollin FAL,32,USA-road-d.,264346,-0.1513359243779111
+Sollin FAL,32,USA-road-d.,321270,-0.179014017758226
