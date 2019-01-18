@@ -184,7 +184,7 @@ Super-vertices are represented thanks to the Union-Find structure already used f
 
 \mypar{Sollin FAL} This time, the adjacency lists are replaced by flexible adjacency lists to reduce the cost from sorting before merging the connected components. The flexible adjacency lists are linked lists of adjacency lists composed of the adjacency lists of all the vertices with the same super-vertex : each time we perform the merging step for the connected components, we append the adjacency list of each vertex to their super-vertex adjacency list. Thus, this time, super-vertices keep multiple edges and self-loops in their adjacency lists which simplifies the sorting steps. These edges are now removed during the finding of the edge of minimum weight.
 
-\mypar{Filter Sollin} Filter Sollin uses the approach already seen in the algorithm Filter Kruskal (Section \ref{sec:parKruskal}) but uses Sollin's algorithm (with the data structure seen in Sollin FAL) instead of Kruskal's when the input size is under a given threshold.
+\mypar{Filter Sollin} Filter Sollin uses the approach already seen in the algorithm Filter Kruskal (Section \ref{sec:parKrfuskal}) but uses Sollin's algorithm (with the data structure seen in Sollin FAL) instead of Kruskal's when the input size is under a given threshold.
 
 
 \section{Experimental Results}\label{sec:exp}
@@ -329,7 +329,7 @@ If $S_p$ is the speedup with $p$ cores, and $f$ is the part of the program that 
 \]
 
 Given that, we can find $f$ for each algorithm, each graph and each number of processors $p$ (except 1), using the median speedup.
-Then, for each algorithm and each graph, we compute the median and the maximum of the series of $1-f$, which are the percentages of the programs that are "parallelized" in a sense.
+Then, for each algorithm and each graph, we compute the maximum and the median of the series of $1-f$, which are the percentages of the programs that are "parallelized" in a sense.
 The results are shown below in percentages.
 FK means Filter Kruskal, FS Filter Sollin, K Kruskal, AL Sollin AL and FAL Sollin FAL.
 If the speedup is less than $1$, then we put $0$.
