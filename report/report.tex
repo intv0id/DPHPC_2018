@@ -173,12 +173,12 @@ In the worst case, we have $T(m) \leq  \mathcal{O}(\frac{m}{p}) + 2T(\frac{m}{2}
 From the three greedy approaches presented in Section \ref{sec:background}, Sollin's algorithm is the one that is the most suitable to a parallel adaptation. Here are presented three distributed variants of Sollin's algorithm : Sollin AL, Sollin FAL and Filter Sollin. All of them are constituted of the same four main steps, iterated until the tree is fully grown :
 \begin{itemize}
     \item Sort the adjacency lists.
-    \item Merge connected components in a single super-vertex.
+    \item Merge connected components in a super-vertex.
     \item Find the edge with minimum weight for each vertex.
     \item Identify connected components.
 \end{itemize}
 
-Super-vertices are represented thanks to the Union-Find structure already used for Kruskal's algorithm (Section \ref{sec:background}). The finding of the edge of minimum weight is done concurrently with OpenMP and the connected component identification is done via pointer-jumping according to \cite{pointerJump}.
+Super-vertices are represented thanks to the Union-Find structure already used for Kruskal's algorithm (Section \ref{sec:background}). The finding of the edge of minimum weight is done concurrently with OpenMP and the connected components identification is done via pointer-jumping according to \cite{pointerJump}.
 
 \mypar{Sollin AL} The name Sollin AL comes from the fact that the graph is represented with adjacency lists : a vector keeps for each vertex the list of its incident edges. The vertex array is sorted according to the super-vertex label which leads the vertices with the same super-vertex to be nearby in the array allowing this vertices to be merged efficiently. Then, the adjacency lists are copied in vectors which are more cache-friendly as they allow to avoid false sharing \cite{cache} and these vectors are sorted concurrently based on the target super-vertex (the super-vertex at the other end of the edge).  Thus, self-loops and multiple edges are moved to consecutive locations to be merged.
 
