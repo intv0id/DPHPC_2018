@@ -83,7 +83,7 @@ In \cite{sollin} are described several parallel implementations of Sollin's algo
 
 \section{Minimum Spanning Tree and sequential algorithms}\label{sec:background}
 
-In this section, we define the Minimum Spanning Tree (MST) problem and introduce the sequential algorithms upon which are based the parallel implementations of Section \ref{sec:algo}.
+In this section, we formally define the Minimum Spanning Tree (MST) problem and introduce the main sequential algorithms upon which are based the parallel implementations of Section \ref{sec:algo}.
 
 \mypar{Minimum Spanning Tree}
 A minimum spanning tree is a subset of the edges of a connected, edge-weighted undirected graph that connects all the vertices together, without any cycles and with the minimum possible total edge weight.
@@ -92,7 +92,7 @@ Here we consider only undirected and connected graphs and we present different a
 
 In the following, we will use V to denote the set of vertices of the graph, E for the set of edges, n for the number of vertices and m for the number of edges.
 
-\mypar{MST sequential algorithms} The three main sequential algorithms to compute minimum spanning trees are Prim's, Kruskal's and Sollin's (also known as Bor\r{u}vka's)  algorithms. All are greedy approaches :
+\mypar{MST sequential algorithms} The three main sequential algorithms to compute minimum spanning trees are Prim's, Kruskal's and Sollin's (also known as Bor\r{u}vka)  algorithms. All are greedy approaches :
 \begin{itemize}
     \item Prim : we initialise a tree with a single random vertex and, at each step, we choose the vertex connected to the tree with the smallest-weighted edge and add it to the tree until all vertices are added.
     \item Kruskal : we sort the edges of the graph by increasing weight and, at each step, we add to the tree the smallest edge that does not create a cycle.
