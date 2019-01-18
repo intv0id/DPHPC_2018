@@ -72,13 +72,13 @@ In this paper we present our implementations of algorithms already present in th
 A wide range of problems have input sets that can be represented as graphs which is why it is crucial to develop efficient graph algorithms to reduce the computation costs. As graphs are getting larger and larger, classic sequential algorithms are becoming not fast enough to cope with the exploding number of nodes and edges. To further reduce costs, distributed algorithms are ideal to take advantage of the parallel architecture of computers but it is a challenge to correctly handle memory, concurrency or security and one needs to understand parallel software and hardware to design algorithms that scale well.
 In this paper, we focus on the minimum spanning tree problem which is a classical one in graph theory with applications in network design, cluster analysis or the approximation of NP-hard problems such as the travelling salesman problem. 
 
-We implemented five algorithms, two of them are based on Kruskal's sequential implementation and the other three on Sollin's and we present here the runtimes and speedups we obtained when running them over various benchmarks on the High Performance Computing cluster EULER. 
+We implemented five algorithms. Two of them are based on Kruskal's sequential implementation and the other three on Sollin's and we present here the runtimes and speedups we obtained when running them over various benchmarks on the High Performance Computing cluster EULER (Section \ref{sec:setup}). 
 
 All our code can be found on our project repository on GitHub at \cite{code}.
 
-\mypar{Related work} The implementation of our algorithms is based upon the work in several previously published papers.
+\mypar{Related work} The implementations of our algorithms are based upon the works presented in several previously published papers.
 In \cite{kruskal} is described an implementation of the Filter Kruskal algorithm that we present in Section \ref{sec:parKruskal}.
-In \cite{sollin} are described several parallel implementations of Sollin's algorithm and, notably, Bor-AL and Bor-FAL that we present in Section \ref{sec:parSollin}. Our implementation of these algorithms is also based upon techniques presented in \cite{pointerJump}. Both \cite{kruskal} and \cite{sollin} were an inspiration when we designed a new algorithm, Filter Sollin that combines the filtering steps from Filter Kruskal and Sollin's parallel implementation (Section \ref{sec:parSollin}).
+In \cite{sollin} are described several parallel implementations of Sollin's algorithm and, notably, Bor-AL and Bor-FAL that we present in Section \ref{sec:parSollin} under the names Sollin AL and Sollin AL. Our implementations of these algorithms iare also based upon techniques presented in \cite{pointerJump}. Both \cite{kruskal} and \cite{sollin} were an inspiration when we designed a new algorithm, Filter Sollin that combines the filtering steps from Filter Kruskal and Sollin's parallel implementation (Section \ref{sec:parSollin}).
 
 
 \section{Minimum Spanning Tree and sequential algorithms}\label{sec:background}
