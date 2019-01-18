@@ -57,6 +57,10 @@
 
 \begin{abstract}
 
+Many efficient algorithms have been designed to find the minimum spanning tree in connected graphs as this problem is at the heart of a broad scope of applications and other graph theory problems. 
+In this paper we present our implementations of algorithms already present in the literature as well as a new algorithm, Filter Sollin, which combines ideas from Filter Kruskal and parallel implementations of Sollin's algorithm. All the algorithms are tested through the EULER cluster on various benchmarks and compared to the baseline from the Parallel Boost Graph Library.
+
+\noindent\textbf{Keywords:} Minimum spanning tree, distributed algorithms, high performance computing cluster 
 
 
 \end{abstract}
@@ -64,12 +68,13 @@
 \section{Introduction}\label{sec:intro}
 
 A wide range of problems have input sets that can be represented as graphs which is why it is crucial to develop efficient graph algorithms to reduce the computation costs. As graphs are getting larger and larger, classic sequential algorithms are becoming not fast enough to cope with the exploding number of nodes and edges. To further reduce costs, distributed algorithms are ideal to take advantage of the parallel architecture of computers but it is a challenge to correctly handle memory, concurrency or security and one needs to understand parallel software and hardware to design algorithms that scale well.
-In this paper, we focus on the minimum spanning tree problem which is a classical one in graph theory with applications in network design, cluster analysis or the approximation of NP-hard problems such as the travelling salesman problem.
+In this paper, we focus on the minimum spanning tree problem which is a classical one in graph theory with applications in network design, cluster analysis or the approximation of NP-hard problems such as the travelling salesman problem. 
 
+We implemented five algorithms, two based on Kruskal's sequential implementation and three based on Sollin's and we present here the runtimes and speedups we obtained when running them over various benchmarks on a High Performance Computing cluster. 
 
-\mypar{Related work} 
+All our code can be found on our project repository on GitHub at \cite{code}.
 
-The implementation of our algorithms is based upon the work in several previously published papers.
+\mypar{Related work} The implementation of our algorithms is based upon the work in several previously published papers.
 In \cite{kruskal} is described an implementation of the Filter Kruskal algorithm that we present in Section \ref{sec:parKruskal}.
 In \cite{sollin} are described several parallel implementations of Sollin's algorithm and, notably, Bor-AL and Bor-FAL that we present in Section \ref{sec:parSollin}. Our implementation of these algorithms is also based upon techniques presented in \cite{pointerJump}. Both \cite{kruskal} and \cite{sollin} were an inspiration when we designed a new algorithm, Filter Sollin that combines the filtering steps from Filter Kruskal and Sollin's parallel implementation (Section \ref{sec:parSollin}).
 
@@ -124,7 +129,7 @@ In the following p is the number of cores on which the parallel algorithms are r
 
 We implemented two parallel versions of Kruskal's algorithm presented in Section \ref{sec:background}.
 
-\mypar{Kruskal with parallel sorting} Kruskal's algorithm is inherently sequential as it linearly goes through the edges once these ones have been sorted. Thus, our first implementation of Kruskal's algorithm is the sequential algorithm described in Algorithm \ref{algo:kruskal} preceded by a parallel sorting using TBB (Section \ref{sec:exp}).
+\mypar{Kruskal with parallel sorting} Kruskal's algorithm is inherently sequential as it linearly goes through the edges once these ones have been sorted. Thus, our first implementation of Kruskal's algorithm is the sequential algorithm described in Algorithm \ref{algo:kruskal} preceded by a parallel sorting using TBB (Section \ref{sec:setup}).
 
 \mypar{Filter Kruskal} The second parallel MST algorithm we consider is a variant of Kruskal's algorithm that is named Filter Kruskal (Algorithm \ref{algo:filterKruskal}).
 
@@ -134,7 +139,7 @@ Then, an edge is chosen as a pivot regarding weight to separate the edges in two
 A first recursive call is made on the lighter edges. Before making the second recursive calls on the heavier ones, all heavy edges that are within a component of the current forest are removed (filtering step).
 To finish the algorithm, the results from both calls are merged to form the MST.
 
-In our implementation, the edges are kept in a vector and elements are permuted in-place, as in a quick-sort, without requiring additional amounts of memory which leads to maximal operational intensity. Moreover, the filter and partition functions are both implemented with the partition function from the C++ standard library parallelised with Parallel STL (Section \ref{sec:exp}).
+In our implementation, the edges are kept in a vector and elements are permuted in-place, as in a quick-sort, without requiring additional amounts of memory which leads to maximal operational intensity. Moreover, the filter and partition functions are both implemented with the partition function from the C++ standard library parallelised with Parallel STL (Section \ref{sec:setup}).
 
 \begin{algorithm}
 \caption{filterKruskal}
@@ -155,7 +160,7 @@ In our implementation, the edges are kept in a vector and elements are permuted 
 \end{algorithm}
 
 
-For the cost analysis of the algorithm, we use $T(m)$ for the runtime of the algorithm with m edges. The choosing of the pivot can be done in $\mathcal{O}(1)$ by sampling 256 edges from the graph using OpenMP and taking the median thanks to Intel TBB (see experimental setup in Section \ref{sec:exp}).
+For the cost analysis of the algorithm, we use $T(m)$ for the runtime of the algorithm with m edges. The choosing of the pivot can be done in $\mathcal{O}(1)$ by sampling 256 edges from the graph using OpenMP and taking the median thanks to Intel TBB (see experimental setup in Section \ref{sec:setup}).
 The partition of the edges as well as the filtering can both be done in $\mathcal{O}(\frac{m}{p})$ using the partition function from Intel Parallel STL. The first recursive call costs $T(\frac{m}{2})$ and the second one $\mathcal{O}(T(\frac{m}{2}))$ (and far less in practice) because edges have been removed.
 In the best case, the first recursive call is sufficient to compute the MST and we have $T(m) \leq  \mathcal{O}(\frac{m}{p}) + T(\frac{m}{2})) $ which gives $T(m) = \mathcal{O}(\frac{m}{p} + m) = \mathcal{O}(m)$.
 In the worst case, we have $T(m) \leq  \mathcal{O}(\frac{m}{p}) + 2T(\frac{m}{2})) $ which gives $T(m) = \mathcal{O}(\frac{mln(m)}{p} + m)$
@@ -180,48 +185,13 @@ Super-vertices are represented thanks to the Union-Find structure already used f
 \mypar{Filter Sollin} Filter Sollin uses the approach already seen in the algorithm Filter Kruskal (Section \ref{sec:parKruskal}) but uses Sollin's algorithm (with the data structure seen in Sollin FAL) instead of Kruskal's when the input size is under a given threshold.
 
 
-
 \section{Experimental Results}\label{sec:exp}
 
 In this section, we present the results of our algorithms on various input sets and discuss their performance against the baselines over different benchmarks.
 
-\mypar{Experimental setup} All experiments are run through the EULER cluster on an Hewlett-Packard XL230k Gen10 equipped with two 18-core Intel Xeon Gold (6150 processors, 2.7-3.7 GHz) and 192 GB of DDR4 memory clocked at 2666 MHz. We are using C++17 with GCC v5.2.0, CMake v3.11.4 and OpenMPI v1.6.5. Our algorithms are compiled with the optimisation flag O3. We also use the following dependencies :
-\begin{itemize}
-    \item OpenMP which is an API that supports shared memory multiprocessing programming in C++.
-    \item Threading Building Blocks (TBB) for the sorting function that takes full advantage of multi-core performance.
-    \item Parallel STL (PSTL) to have a threaded and vectorized execution of the standard C++ partition function, optimised and validated for Intel(R) 64 processors.
-    \item LibSciBench (LSB) which is a framework containing a performance measurement library for parallel applications and is coupled with an R script for the post-processing of the gathered data \cite{benchmarking} \cite{measuring}. 
-\end{itemize}
+\subsection{Experimental setup} \label{sec:setup}
 
-\mypar{Input Sets}
-The experiments have been performed on the three following input sets :
-
-\begin{itemize}
-    \item Erd\H{o}s-R\'{e}nyi (ER) random graphs where we specify the number of nodes of the graph and the probability of existence of a vertex between every pair of nodes. The probability is chosen greater than $\frac{ln(n)}{n}$ which is the threshold to have almost surely a connected graph.
-    \item Preferential Attachment (PA) graphs where we specify the number of nodes of the graphs and the number of neighbours that a node attaches itself to when added in the graph. In order to have a connected graph, the graph is initialised with three connected vertices and new vertices are added one by one and connected to existing vertices with higher probability for the ones with higher degrees. This type of graph models better existing inputs from the real world such as representations of social network connections.  
-    \item USA road networks from 9th Implementation DIMACS Challenge dataset which are real input sets from the road networks in various part of the USA. These graphs are connected and undirected.
-\end{itemize}
-
-\mypar{Benchmarks} We tested our algorithms on three benchmarks :
-\begin{itemize}
-    \item Dense graphs : around 10K nodes and 10M edges with the topology of PA or ER.
-    \item Sparse graphs : around 50K nodes and 2.5M edges with the topology of PA or ER.
-    \item USA graphs : around 300K nodes and 800K edges with the topology of the USA road networks dataset.
-\end{itemize}
-
-We also used a benchmark of smaller graphs with the topology of PA with either 1000 nodes and 100K edges or 2000 nodes and 40K edges to compare our algorithms to the baseline.
-
-\mypar{Baselines} We compare the results of our algorithms to those of the Parallel Boost Graph Library (PBGL) v1.62.0 which is an extension of the BGL for distributed computing.
-
-\mypar{Difficulties}
-
-\mypar{Results} We present here the results of our experiments on the benchmarks that we studied For every experiment, we generated a large number of random graphs on which three runs were made for each in order to have an appropriate standard deviation.
-
-\section{Experimental Results 2}\label{sec:exp2}
-
-In this section, we present the results of our algorithms on various input sets and discuss their performance against the baselines over different benchmarks.
-
-\subsection{Experimental setup} All experiments are run through the EULER cluster on an Hewlett-Packard XL230k Gen10 equipped with two 18-core Intel Xeon Gold (6150 processors, 2.7-3.7 GHz) and 192 GB of DDR4 memory clocked at 2666 MHz. We are using C++17 with GCC v5.2.0, CMake v3.11.4 and OpenMPI v1.6.5. Our algorithms are compiled with the optimisation flag O3. We also use the following dependencies :
+All experiments are run through the EULER cluster on an Hewlett-Packard XL230k Gen10 equipped with two 18-core Intel Xeon Gold (6150 processors, 2.7-3.7 GHz) and 192 GB of DDR4 memory clocked at 2666 MHz. We are using C++17 with GCC v5.2.0, CMake v3.11.4 and OpenMPI v1.6.5. Our algorithms are compiled with the optimisation flag O3. We also use the following dependencies :
 
 \mypar{OpenMP} OpenMP which is an API that supports shared memory multiprocessing programming in C++.
 
@@ -245,11 +215,11 @@ The experiments have been performed on the three following input sets :
 
 We tested our algorithms on three benchmarks :
 
-\mypar{Dense graphs} around 10K nodes and 10M edges with the topology of PA or ER.
+\mypar{Dense graphs} Around 10K nodes and 10M edges with the topology of PA or ER.
 
-\mypar{Sparse graphs} around 50K nodes and 2.5M edges with the topology of PA or ER.
+\mypar{Sparse graphs} Around 50K nodes and 2.5M edges with the topology of PA or ER.
 
-\mypar{USA graphs} around 300K nodes and 800K edges with the topology of the USA road networks dataset.
+\mypar{USA graphs} Around 300K nodes and 800K edges with the topology of the USA road networks dataset.
 
 
 We also used a benchmark of smaller graphs with the topology of PA with either 1000 nodes and 100K edges or 2000 nodes and 40K edges to compare our algorithms to the baseline.
@@ -260,19 +230,112 @@ We also used a benchmark of smaller graphs with the topology of PA with either 1
 
 \subsection{Results} We present here the results of our experiments on the benchmarks that we studied For every experiment, we generated a large number of random graphs on which three runs were made for each in order to have an appropriate standard deviation.
 
+\mypar{Baselines}
+
 \begin{figure}\noindent\centering
-  \includegraphics[scale=0.28]{BoostKruskalSpeedup4.png}
-  \caption{Boost Kruskal Speedup.\label{boostKruskal}}
+  \includegraphics[scale=0.28]{BoostKruskalSpeedup4.png} % CHANGE NAME
+  \caption{Runtime graph on PA(1 000, 100)\label{baseline1}}
 \end{figure}
+
+\begin{figure}\noindent\centering
+  \includegraphics[scale=0.28]{BoostKruskalSpeedup4.png} % CHANGE NAME
+  \caption{Runtime graph on PA(2 000, 20)\label{baseline2}}
+\end{figure}
+
+\mypar{Dense graphs}
+
+\begin{figure}\noindent\centering
+  \includegraphics[scale=0.28]{BoostKruskalSpeedup4.png} % CHANGE NAME
+  \caption{Runtime graph on ER(10 000, 2 000)\label{denseERruntime}}
+\end{figure}
+
+\begin{figure}\noindent\centering
+  \includegraphics[scale=0.28]{BoostKruskalSpeedup4.png} % CHANGE NAME
+  \caption{Speedup graph on ER(10 000, 2 000)\label{denseERspeedup}}
+\end{figure}
+
+\begin{figure}\noindent\centering
+  \includegraphics[scale=0.28]{BoostKruskalSpeedup4.png} % CHANGE NAME
+  \caption{Runtime graph on PA(10 000, 1 000)\label{densePAruntime}}
+\end{figure}
+
+\begin{figure}\noindent\centering
+  \includegraphics[scale=0.28]{BoostKruskalSpeedup4.png} % CHANGE NAME
+  \caption{Speedup graph on PA(10 000, 1 000)\label{densePAspeedup}}
+\end{figure}
+
+
+
+\mypar{Sparse graphs}
+
+\begin{figure}\noindent\centering
+  \includegraphics[scale=0.28]{BoostKruskalSpeedup4.png} % CHANGE NAME
+  \caption{Runtime graph on ER(50 000, 100)\label{sparseERruntime}}
+\end{figure}
+
+\begin{figure}\noindent\centering
+  \includegraphics[scale=0.28]{BoostKruskalSpeedup4.png} % CHANGE NAME
+  \caption{Speedup graph on ER(50 000, 100)\label{sparseERspeedup}}
+\end{figure}
+
+\begin{figure}\noindent\centering
+  \includegraphics[scale=0.28]{BoostKruskalSpeedup4.png} % CHANGE NAME
+  \caption{Runtime graph on PA(50 000, 50)\label{sparsePAruntime}}
+\end{figure}
+
+\begin{figure}\noindent\centering
+  \includegraphics[scale=0.28]{BoostKruskalSpeedup4.png} % CHANGE NAME
+  \caption{Speedup graph on PA(50 000, 50)\label{sparsePAspeedup}}
+\end{figure}
+
+\mypar{USA graphs}
+
+\begin{figure}\noindent\centering
+  \includegraphics[scale=0.28]{BoostKruskalSpeedup4.png} % CHANGE NAME
+  \caption{Runtime graph on USA NY (260K nodes, 730K edges)\label{usaNYruntime}}
+\end{figure}
+
+\begin{figure}\noindent\centering
+  \includegraphics[scale=0.28]{BoostKruskalSpeedup4.png} % CHANGE NAME
+  \caption{Speedup graph on USA NY (260K nodes, 730K edges)\label{usaNYspeedup}}
+\end{figure}
+
+\begin{figure}\noindent\centering
+  \includegraphics[scale=0.28]{BoostKruskalSpeedup4.png} % CHANGE NAME
+  \caption{Runtime graph on USA BAY (320K nodes, 800K edges)\label{usaBAYruntime}}
+\end{figure}
+
+\begin{figure}\noindent\centering
+  \includegraphics[scale=0.28]{BoostKruskalSpeedup4.png} % CHANGE NAME
+  \caption{Speedup graph on USA BAY (320K nodes, 800K edges)\label{usaBAYspeedup}}
+\end{figure}
+
+
+% AL ER 10 => Speedup augmente puis vers 18 diminue
+% => Passage de 18 à 20 = passage par le réseau = + gros overhead
+% FAL ER-10 = grosses listes d'adjacence, équitablement réparties
+% -> L'étape qui prend le + de temps est le tri initial des listes
+% FAL PA-10 = dense mais moins bien réparti : Moins de speedup
+% FS sur les US : Ça monte un peu puis ça descend
+% Le parallélisme est très vite compensé par l'overhead à paralléliser
+% US = topologie pas ouf pour nos algos : moins idéal que pa / er
+% PA = Beaucoup moins régulier que ER
+% Donc des résultats moins propres quand on sépare "équitablement" par noeud
+% Exemple : AL ER-50 est bon, ça veut dire qu'AL est meilleur quand le nombre de noeuds est + élevé et le nombre d'arêtes + faible
+% Et là c'est l'étape de find_minimum qui prend le + de temps
+
+
 
 
 
 \section{Conclusions}
 
+%  MST = plein d'algos + hard to parallelize (inherently sequential) => specialized algos + performance depends on type de graphe (dense, pas dense, topologie...)
+
+% next step : Dis qu'à partir de cette étude on pourrait étudier au préalable le meilleur algo et donc avoir un algo + général, mais que on utilise plusieurs représentations de graphe donc pas évident
 
 
-
-
+\clearpage
 
 % References should be produced using the bibtex program from suitable
 % BiBTeX files (here: bibl_conf). The IEEEbib.bst bibliography
