@@ -1,0 +1,63 @@
+# Sysname : Linux
+# Nodename: eu-a6-010-15
+# Release : 3.10.0-862.14.4.el7.x86_64
+# Version : #1 SMP Wed Sep 26 15:12:11 UTC 2018
+# Machine : x86_64
+# Execution time and date (UTC): Thu Jan 17 16:53:23 2019
+# Execution time and date (local): Thu Jan 17 17:53:23 2019
+# MPI execution on rank 0 with 1 processes in world
+# Reported time measurements are in microseconds
+# pretty output format
+    Algorithm  Graph_nodes   Graph_name  Max_threads          run       id         time     overhead 
+ Filter_Kruskal         50000  Erdos-Renyi_random_p=0.002000             1             0          0 236576.277344            0 
+ Filter_Kruskal         50000  Erdos-Renyi_random_p=0.002000             1             1          0 219466.562988            1 
+ Filter_Kruskal         50000  Erdos-Renyi_random_p=0.002000             1             2          0 233306.211426            1 
+ Filter_Kruskal         50000  Erdos-Renyi_random_p=0.002000             2             0          0 154648.955078            0 
+ Filter_Kruskal         50000  Erdos-Renyi_random_p=0.002000             2             1          0 154570.051758           20 
+ Filter_Kruskal         50000  Erdos-Renyi_random_p=0.002000             2             2          0 172681.295898            0 
+ Filter_Kruskal         50000  Erdos-Renyi_random_p=0.002000             4             0          0 125632.860352            0 
+ Filter_Kruskal         50000  Erdos-Renyi_random_p=0.002000             4             1          0 95911.613770            0 
+ Filter_Kruskal         50000  Erdos-Renyi_random_p=0.002000             4             2          0 94570.179688            2 
+ Filter_Kruskal         50000  Erdos-Renyi_random_p=0.002000             6             0          0 74932.946777            0 
+ Filter_Kruskal         50000  Erdos-Renyi_random_p=0.002000             6             1          0 77155.115234            0 
+ Filter_Kruskal         50000  Erdos-Renyi_random_p=0.002000             6             2          0 75603.435547            0 
+ Filter_Kruskal         50000  Erdos-Renyi_random_p=0.002000             8             0          0 82989.367676            0 
+ Filter_Kruskal         50000  Erdos-Renyi_random_p=0.002000             8             1          0 82606.864746            0 
+ Filter_Kruskal         50000  Erdos-Renyi_random_p=0.002000             8             2          0 88397.612793            0 
+ Filter_Kruskal         50000  Erdos-Renyi_random_p=0.002000            10             0          0 63630.235352            0 
+ Filter_Kruskal         50000  Erdos-Renyi_random_p=0.002000            10             1          0 59781.327637          110 
+ Filter_Kruskal         50000  Erdos-Renyi_random_p=0.002000            10             2          0 61128.124512            0 
+ Filter_Kruskal         50000  Erdos-Renyi_random_p=0.002000            12             0          0 63809.677246            0 
+ Filter_Kruskal         50000  Erdos-Renyi_random_p=0.002000            12             1          0 59601.906738            0 
+ Filter_Kruskal         50000  Erdos-Renyi_random_p=0.002000            12             2          0 69077.755371            0 
+ Filter_Kruskal         50000  Erdos-Renyi_random_p=0.002000            14             0          0 79477.014160            0 
+ Filter_Kruskal         50000  Erdos-Renyi_random_p=0.002000            14             1          0 82699.485352            0 
+ Filter_Kruskal         50000  Erdos-Renyi_random_p=0.002000            14             2          0 83307.275879            0 
+ Filter_Kruskal         50000  Erdos-Renyi_random_p=0.002000            16             0          0 82632.961914            0 
+ Filter_Kruskal         50000  Erdos-Renyi_random_p=0.002000            16             1          0 65409.738770            0 
+ Filter_Kruskal         50000  Erdos-Renyi_random_p=0.002000            16             2          0 62673.352051            0 
+ Filter_Kruskal         50000  Erdos-Renyi_random_p=0.002000            18             0          0 75165.377441            0 
+ Filter_Kruskal         50000  Erdos-Renyi_random_p=0.002000            18             1          0 73456.301270            0 
+ Filter_Kruskal         50000  Erdos-Renyi_random_p=0.002000            18             2          0 79922.834473            0 
+ Filter_Kruskal         50000  Erdos-Renyi_random_p=0.002000            20             0          0 61632.096680            0 
+ Filter_Kruskal         50000  Erdos-Renyi_random_p=0.002000            20             1          0 60654.987793            0 
+ Filter_Kruskal         50000  Erdos-Renyi_random_p=0.002000            20             2          0 60721.766602           30 
+ Filter_Kruskal         50000  Erdos-Renyi_random_p=0.002000            22             0          0 64392.031250            0 
+ Filter_Kruskal         50000  Erdos-Renyi_random_p=0.002000            22             1          0 72571.105957            0 
+ Filter_Kruskal         50000  Erdos-Renyi_random_p=0.002000            22             2          0 77647.017578            0 
+ Filter_Kruskal         50000  Erdos-Renyi_random_p=0.002000            24             0          0 76923.720215            0 
+ Filter_Kruskal         50000  Erdos-Renyi_random_p=0.002000            24             1          0 80268.915527            0 
+ Filter_Kruskal         50000  Erdos-Renyi_random_p=0.002000            24             2          0 78711.610352            0 
+ Filter_Kruskal         50000  Erdos-Renyi_random_p=0.002000            26             0          0 66852.024902            0 
+ Filter_Kruskal         50000  Erdos-Renyi_random_p=0.002000            26             1          0 81615.581055            0 
+ Filter_Kruskal         50000  Erdos-Renyi_random_p=0.002000            26             2          0 82236.791992            0 
+ Filter_Kruskal         50000  Erdos-Renyi_random_p=0.002000            28             0          0 77075.986328            0 
+ Filter_Kruskal         50000  Erdos-Renyi_random_p=0.002000            28             1          0 88879.717285            0 
+ Filter_Kruskal         50000  Erdos-Renyi_random_p=0.002000            28             2          0 83093.315918            0 
+ Filter_Kruskal         50000  Erdos-Renyi_random_p=0.002000            30             0          0 79180.571289            0 
+ Filter_Kruskal         50000  Erdos-Renyi_random_p=0.002000            30             1          0 90315.134277            0 
+ Filter_Kruskal         50000  Erdos-Renyi_random_p=0.002000            30             2          0 88346.604980            0 
+ Filter_Kruskal         50000  Erdos-Renyi_random_p=0.002000            32             0          0 105908.593750            0 
+ Filter_Kruskal         50000  Erdos-Renyi_random_p=0.002000            32             1          0 109130.854492            0 
+ Filter_Kruskal         50000  Erdos-Renyi_random_p=0.002000            32             2          0 102452.769043            0 
+# Runtime: 467.237996 s (overhead: 0.000035 %) 51 records

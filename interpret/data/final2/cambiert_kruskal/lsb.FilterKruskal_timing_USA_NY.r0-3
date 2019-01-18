@@ -1,0 +1,63 @@
+# Sysname : Linux
+# Nodename: eu-a6-010-15
+# Release : 3.10.0-862.14.4.el7.x86_64
+# Version : #1 SMP Wed Sep 26 15:12:11 UTC 2018
+# Machine : x86_64
+# Execution time and date (UTC): Thu Jan 17 22:42:34 2019
+# Execution time and date (local): Thu Jan 17 23:42:34 2019
+# MPI execution on rank 0 with 1 processes in world
+# Reported time measurements are in microseconds
+# pretty output format
+    Algorithm  Graph_nodes   Graph_name  Max_threads          run       id         time     overhead 
+ Filter_Kruskal        264346   USA-road-d.             1             0          0 272664.051270            0 
+ Filter_Kruskal        264346   USA-road-d.             1             1          0 404452.230469            1 
+ Filter_Kruskal        264346   USA-road-d.             1             2          0 258916.975586            0 
+ Filter_Kruskal        264346   USA-road-d.             2             0          0 301583.062012            0 
+ Filter_Kruskal        264346   USA-road-d.             2             1          0 304046.352051            4 
+ Filter_Kruskal        264346   USA-road-d.             2             2          0 298846.330566            0 
+ Filter_Kruskal        264346   USA-road-d.             4             0          0 283119.632324            4 
+ Filter_Kruskal        264346   USA-road-d.             4             1          0 274845.685059            0 
+ Filter_Kruskal        264346   USA-road-d.             4             2          0 293262.326172            1 
+ Filter_Kruskal        264346   USA-road-d.             6             0          0 269892.499512            0 
+ Filter_Kruskal        264346   USA-road-d.             6             1          0 284306.185059            0 
+ Filter_Kruskal        264346   USA-road-d.             6             2          0 282667.409668            0 
+ Filter_Kruskal        264346   USA-road-d.             8             0          0 217094.160645            7 
+ Filter_Kruskal        264346   USA-road-d.             8             1          0 215342.147949            0 
+ Filter_Kruskal        264346   USA-road-d.             8             2          0 212900.306152            0 
+ Filter_Kruskal        264346   USA-road-d.            10             0          0 300263.629395            0 
+ Filter_Kruskal        264346   USA-road-d.            10             1          0 331341.643066            1 
+ Filter_Kruskal        264346   USA-road-d.            10             2          0 334922.400391            0 
+ Filter_Kruskal        264346   USA-road-d.            12             0          0 228394.994141            0 
+ Filter_Kruskal        264346   USA-road-d.            12             1          0 221009.322266            0 
+ Filter_Kruskal        264346   USA-road-d.            12             2          0 319907.842773            0 
+ Filter_Kruskal        264346   USA-road-d.            14             0          0 238125.436035            0 
+ Filter_Kruskal        264346   USA-road-d.            14             1          0 236980.156250            0 
+ Filter_Kruskal        264346   USA-road-d.            14             2          0 231326.618652            0 
+ Filter_Kruskal        264346   USA-road-d.            16             0          0 432235.207520            0 
+ Filter_Kruskal        264346   USA-road-d.            16             1          0 459096.262695            3 
+ Filter_Kruskal        264346   USA-road-d.            16             2          0 539348.689941            2 
+ Filter_Kruskal        264346   USA-road-d.            18             0          0 694056.858398            4 
+ Filter_Kruskal        264346   USA-road-d.            18             1          0 507601.784668            1 
+ Filter_Kruskal        264346   USA-road-d.            18             2          0 513680.302246            2 
+ Filter_Kruskal        264346   USA-road-d.            20             0          0 722085.237793            0 
+ Filter_Kruskal        264346   USA-road-d.            20             1          0 715670.746582            3 
+ Filter_Kruskal        264346   USA-road-d.            20             2          0 729535.298340           14 
+ Filter_Kruskal        264346   USA-road-d.            22             0          0 730909.176270            0 
+ Filter_Kruskal        264346   USA-road-d.            22             1          0 583448.150879            0 
+ Filter_Kruskal        264346   USA-road-d.            22             2          0 577971.090332            3 
+ Filter_Kruskal        264346   USA-road-d.            24             0          0 759828.620605            0 
+ Filter_Kruskal        264346   USA-road-d.            24             1          0 613523.611816            0 
+ Filter_Kruskal        264346   USA-road-d.            24             2          0 597822.580566            0 
+ Filter_Kruskal        264346   USA-road-d.            26             0          0 625107.128906            0 
+ Filter_Kruskal        264346   USA-road-d.            26             1          0 602936.838867            0 
+ Filter_Kruskal        264346   USA-road-d.            26             2          0 592017.935547            0 
+ Filter_Kruskal        264346   USA-road-d.            28             0          0 716798.829102            0 
+ Filter_Kruskal        264346   USA-road-d.            28             1          0 718093.031250            0 
+ Filter_Kruskal        264346   USA-road-d.            28             2          0 684562.242676            0 
+ Filter_Kruskal        264346   USA-road-d.            30             0          0 727079.606445            5 
+ Filter_Kruskal        264346   USA-road-d.            30             1          0 746863.743164            0 
+ Filter_Kruskal        264346   USA-road-d.            30             2          0 752917.212891            0 
+ Filter_Kruskal        264346   USA-road-d.            32             0          0 1195399.993652            0 
+ Filter_Kruskal        264346   USA-road-d.            32             1          0 1076450.949219            3 
+ Filter_Kruskal        264346   USA-road-d.            32             2          0 1014721.769531            0 
+# Runtime: 189.550503 s (overhead: 0.000031 %) 51 records

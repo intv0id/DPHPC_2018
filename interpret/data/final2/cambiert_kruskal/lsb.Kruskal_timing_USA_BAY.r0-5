@@ -1,0 +1,63 @@
+# Sysname : Linux
+# Nodename: eu-a6-010-15
+# Release : 3.10.0-862.14.4.el7.x86_64
+# Version : #1 SMP Wed Sep 26 15:12:11 UTC 2018
+# Machine : x86_64
+# Execution time and date (UTC): Fri Jan 18 06:47:01 2019
+# Execution time and date (local): Fri Jan 18 07:47:01 2019
+# MPI execution on rank 0 with 1 processes in world
+# Reported time measurements are in microseconds
+# pretty output format
+    Algorithm  Graph_nodes   Graph_name  Max_threads          run       id         time     overhead 
+ Sequential_Kruskal        321270   USA-road-d.             1             0          0 334690.954590            0 
+ Sequential_Kruskal        321270   USA-road-d.             1             1          0 334468.306641            1 
+ Sequential_Kruskal        321270   USA-road-d.             1             2          0 342377.941406            1 
+ Sequential_Kruskal        321270   USA-road-d.             2             0          0 405081.878418            0 
+ Sequential_Kruskal        321270   USA-road-d.             2             1          0 471222.383789            1 
+ Sequential_Kruskal        321270   USA-road-d.             2             2          0 400247.879883            0 
+ Sequential_Kruskal        321270   USA-road-d.             4             0          0 389352.339355            0 
+ Sequential_Kruskal        321270   USA-road-d.             4             1          0 389709.512695            0 
+ Sequential_Kruskal        321270   USA-road-d.             4             2          0 387315.000488           15 
+ Sequential_Kruskal        321270   USA-road-d.             6             0          0 387137.726562            0 
+ Sequential_Kruskal        321270   USA-road-d.             6             1          0 396119.529785            0 
+ Sequential_Kruskal        321270   USA-road-d.             6             2          0 449006.152832            0 
+ Sequential_Kruskal        321270   USA-road-d.             8             0          0 387280.965332            0 
+ Sequential_Kruskal        321270   USA-road-d.             8             1          0 390401.763672            0 
+ Sequential_Kruskal        321270   USA-road-d.             8             2          0 385564.187988            2 
+ Sequential_Kruskal        321270   USA-road-d.            10             0          0 375660.926758            0 
+ Sequential_Kruskal        321270   USA-road-d.            10             1          0 379259.790039           14 
+ Sequential_Kruskal        321270   USA-road-d.            10             2          0 439857.889160            0 
+ Sequential_Kruskal        321270   USA-road-d.            12             0          0 384437.441895            0 
+ Sequential_Kruskal        321270   USA-road-d.            12             1          0 376397.592285            0 
+ Sequential_Kruskal        321270   USA-road-d.            12             2          0 405381.568848            2 
+ Sequential_Kruskal        321270   USA-road-d.            14             0          0 380002.778809            0 
+ Sequential_Kruskal        321270   USA-road-d.            14             1          0 377072.897949            0 
+ Sequential_Kruskal        321270   USA-road-d.            14             2          0 376344.296387            0 
+ Sequential_Kruskal        321270   USA-road-d.            16             0          0 378666.944336            0 
+ Sequential_Kruskal        321270   USA-road-d.            16             1          0 382018.070312            0 
+ Sequential_Kruskal        321270   USA-road-d.            16             2          0 379881.285156            0 
+ Sequential_Kruskal        321270   USA-road-d.            18             0          0 380027.338867            0 
+ Sequential_Kruskal        321270   USA-road-d.            18             1          0 382896.160645            0 
+ Sequential_Kruskal        321270   USA-road-d.            18             2          0 379622.322754            0 
+ Sequential_Kruskal        321270   USA-road-d.            20             0          0 379983.176270            0 
+ Sequential_Kruskal        321270   USA-road-d.            20             1          0 384707.410156            0 
+ Sequential_Kruskal        321270   USA-road-d.            20             2          0 373576.655273          181 
+ Sequential_Kruskal        321270   USA-road-d.            22             0          0 381908.848633            0 
+ Sequential_Kruskal        321270   USA-road-d.            22             1          0 384517.399902            0 
+ Sequential_Kruskal        321270   USA-road-d.            22             2          0 385414.219238            2 
+ Sequential_Kruskal        321270   USA-road-d.            24             0          0 384047.676270            0 
+ Sequential_Kruskal        321270   USA-road-d.            24             1          0 381149.951172            0 
+ Sequential_Kruskal        321270   USA-road-d.            24             2          0 385060.739258            0 
+ Sequential_Kruskal        321270   USA-road-d.            26             0          0 384006.320801            0 
+ Sequential_Kruskal        321270   USA-road-d.            26             1          0 387580.072266            6 
+ Sequential_Kruskal        321270   USA-road-d.            26             2          0 411516.878906            0 
+ Sequential_Kruskal        321270   USA-road-d.            28             0          0 380595.992188            0 
+ Sequential_Kruskal        321270   USA-road-d.            28             1          0 395178.541016            0 
+ Sequential_Kruskal        321270   USA-road-d.            28             2          0 379931.646484            0 
+ Sequential_Kruskal        321270   USA-road-d.            30             0          0 380964.091797            0 
+ Sequential_Kruskal        321270   USA-road-d.            30             1          0 381903.718262            2 
+ Sequential_Kruskal        321270   USA-road-d.            30             2          0 384593.804688            0 
+ Sequential_Kruskal        321270   USA-road-d.            32             0          0 381798.341797            0 
+ Sequential_Kruskal        321270   USA-road-d.            32             1          0 379374.789062            0 
+ Sequential_Kruskal        321270   USA-road-d.            32             2          0 379065.694336            0 
+# Runtime: 191.065558 s (overhead: 0.000119 %) 51 records

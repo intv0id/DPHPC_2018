@@ -1,0 +1,63 @@
+# Sysname : Linux
+# Nodename: eu-a6-010-15
+# Release : 3.10.0-862.14.4.el7.x86_64
+# Version : #1 SMP Wed Sep 26 15:12:11 UTC 2018
+# Machine : x86_64
+# Execution time and date (UTC): Thu Jan 17 16:01:15 2019
+# Execution time and date (local): Thu Jan 17 17:01:15 2019
+# MPI execution on rank 0 with 1 processes in world
+# Reported time measurements are in microseconds
+# pretty output format
+    Algorithm  Graph_nodes   Graph_name  Max_threads          run       id         time     overhead 
+ Filter_Kruskal        321270   USA-road-d.             1             0          0 317083.730469            0 
+ Filter_Kruskal        321270   USA-road-d.             1             1          0 319408.281250            0 
+ Filter_Kruskal        321270   USA-road-d.             1             2          0 311805.010254            0 
+ Filter_Kruskal        321270   USA-road-d.             2             0          0 342070.574707            0 
+ Filter_Kruskal        321270   USA-road-d.             2             1          0 366731.460449            6 
+ Filter_Kruskal        321270   USA-road-d.             2             2          0 331710.803711           14 
+ Filter_Kruskal        321270   USA-road-d.             4             0          0 349095.674805            0 
+ Filter_Kruskal        321270   USA-road-d.             4             1          0 338271.657227            0 
+ Filter_Kruskal        321270   USA-road-d.             4             2          0 332902.906738            1 
+ Filter_Kruskal        321270   USA-road-d.             6             0          0 256256.422852            0 
+ Filter_Kruskal        321270   USA-road-d.             6             1          0 257706.413574            0 
+ Filter_Kruskal        321270   USA-road-d.             6             2          0 255888.100098            0 
+ Filter_Kruskal        321270   USA-road-d.             8             0          0 376972.562500            0 
+ Filter_Kruskal        321270   USA-road-d.             8             1          0 375664.529785            0 
+ Filter_Kruskal        321270   USA-road-d.             8             2          0 380366.395020            0 
+ Filter_Kruskal        321270   USA-road-d.            10             0          0 376954.357910            0 
+ Filter_Kruskal        321270   USA-road-d.            10             1          0 374104.640137            1 
+ Filter_Kruskal        321270   USA-road-d.            10             2          0 351798.266113            0 
+ Filter_Kruskal        321270   USA-road-d.            12             0          0 263288.086426            0 
+ Filter_Kruskal        321270   USA-road-d.            12             1          0 408638.476074            0 
+ Filter_Kruskal        321270   USA-road-d.            12             2          0 295244.460449            5 
+ Filter_Kruskal        321270   USA-road-d.            14             0          0 286353.574707            0 
+ Filter_Kruskal        321270   USA-road-d.            14             1          0 376444.158691            0 
+ Filter_Kruskal        321270   USA-road-d.            14             2          0 383535.512695            0 
+ Filter_Kruskal        321270   USA-road-d.            16             0          0 561131.343262            0 
+ Filter_Kruskal        321270   USA-road-d.            16             1          0 1516171.070312            0 
+ Filter_Kruskal        321270   USA-road-d.            16             2          0 581720.295410            0 
+ Filter_Kruskal        321270   USA-road-d.            18             0          0 607625.098633            0 
+ Filter_Kruskal        321270   USA-road-d.            18             1          0 377948.031250            0 
+ Filter_Kruskal        321270   USA-road-d.            18             2          0 384677.056641            0 
+ Filter_Kruskal        321270   USA-road-d.            20             0          0 872402.427734            2 
+ Filter_Kruskal        321270   USA-road-d.            20             1          0 517256.402344            2 
+ Filter_Kruskal        321270   USA-road-d.            20             2          0 694956.935059          335 
+ Filter_Kruskal        321270   USA-road-d.            22             0          0 903717.835938            1 
+ Filter_Kruskal        321270   USA-road-d.            22             1          0 694184.309082            0 
+ Filter_Kruskal        321270   USA-road-d.            22             2          0 751464.608398            2 
+ Filter_Kruskal        321270   USA-road-d.            24             0          0 709311.803711            0 
+ Filter_Kruskal        321270   USA-road-d.            24             1          0 818091.438965            0 
+ Filter_Kruskal        321270   USA-road-d.            24             2          0 742854.035156            3 
+ Filter_Kruskal        321270   USA-road-d.            26             0          0 827287.006836            5 
+ Filter_Kruskal        321270   USA-road-d.            26             1          0 797753.405762            0 
+ Filter_Kruskal        321270   USA-road-d.            26             2          0 789646.679688            3 
+ Filter_Kruskal        321270   USA-road-d.            28             0          0 843907.712891            2 
+ Filter_Kruskal        321270   USA-road-d.            28             1          0 832802.323242            5 
+ Filter_Kruskal        321270   USA-road-d.            28             2          0 823150.776367            0 
+ Filter_Kruskal        321270   USA-road-d.            30             0          0 1100143.750488            3 
+ Filter_Kruskal        321270   USA-road-d.            30             1          0 858329.203125            0 
+ Filter_Kruskal        321270   USA-road-d.            30             2          0 921002.663574            2 
+ Filter_Kruskal        321270   USA-road-d.            32             0          0 1544972.034180           23 
+ Filter_Kruskal        321270   USA-road-d.            32             1          0 1189806.232910            6 
+ Filter_Kruskal        321270   USA-road-d.            32             2          0 1319575.532715           25 
+# Runtime: 213.759063 s (overhead: 0.000209 %) 51 records

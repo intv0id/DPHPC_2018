@@ -1,0 +1,63 @@
+# Sysname : Linux
+# Nodename: eu-a6-010-15
+# Release : 3.10.0-862.14.4.el7.x86_64
+# Version : #1 SMP Wed Sep 26 15:12:11 UTC 2018
+# Machine : x86_64
+# Execution time and date (UTC): Thu Jan 17 13:36:32 2019
+# Execution time and date (local): Thu Jan 17 14:36:32 2019
+# MPI execution on rank 0 with 1 processes in world
+# Reported time measurements are in microseconds
+# pretty output format
+    Algorithm  Graph_nodes   Graph_name  Max_threads          run       id         time     overhead 
+ Filter_Kruskal          2000  Preferential_attachment_20_edges_per_vertice             1             0          0 8944.462891            0 
+ Filter_Kruskal          2000  Preferential_attachment_20_edges_per_vertice             1             1          0 3354.552734            1 
+ Filter_Kruskal          2000  Preferential_attachment_20_edges_per_vertice             1             2          0 3378.937012            1 
+ Filter_Kruskal          2000  Preferential_attachment_20_edges_per_vertice             2             0          0 4575.338379            0 
+ Filter_Kruskal          2000  Preferential_attachment_20_edges_per_vertice             2             1          0 3642.820312            1 
+ Filter_Kruskal          2000  Preferential_attachment_20_edges_per_vertice             2             2          0 4120.859375            0 
+ Filter_Kruskal          2000  Preferential_attachment_20_edges_per_vertice             4             0          0 5761.183105            0 
+ Filter_Kruskal          2000  Preferential_attachment_20_edges_per_vertice             4             1          0 5386.372559            0 
+ Filter_Kruskal          2000  Preferential_attachment_20_edges_per_vertice             4             2          0 5296.235840            1 
+ Filter_Kruskal          2000  Preferential_attachment_20_edges_per_vertice             6             0          0 5837.064941            0 
+ Filter_Kruskal          2000  Preferential_attachment_20_edges_per_vertice             6             1          0 6411.870605            0 
+ Filter_Kruskal          2000  Preferential_attachment_20_edges_per_vertice             6             2          0 5107.214355            0 
+ Filter_Kruskal          2000  Preferential_attachment_20_edges_per_vertice             8             0          0 6605.998047            0 
+ Filter_Kruskal          2000  Preferential_attachment_20_edges_per_vertice             8             1          0 6414.535645            0 
+ Filter_Kruskal          2000  Preferential_attachment_20_edges_per_vertice             8             2          0 6037.456055            0 
+ Filter_Kruskal          2000  Preferential_attachment_20_edges_per_vertice            10             0          0 5093.574707            0 
+ Filter_Kruskal          2000  Preferential_attachment_20_edges_per_vertice            10             1          0 4624.399414            1 
+ Filter_Kruskal          2000  Preferential_attachment_20_edges_per_vertice            10             2          0 7471.017090            0 
+ Filter_Kruskal          2000  Preferential_attachment_20_edges_per_vertice            12             0          0 4559.956055            0 
+ Filter_Kruskal          2000  Preferential_attachment_20_edges_per_vertice            12             1          0 7459.448242            0 
+ Filter_Kruskal          2000  Preferential_attachment_20_edges_per_vertice            12             2          0 6485.109863            0 
+ Filter_Kruskal          2000  Preferential_attachment_20_edges_per_vertice            14             0          0 5779.089844            0 
+ Filter_Kruskal          2000  Preferential_attachment_20_edges_per_vertice            14             1          0 5153.698730            0 
+ Filter_Kruskal          2000  Preferential_attachment_20_edges_per_vertice            14             2          0 6201.494629            0 
+ Filter_Kruskal          2000  Preferential_attachment_20_edges_per_vertice            16             0          0 6934.522949            0 
+ Filter_Kruskal          2000  Preferential_attachment_20_edges_per_vertice            16             1          0 7051.958008            0 
+ Filter_Kruskal          2000  Preferential_attachment_20_edges_per_vertice            16             2          0 8080.571289            0 
+ Filter_Kruskal          2000  Preferential_attachment_20_edges_per_vertice            18             0          0 8078.717773            0 
+ Filter_Kruskal          2000  Preferential_attachment_20_edges_per_vertice            18             1          0 11095.831055            0 
+ Filter_Kruskal          2000  Preferential_attachment_20_edges_per_vertice            18             2          0 10384.657715            0 
+ Filter_Kruskal          2000  Preferential_attachment_20_edges_per_vertice            20             0          0 7076.287109            0 
+ Filter_Kruskal          2000  Preferential_attachment_20_edges_per_vertice            20             1          0 6399.731934            0 
+ Filter_Kruskal          2000  Preferential_attachment_20_edges_per_vertice            20             2          0 6061.414551            3 
+ Filter_Kruskal          2000  Preferential_attachment_20_edges_per_vertice            22             0          0 7383.476074            0 
+ Filter_Kruskal          2000  Preferential_attachment_20_edges_per_vertice            22             1          0 6834.816895            0 
+ Filter_Kruskal          2000  Preferential_attachment_20_edges_per_vertice            22             2          0 8541.237305            0 
+ Filter_Kruskal          2000  Preferential_attachment_20_edges_per_vertice            24             0          0 20655.918457            0 
+ Filter_Kruskal          2000  Preferential_attachment_20_edges_per_vertice            24             1          0 30995.609863            1 
+ Filter_Kruskal          2000  Preferential_attachment_20_edges_per_vertice            24             2          0 8824.040039            0 
+ Filter_Kruskal          2000  Preferential_attachment_20_edges_per_vertice            26             0          0 24572.446289            0 
+ Filter_Kruskal          2000  Preferential_attachment_20_edges_per_vertice            26             1          0 11924.414062            0 
+ Filter_Kruskal          2000  Preferential_attachment_20_edges_per_vertice            26             2          0 11551.307129            0 
+ Filter_Kruskal          2000  Preferential_attachment_20_edges_per_vertice            28             0          0 16496.940430            0 
+ Filter_Kruskal          2000  Preferential_attachment_20_edges_per_vertice            28             1          0 13207.343750            0 
+ Filter_Kruskal          2000  Preferential_attachment_20_edges_per_vertice            28             2          0 14183.556152            0 
+ Filter_Kruskal          2000  Preferential_attachment_20_edges_per_vertice            30             0          0 19806.430176            0 
+ Filter_Kruskal          2000  Preferential_attachment_20_edges_per_vertice            30             1          0 12889.741699            0 
+ Filter_Kruskal          2000  Preferential_attachment_20_edges_per_vertice            30             2          0 24902.469238            0 
+ Filter_Kruskal          2000  Preferential_attachment_20_edges_per_vertice            32             0          0 34641.422852            0 
+ Filter_Kruskal          2000  Preferential_attachment_20_edges_per_vertice            32             1          0 17289.308594            0 
+ Filter_Kruskal          2000  Preferential_attachment_20_edges_per_vertice            32             2          0 22086.860352            0 
+# Runtime: 31.509590 s (overhead: 0.000029 %) 51 records
